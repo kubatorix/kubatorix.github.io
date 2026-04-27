@@ -1,0 +1,4032 @@
+/* ==========================================================================
+   styles.css — Phase 0 scaffold for Figma 1:1 restyle
+   Loaded AFTER main.css so it overrides any conflicting rules.
+   This file is the foundation: reset, fonts, palette tokens, layout primitives.
+   Specific section styling lives in later phases (Phase 1+).
+   ========================================================================== */
+
+
+/* ---------- 0. Page-wide horizontal gutter ------------------------------- */
+/* Single source of truth for the 100px section gutter that used to be
+   duplicated as `margin-left: 100/100.42/96.21px` on Phase 3/5 canvases
+   and as `left: 100px` on Phase 8/9 first cards. The `.container`
+   max-width is widened from 1270 to 1440 so the inner content area
+   (1240px at viewport ≥1440) stays the same as before.
+   The `<header>` keeps its original tight padding (it has its own
+   left-aligned navigation that shouldn't sit at the same gutter). */
+.container {
+    max-width: 1440px;
+    padding-left: 100px;
+    padding-right: 100px;
+}
+header .container {
+    max-width: 1270px;
+    padding-left: 15px;
+    padding-right: 15px;
+}
+@media (max-width: 770px) {
+    .container {
+        padding-left: 16px;
+        padding-right: 16px;
+    }
+}
+
+
+/* ---------- 1. CSS reset ------------------------------------------------- */
+*,
+*::before,
+*::after {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+img {
+    display: block;
+    max-width: 100%;
+}
+
+a {
+    color: inherit;
+    text-decoration: none;
+}
+
+button {
+    font: inherit;
+    background: none;
+    border: none;
+    cursor: pointer;
+}
+
+
+/* ---------- 2. @font-face declarations ----------------------------------- */
+/* Golos Text TTFs are reused under four family aliases (Golos Text, Golos,
+   Golos UI, Golos Text VF) so any spec reference resolves to the same files. */
+
+/* --- Golos Text (canonical) --- */
+@font-face {
+    font-family: 'Golos Text';
+    src: local('Golos Text Regular'), local('GolosText-Regular'),
+         url('../fonts/Golos_Text/static/GolosText-Regular.ttf') format('truetype');
+    font-weight: 400;
+    font-style: normal;
+    font-display: swap;
+}
+@font-face {
+    font-family: 'Golos Text';
+    src: local('Golos Text Medium'), local('GolosText-Medium'),
+         url('../fonts/Golos_Text/static/GolosText-Medium.ttf') format('truetype');
+    font-weight: 500;
+    font-style: normal;
+    font-display: swap;
+}
+@font-face {
+    font-family: 'Golos Text';
+    src: local('Golos Text SemiBold'), local('GolosText-SemiBold'),
+         url('../fonts/Golos_Text/static/GolosText-SemiBold.ttf') format('truetype');
+    font-weight: 600;
+    font-style: normal;
+    font-display: swap;
+}
+@font-face {
+    font-family: 'Golos Text';
+    src: local('Golos Text Bold'), local('GolosText-Bold'),
+         url('../fonts/Golos_Text/static/GolosText-Bold.ttf') format('truetype');
+    font-weight: 700;
+    font-style: normal;
+    font-display: swap;
+}
+@font-face {
+    font-family: 'Golos Text';
+    src: local('Golos Text ExtraBold'), local('GolosText-ExtraBold'),
+         url('../fonts/Golos_Text/static/GolosText-ExtraBold.ttf') format('truetype');
+    font-weight: 800;
+    font-style: normal;
+    font-display: swap;
+}
+
+/* --- Golos (alias) --- */
+@font-face {
+    font-family: 'Golos';
+    src: local('Golos Text Regular'), local('GolosText-Regular'),
+         url('../fonts/Golos_Text/static/GolosText-Regular.ttf') format('truetype');
+    font-weight: 400;
+    font-style: normal;
+    font-display: swap;
+}
+@font-face {
+    font-family: 'Golos';
+    src: local('Golos Text Medium'), local('GolosText-Medium'),
+         url('../fonts/Golos_Text/static/GolosText-Medium.ttf') format('truetype');
+    font-weight: 500;
+    font-style: normal;
+    font-display: swap;
+}
+@font-face {
+    font-family: 'Golos';
+    src: local('Golos Text SemiBold'), local('GolosText-SemiBold'),
+         url('../fonts/Golos_Text/static/GolosText-SemiBold.ttf') format('truetype');
+    font-weight: 600;
+    font-style: normal;
+    font-display: swap;
+}
+@font-face {
+    font-family: 'Golos';
+    src: local('Golos Text Bold'), local('GolosText-Bold'),
+         url('../fonts/Golos_Text/static/GolosText-Bold.ttf') format('truetype');
+    font-weight: 700;
+    font-style: normal;
+    font-display: swap;
+}
+@font-face {
+    font-family: 'Golos';
+    src: local('Golos Text ExtraBold'), local('GolosText-ExtraBold'),
+         url('../fonts/Golos_Text/static/GolosText-ExtraBold.ttf') format('truetype');
+    font-weight: 800;
+    font-style: normal;
+    font-display: swap;
+}
+
+/* --- Golos UI (alias) --- */
+@font-face {
+    font-family: 'Golos UI';
+    src: local('Golos Text Regular'), local('GolosText-Regular'),
+         url('../fonts/Golos_Text/static/GolosText-Regular.ttf') format('truetype');
+    font-weight: 400;
+    font-style: normal;
+    font-display: swap;
+}
+@font-face {
+    font-family: 'Golos UI';
+    src: local('Golos Text Medium'), local('GolosText-Medium'),
+         url('../fonts/Golos_Text/static/GolosText-Medium.ttf') format('truetype');
+    font-weight: 500;
+    font-style: normal;
+    font-display: swap;
+}
+@font-face {
+    font-family: 'Golos UI';
+    src: local('Golos Text SemiBold'), local('GolosText-SemiBold'),
+         url('../fonts/Golos_Text/static/GolosText-SemiBold.ttf') format('truetype');
+    font-weight: 600;
+    font-style: normal;
+    font-display: swap;
+}
+@font-face {
+    font-family: 'Golos UI';
+    src: local('Golos Text Bold'), local('GolosText-Bold'),
+         url('../fonts/Golos_Text/static/GolosText-Bold.ttf') format('truetype');
+    font-weight: 700;
+    font-style: normal;
+    font-display: swap;
+}
+@font-face {
+    font-family: 'Golos UI';
+    src: local('Golos Text ExtraBold'), local('GolosText-ExtraBold'),
+         url('../fonts/Golos_Text/static/GolosText-ExtraBold.ttf') format('truetype');
+    font-weight: 800;
+    font-style: normal;
+    font-display: swap;
+}
+
+/* --- Golos Text VF (alias) --- */
+@font-face {
+    font-family: 'Golos Text VF';
+    src: local('Golos Text Regular'), local('GolosText-Regular'),
+         url('../fonts/Golos_Text/static/GolosText-Regular.ttf') format('truetype');
+    font-weight: 400;
+    font-style: normal;
+    font-display: swap;
+}
+@font-face {
+    font-family: 'Golos Text VF';
+    src: local('Golos Text Medium'), local('GolosText-Medium'),
+         url('../fonts/Golos_Text/static/GolosText-Medium.ttf') format('truetype');
+    font-weight: 500;
+    font-style: normal;
+    font-display: swap;
+}
+@font-face {
+    font-family: 'Golos Text VF';
+    src: local('Golos Text SemiBold'), local('GolosText-SemiBold'),
+         url('../fonts/Golos_Text/static/GolosText-SemiBold.ttf') format('truetype');
+    font-weight: 600;
+    font-style: normal;
+    font-display: swap;
+}
+@font-face {
+    font-family: 'Golos Text VF';
+    src: local('Golos Text Bold'), local('GolosText-Bold'),
+         url('../fonts/Golos_Text/static/GolosText-Bold.ttf') format('truetype');
+    font-weight: 700;
+    font-style: normal;
+    font-display: swap;
+}
+@font-face {
+    font-family: 'Golos Text VF';
+    src: local('Golos Text ExtraBold'), local('GolosText-ExtraBold'),
+         url('../fonts/Golos_Text/static/GolosText-ExtraBold.ttf') format('truetype');
+    font-weight: 800;
+    font-style: normal;
+    font-display: swap;
+}
+
+/* --- SangBleu Sunrise (display serif, used for hero / accents) --- */
+@font-face {
+    font-family: 'SangBleu Sunrise';
+    src: local('SangBleu Sunrise Medium'),
+         url('../fonts/SangBleu/sangbleusunrise-medium.woff2') format('woff2'),
+         url('../fonts/SangBleu/sangbleusunrise-medium.woff') format('woff');
+    font-weight: 500;
+    font-style: normal;
+    font-display: swap;
+}
+@font-face {
+    font-family: 'SangBleu Sunrise';
+    src: local('SangBleu Sunrise Medium Italic'),
+         url('../fonts/SangBleu/sangbleusunrise-mediumitalic.woff2') format('woff2'),
+         url('../fonts/SangBleu/sangbleusunrise-mediumitalic.woff') format('woff');
+    font-weight: 500;
+    font-style: italic;
+    font-display: swap;
+}
+
+
+/* ---------- 3. CSS custom properties (palette) --------------------------- */
+/* Palette extracted from Figma spec (mcp-figma-get_figma_data-1777109520340.txt).
+   ~33 distinct fill/stroke values total: solid hex tokens + alpha overlays. */
+:root {
+    /* --- Backgrounds (dark base) --- */
+    --bg-primary:        #272727;  /* primary page bg, "container-wrapper" base */
+    --bg-secondary:      #2F2F2F;  /* lifted card / sub-section bg */
+    --bg-deep:           #231F20;  /* deepest near-black, footer / dark band */
+    --bg-pure-black:     #000000;  /* shadows / overlays */
+
+    /* --- Foregrounds (light text) --- */
+    --text-primary:      #FBFBFB;  /* main body text on dark bg */
+    --text-white:        #FFFFFF;  /* pure white headlines / icons */
+    --text-soft:         #F2F2F2;  /* slightly off-white secondary text */
+    --text-cream:        #F5F3F1;  /* cream paragraph / quote text */
+    --text-light-gray:   #DCDCDC;  /* tertiary text, captions */
+
+    /* --- Accent: Lime / Brand green --- */
+    --accent-lime:       #C3F050;  /* brand lime — primary CTA, accent */
+    --accent-lime-alt:   #C3F150;  /* lime variant (1px diff, near-dup from spec) */
+    --accent-lime-deep:  #C2F04F;  /* lime as rgba(194,240,79) source */
+
+    /* --- Accent: Purple / Violet --- */
+    --color-purple:      #AA6EFF;  /* canonical light purple — fundraisers */
+    --accent-purple:     #7339C4;  /* deep purple stroke / fill */
+    --accent-purple-lt:  var(--color-purple);  /* alias → --color-purple */
+    --stroke-purple:     #7339C4;  /* alias: purple used as outline */
+
+    /* --- Accent: Orange --- */
+    --color-orange:      #FF6E32;  /* canonical orange — employers */
+    --accent-orange:     var(--color-orange);  /* alias → --color-orange */
+    --accent-orange-lt:  #FF8C32;  /* lighter orange tint */
+    --stroke-orange:     var(--color-orange);  /* alias → --color-orange */
+
+    /* --- Accent: Yellow --- */
+    --accent-yellow:     #FFDD2D;  /* yellow accent / highlight pill */
+
+    /* --- Accent: Pink / Magenta --- */
+    --accent-pink:       #F159B6;  /* magenta accent */
+
+    /* --- Accent: Red --- */
+    --accent-red:        #A90003;  /* deep red, error / warning emphasis */
+
+    /* --- Accent: Blue (polygon / chart) --- */
+    --polygon-blue:      #235AFF;  /* polygon / chart blue */
+    --polygon-blue-2:    #325EFF;  /* polygon blue variant */
+    --polygon-blue-deep: #1431F0;  /* deepest polygon blue */
+
+    /* --- Card / surface neutrals --- */
+    --card-bg:           #EDECEA;  /* light card surface */
+    --card-bg-cream:     #E5DFDF;  /* cream card variant */
+    --surface-light:     #F5F3F1;  /* light section surface (cream) */
+
+    /* --- Neutral grays --- */
+    --gray-979797:       #979797;  /* mid neutral gray */
+    --gray-d9:           #D9D9D9;  /* light divider gray */
+    --gray-333:          #333333;  /* dark neutral, near-text on dark */
+
+    /* --- Alpha / transparent overlays --- */
+    --text-muted-50:     rgba(255, 255, 255, 0.5);   /* secondary text on dark */
+    --text-muted-40:     rgba(255, 255, 255, 0.4);   /* tertiary text on dark */
+    --text-muted-10:     rgba(255, 255, 255, 0.1);   /* divider / subtle bg */
+    --overlay-black-25:  rgba(0, 0, 0, 0.25);        /* shadow overlay */
+    --overlay-gray-25:   rgba(202, 202, 202, 0.25);  /* light translucent fill */
+    --overlay-7e-70:     rgba(126, 126, 126, 0.7);   /* mid translucent gray */
+    --overlay-cream-85:  rgba(229, 223, 223, 0.85);  /* cream over dark */
+    --overlay-edecea-80: rgba(237, 236, 234, 0.8);   /* card surface, translucent */
+    --overlay-d9-0:      rgba(217, 217, 217, 0);     /* gradient stop, transparent */
+    --overlay-2f-0:      rgba(47, 47, 47, 0);        /* gradient stop, transparent */
+
+    /* --- Solid rgba tokens that aren't otherwise listed as hex --- */
+    --c-a3a3a3:          rgb(163, 163, 163);   /* solid mid gray, rgba(163,163,163,1) */
+    --c-31332b:          rgb(49, 51, 43);      /* deep olive-black, rgba(49,51,43,1) */
+    --c-607137:          rgb(96, 113, 55);     /* dark olive accent, rgba(96,113,55,1) */
+    --c-637537:          rgb(99, 117, 55);     /* dark olive variant, rgba(99,117,55,1) */
+
+    /* --- Layout tokens (used by primitives + later phases) --- */
+    --layout-width:      100%;  /* Figma desktop frame width */
+}
+
+
+/* ---------- 4. Layout primitives ----------------------------------------- */
+body {
+    background: var(--bg-primary);    /* #272727 */
+    color: var(--text-primary);       /* #FBFBFB */
+    font-family: 'Golos Text', 'Golos', sans-serif;
+    min-height: 100vh;
+    overflow-x: hidden;
+}
+
+/* Phase 0 reset removed — `.container` now uses the centralized
+   `max-width: 1440px; padding: 0 100px` rule near the top of this file
+   (single source of truth for the section gutter). The hero's container
+   is still kept full-bleed via a more specific rule below. */
+
+
+/* ---------- 5. Utility classes ------------------------------------------- */
+.text-white {
+    color: var(--text-white);
+}
+
+.text-muted-50 {
+    color: rgba(255, 255, 255, 0.5);
+}
+
+.lime {
+    color: #C3F050;
+}
+
+.section {
+    position: relative;
+    width: 100%;
+}
+
+
+/* ==========================================================================
+   Phase 1 — Top navbar (Figma 219:227)
+   ==========================================================================
+   Container: 1440 x 58, bg #2F2F2F. 5 link items absolutely positioned at
+   exact Figma x-coordinates (y = 21.19px for the text top). Active "Тема"
+   has a 46.65px lime underline at y=44.5. "События" has a 10x10 chevron at
+   x=1125.13, y=27.27 relative to the navbar container.
+
+   Figma child node ids under 219:227:
+     I219:227;28:507  -> "Тема"            x=105.99   white,  active
+     I219:227;142:2639 -> lime underline   x=102.63 y=44.5 w=46.65 (#C3F050)
+     I219:227;28:508  -> "Исследование"   x=229.99   rgba 0.5
+     I219:227;170:3889 -> divider line    x=359.06 y=32.24 w=57.33 (#979797)  [out of Phase 1 scope]
+     I219:227;28:504  -> "Опыт"           x=429.99   rgba 0.5
+     I219:227;28:505  -> "События"        x=1041.99  rgba 0.5
+     I219:227;252:1684 -> chevron          x=1125.13 y=27.27 9.92x9.92  (rgba 0.5 stroke)
+     I219:227;28:506  -> "Об организаторах" x=1195.99  white
+   ========================================================================== */
+
+/* Reset the parent <header>/.container so the absolute-positioned navbar
+   sits at the top-left of the 1440 frame, matching Figma 1:1.            */
+header {
+    padding-top: 0;
+    padding-bottom: 0;
+    background-color: var(--bg-secondary);
+}
+
+/* Override main.css's flexbox layout so absolute positioning works.      */
+.topnav.header_inside {
+    display: block;
+    gap: 0;
+}
+
+.topnav {
+    position: relative;
+    width: 100%;
+    height: 58px;
+    background: var(--bg-secondary);                /* #2F2F2F */
+    box-shadow: 0 1px 6px 0 var(--overlay-black-25);
+}
+
+/* Each link is absolutely positioned at its exact Figma x.
+   y = 21.19px from the top of the navbar.                                */
+.topnav .topnav__link {
+    position: absolute;
+    top: 21.19px;
+    height: 19px;
+    line-height: 1;
+    font-family: 'Golos', 'Golos Text', sans-serif;
+    font-weight: 500;
+    font-size: 16px;
+    text-decoration: none;
+    white-space: nowrap;
+    padding: 0;
+    color: var(--text-muted-50);                    /* default muted */
+}
+
+/* Defeat main.css's `.header_inside-item { color:#fff !important }` and
+   the `-disabled` rule so per-link Figma colors win.                     */
+.topnav .topnav__link.header_inside-item,
+.topnav .topnav__link.header_inside-item-disabled {
+    color: var(--text-muted-50) !important;
+}
+.topnav .topnav__link--tema.header_inside-item,
+.topnav .topnav__link--about.header_inside-item {
+    color: var(--text-white) !important;            /* #FFFFFF */
+}
+
+/* Exact x-positions from Figma layout dump.                              */
+.topnav .topnav__link--tema         { left: 105.99px;  width: 39px; }
+.topnav .topnav__link--issledovanie { left: 229.99px;  width: 115px; }
+.topnav .topnav__link--opyt         { left: 429.99px;  width: 42px; }
+.topnav .topnav__link--sobytiya     { left: 1041.99px; width: 93.06px; /* 1135.05 - 1041.99 covers text + chevron */
+                                       display: inline-flex; align-items: center; gap: 0; }
+.topnav .topnav__link--about        { left: 1195.99px; width: 144px; }
+
+/* "Тема" lime underline. Figma rect: x=102.63 y=44.5 w=46.65 strokeWeight=0.816.
+   Anchor relative to .topnav__link--tema (left:105.99): underline starts at
+   102.63 - 105.99 = -3.36px, top = 44.5 - 21.19 = 23.31px below text top.   */
+.topnav .topnav__link--active::after {
+    content: "";
+    position: absolute;
+    left: -3.36px;
+    top: 23.31px;
+    width: 46.65px;
+    height: 0.82px;
+    background: var(--accent-lime);                 /* #C3F050 */
+    pointer-events: none;
+}
+
+/* "События" plus icon. Figma vector node I219:227;252:1684:
+   x=1125.13 y=27.27 size=9.92x9.92 stroke=rgba(255,255,255,0.5) sw=0.816px.
+   It's a plus sign (two crossed strokes), NOT a chevron — confirmed by the
+   Phase 1 screenshot. Inside the link (left=1041.99 top=21.19) the icon
+   offset is (83.14, 6.08).                                                  */
+.topnav .topnav__link--sobytiya .topnav__label {
+    display: inline-block;
+}
+.topnav .topnav__link--sobytiya .topnav__plus {
+    position: absolute;
+    left: 83.14px;        /* 1125.13 - 1041.99 */
+    top: 6.08px;          /* 27.27 - 21.19 */
+    width: 9.92px;
+    height: 9.92px;
+    color: var(--text-muted-50);                    /* stroke=currentColor */
+    display: block;
+}
+
+/* When the events popup is open, hide the vertical line of the "+"
+   icon so it reads as a "—" dash (matches Figma reference). */
+.topnav.topnav--events-open .topnav__link--sobytiya .topnav__plus-v {
+    display: none;
+}
+
+/* --- Events dropdown popup --------------------------------------------- */
+.topnav .topnav__events-popup {
+    position: absolute;
+    left: 1041.99px;                                /* aligns with .topnav__link--sobytiya */
+    top: 48px;                                      /* just below the 58px navbar */
+    width: 380px;
+    padding: 28px 28px 32px;
+    box-sizing: border-box;
+    border-radius: 16px;
+    background: rgba(40, 40, 40, 0.55);
+    -webkit-backdrop-filter: blur(24px);
+    backdrop-filter: blur(24px);
+    box-shadow: 0 12px 40px rgba(0, 0, 0, 0.4);
+    display: none;
+    flex-direction: column;
+    gap: 28px;
+    z-index: 100;
+}
+.topnav.topnav--events-open .topnav__events-popup {
+    display: flex;
+}
+
+.topnav .topnav__events-item {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    text-decoration: none;
+    color: #FFFFFF;
+    opacity: 0.6;
+    transition: opacity 0.2s ease;
+}
+.topnav .topnav__events-item:hover,
+.topnav .topnav__events-item:focus-visible {
+    opacity: 1;
+    outline: none;
+}
+
+.topnav .topnav__events-date {
+    font-family: 'Golos', 'Golos Text', sans-serif;
+    font-weight: 400;
+    font-size: 13px;
+    line-height: 1;
+    color: rgba(255, 255, 255, 0.65);
+}
+.topnav .topnav__events-title {
+    font-family: 'Golos', 'Golos Text', sans-serif;
+    font-weight: 500;
+    font-size: 17px;
+    line-height: 1.3;
+    letter-spacing: -0.01em;
+    color: #FFFFFF;
+}
+
+/* --- Burger-menu events dropdown (mobile equivalent of topnav popup) ---- */
+.burger-menu .burger-menu__events-popup {
+    display: none;
+    flex-direction: column;
+    gap: 24px;
+    margin: 12px 0 0;
+    padding: 24px;
+    border-radius: 16px;
+    background: rgba(40, 40, 40, 0.55);
+    -webkit-backdrop-filter: blur(20px);
+    backdrop-filter: blur(20px);
+    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.35);
+}
+.burger-menu .burger-menu__events-popup.is-open {
+    display: flex;
+}
+.burger-menu .burger-menu__events-item {
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+    text-decoration: none;
+    color: #FFFFFF;
+    opacity: 0.6;
+    transition: opacity 0.2s ease;
+}
+.burger-menu .burger-menu__events-item:hover,
+.burger-menu .burger-menu__events-item:focus-visible {
+    opacity: 1;
+    outline: none;
+}
+.burger-menu .burger-menu__events-date {
+    font-family: 'Golos', 'Golos Text', sans-serif;
+    font-weight: 400;
+    font-size: 13px;
+    line-height: 1;
+    color: rgba(255, 255, 255, 0.65);
+}
+.burger-menu .burger-menu__events-title {
+    font-family: 'Golos', 'Golos Text', sans-serif;
+    font-weight: 500;
+    font-size: 17px;
+    line-height: 1.3;
+    letter-spacing: -0.01em;
+    color: #FFFFFF;
+}
+/* Rotate the "+" icon to "×" while the burger events popup is open as a
+   visual cue that tapping again will close it. */
+.burger-menu .burger-menu__events-toggle img {
+    transition: transform 0.18s ease;
+}
+.burger-menu .burger-menu__events-toggle[aria-expanded="true"] img {
+    transform: rotate(45deg);
+}
+
+/* --- Burger trigger: hidden on desktop, fixed top-left on mobile (≤650px,
+       matching main.css's `header { display: none }` breakpoint). Sits
+       outside <header> because main.css hides the entire header below
+       650px. common.js (.download) listens for clicks on
+       .header-burger__icon and opens the .burger-menu panel. --- */
+body > .header-burger__icon {
+    display: none;
+}
+@media (max-width: 650px) {
+    body > .header-burger__icon {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        position: fixed;
+        left: 8px;
+        top: 12px;
+        width: 44px;
+        height: 44px;
+        padding: 12px;
+        margin: 0;
+        background: transparent;
+        border: 0;
+        cursor: pointer;
+        color: #FFFFFF;
+        z-index: 400;                                   /* above page, below .burger-menu (z 500) */
+    }
+    body > .header-burger__icon svg {
+        display: block;
+        width: 20px;
+        height: 17px;
+    }
+
+    /* Align the burger-menu close (×) with where the burger trigger sits when
+       closed — both icons end up at the same visual spot, so opening/closing
+       feels like one toggle in place. The burger button's SVG is centered at
+       viewport (30, 30); the 22×22 close img is positioned so its centre
+       lands on the same point. */
+    .burger-menu .burger-menu__close {
+        position: absolute;
+        top: 19px;
+        left: 19px;
+        width: 22px;
+        height: auto;
+        margin: 0;
+        z-index: 510;
+    }
+    /* Trim the original 75px top padding so menu items don't sit too low
+       now that the close icon is absolutely positioned. */
+    .burger-menu {
+        padding-top: 60px;
+    }
+}
+
+
+/* ==========================================================================
+   Phase 2 — Hero section (Figma 219:149 Main_web, hero band y=58..1065.33)
+   ==========================================================================
+   ARCHITECTURE
+   ------------
+   .hero is a centered flex container. Inside it lives .hero__canvas — a
+   FIXED 1440 x 1007.33 stage that holds every absolutely-positioned hero
+   child at its exact Figma coordinate (frame y minus 58 navbar offset).
+   The .hero section spans 100% viewport width; the canvas stays a fixed
+   1440 pixel block centered horizontally via display:flex; justify-content:
+   center. This decouples internal Figma coordinates from viewport width:
+   at any viewport >= 1440 the canvas is centered, gutters are flat
+   #272727, and decorative SVGs that bleed past the canvas edges are
+   clipped by .hero { overflow: hidden }.
+
+   FIGMA COORDINATES (frame -> hero-canvas: subtract 58 from y)
+   ------------------------------------------------------------
+   Hero canvas:                      1440 x 1007.33   (frame y 58..1065.33)
+   bg_oval        (219:165, intrinsic 972x891)
+       frame  x -455.92  y   -0.41  w 1731.37  h 1654.58  blur 23.13
+       canvas x -455.92  y  -58.41
+   bg_triangle_up (219:178, intrinsic 1054x631)
+       frame  x -271.04  y  -85.39  w 1263.48  h  895.69  blur 25.31
+       canvas x -271.04  y -143.39
+   bg_arc         (219:207, intrinsic 1291x1184)
+       frame  x  -88.66  y -1146.57 w 2300.61  h 2198.57  blur 30.73
+       canvas x  -88.66  y -1204.57
+   bg_triangle_dn (219:220, intrinsic 679x547)
+       frame  x   31.92  y  104.12  w 1033.51  h  878.32  blur 13.48
+       canvas x   31.92  y   46.12
+   brand group (219:192)
+       frame  x  562     y  110     w  316.92  h   18.21
+       canvas x  562     y   52
+       . word "Спецпроект" (219:206): local x=0  y=0.21  w=107  h=18
+         font Golos 500 18.4 lh100% ls-2% CENTER fill #FFF
+       . logo (219:194):              local x=126.14  y=0  w=190.79 h=18.21
+   caption group (219:185)
+       frame  x  419.42  y  353.17  w  925.61  h  267.38
+       canvas x  419.42  y  295.17
+       . line 1 "Исследование"     local x=203.61 y=  0    w=722 h=106
+         Golos 500 106.93 lh99% ls-4% CENTER fill #FFF
+       . line 2 "фандрайзеров"     local x=  0    y= 88.56 w=728 h= 96
+         Golos 500 106.93 lh90% ls-4% LEFT   fill #FFF
+       . line 3 "и их нанимателей" local x= 32.7  y=171.38 w=878 h= 96
+         Golos 500 106.93 lh90% ls-4% LEFT   fill #FFF
+   toggle wrapper (219:228)
+       frame  x  472.44  y  631.72  w  496.12  h  115.95
+       canvas x  472.44  y  573.72
+       . bar rect (219:234):        local x=  0    y=  0    w=496.12 h=52.78
+         border-radius 61.23  stroke #FFF 1px
+       . active pill (219:235):     local x=167.96 y=  4.11 w=160.2  h=43.74
+         border-radius 849.54  fill #FFF
+       . left btn (219:230):        local x= 28.16 y= 10.91 w=114    h=30
+         text "для\nфандрайзеров"  Golos Text VF 500 16.89 lh90% ls-5% LEFT #FFF
+       . right btn (219:232):       local x=360.23 y= 10.91 w=102    h=30
+         text "для\nнанимателей"   Golos Text VF 500 16.89 lh90% ls-5% LEFT #FFF
+       . center text (219:241):     local x=214.55 y= 18.66 w=67     h=15
+         text "для всех"           Golos Text VF 500 16.89 lh90% ls-5% CENTER #272727
+       . descriptor (219:242):      local x= 36.56 y= 81.95 w=423    h=34
+         Golos 500 14 lh120% ls-2% CENTER fill #FFF
+   ========================================================================== */
+
+/* Neutralize main.css legacy padding/gradient on the hero's outer wrapper
+   so the hero sits on flat #272727 flush against the navbar.               */
+.container-wrapper:nth-of-type(1) {
+    padding-top: 0;
+    background: var(--bg-primary);                  /* #272727 */
+}
+
+.container-wrapper:nth-of-type(1) > .container-custom {
+    padding-top: 0;
+    padding-bottom: 0;
+    background: transparent;
+}
+
+/* The .container-custom > .container chain that wraps the hero is set to
+   stretch full-width here so the centered .hero can take over. The other
+   containers later in the page are unaffected (this rule only targets
+   the wrapper that hosts .hero).                                            */
+.container-wrapper:nth-of-type(1) > .container-custom > .container {
+    width: 100%;
+    max-width: none;
+    padding: 0;
+}
+
+/* ---------- HERO SECTION (full-bleed) + 1440 CANVAS ---------------------- */
+.hero {
+    position: relative;
+    width: 100%;
+    background: var(--bg-primary);                  /* flat #272727        */
+    display: flex;
+    justify-content: center;                        /* centers .hero__canvas */
+    overflow-x: clip;                               /* clip horizontal only */
+    overflow-y: visible;                            /* let SVGs flow into Section 1 */
+    margin-top: 58px;                               /* gap below navbar     */
+}
+
+.hero__canvas {
+    position: relative;
+    width: 1440px;                                  /* fixed Figma stage    */
+    height: 900px;                              /* 1065.33 - 58 navbar  */
+    flex-shrink: 0;
+}
+
+/* ---------- DECORATIVE SVGs (inlined <svg>, explicit fixed sizes) -------- */
+/* The SVGs are inlined directly in the HTML so the browser renders them   */
+/* as live SVG documents (NOT raster <img>), preserving the per-stroke     */
+/* drop-shadow filter chain at full vector quality.                         */
+.hero__bg {
+    position: absolute;
+    pointer-events: none;
+    user-select: none;
+    -webkit-user-drag: none;
+    max-width: none;                                /* defeat img reset     */
+    overflow: visible;                              /* outer feGaussianBlur */
+    opacity: 0.6;                                   /* match master subtlety */
+}
+
+/* SVG intrinsic width/height attributes are present on each <svg> tag,    */
+/* so explicit CSS sizes are redundant but kept for clarity / fallback.     */
+/* DO NOT add a CSS filter: blur — the soft glow is baked into the SVG.    */
+/* Position formula: center the SVG on the spec blur-bbox center, then      */
+/* subtract 58px for the navbar above the hero canvas.                      */
+/* Z-index ordering:                                                        */
+/*   triangle-up   1  (BELOW caption — text covers shape)                   */
+/*   oval          1  (BELOW caption — text covers shape)                   */
+/*   triangle-down 2  (BELOW caption — text covers shape)                   */
+/*   caption       5                                                          */
+/*   arc           8  (ABOVE caption — its curve sweeps in front of letters) */
+
+.hero__bg--oval {
+    /* spec blur-bbox: x=-455.92 y=-0.41 1731.37x1654.58 ; svg 972x891      */
+    /* left = -455.92 + (1731.37-972)/2 = -76.235                           */
+    /* top  = (-0.41 + (1654.58-891)/2) - 58 = 323.375                      */
+    left: -76.24px;
+    top: 323.38px;
+    width: 972px;
+    height: 891px;
+    z-index: 1;
+    /* Hero ends at canvas-y 1007.33; oval bottom at 1214.38.                */
+    /* Hero-edge in shape's local coords = (1007.33-323.38)/891 = 76.7%.    */
+    /* Fade the section-1 portion (bottom ~23%) to subtler visibility.      */
+    -webkit-mask-image: linear-gradient(to bottom,
+        rgba(0,0,0,1) 0%,
+        rgba(0,0,0,1) 77%,
+        rgba(0,0,0,0.25) 100%);
+            mask-image: linear-gradient(to bottom,
+        rgba(0,0,0,1) 0%,
+        rgba(0,0,0,1) 77%,
+        rgba(0,0,0,0.25) 100%);
+}
+
+.hero__bg--triangle-up {
+    /* spec blur-bbox: x=-271.04 y=-85.39 1263.48x895.69 ; svg 1054x631     */
+    /* left = -271.04 + (1263.48-1054)/2 = -166.30                          */
+    /* top  = (-85.39 + (895.69-631)/2) - 58 = -10.05                       */
+    left: -166.30px;
+    top: -10.05px;
+    width: 1054px;
+    height: 631px;
+    z-index: 1;
+}
+
+.hero__bg--arc {
+    /* spec blur-bbox: x=-88.66 y=-1146.57 2300.61x2198.57 ; svg 1291x1184  */
+    /* left = -88.66 + (2300.61-1291)/2 = 416.145                           */
+    /* top  = (-1146.57 + (2198.57-1184)/2) - 58 = -697.285                 */
+    left: 416.15px;
+    top: -697.29px;
+    width: 1291px;
+    height: 1184px;
+    z-index: 8;                                     /* arc above tri-down   */
+}
+
+.hero__bg--triangle-down {
+    /* spec blur-bbox: x=31.92 y=104.12 1033.51x878.32 ; svg 679x547        */
+    /* left = 31.92 + (1033.51-679)/2 = 209.175                             */
+    /* top  = (104.12 + (878.32-547)/2) - 58 = 211.78                       */
+    left: 209.18px;
+    top: 211.78px;
+    width: 679px;
+    height: 547px;
+    z-index: 2;
+}
+
+/* ---------- BRAND ROW: "Спецпроект СРЕДА_СВОИХ" -------------------------- */
+.hero__brand {
+    position: absolute;
+    left: 562px;
+    top: 52px;
+    width: 316.92px;
+    height: 18.21px;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    gap: 19.14px;                                   /* 126.14 - 107         */
+    z-index: 5;
+}
+
+.hero__brand-word {
+    font-family: 'Golos', 'Golos Text', sans-serif;
+    font-weight: 500;
+    font-size: 18.4px;
+    line-height: 1;
+    letter-spacing: -0.02em;
+    color: var(--text-white);
+    white-space: nowrap;
+    text-transform: lowercase;                      /* matches Figma render */
+}
+
+.hero__brand-logo {
+    width: 190.79px;
+    height: 18.21px;
+    display: block;
+    flex-shrink: 0;
+}
+
+/* ---------- 3-LINE CAPTION ------------------------------------------------ */
+/* Each line is absolutely positioned at its exact Figma local (x, y) inside
+   the 925.61 x 267.38 caption box. This guarantees the caption block
+   matches the spec height exactly (267.38px) — line-height-driven flow
+   would produce ~298px and overlap the toggle below.                       */
+.hero__caption {
+    position: absolute;
+    left: 419.42px;
+    top: 295.17px;
+    width: 925.61px;
+    height: 267.38px;
+    margin: 0;
+    padding: 0;
+    font-family: 'Golos', 'Golos Text', sans-serif;
+    font-weight: 500;
+    font-size: 106.93px;
+    letter-spacing: -0.04em;
+    color: var(--text-white);
+    z-index: 5;
+}
+
+.hero__caption-line {
+    position: absolute;
+    display: block;
+    margin: 0;
+    padding: 0;
+    white-space: nowrap;
+}
+
+.hero__caption-line--1 {
+    left: 203.61px;
+    top: 0;
+    width: 722px;
+    height: 106px;
+    line-height: 99%;
+    text-align: center;
+}
+
+.hero__caption-line--2 {
+    left: 0;
+    top: 88.56px;
+    width: 728px;
+    height: 96px;
+    line-height: 90%;
+    text-align: left;
+}
+
+.hero__caption-line--3 {
+    left: 32.7px;
+    top: 171.38px;
+    width: 878px;
+    height: 96px;
+    line-height: 90%;
+    text-align: left;
+}
+
+/* ---------- SEGMENTED TOGGLE + DESCRIPTOR -------------------------------- */
+/* Outer wrapper holds the bar (52.78 tall) and the descriptor caption that
+   sits below it (the full Figma group is 115.95 tall to include the
+   descriptor). The wrapper itself is transparent and only positions
+   children — the visible 1px stroke pill is .hero__toggle-bar.             */
+.hero__toggle {
+    position: absolute;
+    left: 472.44px;
+    top: 573.72px;
+    width: 497px;                                   /* per Figma SVG 497×53 */
+    height: 115.95px;
+    z-index: 5;
+}
+
+.hero__toggle-bar {
+    position: absolute;
+    left: 0;
+    top: 0;
+    width: 497px;                                   /* per Figma SVG 497×53 */
+    height: 53px;
+    border: 1px solid var(--text-white);
+    border-radius: 61.23px;
+    background: transparent;
+    pointer-events: none;
+    z-index: 1;
+}
+
+/* Active pill (white capsule behind "для всех" text). Per Figma SVG:
+   x=167.961 y=4.10938 w=156.742 h=43.7422 rx=21.8711.                     */
+.hero__toggle-pill {
+    position: absolute;
+    left: 167.961px;
+    top: 4.10938px;
+    width: 156.742px;
+    height: 43.7422px;
+    border-radius: 21.8711px;
+    background: var(--text-white);
+    pointer-events: none;
+    z-index: 2;
+}
+
+.hero__toggle-segment {
+    position: absolute;
+    padding: 0;
+    margin: 0;
+    background: transparent;
+    border: 0;
+    font-family: 'Golos Text VF', 'Golos', sans-serif;
+    font-weight: 500;
+    font-size: 16.89px;
+    line-height: 0.9;
+    letter-spacing: -0.05em;
+    color: var(--text-white);
+    text-align: left;
+    cursor: pointer;
+    z-index: 3;                                     /* above pill           */
+}
+
+.hero__toggle-segment--left {
+    left: 28.16px;
+    top: 10.91px;
+    width: 114px;
+    height: 30px;
+}
+
+.hero__toggle-segment--right {
+    left: 360.23px;
+    top: 10.91px;
+    width: 102px;
+    height: 30px;
+}
+
+/* "для всех" sits inside the pill: pill-local (46.59, 14.55) ->
+   toggle-local (214.55, 18.66), w=67 h=15. Center fill is dark #272727.    */
+.hero__toggle-segment--center {
+    left: 214.55px;
+    top: 18.66px;
+    width: 67px;
+    height: 15px;
+    text-align: center;
+    line-height: 0.9;
+    color: var(--bg-primary);                       /* #272727              */
+}
+
+/* Descriptor caption beneath the pill bar.                                  */
+.hero__toggle-descriptor {
+    position: absolute;
+    left: 36.56px;
+    top: 81.95px;
+    width: 423px;
+    height: 34px;
+    margin: 0;
+    padding: 0;
+    font-family: 'Golos', 'Golos Text', sans-serif;
+    font-weight: 500;
+    font-size: 14px;
+    line-height: 1.2;
+    letter-spacing: -0.02em;
+    color: var(--text-white);
+    text-align: center;
+}
+
+/* ---------- HERO STATE REACTIVITY (data-state on .hero) ------------------ */
+/* Three states: "fundraisers" | "both" (default) | "employers".
+   - "fundraisers": dim line "фандрайзеров" + the "и их" prefix in line 3,
+     leaving "Исследование … нанимателей" white. Figures rotate -45°.
+     Active pill colored #AA6EFF (purple) under the left segment.
+   - "employers": dim line 3 ("и их нанимателей"). Figures rotate +45°.
+     Active pill colored #FF6E32 (orange) under the right segment.
+   - "both": all three caption lines white, no rotation, white pill on the
+     center segment, descriptor hidden.                                       */
+
+.hero__caption-line,
+.hero__caption-prefix {
+    transition: opacity 0.3s ease;
+}
+.hero__bg {
+    transition: transform 0.45s ease;
+    transform-origin: center center;
+}
+
+.hero[data-state="fundraisers"] .hero__caption-line--2,
+.hero[data-state="fundraisers"] .hero__caption-prefix {
+    opacity: 0.1;
+}
+.hero[data-state="employers"] .hero__caption-line--3 {
+    opacity: 0.1;
+}
+
+.hero[data-state="fundraisers"] .hero__bg {
+    transform: rotate(-45deg);
+}
+.hero[data-state="employers"] .hero__bg {
+    transform: rotate(45deg);
+}
+
+/* White pill (center) only renders in "both"; otherwise it fades. */
+.hero__toggle-pill {
+    transition: opacity 0.18s ease;
+}
+.hero:not([data-state="both"]) .hero__toggle-pill {
+    opacity: 0;
+}
+
+/* Center label is dark on white pill in "both" but inverts to white when the
+   pill is hidden so it stays legible against the bar background.            */
+.hero__toggle-segment--center {
+    transition: color 0.18s ease;
+}
+.hero:not([data-state="both"]) .hero__toggle-segment--center {
+    color: var(--text-white);
+}
+
+/* Active pill on left/right segments rendered via ::before. CSS 2.1 paints a
+   positioned ::before (z-auto) AFTER the element's inline text, which would
+   hide the white label behind the colored fill — so push it to z-index: -1
+   inside the segment's stacking context (segment is z-3 itself, so the pill
+   still sits above the bar/center pill). Negative inset bleeds the pill past
+   the segment bbox to match the Figma proportions of the white center pill. */
+.hero__toggle-segment::before {
+    content: '';
+    position: absolute;
+    inset: -7px -16px;
+    border-radius: 887.98px;
+    background: transparent;
+    opacity: 0;
+    z-index: -1;
+    transition: opacity 0.18s ease, background-color 0.18s ease;
+    pointer-events: none;
+}
+.hero[data-state="fundraisers"] .hero__toggle-segment--left::before {
+    background: var(--color-purple);                    /* #AA6EFF */
+    opacity: 1;
+}
+.hero[data-state="employers"] .hero__toggle-segment--right::before {
+    background: var(--color-orange);                    /* #FF6E32 */
+    opacity: 1;
+}
+
+/* When one segment is selected, dim the others. JS sets aria-selected on
+   the active segment and "false" on the rest, so we just key off that —
+   works for all three states (including the default "both" where the
+   centre is selected and the two sides dim). */
+.hero__toggle-segment {
+    transition: opacity 0.2s ease;
+}
+.hero__toggle-segment[aria-selected="false"] {
+    opacity: 0.55;
+}
+
+/* Descriptor: per-state copy. Both variants share .hero__toggle-descriptor
+   layout (already absolute-positioned); only one is visible at a time, and
+   neither shows in "both" state.                                             */
+.hero__toggle-descriptor {
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity 0.2s ease;
+}
+.hero[data-state="fundraisers"] .hero__toggle-descriptor[data-for="fundraisers"],
+.hero[data-state="employers"] .hero__toggle-descriptor[data-for="employers"] {
+    opacity: 1;
+}
+
+
+/* ==========================================================================
+   HERO — MOBILE (≤770px)
+   ==========================================================================
+   Strategy: keep the 1440 × 1007.33 canvas AND every figure at its exact
+   desktop coordinate — the four decorative SVGs (oval, triangle-up, arc,
+   triangle-down) wrap around the hero from outside the visible viewport
+   exactly as in Figma; the mobile <section> is just a 360-wide window that
+   clips the canvas. Only the foreground content (brand, caption, toggle,
+   descriptor) gets mobile-specific positions, anchored to canvas-mid
+   (left:50%) so they sit at viewport center while the canvas is centered
+   horizontally inside .hero via the existing flex centering.                */
+@media (max-width: 770px) {
+    .hero {
+        margin-top: 0;
+        overflow: hidden;                           /* clip the off-canvas SVGs horizontally */
+    }
+    /* Canvas keeps the desktop 1440 × 1007.33 stage on mobile so every
+       decorative SVG (oval / arc / triangle-up / triangle-down) renders
+       at its full natural size without clipping. State rotations (±45°)
+       continue to work as-is. */
+
+    /* Mobile figure rebalance — match the Figma mobile reference:
+       canvas centered in 540-ish viewport so visible canvas-x is roughly
+       [450, 990]. Each figure repositioned so its visible portion through
+       that 540-wide window matches the screenshot.                           */
+    .hero__bg--triangle-up {
+        /* Apex sits slightly left of viewport center (canvas-x ≈ 650).
+           bbox 1054 wide → left = 650 − 527 = 123. Lifted top edge so apex
+           reads just below the brand row.                                    */
+        left: 123px;                                /* was -166.30 */
+        top: 60px;                                  /* was -10.05 */
+    }
+    .hero__bg--triangle-down {
+        left: 330px;                                /* was 209.18 desktop / 461 mobile */
+        top: 260px;                                 /* was 211.78 */
+    }
+    .hero__bg--oval {
+        /* Shifted further left so its arc sweeps mostly through the left
+           half of the viewport instead of the right.                         */
+        left: 340px;                                /* was 620 */
+        top: 470px;                                 /* was 323.38 */
+        width: 480px;                               /* was 972 */
+        height: 440px;                              /* was 891 */
+    }
+    .hero__bg--arc {
+        /* Scaled to 80 % AND shifted left so its sweep enters the viewport
+           from the upper portion rather than only the right edge.            */
+        left: 540px;                                /* was 800 */
+        top: -460px;                                /* was -697.29 */
+        width: 1033px;                              /* was 1291 (×0.8) */
+        height: 947px;                              /* was 1184 (×0.8) */
+    }
+
+    /* Brand "Спецпроект СРЕДА_СВОИХ" — top of mobile column */
+    .hero__brand {
+        left: 50%;
+        top: 80px;
+        width: auto;
+        height: auto;
+        transform: translateX(-50%);
+    }
+
+    /* Caption — three lines flow vertically, centered horizontally */
+    .hero__caption {
+        left: 50%;
+        top: 280px;
+        width: 90vw;
+        max-width: 340px;
+        height: auto;
+        font-size: 44px;
+        line-height: 1;
+        text-align: center;
+        transform: translateX(-50%);
+    }
+    .hero__caption-line {
+        position: relative;
+        left: auto;
+        top: auto;
+        width: 100%;
+        height: auto;
+        text-align: center;
+        display: block;
+    }
+
+    /* Toggle — bar shrinks to viewport width, pill/segments use % so they
+       track the now-flexible bar width (was absolute px inside the 496.12
+       desktop bar). Top anchored 130px below the bottom of .hero__caption
+       (which sits at y=280 and is ~132px tall: 3 lines × 44 line-height). */
+    .hero__toggle {
+        left: 50%;
+        top: 542px;                                 /* 280 caption-top + 132 caption-h + 130 gap */
+        width: 90vw;
+        max-width: 360px;
+        height: auto;
+        min-height: 132px;
+        transform: translateX(-50%);
+    }
+    .hero__toggle-bar {
+        width: 100%;
+        height: 37px;                               /* shrunk from 53 desktop */
+    }
+    .hero__toggle-segment {
+        font-size: 12px;                            /* was 16.89 desktop */
+    }
+    /* Highlight pill is sized to fit comfortably inside the 37px bar with
+       breathing room on top/bottom — 27px tall with 5px margin each side. */
+    .hero__toggle-pill {
+        left: 33.85%;                               /* 167.96 / 496.12 */
+        top: 5px;
+        width: 32.29%;                              /* 160.2  / 496.12 */
+        height: 27px;
+    }
+    .hero__toggle-segment--left {
+        left: 5.68%;                                /* 28.16  / 496.12 */
+        top: 7.5px;
+        width: 22.98%;                              /* 114    / 496.12 */
+        height: 22px;
+    }
+    .hero__toggle-segment--center {
+        left: 43.25%;                               /* 214.55 / 496.12 */
+        top: 12.5px;
+        width: 13.5%;                               /* 67     / 496.12 */
+        height: 12px;
+    }
+    .hero__toggle-segment--right {
+        left: 72.61%;                               /* 360.23 / 496.12 */
+        top: 7.5px;
+        width: 20.56%;                              /* 102    / 496.12 */
+        height: 22px;
+    }
+    /* Coloured state pill (rendered via ::before on left/right segments)
+       was inset -7px vertically on desktop — too tall for the 37 bar. Shrink
+       so it matches the white centre pill (27px) and stays inside the bar. */
+    .hero__toggle-segment::before {
+        inset: -2.5px -16px;
+    }
+
+    /* Descriptor below the bar */
+    .hero__toggle-descriptor {
+        left: 0;
+        top: 72px;
+        width: 100%;
+        height: auto;
+        margin: 0;
+        font-size: 12px;
+        line-height: 1.25;
+    }
+}
+
+
+/* ==========================================================================
+   Phase 3 — SECTION 1 (Research / Experience), Figma node 219:287
+   ==========================================================================
+   Frame placement:
+     219:287 Group 2136137262     locationRelativeToParent x=100.42, y=1065.33
+                                  dimensions 1329.02 x 996.42
+   The section sits in the second .container-wrapper, immediately below the
+   hero. Its canvas is 1329 x 996 (per spec) and is offset 100.42px from the
+   left of the 100% container — i.e. centered with the same gutter the
+   spec uses.
+
+   Section-relative coordinate map (subtract 100.42 / 1065.33 from each
+   child's frame xy):
+
+     node      class                     x         y       w       h
+     219:288   .section1__bg-arc         510.98    320.35  818.04  676.07
+     219:292   .section1__lead             0.00      0.00  782.72  252.00
+     219:294   .section1__logo           925.58     27.95  124.30   45.94
+     219:307   .section1__desc           924.58     27.95  325.00  108.00
+     219:306   ( merged into lead — "Чтобы разобраться..." sits at section-relative
+               (0.82, 324.51) but is rendered as part of the lead block; we
+               handle it via .section1__lead's natural height + spacing of the
+               two-column block beneath. The 30px line is part of the same
+               typographic flow as the lead in the screenshot. )
+     219:308   .section1__mask-left       73.88    405.61  640.00  356.07
+     219:312   .section1__h-issledovanie 109.35    688.67  279.00   48.00
+     219:313   .section1__callout        109.35    439.81  291.47  112.00
+     219:314   ( wrapper group at 815.33, 514.67 — 389.57 x 222.36 — its two
+               children below are positioned in section-relative. )
+     219:315   .section1__opyt-body      815.33    514.67  389.57  168.00
+     219:316   .section1__h-opyt         815.75    689.03  101.00   48.00
+     219:317   .section1__divider        406.58    716.67  389.00    1.00 (opacity 0.8)
+
+   Typography tokens (resolved from spec):
+     style_F18ZK9 -> Golos / Text Medium / 500 / 30px / lh 120% / ls -2%
+     style_N0NMP1 -> Golos Text / Regular / 400 / 16px / lh 110% / paragraphIndent 170
+     style_SL7584 -> Golos / Text Medium / 500 / 40px / ls -2%
+     style_1TM0ZF -> Inter / Semi Bold / 600 / 25px / lh 110%   (FONT FALLBACK,
+                     Inter is not bundled in Project/fonts; falls back to
+                     system Inter or sans-serif.)
+     style_J57HPK -> Golos / Text Medium / 500 / 25px / lh 110%
+     fill_NZ0D8G  -> #FBFBFB
+     fill_LLV6AI  -> #FBFBFB
+     fill_UUYBVX  -> #F5F3F1   (Опыт heading off-white)
+   ========================================================================== */
+
+/* Override main.css padding/gradient on the 2nd .container-wrapper so
+   section 1 sits on flat #272727 with no extra spacing.                     */
+.container-wrapper:nth-of-type(2) {
+    padding-top: 0;
+    padding-bottom: 0;
+    background: var(--bg-primary);                  /* #272727 */
+}
+
+.section1 {
+    position: relative;
+    width: 100%;
+    background: var(--bg-primary);                  /* #272727 */
+    color: var(--text-primary);                     /* #FBFBFB */
+}
+
+/* Fixed-size canvas matches the Figma frame (1329 x 996). The 100px
+   horizontal gutter that used to live here as `margin-left: 100.42px`
+   now comes from the shared `.container` padding at the top of this
+   file, so this canvas anchors flush to the container's content edge. */
+.section1__canvas {
+    position: relative;
+    width: 1329.02px;
+    height: 996.42px;
+}
+
+/* --- Lead paragraph (219:292) ------------------------------------------- */
+.section1__lead {
+    position: absolute;
+    left: 0;
+    top: 0;
+    width: 782.72px;
+    height: 252px;
+    margin: 0;
+    padding: 0;
+    font-family: 'Golos', 'Golos Text', sans-serif;
+    font-weight: 500;
+    font-size: 30px;
+    line-height: 1.2;                               /* 120% */
+    letter-spacing: -0.02em;                        /* -2%   */
+    color: var(--text-white);
+}
+
+/* --- Sreda group wrapper (logo + description) -------------------------- */
+/* The Figma group 219:293 places the compact logo and its description
+   starting at the same (x, y). The description's `paragraphIndent: 170`
+   is realised here via a left-floated logo so wrapped lines flow to the
+   right of the logo on lines 1–2 and then continue full-width below the
+   logo's bottom edge. Logo width 124.3 + ~46px gap = the 170 indent.    */
+.section1__sreda {
+    position: absolute;
+    left: 924.58px;
+    top: 27.95px;
+    width: 325px;
+    height: 108px;
+}
+
+/* --- Sreda compact logo (219:294) --------------------------------------- */
+.section1__logo {
+    float: left;
+    width: 124.3px;
+    height: 45.94px;
+    margin: 0 45.7px 0 0;                           /* gap to text on lines 1–2 */
+    display: block;
+    shape-outside: inset(0 -45.7px 0 0);            /* keep wrap rect tight    */
+}
+
+/* --- Sreda Russian description (219:307) -------------------------------- */
+/* The text wraps around the floated logo: lines 1–2 sit right of the logo,
+   then lines 3+ flow at the full 325px width below the logo's bottom.    */
+.section1__desc {
+    margin: 0;
+    padding: 0;
+    font-family: 'Golos Text', 'Golos', sans-serif;
+    font-weight: 400;
+    font-size: 16px;
+    line-height: 1.1;                               /* 110% */
+    color: var(--text-white);                       /* #FBFBFB */
+}
+
+/* --- Bridge line "Чтобы разобраться..." (219:306) ----------------------- */
+/* This 30px Golos line lives at section-relative (0.82, 324.51) and was
+   named "Среда своих..." in the export but its `text` field is the bridge
+   sentence "Чтобы разобраться в причинах противоречия, мы".               */
+.section1__bridge {
+    position: absolute;
+    left: 0.82px;
+    top: 324.51px;
+    width: 782.72px;
+    height: 36px;
+    margin: 0;
+    padding: 0;
+    font-family: 'Golos', 'Golos Text', sans-serif;
+    font-weight: 500;
+    font-size: 30px;
+    line-height: 1.2;
+    letter-spacing: -0.02em;
+    color: var(--text-white);
+}
+
+/* --- Background arc / right mask frame (219:288) ----------------------- */
+/* The Figma "Mask group" 219:288 has a 818.04 x 676.07 bounding box, but
+   its visible content is the inner 640 x 356.07 rectangle outline that
+   sits at child-relative (89.02, 160). Section-relative absolute position
+   for the inner rectangle is therefore (510.98 + 89.02, 320.35 + 160)
+   = (600, 480.35). The SVG file is authored at 640 x 357 to match this
+   inner rect — render at natural size to avoid distortion.               */
+.section1__bg-arc {
+    position: absolute;
+    left: 600px;
+    top: 480.35px;
+    width: 640px;
+    height: 356.07px;
+    pointer-events: none;
+    z-index: 0;
+}
+
+/* --- Left framed callout box (219:308) ---------------------------------- */
+.section1__mask-left {
+    position: absolute;
+    left: 73.88px;
+    top: 405.61px;
+    width: 640px;
+    height: 356.07px;
+    z-index: 1;
+}
+
+/* --- Left column heading "Исследование" (219:312) ----------------------- */
+.section1__h-issledovanie {
+    position: absolute;
+    left: 109.35px;
+    top: 688.67px;
+    width: 279px;
+    height: 48px;
+    margin: 0;
+    padding: 0;
+    font-family: 'Golos', 'Golos Text', sans-serif;
+    font-weight: 500;
+    font-size: 40px;
+    line-height: 1;
+    letter-spacing: -0.02em;
+    color: var(--text-white);
+    z-index: 2;
+}
+
+/* --- Left column callout body "Провели..." (219:313) -------------------- */
+/* Inter is NOT bundled in Project/fonts (Phase 0 confirmed). Falls back
+   to system 'Inter' if installed, otherwise generic sans-serif.            */
+.section1__callout {
+    position: absolute;
+    left: 109.35px;
+    top: 439.81px;
+    width: 291.47px;
+    height: 112px;
+    margin: 0;
+    padding: 0;
+    font-family: 'Inter', sans-serif;
+    font-weight: 600;
+    font-size: 25px;
+    line-height: 1.1;                               /* 110% */
+    color: var(--text-white);
+    z-index: 2;
+}
+
+/* --- Right column body text (219:315) ----------------------------------- */
+.section1__opyt-body {
+    position: absolute;
+    left: 815.33px;
+    top: 514.67px;
+    width: 389.57px;
+    height: 168px;
+    margin: 0;
+    padding: 0;
+    font-family: 'Golos', 'Golos Text', sans-serif;
+    font-weight: 500;
+    font-size: 25px;
+    line-height: 1.1;                               /* 110% */
+    color: var(--text-white);
+    z-index: 2;
+}
+
+/* --- Right column heading "Опыт" (219:316) ------------------------------ */
+.section1__h-opyt {
+    position: absolute;
+    left: 815.75px;
+    top: 689.03px;
+    width: 101px;
+    height: 48px;
+    margin: 0;
+    padding: 0;
+    font-family: 'Golos', 'Golos Text', sans-serif;
+    font-weight: 500;
+    font-size: 40px;
+    line-height: 1;
+    letter-spacing: -0.02em;
+    color: #F5F3F1;                                 /* fill_UUYBVX */
+    z-index: 2;
+}
+
+/* --- Hover affordance for "Исследование" / "Опыт" headings ---------------
+   Both headings are clickable navigation targets; a white underline appears
+   on hover/focus to signal the affordance. text-underline-offset keeps the
+   line visually below the descenders; text-decoration-thickness matches the
+   40px Golos Medium weight without feeling heavy.                            */
+.section1__h-issledovanie,
+.section1__h-opyt {
+    cursor: pointer;
+    text-decoration-line: underline;
+    text-decoration-color: transparent;
+    text-decoration-thickness: 2px;
+    text-underline-offset: 6px;
+    transition: text-decoration-color 0.18s ease;
+}
+.section1__h-issledovanie:hover,
+.section1__h-issledovanie:focus-visible,
+.section1__h-opyt:hover,
+.section1__h-opyt:focus-visible {
+    text-decoration-color: var(--text-white);
+}
+
+/* --- Horizontal divider between left and right columns (219:317) -------- */
+.section1__divider {
+    position: absolute;
+    left: 406.58px;
+    top: 716.67px;
+    width: 389px;
+    height: 1px;
+    background: var(--text-white);
+    opacity: 0.8;
+    display: block;
+    z-index: 2;
+}
+
+/* Mobile-only composite SVG (372×414 — both boxes + shared oval). Hidden on
+   desktop; .section1__boxes wrapper is transparent (display: contents) so
+   its absolutely-positioned children continue to anchor to .section1__canvas
+   exactly like before the wrapper existed.                                  */
+.section1__boxes {
+    display: contents;
+}
+.section1__boxes-mobile {
+    display: none;
+}
+
+/* ==========================================================================
+   SECTION 1 — MOBILE Phase 2 (≤770px) — lead paragraph + sreda block
+   ==========================================================================
+   Drop the desktop 1329 × 996 fixed canvas; flow children vertically.
+   This phase covers ONLY .section1__lead + .section1__sreda (logo + desc).
+   The remaining "Чтобы.../Исследование/Опыт" block is hidden here and
+   re-styled as Phase 3.                                                      */
+@media (max-width: 770px) {
+    .section1__canvas {
+        width: 100%;
+        height: auto;
+        padding: 32px 0 24px;
+    }
+    .section1__lead {
+        position: relative;
+        left: auto;
+        top: auto;
+        width: 100%;
+        height: auto;
+        font-size: 25px;
+        line-height: 1.2;
+    }
+    .section1__sreda {
+        position: relative;
+        left: auto;
+        top: auto;
+        width: 100%;
+        height: auto;
+        margin-top: 56px;
+    }
+    /* Logo + desc keep their desktop float-wrap relationship — it scales
+       cleanly to a narrow column. Desc text dimmed per Figma reference.      */
+    .section1__desc {
+        opacity: 0.6;
+    }
+
+    /* Phase 3 — bridge + composite mobile SVG (372×414, two stepped boxes
+       sharing one continuous oval). Desktop SVGs are hidden; the mobile SVG
+       takes their place and headings/text are absolutely positioned on top
+       of it using viewBox-relative percentages (so they track the SVG when
+       the wrapper width scales to the viewport).                              */
+    .section1__bridge {
+        position: relative;
+        left: auto;
+        top: auto;
+        width: 100%;
+        height: auto;
+        font-size: 25px;
+        line-height: 1.2;
+        margin: 56px 0 24px;
+    }
+
+    .section1__boxes {
+        position: relative;
+        display: block;
+        width: 100%;
+        height: auto;
+        margin: 0;
+    }
+    .section1__mask-left,
+    .section1__bg-arc {
+        display: none;
+    }
+    .section1__boxes-mobile {
+        display: block;
+        position: relative;
+        width: 100%;
+        height: auto;
+        margin: 0;
+        z-index: 1;
+        pointer-events: none;
+    }
+
+    /* Text overlays — coords as % of the 372×414 SVG so they track scaling. */
+    .section1__h-issledovanie,
+    .section1__h-opyt,
+    .section1__callout,
+    .section1__opyt-body {
+        position: absolute;
+        margin: 0;
+        z-index: 2;
+    }
+
+    /* TOP box (rect 17,0 → 326,172). Callout near top-left, heading at
+       bottom-left of the box.                                                 */
+    .section1__callout {
+        left: 8.6%;                                 /* 32 / 372 */
+        top: 6%;                                    /* 25 / 414 */
+        width: 64.5%;                               /* leaves room for circle */
+        height: auto;
+        font-size: 16px;
+        line-height: 1.15;
+    }
+    .section1__h-issledovanie {
+        left: 8.6%;
+        top: 31.4%;                                 /* 130 / 414 */
+        width: auto;
+        height: auto;
+        font-size: 25px;
+    }
+
+    /* BOTTOM box (rect 43,164 → 352,335). Heading at top-left, body below. */
+    .section1__h-opyt {
+        left: 16.1%;                                /* 60 / 372 */
+        top: 44.4%;                                 /* 184 / 414 */
+        width: auto;
+        height: auto;
+        font-size: 25px;
+    }
+    .section1__opyt-body {
+        left: 16.1%;
+        top: 53%;                                   /* 240 / 414 */
+        width: 72.6%;                               /* 270 / 372 */
+        height: auto;
+        font-size: 16px;
+        line-height: 1.15;
+    }
+
+    .section1__divider {
+        display: none;
+    }
+}
+
+/* ============================================================================
+   Phase 4 — Section 2 slider shortening + white pulsing affordance
+   Legacy section2 markup (canvas + input[type=range]) is preserved for the
+   existing animated portraits behavior. Track shortened to Figma's 603px;
+   track + thumb restyled white per spec (track 603x1, thumb 35x45.55, radius
+   74.02 — node 219:320 / 219:321), and a subtle opacity+glow pulse cues the
+   user to drag. Animation pauses on hover/active/focus and on reduced-motion.
+   ============================================================================ */
+.section2 #slider {
+    width: 603px;
+    max-width: 100%;
+    display: block;
+    height: 45.55px;                                /* room for thumb + glow */
+    -webkit-appearance: none;
+    appearance: none;
+    background: transparent;
+    margin: 0;
+    padding: 0;
+    cursor: pointer;
+    outline: none;
+    opacity: 1;                                     /* defeat main.css `input[type=range] { opacity: 50% }` which greyed out the whole control */
+    touch-action: none;                             /* slider claims horizontal touch — blocks OS-level swipe-back / overscroll on mobile */
+    overscroll-behavior: contain;
+    /* Halo lives on the <input> via drop-shadow — animations on
+       ::-webkit-slider-thumb are silently ignored in Chromium. drop-shadow
+       follows the alpha map of the rendered control, so the glow appears
+       around (behind) the white thumb without recoloring any of its pixels. */
+    animation: section2-slider-glow 2.2s ease-in-out infinite;
+}
+.section2 #slider:active {
+    animation: none;
+    filter: none;
+}
+
+.section2 #slider::-webkit-slider-runnable-track {
+    height: 1px;
+    background: var(--text-white);
+    border: 0;
+    border-radius: 0;
+}
+.section2 #slider::-moz-range-track {
+    height: 1px;
+    background: var(--text-white);
+    border: 0;
+    border-radius: 0;
+}
+
+.section2 #slider::-webkit-slider-thumb {
+    -webkit-appearance: none;
+    appearance: none;
+    width: 35px;
+    height: 45.55px;
+    border-radius: 74.02px;
+    background: #FFFFFF;
+    border: 0;
+    margin-top: -22.275px;                          /* center on 1px track  */
+}
+.section2 #slider::-moz-range-thumb {
+    width: 35px;
+    height: 45.55px;
+    border-radius: 74.02px;
+    background: #FFFFFF;
+    border: 0;
+}
+
+/* Subtle halo: drop-shadow swells from a faint trace to a soft 14 px bloom
+   and back. Track is 1 px tall so its glow is a barely-there hairline; the
+   thumb's 35 × 45 mass dominates and reads as a breathing bulb behind it.  */
+@keyframes section2-slider-glow {
+    0%, 100% { filter: drop-shadow(0 0 2px  rgba(255, 255, 255, 0.18)); }
+    50%      { filter: drop-shadow(0 0 14px rgba(255, 255, 255, 0.55)); }
+}
+
+@media (prefers-reduced-motion: reduce) {
+    .section2 #slider {
+        animation: none;
+        filter: none;
+    }
+}
+
+/* ==========================================================================
+   SECTION 2 — MOBILE Phase 4 (≤770px)
+   ==========================================================================
+   Same canvas-driven portrait animation as desktop — only typography and
+   gutters scale: the heading drops to 25 px, the canvas fits the viewport,
+   and section padding aligns with the rest of the mobile column.            */
+@media (max-width: 770px) {
+    .section2 {
+        margin-left: 0;
+        padding: 0 16px;
+    }
+    .section2_text1 {
+        font-size: 25px;
+        max-width: none;
+    }
+    .section2 .controls {
+        width: 100%;
+        margin: 32px 0 0;
+    }
+}
+
+
+/* ============================================================================
+   Phase 5 — Sections 3 + 4 (Figma frame 219:243, 1178.38 x 1178.86 at x=96.21)
+
+   Layout:
+   The two legacy <section class="section3"> + <section class="section4">
+   are rendered side-by-side in Figma as a single 1178x1178 frame. We wrap
+   the original markup in .section3__canvas which is positioned absolutely
+   inside the page so children can be placed by exact x/y from the spec.
+
+   Mega numbers ("46,7%" + "71,7%") use a 3-color outline stack
+   (orange + purple + white) implemented as a multi-shadow on -webkit-text-
+   stroke, mimicking the chromatic-aberration treatment also used in the
+   hero. The third color (white) is what the user pointed out beyond the
+   spec's documented orange + purple strokes.
+
+   Toggles ("мнение фандрайзеров / оба мнения / мнение нанимателей") wrap
+   the existing checkbox inputs (opt-3..opt-6) so JS in main-backup.js stays
+   intact (it still toggles .section3_text2/3 + .section4_text1/2 opacities).
+   The active "оба мнения" pill in the middle is decorative — its colored
+   "edges" are an orange (#FF6E32) and purple (#AA6EFF) rounded rect pair
+   (matching toggle_active_pill_3a.svg) bleeding from beneath a white pill.
+   ============================================================================ */
+
+/* --- 5.1 Section 3 canvas (frame 219:243) ------------------------------ */
+.section3.section3__phase5 {
+    /* Override main.css's margin-bottom: 250px / margin-left: 100px */
+    margin: 0;
+    padding: 0;
+    position: relative;
+    width: 100%;
+    background: var(--bg-primary);                        /* #272727 */
+    color: var(--text-white);
+    overflow: visible;
+}
+
+.section3__canvas {
+    position: relative;
+    width: 1178.38px;
+    height: 1178.86px;
+    margin: 0 0 250px;                                     /* preserve legacy gap to section5;
+                                                              the 100px gutter now comes from
+                                                              the shared `.container` padding */
+}
+
+/* Hide the now-empty legacy <section class="section4"> stub */
+.section4.section4__phase5-empty {
+    display: none !important;
+}
+
+/* Visually-hidden helper for SR-only mega-number text */
+.section3__canvas .visually-hidden {
+    position: absolute;
+    width: 1px; height: 1px;
+    margin: -1px; padding: 0;
+    overflow: hidden; clip: rect(0,0,0,0); border: 0;
+}
+
+
+/* --- 5.2 Heading (219:259) "Результаты дали нам..." -------------------- */
+/* 40px Golos Medium 500, 1138.42 x 144 at (5.51, 0). */
+.section3__phase5 .s3p5__heading {
+    position: absolute;
+    left: 5.51px;
+    top: 0;
+    width: 1138.42px;
+    height: auto;
+    margin: 0;
+    padding: 0;
+    font-family: 'Golos', 'Golos Text', sans-serif;
+    font-weight: 500;
+    font-size: 40px;
+    line-height: 120%;
+    letter-spacing: -0.02em;
+    color: var(--text-white);                              /* #FFFFFF */
+    max-width: none;                                       /* defeat main.css max-width */
+}
+
+/* Defeat main.css's .section3_text1 span { border-bottom } so we use the
+   exact 271 x 1px lime SVG underline instead. */
+.section3__phase5 .s3p5__heading .s3p5__underline-target {
+    position: relative;
+    border-bottom: 0 !important;
+    display: inline-block;
+}
+
+/* Lime underline (219:260) — 271.13 x 1px stroke #C3F150
+   Anchored under the word "противоречия". */
+.section3__phase5 .s3p5__heading .s3p5__underline-target::after {
+    content: "";
+    position: absolute;
+    left: 0;
+    bottom: -2px;
+    width: 271.13px;
+    height: 1px;
+    background: var(--accent-lime-alt);                    /* #C3F150 */
+}
+
+
+/* --- 5.3 Mega numbers (219:255) "46,7%" + "71,7%" ---------------------- */
+/* Spec ground truth (figma node fills/strokes):
+     219:256 "46,7%" — fills: [] (transparent), strokes: #FF6E32 orange, 2px
+     219:257 "71,7%" — fills: [] (transparent), strokes: #AA6EFF purple, 2px
+   Each number is OUTLINE-ONLY (no fill anywhere). The chromatic-aberration
+   look in the Figma master comes from 71,7% (purple) overlapping 46,7%
+   (orange) at only +41.02px x-offset, NOT from text-shadow halos.
+   Group 219:255 layout_4MEMXY = (4.65, 185.26), 587.02 x 247.
+   46,7% layout_A7DRI9 = (0,0)   inside Group → absolute (4.65, 185.26)
+   71,7% layout_XVKPUQ = (41.02,0) inside Group → absolute (45.67, 185.26) */
+.section3__phase5 .s3p5__mega {
+    position: absolute;
+    left: 4.65px;                                          /* layout_4MEMXY x */
+    top: 185.26px;                                         /* layout_4MEMXY y */
+    width: 587.02px;
+    height: 247px;
+    font-family: 'Golos Text VF', 'Golos Text', sans-serif;
+    font-weight: 600;
+    font-size: 205.596px;
+    line-height: 1.2;
+    letter-spacing: -0.02em;
+    isolation: isolate;          /* contain plus-lighter blend to the 2 numbers */
+}
+
+.section3__phase5 .s3p5__mega-num {
+    position: absolute;
+    top: 0;
+    margin: 0;
+    padding: 0;
+    /* OUTLINE-ONLY: glyph interior is fully transparent; only the colored
+       stroke is visible. NO text-shadow — the chromatic effect comes from
+       the two numbers overlapping each other. */
+    color: transparent;
+    -webkit-text-fill-color: transparent;
+    -webkit-text-stroke-width: 2px;
+    text-shadow: none;
+    background: transparent;
+    pointer-events: none;
+    white-space: nowrap;
+    paint-order: stroke fill;
+    mix-blend-mode: plus-lighter;       /* orange + purple → near-white at overlap */
+}
+
+/* "46,7%" — digit prefix orange (#FF6E32, spec 219:256 / fill_295A31),
+              ",7%" suffix white per design master at intersection.            */
+.section3__phase5 .s3p5__mega-num--orange {
+    left: 0;
+    -webkit-text-stroke-color: var(--color-orange);       /* #FF6E32 */
+    text-shadow: none;
+}
+.section3__phase5 .s3p5__mega-num--orange .s3p5__mega-digits {
+    -webkit-text-stroke-color: var(--color-orange);       /* #FF6E32 */
+}
+.section3__phase5 .s3p5__mega-suffix {
+    -webkit-text-stroke-color: #FFFFFF;                    /* ",7%" pure white */
+}
+
+/* "71,7%" — purple stroke (#AA6EFF) per spec node 219:257 / fill_W5335P,
+   x-offset by 41.02px so it overlaps 46,7%, producing the chromatic look. */
+.section3__phase5 .s3p5__mega-num--purple {
+    left: 41.02px;                                          /* layout_XVKPUQ x within Group */
+    -webkit-text-stroke-color: var(--color-purple);     /* #AA6EFF */
+    text-shadow: none;
+}
+.section3__phase5 .s3p5__mega-num--purple .s3p5__mega-digits {
+    -webkit-text-stroke-color: var(--color-purple);     /* #AA6EFF */
+}
+
+
+/* --- 5.4 Small color paragraphs (219:285 + 219:286) -------------------- */
+/* Spec layouts (positions relative to section3 frame):
+     219:285 purple  layout_WH1PED  (635.21, 229.9)  539.12 x 52
+     219:286 orange  layout_OMCX5M  (635,    244 )   480    x 52
+   Both paragraphs occupy nearly the same vertical region and visually
+   INTERLEAVE in the Figma master (purple line / orange line / purple line
+   / orange line) — they do NOT stack vertically. We absolutely position
+   each one at its exact spec coords so opacity-driven JS still works
+   without forcing a flex-column. */
+.section3__phase5 .s3p5__minicopy {
+    /* Container is now layout-only (no flex stacking); children are
+       absolutely positioned to their per-spec offsets so they overlap. */
+    position: absolute;
+    left: 0;
+    top: 0;
+    width: 0;
+    height: 0;
+    overflow: visible;
+    pointer-events: none;
+}
+
+.section3__phase5 .s3p5__minicopy p {
+    position: absolute;
+    margin: 0;
+    padding: 0;
+    font-family: 'Golos', 'Golos Text', sans-serif;
+    font-weight: 500;
+    font-size: 20px;
+    line-height: 130%;
+    max-width: none;
+    pointer-events: auto;
+    /* opacity is driven by JS in main-backup.js (opt-3 -> .section3_text2,
+       opt-4 -> .section3_text3); keep transition smooth. */
+    transition: opacity 0.2s ease;
+}
+
+.section3__phase5 .s3p5__minicopy-purple {
+    /* layout_WH1PED: x=635.21 y=229.9 w=539.12 h=52 */
+    left: 635.21px;
+    top: 229.9px;
+    width: 539.12px;
+    height: 52px;
+    color: var(--color-purple);                         /* #AA6EFF */
+}
+
+.section3__phase5 .s3p5__minicopy-orange {
+    /* layout_OMCX5M: x=635   y=244   w=480   h=52 — overlaps purple by ~14px */
+    left: 635px;
+    top: 244px;
+    width: 480px;
+    height: 52px;
+    color: var(--color-orange);                            /* #FF6E32 */
+}
+
+
+/* --- 5.5 Toggle (top + bottom) — 508.93 x 54.14, radius 62.81 ---------- */
+.section3__phase5 .s3p5__toggle {
+    position: absolute;
+    width: 508.93px;
+    height: 54.14px;
+}
+
+.section3__phase5 .s3p5__toggle--top {
+    left: 0;                                                /* aligned with --bottom */
+    top: 454.01px;                                          /* layout_NB1QZJ y */
+}
+
+.section3__phase5 .s3p5__toggle--bottom {
+    left: 0;                                                /* layout_GXDAR0 x */
+    top: 1124.71px;                                         /* layout_GXDAR0 y */
+}
+
+.section3__phase5 .s3p5__toggle-inner {
+    position: relative;
+    width: 100%;
+    height: 100%;
+    border: 1px solid var(--text-white);                    /* fill_NZ0D8G stroke */
+    border-radius: 62.81px;
+    background: transparent;
+    box-sizing: border-box;
+    overflow: visible;
+}
+
+/* Each segment is absolutely positioned per spec layout coords inside
+   the 508.93 x 54.14 toggle. */
+.section3__phase5 .s3p5__seg {
+    position: absolute;
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+    height: 32px;
+    margin: 0;
+    padding: 0;
+    cursor: pointer;
+    user-select: none;
+    background: none;
+    border: 0;
+}
+
+/* layout_8W7BEB: x=28.88 y=11.07, w=116 h=32 */
+.section3__phase5 .s3p5__seg--left {
+    left: 28.88px;
+    top: 11.07px;
+    width: 116px;
+}
+
+/* layout_LCGKGY (top toggle) / layout_WO683W (bottom): x=369.54, y=11.07, w=105 h=32 */
+.section3__phase5 .s3p5__seg--right {
+    left: 369.54px;
+    top: 11.07px;
+    width: 105px;
+}
+
+/* Hide the native checkbox inside the segment but keep it interactive */
+.section3__phase5 .s3p5__seg-input {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    opacity: 0;
+    pointer-events: auto;                                   /* clicks bubble to label */
+    margin: 0;
+    padding: 0;
+    background: none;
+}
+
+/* Segment text (фандрайзеров / нанимателей) — Golos VF Medium 17.33px */
+.section3__phase5 .s3p5__seg-label {
+    font-family: 'Golos Text VF', 'Golos Text', sans-serif;
+    font-weight: 500;
+    font-size: 17.33px;
+    line-height: 90%;
+    letter-spacing: -0.05em;
+    color: var(--text-white);
+    margin: 0;
+    padding: 0;
+    /* dim slightly when its checkbox is unchecked */
+    transition: opacity 0.2s ease;
+}
+
+.section3__phase5 .s3p5__seg-input:not(:checked) ~ .s3p5__seg-label {
+    opacity: 0.45;
+}
+
+/* ---- 5.5b State-driven toggle (data-state on .section3__phase5) ---------
+   .s3p5__seg buttons set [data-state] on the section root via JS.
+   Active segment is the one whose data-action == data-state. The active
+   segment renders a white pill via ::before with edge bleeds. The inner
+   .s3p5__seg-pill (pre-existing decorative) shows only when state="both".  */
+.section3__phase5 .s3p5__seg {
+    cursor: pointer;
+}
+.section3__phase5 .s3p5__seg:focus-visible {
+    outline: 2px solid var(--accent-lime, #C2F04F);
+    outline-offset: 4px;
+}
+.section3__phase5 .s3p5__seg::before {
+    content: '';
+    position: absolute;
+    inset: -7px -16px;
+    border-radius: 887.98px;
+    background: transparent;
+    z-index: 0;                        /* sits between bg and label */
+    transition: opacity 0.18s ease;
+    opacity: 0;
+}
+.section3__phase5 .s3p5__seg-label,
+.section3__phase5 .s3p5__seg-pill-label {
+    position: relative;
+    z-index: 1;                        /* above ::before pill */
+}
+/* Pill on left segment when state="fundraisers" — solid purple per Figma */
+.section3__phase5[data-state="fundraisers"] .s3p5__seg--left::before {
+    background: var(--color-purple);                    /* #AA6EFF */
+    opacity: 1;
+}
+/* Pill on right segment when state="employers" — solid orange per Figma */
+.section3__phase5[data-state="employers"] .s3p5__seg--right::before {
+    background: var(--color-orange);                       /* #FF6E32 */
+    opacity: 1;
+}
+/* Hide the inner middle pill div when state != "both" */
+.section3__phase5:not([data-state="both"]) .s3p5__seg-pill {
+    opacity: 0;
+}
+.section3__phase5 .s3p5__seg-pill {
+    transition: opacity 0.18s ease;
+}
+/* Active label: white text on the solid purple/orange pill (Figma master) */
+.section3__phase5[data-state="fundraisers"] .s3p5__seg--left .s3p5__seg-label,
+.section3__phase5[data-state="employers"] .s3p5__seg--right .s3p5__seg-label {
+    color: var(--text-white);
+    opacity: 1;
+}
+/* Inactive labels dim slightly (mirrors checkbox UX) */
+.section3__phase5[data-state="fundraisers"] .s3p5__seg--right .s3p5__seg-label,
+.section3__phase5[data-state="fundraisers"] .s3p5__seg--mid .s3p5__seg-pill-label,
+.section3__phase5[data-state="employers"] .s3p5__seg--left .s3p5__seg-label,
+.section3__phase5[data-state="employers"] .s3p5__seg--mid .s3p5__seg-pill-label,
+.section3__phase5[data-state="both"] .s3p5__seg--left .s3p5__seg-label,
+.section3__phase5[data-state="both"] .s3p5__seg--right .s3p5__seg-label {
+    opacity: 0.45;
+}
+
+/* ---- 5.5c Content visibility per state ----------------------------------
+   - "fundraisers" state: highlight purple/fundraiser content; orange side
+     stays visible at 10 % so users still see what's being filtered out.
+   - "employers" state: mirror — orange highlighted, purple at 10 %.
+   - "both" state: both fully visible, with overlapping (default).           */
+.section3__phase5 .s3p5__mega-num,
+.section3__phase5 .s3p5__minicopy-purple,
+.section3__phase5 .s3p5__minicopy-orange,
+.section3__phase5 .s3p5__outline-word--purple,
+.section3__phase5 .s3p5__outline-word--orange,
+.section3__phase5 .s3p5__body--purple,
+.section3__phase5 .s3p5__body--orange {
+    transition: opacity 0.2s ease;
+}
+/* "fundraisers" — fade orange (employer) side to 10 % */
+.section3__phase5[data-state="fundraisers"] .s3p5__mega-num--orange,
+.section3__phase5[data-state="fundraisers"] .s3p5__minicopy-orange,
+.section3__phase5[data-state="fundraisers"] .s3p5__outline-word--orange,
+.section3__phase5[data-state="fundraisers"] .s3p5__body--orange {
+    opacity: 0.1;
+    pointer-events: none;
+}
+/* "employers" — fade purple (fundraiser) side to 10 % */
+.section3__phase5[data-state="employers"] .s3p5__mega-num--purple,
+.section3__phase5[data-state="employers"] .s3p5__minicopy-purple,
+.section3__phase5[data-state="employers"] .s3p5__outline-word--purple,
+.section3__phase5[data-state="employers"] .s3p5__body--purple {
+    opacity: 0.1;
+    pointer-events: none;
+}
+
+/* Middle "оба мнения" decorative pill (219:268 / 219:280) ---------------
+   layout_O6JUO3: x=171, y=4.21, w=167.44, h=45.72, radius 887.98. */
+.section3__phase5 .s3p5__seg--mid {
+    position: absolute;
+    left: 171px;
+    top: 4.21px;
+    width: 167.44px;
+    height: 45.72px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.section3__phase5 .s3p5__seg-pill {
+    position: absolute;
+    inset: 0;
+    border-radius: 887.98px;
+    background: var(--text-white);                          /* white pill */
+    /* Orange bleed on left edge, purple bleed on right edge — replicates the
+       2 offset rects in toggle_active_pill_3a.svg. */
+    box-shadow:
+        -3.62px 0 0 0 var(--color-orange),                 /* #FF6E32 left edge */
+         3.62px 0 0 0 var(--color-purple);              /* #AA6EFF right edge */
+    z-index: 0;
+}
+
+.section3__phase5 .s3p5__seg-pill-label {
+    position: relative;
+    z-index: 1;
+    font-family: 'Golos Text VF', 'Golos Text', sans-serif;
+    font-weight: 500;
+    font-size: 17.33px;
+    line-height: 90%;
+    letter-spacing: -0.05em;
+    color: var(--text-white);                               /* white by default */
+    text-align: center;
+    width: 100%;
+}
+/* When state="both" the white pill is behind it — switch to dark for contrast */
+.section3__phase5[data-state="both"] .s3p5__seg-pill-label {
+    color: var(--bg-secondary);                             /* #2F2F2F on white pill */
+}
+
+
+/* --- 5.6 Outline headline (219:246) "несоразмерный / завышенный +
+                                       уровень оплаты" -------------------- */
+/* Group at section-y=569.01 (Group 219:244), inner content y=89.24 within
+   that group for "уровень оплаты" -> absolute y=569.01+89.24=658.25.
+   "несоразмерный" + "завышенный" sit at y=569.01 (outer group) +0 = 569.01,
+   but they're inside Group 2136137228 also at y=569.01 + 0, so absolute
+   y=569.01 for the words row.
+
+   Both words 150.13px Golos 600, "уровень оплаты" 146.55px Golos VF 600.
+   All outline-only (transparent fill, 2px stroke). */
+.section3__phase5 .s3p5__outline {
+    position: absolute;
+    left: 49.61px;                                          /* layout_Y664CY x */
+    top: 569.01px;                                          /* layout_HSP40E y */
+    width: 1124.76px;
+    height: 265.24px;
+    display: block;
+    margin: 0;
+    padding: 0;
+    text-transform: none;                                   /* spec is lowercase */
+    font-size: inherit;
+    line-height: 1;
+    align-items: stretch;
+}
+
+.section3__phase5 .s3p5__outline-top {
+    position: absolute;
+    left: 0;
+    top: 0;
+    width: 1124px;
+    height: 180px;
+    display: block;
+    isolation: isolate;          /* contain plus-lighter blend to the 2 words */
+}
+
+.section3__phase5 .s3p5__outline-word {
+    position: absolute;
+    top: 0;
+    margin: 0;
+    padding: 0;
+    font-family: 'Golos', 'Golos Text', sans-serif;
+    font-weight: 600;
+    font-size: 150.13px;
+    line-height: 1;
+    letter-spacing: -0.04em;
+    color: transparent;
+    -webkit-text-fill-color: transparent;
+    -webkit-text-stroke-width: 2px;
+    text-transform: lowercase;
+    white-space: nowrap;
+    mix-blend-mode: plus-lighter;   /* purple + orange → near-white at overlap */
+    paint-order: stroke fill;
+}
+
+.section3__phase5 .s3p5__outline-word--purple {
+    left: 0;
+    -webkit-text-stroke-color: var(--color-purple);     /* #AA6EFF */
+}
+
+.section3__phase5 .s3p5__outline-word--orange {
+    left: 213.99px;                                          /* layout_V5TLSS x */
+    -webkit-text-stroke-color: var(--color-orange);        /* #FF6E32 */
+}
+
+/* "уровень оплаты" — white outline, 70% opacity, x=9.76 y=89.24 within
+   Group 219:246 (which is at y=0 of the outline group). */
+.section3__phase5 .s3p5__outline-bottom {
+    position: absolute;
+    left: 9.76px;
+    top: 89.24px;
+    width: 1115px;
+    height: 176px;
+    margin: 0;
+    padding: 0;
+    font-family: 'Golos Text VF', 'Golos Text', sans-serif;
+    font-weight: 600;
+    font-size: 146.55px;
+    line-height: 1.2;
+    letter-spacing: -0.027em;
+    color: transparent;
+    -webkit-text-fill-color: transparent;
+    -webkit-text-stroke: 2px var(--text-white);             /* #FFFFFF, opacity below */
+    opacity: 0.7;                                           /* spec opacity 0.7 */
+    text-transform: lowercase;
+    white-space: nowrap;
+}
+
+
+/* --- 5.7 Big body paragraphs (219:252 + 219:253) ----------------------- */
+/* Spec layouts inside Group 219:251 (which sits at y=287.7 within the
+   outline group at y=569.01 → absolute y = 856.71):
+     219:252 purple  layout_HRULD5  (1.31, 0)  609.63 x 208
+     219:253 orange  layout_RW13Y6  (0,    0)  609.03 x 208
+   Both paragraphs occupy the SAME vertical region — they OVERLAP at the
+   same y so when both checkboxes are active you see chromatic
+   interleaving. We position each absolutely to its per-spec coords. */
+.section3__phase5 .s3p5__bodywrap {
+    position: absolute;
+    left: 49.61px;                                          /* layout_Y664CY x */
+    top: 856.71px;                                          /* 569.01 + 287.7 */
+    width: 1124.76px;
+    height: 208px;
+    margin: 0;
+    padding: 0;
+    /* No flex — children are absolutely positioned to overlap. */
+    display: block;
+    background: none;
+    pointer-events: none;
+}
+
+.section3__phase5 .s3p5__body {
+    position: absolute;
+    top: 0;
+    margin: 0;
+    padding: 0;
+    height: 208px;
+    font-family: 'Golos', 'Golos Text', sans-serif;
+    font-weight: 500;
+    font-size: 20px;
+    line-height: 130%;
+    pointer-events: auto;
+    /* opacity driven by JS (opt-5 -> .section4_text1, opt-6 -> .section4_text2). */
+    transition: opacity 0.2s ease;
+}
+
+.section3__phase5 .s3p5__body--purple {
+    /* layout_HRULD5: (1.31, 0) inside Group 219:251 — overlaps orange */
+    left: 1.31px;
+    width: 609.63px;
+    max-width: 609.63px;
+    color: var(--color-purple);                          /* #AA6EFF */
+}
+
+.section3__phase5 .s3p5__body--orange {
+    /* layout_RW13Y6: (0, 0) inside Group 219:251 — same y as purple */
+    left: 0;
+    width: 609.03px;
+    max-width: 609.03px;
+    color: var(--color-orange);                             /* #FF6E32 */
+}
+
+
+/* --- 5.8 Mobile fallback ---------------------------------------------- */
+/* Keep desktop pixel layout above 1080px, collapse to a vertical flow
+   on smaller screens so phones aren't broken. The Figma frame is desktop-
+   only; the mobile design isn't part of this phase. */
+@media (max-width: 1080px) {
+    .section3__canvas {
+        width: 100%;
+        height: auto;
+        margin: 0 auto 70px;
+        padding: 0 16px;
+    }
+    .section3__phase5 .s3p5__heading,
+    .section3__phase5 .s3p5__mega,
+    .section3__phase5 .s3p5__minicopy,
+    .section3__phase5 .s3p5__toggle,
+    .section3__phase5 .s3p5__outline,
+    .section3__phase5 .s3p5__bodywrap {
+        position: relative;
+        left: auto;
+        top: auto;
+        width: 100%;
+        max-width: 100%;
+        height: auto;
+        margin-bottom: 32px;
+    }
+    .section3__phase5 .s3p5__heading {
+        font-size: 28px;
+    }
+    .section3__phase5 .s3p5__mega {
+        font-size: 96px;
+        height: auto;
+    }
+    .section3__phase5 .s3p5__mega-num {
+        position: relative;
+        display: inline-block;
+        left: auto;
+    }
+    .section3__phase5 .s3p5__mega-num--purple {
+        margin-left: -0.18em;
+    }
+    .section3__phase5 .s3p5__bodywrap {
+        display: flex;
+        flex-direction: column;
+        gap: 24px;
+        pointer-events: auto;
+    }
+    .section3__phase5 .s3p5__body {
+        position: relative;
+        left: auto;
+        top: auto;
+        width: 100%;
+        max-width: 100%;
+        height: auto;
+    }
+    /* Restore mobile minicopy paragraphs to a stacked column. */
+    .section3__phase5 .s3p5__minicopy {
+        width: 100%;
+        height: auto;
+        display: flex;
+        flex-direction: column;
+        gap: 8px;
+        pointer-events: auto;
+    }
+    .section3__phase5 .s3p5__minicopy p {
+        position: relative;
+        left: auto;
+        top: auto;
+        width: 100%;
+        max-width: 100%;
+        height: auto;
+    }
+    .section3__phase5 .s3p5__outline-top,
+    .section3__phase5 .s3p5__outline-word,
+    .section3__phase5 .s3p5__outline-bottom {
+        position: relative;
+        left: auto;
+        top: auto;
+        font-size: 56px;
+        width: 100%;
+        height: auto;
+        white-space: normal;
+    }
+    .section3__phase5 .s3p5__outline-word--orange {
+        margin-top: 8px;
+    }
+}
+
+/* ==========================================================================
+   SECTION 3+4 — MOBILE Phase 5 (≤770px)
+   ==========================================================================
+   Builds on the ≤1080 tablet stack:
+     - Heading 25 px; body/minicopy 16 px; toggle labels 12 px (per spec).
+     - Mega numbers re-overlap (chromatic effect) — tablet's inline-block flow
+       wrapped them onto separate lines on narrow viewports.
+     - Outline words re-overlap too — tablet stacked them with margin-top.
+     - Toggle segments switch to %-based positions so they track the bar's
+       100 % width (desktop px coords were inside a fixed 508.93 bar).         */
+@media (max-width: 770px) {
+    .section3__phase5 .s3p5__heading {
+        font-size: 25px;
+        line-height: 1.2;
+    }
+    /* Lime underline anchored to the inline-block span — desktop's fixed
+       271.13 px width was sized for the 40 px font and overshoots when the
+       heading drops to 25 px on mobile.                                      */
+    .section3__phase5 .s3p5__heading .s3p5__underline-target::after {
+        width: 100%;
+    }
+    .section3__phase5 .s3p5__minicopy p,
+    .section3__phase5 .s3p5__body {
+        font-size: 16px;
+        line-height: 1.25;
+    }
+
+    /* Mega numbers — re-overlap via absolute positioning */
+    .section3__phase5 .s3p5__mega {
+        position: relative;
+        height: 84px;                                /* matches font 76px */
+        font-size: 76px;
+    }
+    .section3__phase5 .s3p5__mega-num {
+        position: absolute;
+        top: 0;
+        display: block;
+        margin: 0;
+    }
+    .section3__phase5 .s3p5__mega-num--orange {
+        left: 0;
+    }
+    .section3__phase5 .s3p5__mega-num--purple {
+        left: 15px;                                  /* chromatic offset (~20% of 76px font, mirrors desktop's 41/205 ratio) */
+        margin-left: 0;                              /* defeat tablet rule */
+    }
+
+    /* Toggle — restore the bar height (tablet's `height: auto` collapses to 0
+       because all children inside .s3p5__toggle-inner are absolute), shrink
+       segments + pill via %, drop label font to 12. Bar 40 px per spec, so
+       seg/pill vertical positions also scaled down from the desktop 54-px bar. */
+    .section3__phase5 .s3p5__toggle {
+        height: 40px;
+    }
+    .section3__phase5 .s3p5__seg-label,
+    .section3__phase5 .s3p5__seg-pill-label {
+        font-size: 11px;
+        line-height: 1;
+    }
+    /* Side segment labels — explicit left-alignment per spec */
+    .section3__phase5 .s3p5__seg--left .s3p5__seg-label,
+    .section3__phase5 .s3p5__seg--right .s3p5__seg-label {
+        text-align: left;
+        width: 100%;
+    }
+    .section3__phase5 .s3p5__seg--left,
+    .section3__phase5 .s3p5__seg--right {
+        top: 5px;
+        height: 30px;
+    }
+    /* Mobile layout matches the 335×40 reference SVG exactly.
+       All three segments share the active-pill bounds (top 3, height 34),
+       so when any segment is active, its ::before pill (inset 0) renders
+       at the same size and position as the SVG mockup's reference pill.
+       Segment percentages within a 335-wide bar:
+         · --left  : x   2 / w 28 % (2–30 %)
+         · --mid   : x 33.6 / w 32.9 % (matches the SVG pill ≈ 110 px)
+         · --right : x 70 / w 28 % (70–98 %)                             */
+    .section3__phase5 .s3p5__seg--left {
+        left: 2%;
+        width: 28%;
+        top: 3px;
+        height: 34px;
+        padding-left: 12px;                          /* text sits 12 px from pill's left edge */
+        box-sizing: border-box;
+    }
+    .section3__phase5 .s3p5__seg--right {
+        left: 70%;
+        width: 28%;
+        top: 3px;
+        height: 34px;
+        padding-left: 12px;
+        box-sizing: border-box;
+    }
+    .section3__phase5 .s3p5__seg--mid {
+        top: 3px;
+        height: 34px;
+        left: 33.6%;
+        width: 32.9%;
+    }
+    /* Active pill matches segment bounds exactly — no horizontal bleed past
+       the bar (matches the reference SVG's pill at 112.56 / 110.22 wide).   */
+    .section3__phase5 .s3p5__seg::before {
+        inset: 0;
+    }
+
+    /* Outline words — re-overlap absolutely (tablet rule stacked them).
+       Top + bottom rows sit flush (no gap); orange "завышенный" pinned to
+       the right edge so it terminates at the same x as "уровень оплаты".    */
+    .section3__phase5 .s3p5__outline-top {
+        position: relative;
+        height: 28px;                                /* clipped tighter than 36 px line-height — pulls the bottom row up */
+        margin-bottom: -4px;                         /* slight overlap into bottom row */
+    }
+    .section3__phase5 .s3p5__outline-word {
+        position: absolute;
+        top: 0;
+        font-size: 36px;
+        line-height: 1;
+        width: auto;
+        white-space: nowrap;
+    }
+    .section3__phase5 .s3p5__outline-word--purple {
+        left: 0;
+        right: auto;
+    }
+    .section3__phase5 .s3p5__outline-word--orange {
+        left: auto;
+        right: 0;                                    /* pinned to container's right edge */
+        margin-top: 0;                               /* defeat tablet rule */
+    }
+    .section3__phase5 .s3p5__outline-bottom {
+        font-size: 36px;
+        line-height: 1;
+        margin-top: 0;
+    }
+}
+
+/* ============================================================================
+   Phase 6 — SECTION 5 (Figma 219:609)
+   Two polygons that converge vertically on scroll. Initial state = outline-only,
+   polygons translated off (left from above, right from below). Final state =
+   both polygons at spec position with their fills enabled. The convergence is
+   driven by --phase6-progress (0→1) set from JS on scroll; the fill→outline
+   swap is a discrete state flip when progress crosses the meeting threshold.
+   ============================================================================ */
+/* --- Continuous lime→transparent gradient spanning phases 6, 7, 8, 9.
+       Figma stops: 0% #C2F04F (100% opacity) → 100% #2F2F2F (0% opacity).
+       Painted on the wrapper so the fade runs once across the combined
+       height of the four sections instead of repeating per section.
+       The wrapper breaks out of `.container`'s 100px gutter to paint
+       the gradient edge-to-edge (100vw); the inner sections are then
+       padded back to the container content area via the symmetric
+       `padding-inline: calc(50vw - 50%)` trick. ----- */
+.phase-gradient-wrap {
+    position: relative;
+    width: 100vw;
+    margin-left: calc(50% - 50vw);
+    padding-left: calc(50vw - 50%);
+    padding-right: calc(50vw - 50%);
+background-color: #272727;
+background-image: linear-gradient(
+  0deg,
+  #C2F04F 0%,
+  rgba(194, 240, 79, 0.7) 20%,
+  rgba(194, 240, 79, 0.25) 45%,
+  rgba(39, 39, 39, 0) 75%
+);
+}
+
+.section5.section5__phase6 {
+    position: relative;
+    width: 100%;
+    margin: 0 auto 250px;
+    padding: 0;
+    background: transparent;                                 /* gradient comes from .phase-gradient-wrap */
+    color: #fff;
+    overflow: hidden;
+    --phase6-progress: 0;
+    --canvas-scale: 1;
+    --canvas-w: 1336;
+    --canvas-h: 767;
+}
+
+.section5__phase6 .section5__viewport {
+    position: relative;
+    width: 100%;
+    height: calc(var(--canvas-h) * 1px * var(--canvas-scale));
+    overflow: hidden;
+}
+
+.section5__phase6 .section5__canvas {
+    position: absolute;
+    top: 0;
+    left: 50%;
+    width: calc(var(--canvas-w) * 1px);
+    height: calc(var(--canvas-h) * 1px);
+    transform: translateX(-50%) scale(var(--canvas-scale));
+    transform-origin: top center;
+}
+
+/* --- Heading + lime underline (positions from merged composite SVG) ---------- */
+.section5__phase6 .section5__heading {
+    position: absolute;
+    left: 0;
+    top: 25px;
+    width: 1010px;
+    margin: 0;
+    font-family: 'Golos', 'Golos Text', sans-serif;
+    font-weight: 500;
+    font-size: 40px;
+    line-height: 137.5%;
+    letter-spacing: -0.02em;
+    color: #fff;
+    z-index: 5;
+    pointer-events: none;
+}
+.section5__phase6 .section5__heading-mark {
+    border-bottom: 1px solid transparent;
+}
+.section5__phase6 .section5__heading-underline {
+    position: absolute;
+    left: 697px;
+    top: 84px;
+    width: 224px;
+    height: 1px;
+    background: #C3F150;
+    z-index: 6;
+}
+
+/* --- Polygon groups: positions from the merged composite SVG.
+   Orange final: (222, 257), size 547x412. Initial: translateX(-222) -> canvas x=0.
+   Purple final: (505, 229), size 585x486. Initial: translateX(+246) -> right edge of 1336 canvas. */
+.section5__phase6 .section5__poly {
+    position: absolute;
+    will-change: transform;
+}
+.section5__phase6 .section5__poly--left {
+    left: 221.43px;
+    top: 253.77px;
+    width: 547px;
+    height: 412px;
+    z-index: 2;
+    transform: translate3d(calc(-221.43px * (1 - var(--phase6-progress))), 0, 0);
+}
+.section5__phase6 .section5__poly--right {
+    left: 504.72px;
+    top: 231.08px;
+    width: 585px;
+    height: 486px;
+    z-index: 1;
+    transform: translate3d(calc(246.28px * (1 - var(--phase6-progress))), 0, 0);
+}
+
+.section5__phase6 .section5__poly-shape {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    overflow: visible;
+}
+
+/* Show desktop polygon SVG by default; mobile variant is hidden until ≤770. */
+.section5__phase6 .section5__poly-shape--mobile {
+    display: none;
+}
+.section5__phase6 .section5__poly-fill {
+    fill-opacity: 1;
+    transition: fill-opacity 0.45s ease;
+}
+.section5__phase6[data-state="initial"] .section5__poly-fill {
+    fill-opacity: 0;
+}
+
+/* KPI captions inside each polygon */
+.section5__phase6 .section5__poly-kpi {
+    position: absolute;
+    margin: 0;
+    font-family: 'Golos Text', 'Golos', sans-serif;
+    font-weight: 500;
+    font-size: 35px;
+    line-height: 120%;
+    letter-spacing: -0.02em;
+    color: #fff;
+    z-index: 4;
+}
+.section5__phase6 .section5__poly--left .section5__poly-kpi {
+    left: 35px;
+    top: 35px;
+    width: 100%;
+}
+.section5__phase6 .section5__poly--right .section5__poly-kpi {
+    left: 25px;
+    top: 290px;
+    width: 95%;
+}
+
+/* Mini opinion labels — anchored INSIDE their parent polygon so they slide
+   together with the polygon during the phase6 merge animation. Positions
+   are polygon-relative (canvas coord minus polygon's left/top).             */
+.section5__phase6 .section5__opinion {
+    position: absolute;
+    margin: 0;
+    font-family: 'Golos Text', 'Golos', sans-serif;
+    font-weight: 500;
+    font-size: 16px;                                /* 1.5× smaller than the prior 24px pass */
+    line-height: 90%;
+    letter-spacing: -0.05em;
+    color: #fff;
+    z-index: 6;
+    pointer-events: none;
+}
+/* Inside .section5__poly--right (purple ⌐) — top-right strip of the L.
+   Was canvas (779, 263); polygon at (504.72, 231.08). */
+.section5__phase6 .section5__opinion--fundraisers {
+    left: 274.28px;
+    top: 31.92px;
+}
+/* Inside .section5__poly--left (orange Г) — bottom-left strip of the L.
+   Was canvas (257, 627); polygon at (221.43, 253.77). 16px / 2-line block
+   (~29 px tall) clears the strip's ~411 bottom edge from top 373.           */
+.section5__phase6 .section5__opinion--employers {
+    left: 35.57px;
+    top: 373.23px;
+}
+
+/* Mobile: stack polygons, run a VERTICAL merge animation (desktop's was
+   horizontal). Switch to mobile-only SVG variants whose Г-protrusion is
+   exactly mirrored (170×108 in a 340×256 viewBox), so when phase6-progress
+   approaches 1 the bottom polygon's notch puzzle-locks with the top one's. */
+@media (max-width: 770px) {
+    .section5.section5__phase6 {
+        margin-bottom: 10px;
+        /* phase6-progress is now JS-driven on scroll, like desktop */
+    }
+    .section5__phase6 .section5__poly-shape--desktop {
+        display: none;
+    }
+    .section5__phase6 .section5__poly-shape--mobile {
+        display: block;
+    }
+    .section5__phase6 .section5__viewport {
+        height: auto;
+    }
+    .section5__phase6 .section5__canvas {
+        position: relative;
+        left: auto;
+        top: auto;
+        width: 100%;
+        height: auto;
+        transform: none;
+        padding: 24px 16px 32px;
+    }
+    .section5__phase6 .section5__heading {
+        position: relative;
+        left: auto;
+        top: auto;
+        width: 100%;
+        font-size: 24px;
+        margin-bottom: 32px;
+    }
+    /* Replace the absolute-positioned underline span with a border on the
+       mark span so the lime line tracks "совпадение" wherever it wraps.    */
+    .section5__phase6 .section5__heading-mark {
+        border-bottom: 1px solid #C3F150;
+    }
+    .section5__phase6 .section5__heading-underline {
+        display: none;
+    }
+
+    .section5__phase6 .section5__poly {
+        position: relative;
+        left: auto;
+        top: auto;
+        width: 100%;
+        max-width: 420px;
+        height: auto;
+        margin: 0 auto;                              /* gap is supplied by the slide-in animation */
+    }
+    /* Both polygons share viewBox 340×256 (mobile SVG); aspect-ratio matches
+       so the protrusion is the same 170×108 size on both → notch mirroring. */
+    .section5__phase6 .section5__poly--left,
+    .section5__phase6 .section5__poly--right {
+        aspect-ratio: 340 / 256;
+    }
+    /* Vertical merge: top stays put (so it can't ride up into the heading);
+       only the bottom polygon moves. At progress=0 there's a 16 px gap
+       between them; at progress=1 the bottom slides up by 124 px → 108 px
+       overlap with the top's notch (= the protrusion size).                  */
+    .section5__phase6 .section5__poly--left {
+        transform: none;
+    }
+    .section5__phase6 .section5__poly--right {
+        margin-top: 16px;
+        transform: translate3d(0, calc(-124px * var(--phase6-progress)), 0);
+    }
+    .section5__phase6 .section5__poly-shape {
+        width: 100%;
+        height: 100%;
+    }
+
+    /* KPI text — anchored in % to each polygon. Coordinates derived from the
+       reference mobile SVG (mask1 top, mask0 bottom, both ~338 × 256).      */
+    .section5__phase6 .section5__poly-kpi {
+        position: absolute;
+        font-size: 16px;
+    }
+    .section5__phase6 .section5__poly--left .section5__poly-kpi {
+        /* Top polygon Г: KPI in the top-full strip, indented ~32 / 12 */
+        left: 8%;
+        top: 12%;
+        width: 84%;
+    }
+    .section5__phase6 .section5__poly--right .section5__poly-kpi {
+        /* Bottom polygon ⌐: KPI in the bottom-full strip, indented ~25 / 150 */
+        left: 7%;
+        top: 56%;
+        width: 86%;
+    }
+
+    /* Opinion labels — show on mobile, anchored in % to each polygon. */
+    .section5__phase6 .section5__opinion {
+        display: block;
+        font-size: 12px;
+    }
+    .section5__phase6 .section5__opinion--employers {
+        /* Top polygon's bottom-left strip — label sits low-left */
+        left: 8%;
+        top: 78%;
+    }
+    .section5__phase6 .section5__opinion--fundraisers {
+        /* Bottom polygon's top-right strip — label sits high-right */
+        left: 56%;
+        top: 8%;
+    }
+}
+
+/* ============================================================================
+   Phase 7 — SECTION 6 (Figma 1440x736)
+   Decorative orbital rings + centered heading + white pill CTA + vertical line.
+   ============================================================================ */
+@property --section6-progress {
+    syntax: '<number>';
+    inherits: true;
+    initial-value: 0;
+}
+.section6.section6__phase7 {
+    position: relative;
+    width: 100%;
+    margin: 0;
+    padding: 0;
+    background: transparent;                                 /* gradient comes from .phase-gradient-wrap */
+    color: #FBFBFB;
+    overflow: visible;
+    --canvas-scale: 1;
+    --canvas-w: 1440;
+    --canvas-h: 736;
+}
+
+.section6__phase7 .section6__viewport {
+    position: relative;
+    width: 100%;
+    height: calc(var(--canvas-h) * 1px * var(--canvas-scale));
+    overflow: visible;                                   /* divider line extends below */
+}
+
+.section6__phase7 .section6__canvas {
+    position: absolute;
+    top: 0;
+    left: 50%;
+    width: calc(var(--canvas-w) * 1px);
+    height: calc(var(--canvas-h) * 1px);
+    transform: translateX(-50%) scale(var(--canvas-scale));
+    transform-origin: top center;
+    /* The transform property already creates a stacking context, which would
+       trap the ring's z-index inside. Lift the whole canvas above the gradient
+       wrap below so the 1.7x-scaled ring's overflow stays visible across the
+       section 6 → section 8 boundary on desktop too. */
+    z-index: 2;
+}
+
+.section6__phase7 .section6__rings {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    pointer-events: none;
+    /* Lift the ring above the gradient wrap below so its 1.7x-scaled overflow
+       isn't hidden by the wrap's opaque bg — the bottom of the ring stays
+       visible across the section 6 → section 8 boundary. */
+    z-index: 2;
+    transform-origin: 50% 50%;
+    transform-box: fill-box;
+    will-change: transform;
+    /* Rotation is purely scroll-driven (360° sweep across the section's
+       viewport range). No continuous auto-rotation. Ring viewBox paths
+       are ~884px wide at scale 1.0; scale(0.961) targets ~850px diameter. */
+    transform: rotate(calc(360deg * var(--section6-progress, 0))) scale(0.961);
+}
+
+.section6__phase7 .section6__heading {
+    position: absolute;
+    top: 320px;
+    left: 50%;
+    transform: translateX(-50%);
+    margin: 0;
+    width: 1010px;
+    text-align: center;
+    font-family: 'Golos', 'Golos Text', sans-serif;
+    font-weight: 500;
+    font-size: 40px;
+    line-height: 99%;
+    letter-spacing: -0.01em;
+    color: #FBFBFB;
+    z-index: 2;
+    pointer-events: none;
+}
+.section6__phase7 .section6__heading-underline {
+    text-decoration: underline;
+    text-decoration-thickness: 2px;
+    text-underline-offset: 6px;
+}
+
+.section6__phase7 .section6__cta {
+    position: absolute;
+    left: 470.211px;
+    top: 387.728px;
+    width: 490px;
+    height: 60px;
+    margin: 0;
+    padding: 0;
+    border: 1px solid #FFFFFF;
+    border-radius: 30px;
+    background: transparent;
+    color: #FFFFFF;
+    font-family: 'Golos', 'Golos Text', sans-serif;
+    font-weight: 500;
+    font-size: 24px;
+    line-height: 58px;                                   /* 60 - 2*1px border */
+    text-align: center;
+    cursor: pointer;
+    z-index: 2;
+    transition: background 0.18s ease, color 0.18s ease;
+}
+.section6__phase7 .section6__cta:hover,
+.section6__phase7 .section6__cta:focus-visible {
+    background: #FFFFFF;
+    color: #2F2F2F;
+}
+
+.section6__phase7 .section6__divider {
+    position: absolute;
+    left: 715.5px;
+    top: 480px;
+    width: 1px;
+    height: 334px;
+    background: rgba(255, 255, 255, 0.8);
+    z-index: 1;
+    pointer-events: none;
+}
+
+@media (max-width: 770px) {
+    /* Clip the scaled ring horizontally only — overflow-x: clip avoids
+       turning overflow-y into a scroll container, so the ring can still
+       extend vertically across the section 6 → section 8 boundary. */
+    .section6.section6__phase7 {
+        overflow-x: clip;
+    }
+    .section6__phase7 .section6__viewport {
+        height: auto;
+        overflow-x: clip;
+    }
+    .section6__phase7 .section6__canvas {
+        position: relative;
+        left: auto;
+        top: auto;
+        width: 100%;
+        height: auto;
+        transform: none;
+        padding: 64px 16px 48px;
+        overflow-x: clip;
+    }
+    .section6__phase7 .section6__rings {
+        opacity: 0.6;
+        height: 100%;
+        /* On mobile the canvas is the screen width (~360px), so the desktop
+           scale renders the ring tiny. Bump the scale up so the ring
+           dominates the viewport like in the design. */
+        transform: rotate(calc(360deg * var(--section6-progress, 0))) scale(1.6);
+    }
+    .section6__phase7 .section6__heading {
+        position: relative;
+        left: auto;
+        top: auto;
+        transform: none;
+        width: 100%;
+        font-size: 24px;
+        margin-bottom: 32px;
+    }
+    .section6__phase7 .section6__cta {
+        position: relative;
+        left: auto;
+        top: auto;
+        width: 100%;
+        max-width: 360px;
+        margin: 0 auto;
+        font-size: 18px;
+        line-height: 60px;
+        display: block;
+    }
+    .section6__phase7 .section6__divider {
+        display: none;
+    }
+}
+
+/* ============================================================
+   Phase 8 — Section 8 (Figma node 219:650, FRAME "Buttons").
+   1440×551 canvas. Dark green linear-gradient (180°, #31332B → #607137).
+   Four cards at y=76: event(295×395) + story(295×454) + event + story.
+   ============================================================ */
+.section8.section8__phase8 {
+    position: relative;
+    width: 100%;
+    margin: 0;
+    padding: 0;
+    background: transparent;                                 /* gradient comes from .phase-gradient-wrap */
+    color: #FFFFFF;
+    overflow: hidden;
+    --canvas-scale: 1;
+    /* Canvas is 1240px (was 1440 with internal 100px gutters baked into
+       card positions). The 100px gutter now lives once on `.container`. */
+    --canvas-w: 1240;
+    /* Canvas height extended to 800 so the intro (heading + body) fits
+       above the cards without overlapping the longest (454px) story card. */
+    --canvas-h: 800;
+}
+
+.section8__phase8 .section8__viewport {
+    position: relative;
+    width: 100%;
+    height: calc(var(--canvas-h) * 1px * var(--canvas-scale));
+}
+
+.section8__phase8 .section8__canvas {
+    position: absolute;
+    top: 0;
+    left: 50%;
+    width: calc(var(--canvas-w) * 1px);
+    height: calc(var(--canvas-h) * 1px);
+    transform: translateX(-50%) scale(var(--canvas-scale));
+    transform-origin: top center;
+    overflow: hidden;
+}
+
+/* --- Track holds the four absolutely-positioned cards. On desktop the cards
+       don't move; the pager only shifts a lime "active" outline between them.
+       On mobile the track stacks vertically (see media query below). --- */
+.section8__phase8 .s8__track {
+    position: absolute;
+    inset: 0;
+}
+
+/* --- Active-card outline: 1px lime stroke around the thumbnail of whichever
+       card the pager has selected. Card 1 is the initial active card. ------ */
+.section8__phase8 .s8__card[data-active="true"] .s8__media {
+    outline: 1px solid #C2F04F;
+    outline-offset: -1px;
+}
+
+/* --- Card position + size (top=276 to leave room for the intro above;
+       widths 295). All four cards share the same top edge. ----------------- */
+.section8__phase8 .s8__card {
+    position: absolute;
+    top: 276px;
+    width: 295px;
+}
+.section8__phase8 .s8__card--pos1 { left: 0;      height: 395px; }
+.section8__phase8 .s8__card--pos2 { left: 315px;  height: 454px; }
+.section8__phase8 .s8__card--pos3 { left: 630px;  height: 395px; }
+.section8__phase8 .s8__card--pos4 { left: 946px;  height: 454px; }
+
+/* --- Thumbnail (295×295 at top of card; <img> element) ------------------- */
+.section8__phase8 .s8__media {
+    position: absolute;
+    left: 0;
+    top: 0;
+    display: block;
+    width: 295px;
+    height: 295px;
+    box-sizing: border-box;
+    object-fit: cover;
+    object-position: center top;
+    border: 0;
+    background: #2F2F2F;
+}
+.section8__phase8 .s8__media--photo { background: #F2F2F2; }
+
+/* --- Pills (shared) ------------------------------------------------------- */
+.section8__phase8 .s8__pill {
+    position: absolute;
+    box-sizing: border-box;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    height: 23.6px;
+    padding: 3.69px 11.06px 5.16px;
+    font-family: 'Golos', 'Golos Text', sans-serif;
+    font-weight: 500;
+    font-size: 14px;
+    line-height: 120%;
+    letter-spacing: -0.02em;
+    white-space: nowrap;
+}
+.section8__phase8 .s8__pill--outline {
+    border: 1px solid #FFFFFF;
+    background: transparent;
+    color: #FFFFFF;
+}
+.section8__phase8 .s8__pill--white {
+    background: #FFFFFF;
+    color: #2F2F2F;
+}
+.section8__phase8 .s8__pill--lime {
+    background: #C2F04F;
+    color: #2F2F2F;
+}
+
+/* --- Pill positions per card type (from Figma spec) ---------------------- */
+/* event card: outline-left "Закрытая встреча" + connector + lime "15 мая" */
+.section8__phase8 .s8__pill--event-left  { left: 0;        top: 312px;  }
+.section8__phase8 .s8__pill--event-right { left: 234.23px; top: 312.32px; }
+
+/* story card: outline-left "Про деньги" + connector + white "Текст" */
+.section8__phase8 .s8__pill--story-left  { left: 0;        top: 312.29px; border-radius: 73.75px; }
+.section8__phase8 .s8__pill--story-right { left: 239.69px; top: 312.29px; border-radius: 73.75px; }
+
+/* --- Connector line between pills ---------------------------------------- */
+.section8__phase8 .s8__connector {
+    position: absolute;
+    height: 1px;
+    background: #FFFFFF;
+}
+.section8__phase8 .s8__connector--event { left: 133.74px; top: 325.63px; width: 95.32px; }
+.section8__phase8 .s8__connector--story { left: 98.09px;  top: 325.24px; width: 129.8px; }
+
+/* --- Headings + byline (Golos Medium 20 / 120% / -2%) -------------------- */
+.section8__phase8 .s8__heading,
+.section8__phase8 .s8__byline {
+    position: absolute;
+    left: 0;
+    width: 295px;
+    margin: 0;
+    font-family: 'Golos', 'Golos Text', sans-serif;
+    font-weight: 500;
+    font-size: 20px;
+    line-height: 120%;
+    letter-spacing: -0.02em;
+    color: #FFFFFF;
+}
+.section8__phase8 .s8__heading { top: 347px; }
+.section8__phase8 .s8__byline  { top: 406px; }
+
+/* --- Pager (Figma 219:513): two chevrons in the bottom-right of canvas.
+       Sits OUTSIDE the .s8__track so it doesn't translate with the cards.
+       Layout: 52×23.5 group, 11.84-wide chevrons separated by ~16.5px gap. */
+.section8__phase8 .s8__nav {
+    position: absolute;
+    right: 0;              /* 100px gutter now provided by `.container` padding */
+    bottom: 24px;          /* canvas 600 − 24 − 23.5 = 552.5 top, ~22px below the longest card */
+    display: flex;
+    align-items: center;
+    gap: 16.5px;
+    z-index: 5;
+}
+
+.section8__phase8 .s8__nav-btn {
+    appearance: none;
+    -webkit-appearance: none;
+    box-sizing: content-box;
+    width: 11.84px;
+    height: 23.5px;
+    padding: 4px;          /* enlarges the click target without shifting the visual */
+    margin: -4px;
+    border: 0;
+    background: transparent;
+    color: #FFFFFF;
+    cursor: pointer;
+    transition: opacity 0.18s ease, color 0.18s ease;
+}
+.section8__phase8 .s8__nav-btn svg {
+    display: block;
+    width: 11.84px;
+    height: 23.5px;
+}
+.section8__phase8 .s8__nav-btn[disabled] {
+    color: rgba(255, 255, 255, 0.4);
+    cursor: default;
+}
+.section8__phase8 .s8__nav-btn:not([disabled]):hover,
+.section8__phase8 .s8__nav-btn:not([disabled]):focus-visible {
+    opacity: 0.7;
+}
+
+/* --- Desktop intro: centered heading + 2-line body above the cards ------ */
+.section8__phase8 .s8__intro {
+    position: absolute;
+    left: 0;
+    top: 76px;
+    width: 100%;
+    text-align: center;
+    color: #FFFFFF;
+    z-index: 2;
+}
+.section8__phase8 .s8__intro-heading {
+    margin: 0;
+    font-family: 'Golos', 'Golos Text', sans-serif;
+    font-weight: 500;
+    font-size: 40px;
+    line-height: 110%;
+    letter-spacing: -0.02em;
+}
+.section8__phase8 .s8__intro-underline {
+    text-decoration: underline;
+    text-decoration-thickness: 2px;
+    text-underline-offset: 6px;
+}
+.section8__phase8 .s8__intro-body {
+    max-width: 720px;
+    margin: 24px auto 0;
+    font-family: 'Golos', 'Golos Text', sans-serif;
+    font-weight: 400;
+    font-size: 18px;
+    line-height: 130%;
+    letter-spacing: -0.02em;
+    color: #FFFFFF;
+}
+.section8__phase8 .s8__intro-body--mobile {
+    display: none;                                            /* mobile copy hidden on desktop */
+}
+
+/* --- Dots are mobile-only --- */
+.section8__phase8 .s8__dots {
+    display: none;
+}
+
+/* --- Mobile (≤770px): drop the absolute canvas, intro on top,
+       cards become a horizontal scroll-snap carousel, dots replace chevrons. */
+@media (max-width: 770px) {
+    .section8__phase8 .section8__viewport {
+        height: auto;
+    }
+    .section8__phase8 .section8__canvas {
+        position: relative;
+        left: auto;
+        top: auto;
+        width: 100%;
+        height: auto;
+        transform: none;
+        padding: 32px 16px 48px;
+        overflow: visible;
+    }
+
+    /* --- Intro block (heading + body) above the carousel ----------------- */
+    .section8__phase8 .s8__intro {
+        position: relative;
+        left: auto;
+        top: auto;
+        width: auto;
+        text-align: left;
+        margin: 0 0 60px;
+    }
+    .section8__phase8 .s8__intro-heading {
+        margin: 0 0 16px;
+        font-size: 28px;
+        line-height: 110%;
+    }
+    .section8__phase8 .s8__intro-underline {
+        text-underline-offset: 4px;
+    }
+    .section8__phase8 .s8__intro-body {
+        max-width: none;
+        margin: 0;
+        font-size: 16px;
+    }
+    .section8__phase8 .s8__intro-body--desktop {
+        display: none;                                        /* desktop copy hidden on mobile */
+    }
+    .section8__phase8 .s8__intro-body--mobile {
+        display: block;                                       /* mobile copy shown */
+    }
+
+    /* --- Track becomes a horizontal scroll-snap carousel ----------------- */
+    .section8__phase8 .s8__track {
+        position: relative;
+        inset: auto;
+        display: flex;
+        flex-direction: row;
+        gap: 16px;
+        overflow-x: auto;
+        overflow-y: visible;
+        scroll-snap-type: x mandatory;
+        scroll-behavior: smooth;
+        scrollbar-width: none;
+        -ms-overflow-style: none;
+        margin: 0 -16px;                                      /* let cards bleed to viewport edges */
+        padding: 0 16px;
+        scroll-padding-left: 16px;
+        -webkit-overflow-scrolling: touch;
+        overscroll-behavior-x: contain;
+    }
+    .section8__phase8 .s8__track::-webkit-scrollbar { display: none; }
+
+    .section8__phase8 .s8__card[data-active="true"] .s8__media {
+        outline: none;                                        /* no active highlight on mobile */
+    }
+    .section8__phase8 .s8__nav {
+        display: none;                                        /* chevrons replaced by dots */
+    }
+
+    .section8__phase8 .s8__card,
+    .section8__phase8 .s8__card--pos1,
+    .section8__phase8 .s8__card--pos2,
+    .section8__phase8 .s8__card--pos3,
+    .section8__phase8 .s8__card--pos4 {
+        position: relative;
+        left: auto;
+        top: auto;
+        flex: 0 0 calc(100% - 0px);                           /* one full-width card per snap */
+        width: auto;
+        max-width: none;
+        height: auto;
+        margin: 0;
+        scroll-snap-align: start;
+        scroll-snap-stop: always;
+        display: grid;
+        grid-template-columns: auto 1fr auto;
+        grid-template-areas:
+            "media    media     media"
+            "pillL    connector pillR"
+            "heading  heading   heading"
+            "byline   byline    byline";
+        align-items: center;
+        column-gap: 8px;
+        row-gap: 14px;
+    }
+    .section8__phase8 .s8__media {
+        position: relative;
+        grid-area: media;
+        width: 100%;
+        height: auto;
+        aspect-ratio: 1 / 1;
+    }
+    .section8__phase8 .s8__pill--event-left,
+    .section8__phase8 .s8__pill--story-left {
+        position: relative;
+        left: auto;
+        top: auto;
+        grid-area: pillL;
+        justify-self: start;
+    }
+    .section8__phase8 .s8__pill--event-right,
+    .section8__phase8 .s8__pill--story-right {
+        position: relative;
+        left: auto;
+        top: auto;
+        grid-area: pillR;
+        justify-self: end;
+    }
+    .section8__phase8 .s8__connector {
+        position: relative;
+        left: auto;
+        top: auto;
+        width: 100%;
+        grid-area: connector;
+    }
+    .section8__phase8 .s8__heading {
+        position: relative;
+        left: auto;
+        top: auto;
+        width: 100%;
+        grid-area: heading;
+    }
+    .section8__phase8 .s8__byline {
+        position: relative;
+        left: auto;
+        top: auto;
+        width: 100%;
+        grid-area: byline;
+    }
+    /* event cards have no byline — keep grid template valid by hiding the row */
+    .section8__phase8 .s8__card--event {
+        grid-template-areas:
+            "media    media     media"
+            "pillL    connector pillR"
+            "heading  heading   heading";
+    }
+
+    /* --- Carousel pagination dots --------------------------------------- */
+    .section8__phase8 .s8__dots {
+        display: flex;
+        gap: 8px;
+        margin: 24px 0 0;
+        align-items: center;
+        justify-content: flex-start;
+    }
+    .section8__phase8 .s8__dot {
+        appearance: none;
+        -webkit-appearance: none;
+        flex: 1 1 0;
+        max-width: 80px;
+        height: 2px;
+        padding: 6px 0;                                       /* enlarge tap target */
+        margin: 0;
+        border: 0;
+        background: transparent;
+        cursor: pointer;
+        position: relative;
+    }
+    .section8__phase8 .s8__dot::before {
+        content: "";
+        display: block;
+        width: 100%;
+        height: 2px;
+        background: rgba(255, 255, 255, 0.4);
+        transition: background 0.2s ease;
+    }
+    .section8__phase8 .s8__dot[aria-current="true"]::before {
+        background: #FFFFFF;
+    }
+}
+
+/* ============================================================
+   Phase 9 — Section 9 (Figma node 219:558, GROUP "Group 2136137724").
+   1440×600 canvas; group is 1239.59×465.3 anchored at left:100, top:76.
+   Heading + 4 partner columns + bottom-right pager.
+   Continues Phase 8's dark green linear-gradient background.
+   ============================================================ */
+.section9.section9__phase9 {
+    position: relative;
+    width: 100%;
+    margin: 0;
+    padding: 0;
+    background: transparent;                                 /* gradient comes from .phase-gradient-wrap */
+    color: #FFFFFF;
+    overflow: hidden;
+    --canvas-scale: 1;
+    /* Canvas is 1240px (was 1440 with internal 100px gutters baked into
+       column positions). The 100px gutter now lives once on `.container`. */
+    --canvas-w: 1240;
+    --canvas-h: 600;
+}
+
+.section9__phase9 .section9__viewport {
+    position: relative;
+    width: 100%;
+    height: calc(var(--canvas-h) * 1px * var(--canvas-scale));
+}
+
+.section9__phase9 .section9__canvas {
+    position: absolute;
+    top: 0;
+    left: 50%;
+    width: calc(var(--canvas-w) * 1px);
+    height: calc(var(--canvas-h) * 1px);
+    transform: translateX(-50%) scale(var(--canvas-scale));
+    transform-origin: top center;
+    overflow: hidden;
+}
+
+/* --- Heading: Golos Medium 40 / 120% / -2%, white, center ---------------- */
+.section9__phase9 .s9__heading {
+    position: absolute;
+    left: 0;
+    top: 76px;
+    width: 100%;
+    margin: 0;
+    text-align: center;
+    font-family: 'Golos', 'Golos Text', sans-serif;
+    font-weight: 500;
+    font-size: 40px;
+    line-height: 120%;
+    letter-spacing: -0.02em;
+    color: #FFFFFF;
+}
+
+/* --- Partner columns: positioned exactly per Figma group children -------- */
+.section9__phase9 .s9__col {
+    position: absolute;
+    top: 219.08px;             /* 76 (group offset) + 143.08 (cards row offset) */
+}
+.section9__phase9 .s9__col--1 { left: 0;         width: 292.26px; height: 287.92px; }
+.section9__phase9 .s9__col--2 { left: 315.37px;  width: 294.37px; height: 239.92px; }
+.section9__phase9 .s9__col--3 { left: 629.85px;  width: 294.44px; height: 191.92px; }
+.section9__phase9 .s9__col--4 { left: 945.22px;  width: 294.37px; height: 239.92px; }
+
+/* Logo at top of column (per-logo offsets/dimensions from Figma) */
+.section9__phase9 .s9__logo {
+    position: absolute;
+    top: 0;
+    display: block;
+    user-select: none;
+}
+.section9__phase9 .s9__logo--658 { left: 2.03px; width: 86.09px;  height: 47.53px; }
+.section9__phase9 .s9__logo--656 { left: 0;      width: 69.3px;   height: 61.07px; }
+.section9__phase9 .s9__logo--657 { left: 2.13px; width: 144.46px; height: 43.7px;  }
+
+/* Body copy: starts at y=95.92 inside the column, full column width */
+.section9__phase9 .s9__col-text {
+    position: absolute;
+    top: 95.92px;
+    left: 0;
+    width: 100%;
+    margin: 0;
+    font-family: 'Golos', 'Golos Text', sans-serif;
+    font-weight: 500;
+    font-size: 20px;
+    line-height: 120%;
+    letter-spacing: -0.02em;
+    color: #FFFFFF;
+}
+.section9__phase9 .s9__col-link {
+    color: inherit;
+    text-decoration: underline;
+    text-decoration-thickness: 1px;
+    text-underline-offset: 2px;
+    transition: opacity 0.18s ease;
+}
+.section9__phase9 .s9__col-link:hover,
+.section9__phase9 .s9__col-link:focus-visible {
+    opacity: 0.7;
+}
+
+/* --- Pager (Figma 219:560): chevrons in bottom-right, mirrors Phase 8 ---- */
+.section9__phase9 .s9__nav {
+    position: absolute;
+    right: 1.3px;              /* 100px gutter now provided by `.container` padding;
+                                  pager is 1.3px shy of canvas right edge per Figma */
+    bottom: 59px;              /* canvas 600 − (517.8 + 23.5) = 58.7 */
+    display: flex;
+    align-items: center;
+    gap: 16.5px;
+    z-index: 5;
+}
+.section9__phase9 .s9__nav-btn {
+    appearance: none;
+    -webkit-appearance: none;
+    box-sizing: content-box;
+    width: 11.84px;
+    height: 23.5px;
+    padding: 4px;
+    margin: -4px;
+    border: 0;
+    background: transparent;
+    color: #FFFFFF;
+    cursor: pointer;
+    transition: opacity 0.18s ease, color 0.18s ease;
+}
+.section9__phase9 .s9__nav-btn svg {
+    display: block;
+    width: 11.84px;
+    height: 23.5px;
+}
+.section9__phase9 .s9__nav-btn[disabled] {
+    color: rgba(255, 255, 255, 0.4);
+    cursor: default;
+}
+.section9__phase9 .s9__nav-btn:not([disabled]):hover,
+.section9__phase9 .s9__nav-btn:not([disabled]):focus-visible {
+    opacity: 0.7;
+}
+
+/* --- Track is a no-op pass-through on desktop (columns position absolutely
+       relative to the canvas as before). It only takes over as a flex
+       carousel on mobile (see media query below). --- */
+.section9__phase9 .s9__track {
+    display: contents;
+}
+
+/* --- Mobile-only dots are hidden on desktop --- */
+.section9__phase9 .s9__dots {
+    display: none;
+}
+
+/* --- Mobile (≤770px): heading shrinks, columns become a horizontal
+       scroll-snap carousel, dots replace the chevrons. --- */
+@media (max-width: 770px) {
+    .section9__phase9 .section9__viewport {
+        height: auto;
+    }
+    .section9__phase9 .section9__canvas {
+        position: relative;
+        left: auto;
+        top: auto;
+        width: 100%;
+        height: auto;
+        transform: none;
+        padding: 48px 16px 56px;
+        overflow: visible;
+    }
+    .section9__phase9 .s9__heading {
+        position: relative;
+        left: auto;
+        top: auto;
+        font-size: 24px;
+        margin-bottom: 32px;
+    }
+
+    /* Track becomes the horizontal scroll-snap container */
+    .section9__phase9 .s9__track {
+        display: flex;
+        flex-direction: row;
+        gap: 16px;
+        overflow-x: auto;
+        overflow-y: visible;
+        scroll-snap-type: x mandatory;
+        scroll-behavior: smooth;
+        scrollbar-width: none;
+        -ms-overflow-style: none;
+        margin: 0 -16px;
+        padding: 0 16px;
+        scroll-padding-left: 16px;
+        -webkit-overflow-scrolling: touch;
+        overscroll-behavior-x: contain;
+    }
+    .section9__phase9 .s9__track::-webkit-scrollbar { display: none; }
+
+    .section9__phase9 .s9__col,
+    .section9__phase9 .s9__col--1,
+    .section9__phase9 .s9__col--2,
+    .section9__phase9 .s9__col--3,
+    .section9__phase9 .s9__col--4 {
+        position: relative;
+        left: auto;
+        top: auto;
+        flex: 0 0 calc(100% - 0px);
+        width: auto;
+        max-width: none;
+        height: auto;
+        margin: 0;
+        padding-top: 80px;       /* room for absolutely-positioned logo */
+        scroll-snap-align: start;
+        scroll-snap-stop: always;
+    }
+    .section9__phase9 .s9__col-text {
+        position: relative;
+        top: auto;
+    }
+    .section9__phase9 .s9__nav {
+        display: none;           /* chevrons replaced by dots */
+    }
+
+    /* --- Carousel pagination dots ----------------------------------------- */
+    .section9__phase9 .s9__dots {
+        display: flex;
+        gap: 8px;
+        margin: 24px 0 0;
+        align-items: center;
+        justify-content: flex-start;
+    }
+    .section9__phase9 .s9__dot {
+        appearance: none;
+        -webkit-appearance: none;
+        flex: 1 1 0;
+        max-width: 80px;
+        height: 2px;
+        padding: 6px 0;
+        margin: 0;
+        border: 0;
+        background: transparent;
+        cursor: pointer;
+        position: relative;
+    }
+    .section9__phase9 .s9__dot::before {
+        content: "";
+        display: block;
+        width: 100%;
+        height: 2px;
+        background: rgba(255, 255, 255, 0.4);
+        transition: background 0.2s ease;
+    }
+    .section9__phase9 .s9__dot[aria-current="true"]::before {
+        background: #FFFFFF;
+    }
+}
+
+/* ============================================================
+   Phase 10 — Footer 1:1 (Figma node 219:2555).
+   Frame 1440×450.805, dark #272727 bg.
+   Left col (x=102..~590): logo + 2 description paragraphs +
+     bottom row "Об организаторах" + TG/VK + 2026.
+   Right col (x=836..1338, w=501): heading + email input + name
+     input + 2 checkboxes + lime "Подписаться" button.
+   These rules override the older main.css footer styles. They
+   are scoped under `footer` so the popup-research form (which
+   reuses .footer-input/.footer-btn) keeps its old look.
+   ============================================================ */
+footer {
+    /* Two-column layout mirroring Figma's 1440 frame. The site
+       .container caps at 1270 with 15px side-padding, giving
+       ~1240 content width — close to Figma's 1236 (=1440−2×102),
+       so no extra horizontal padding is needed inside footer. */
+    display: flex;
+    flex-direction: row;
+    flex-wrap: nowrap;
+    justify-content: space-between;
+    align-items: stretch;
+    gap: 0;
+    padding: 56px 0 62px;
+    background: #272727;
+    color: #FFFFFF;
+    box-sizing: border-box;
+}
+
+footer .footer-block {
+    max-width: none;                                       /* override main.css 500px cap */
+}
+footer .footer-block__1 {
+    width: 588px;
+    flex: 0 0 588px;
+    display: flex;
+    flex-direction: column;
+}
+footer .footer-block__2 {
+    width: 501.162px;                                      /* matches input width; button extends 4.534px left of column */
+    flex: 0 0 501.162px;
+    display: flex;
+    flex-direction: column;
+}
+
+/* --- Left column ---------------------------------------------------------- */
+footer .footer-wrap1 {
+    display: block;                                        /* not flex; logo + p stack */
+    margin: 0 0 24px;
+}
+footer .footer-logo {
+    display: block;
+    width: 186.475px;
+    height: 68.925px;
+    max-width: none;
+    margin: 0 0 32px;
+}
+footer .footer-text1,
+footer .footer-text2 {
+    font-family: 'Golos', 'Golos Text', sans-serif;
+    font-weight: 500;
+    font-size: 20px;
+    line-height: 120%;
+    letter-spacing: -0.02em;
+    color: #FFFFFF;
+    margin: 0;
+}
+footer .footer-text2 {
+    margin-top: 24px;
+}
+
+footer .footer-wrap2 {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+    gap: 20px;
+    margin-top: auto;                                      /* pin to bottom of left column */
+    padding-top: 80px;                                     /* but leave breathing room above */
+}
+footer .footer-wrap3 {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    gap: 32px;
+}
+footer .footer-wrap4 {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    gap: 12px;
+}
+footer .footer-link1 {
+    font-family: 'Golos', 'Golos Text', sans-serif;
+    font-weight: 500;
+    font-size: 20px;
+    line-height: 100%;
+    letter-spacing: -0.02em;
+    color: #FFFFFF !important;
+    text-decoration: underline;
+    text-decoration-thickness: 1px;
+    text-underline-offset: 3px;
+}
+footer .footer-social {
+    display: block;
+    width: 35px;
+    height: 35px;
+    max-width: none;
+}
+footer .footer-text3 {
+    font-family: 'Golos', 'Golos Text', sans-serif;
+    font-weight: 500;
+    font-size: 20px;
+    line-height: 100%;
+    color: #FFFFFF;
+    margin: 0;
+}
+
+/* --- Right column heading ------------------------------------------------- */
+footer .footer-text4 {
+    font-family: 'Golos', 'Golos Text', sans-serif;
+    font-weight: 500;
+    font-size: 20px;
+    line-height: 120%;
+    letter-spacing: -0.02em;
+    color: #FFFFFF;
+    margin: 0 0 28px;
+    max-width: none;
+    width: auto;
+}
+
+/* --- Inputs (email then name): lime border, transparent bg --------------- */
+footer .footer-input {
+    display: block;
+    box-sizing: border-box;
+    width: 501.162px;
+    max-width: 100%;
+    height: 50.81px;
+    padding: 0 24px;
+    border: 1px solid #C2F04F;
+    border-radius: 0;
+    background: transparent;
+    color: #FFFFFF;
+    font-family: 'Golos', 'Golos Text', sans-serif;
+    font-weight: 500;
+    font-size: 16px;
+    line-height: 100%;
+    letter-spacing: -0.02em;
+    outline: none;
+    -webkit-appearance: none;
+    appearance: none;
+}
+footer .footer-input__email {
+    margin-bottom: 7.4px;                                  /* 206.519 − (148.332+50.81) ≈ 7.38 */
+}
+footer .footer-input__name {
+    margin-bottom: 27px;                                   /* 284.05 − (206.52+50.81) ≈ 26.72 */
+}
+footer .footer-input::placeholder {
+    color: rgba(255, 255, 255, 0.5);
+    font-family: 'Golos', 'Golos Text', sans-serif;
+    font-weight: 500;
+    font-size: 16px;
+    line-height: 100%;
+    letter-spacing: -0.02em;
+}
+footer .footer-input:focus {
+    border-color: #C2F04F;
+    box-shadow: 0 0 0 1px #C2F04F inset;
+}
+
+/* --- Checkboxes: 10.275 square, white stroke ----------------------------- */
+footer .footer-checkbox__wrap {
+    display: flex;
+    flex-direction: column;
+    gap: 11.7px;                                           /* 306.14 − 284.05 − 10.275 ≈ 11.81 */
+    margin-bottom: 23px;                                   /* 339.67 − 316.41 ≈ 23.26 */
+}
+footer .footer-checkbox__label {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    gap: 8px;
+}
+footer .footer-checkbox__input {
+    -webkit-appearance: none;
+    appearance: none;
+    width: 10.275px;
+    height: 10.275px;
+    flex: 0 0 10.275px;
+    background: transparent;
+    background-image: none !important;                     /* override main.css svg fallback */
+    border: 1.55px solid #FFFFFF;
+    border-radius: 0;
+    cursor: pointer;
+    outline: none;
+    margin: 0;
+}
+footer .footer-checkbox__input:checked {
+    background: #FFFFFF;
+    background-image: none !important;
+}
+footer .footer-checkbox__span {
+    font-family: 'Golos', 'Golos Text', sans-serif;
+    font-weight: 500;
+    font-size: 12px;
+    line-height: 120%;
+    letter-spacing: -0.02em;
+    color: #FFFFFF;
+    cursor: pointer;
+}
+footer .footer-checkbox__span a,
+footer .footer-checkbox__link {
+    color: #FFFFFF;
+    text-decoration: underline;
+    text-decoration-thickness: 1px;
+    text-underline-offset: 2px;
+}
+
+/* --- CTA button: lime, very rounded, full-column ------------------------- */
+footer .footer-btn {
+    display: block;
+    width: 505.696px;
+    max-width: calc(100% + 4.534px);
+    height: 48.821px;
+    margin: 0 0 0 -4.534px;                                /* extends 4.534px left of input column per Figma */
+    padding: 0;
+    border: 1px solid #C2F04F;
+    border-radius: 24.4105px;
+    background: #C2F04F;
+    color: #272727;
+    font-family: 'Golos', 'Golos Text', sans-serif;
+    font-weight: 500;
+    font-size: 18px;
+    line-height: 100%;
+    letter-spacing: -0.02em;
+    cursor: pointer;
+    transition: opacity 0.18s ease;
+}
+footer .footer-btn:hover,
+footer .footer-btn:focus-visible {
+    opacity: 0.85;
+}
+
+/* --- Mobile fallback (≤770px): stack columns; keep lime palette --------- */
+@media (max-width: 770px) {
+    footer {
+        flex-direction: column;
+        gap: 48px;
+        padding: 32px 16px 36px;
+    }
+    footer .footer-block,
+    footer .footer-block__1,
+    footer .footer-block__2 {
+        width: 100%;
+        flex: 1 1 auto;
+        max-width: none;
+    }
+    footer .footer-block__1 { order: 2; }
+    footer .footer-block__2 { order: 1; }
+    footer .footer-logo {
+        width: 140px;
+        height: auto;
+        margin-bottom: 20px;
+    }
+    footer .footer-text1,
+    footer .footer-text2,
+    footer .footer-text4 {
+        font-size: 16px;
+    }
+    footer .footer-text2 { margin-top: 16px; }
+    footer .footer-wrap2 {
+        padding-top: 32px;
+        flex-wrap: wrap;
+        row-gap: 16px;
+    }
+    footer .footer-input {
+        width: 100%;
+        height: 46px;
+        font-size: 14px;
+        padding: 0 16px;
+    }
+    footer .footer-input::placeholder { font-size: 14px; }
+    footer .footer-btn {
+        width: 100%;
+        height: 46px;
+        font-size: 16px;
+    }
+}

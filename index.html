@@ -1,0 +1,613 @@
+<!DOCTYPE html>
+<!-- saved from url=(0044)https://fundr.sredasvoih.com/index-backup.php -->
+<html lang="ru"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Исследование фандрайзеров и их нанимателей</title>
+
+    <link rel="apple-touch-icon" sizes="180x180" href="https://nkocenter.com/build/images/coworking/favicon/apple-touch-icon.png">
+    <link rel="icon" type="image/png" sizes="32x32" href="https://nkocenter.com/build/images/coworking/favicon/favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="https://nkocenter.com/build/images/coworking/favicon/favicon-16x16.png">
+    <link rel="mask-icon" href="https://nkocenter.com/build/images/coworking/favicon/safari-pinned-tab.svg" color="#5bbad5">
+    <link rel="shortcut icon" href="https://nkocenter.com/build/images/coworking/favicon/favicon.ico">
+
+    <meta property="og:image" content="https://fundr.sredasvoih.com/img/share-tiny.png">
+    <meta property="og:image:width" content="1200">
+    <meta property="og:image:height" content="630">
+
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:image" content="https://fundr.sredasvoih.com/img/share-tiny.png">
+
+    <link href="./css/animate.css" rel="stylesheet">
+    <link href="./css/main.css" rel="stylesheet">
+    <!-- styles.css overrides main.css for Figma 1:1 restyle (Phase 0) -->
+    <link rel="stylesheet" href="./css/styles.css">
+
+</head>
+<body>
+    <!-- Mobile burger trigger lives OUTSIDE <header> because main.css hides
+         the entire header on small viewports. The existing common.js handler
+         opens .burger-menu on click. -->
+    <button type="button" class="header-burger__icon" aria-label="Открыть меню">
+        <svg width="20" height="17" viewBox="0 0 20 17" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+            <path d="M0 1.24765C0 1.93671 0.558592 2.4953 1.24765 2.4953H18.7523C19.4414 2.4953 20 1.93671 20 1.24765C20 0.558592 19.4414 0 18.7523 0H1.24765C0.558592 0 0 0.558592 0 1.24765Z" fill="white"/>
+            <path d="M0 15.2242C0 15.9133 0.558592 16.4719 1.24765 16.4719H18.7523C19.4414 16.4719 20 15.9133 20 15.2242C20 14.5352 19.4414 13.9766 18.7523 13.9766H1.24765C0.558592 13.9766 0 14.5352 0 15.2242Z" fill="white"/>
+            <path d="M0 8.23202C0 8.92108 0.558592 9.47967 1.24765 9.47967H18.7523C19.4414 9.47967 20 8.92108 20 8.23202C20 7.54297 19.4414 6.98438 18.7523 6.98438H1.24765C0.558592 6.98438 0 7.54297 0 8.23202Z" fill="white"/>
+        </svg>
+    </button>
+    <header>
+        <div class="container">
+            <nav class="topnav header_inside">
+                <a href="javascript:void(0);" class="topnav__link topnav__link--tema topnav__link--active header_inside-item">Тема</a>
+                <a href="javascript:void(0);" class="topnav__link topnav__link--issledovanie header_inside-item header_inside-item-disabled">Исследование</a>
+                <a href="javascript:void(0);" class="topnav__link topnav__link--opyt header_inside-item header_inside-item-disabled">Опыт</a>
+                <a href="javascript:void(0);" class="topnav__link topnav__link--sobytiya header_inside-item" aria-haspopup="true" aria-expanded="false" aria-controls="topnav-events-popup">
+                    <span class="topnav__label">События</span>
+                    <svg class="topnav__plus" width="9.92" height="9.92" viewBox="0 0 9.92 9.92" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+                        <line class="topnav__plus-v" x1="4.96" y1="0" x2="4.96" y2="9.92" stroke="currentColor" stroke-width="0.816"/>
+                        <line x1="0" y1="4.96" x2="9.92" y2="4.96" stroke="currentColor" stroke-width="0.816"/>
+                    </svg>
+                </a>
+                <a href="https://fundr.sredasvoih.com/about/" class="topnav__link topnav__link--about header_inside-item">Об организаторах</a>
+
+                <!-- Events dropdown: opens on click of "События" link.
+                     Items are rendered from the EVENTS array in JS below
+                     (search for `var EVENTS =`). Add/edit there, no markup
+                     changes needed. Up to 4–5 items recommended. -->
+                <div class="topnav__events-popup" id="topnav-events-popup" role="menu" aria-hidden="true"></div>
+            </nav>
+        </div>
+    </header>
+    <div class="container-wrapper">
+        <div class="container-custom">
+            <div class="container">
+                <section class="hero" data-state="both">
+                    <div class="hero__canvas">
+                        <img src="./img/figma/hero_oval.svg" class="hero__bg hero__bg--oval" alt="" aria-hidden="true">
+                        <img src="./img/figma/hero_triangle_up.svg" class="hero__bg hero__bg--triangle-up" alt="" aria-hidden="true">
+                        <img src="./img/figma/hero_arc.svg" class="hero__bg hero__bg--arc" alt="" aria-hidden="true">
+                        <img src="./img/figma/hero_triangle_down.svg" class="hero__bg hero__bg--triangle-down" alt="" aria-hidden="true">
+
+                        <div class="hero__brand">
+                            <span class="hero__brand-word">Спецпроект</span>
+                            <img src="./img/figma/logo_specproject.svg" alt="СРЕДА_СВОИХ" class="hero__brand-logo">
+                        </div>
+
+                        <h1 class="hero__caption">
+                            <span class="hero__caption-line hero__caption-line--1">Исследование</span>
+                            <span class="hero__caption-line hero__caption-line--2">фандрайзеров</span>
+                            <span class="hero__caption-line hero__caption-line--3"><span class="hero__caption-prefix">и&nbsp;их&nbsp;</span>нанимателей</span>
+                        </h1>
+
+                        <div class="hero__toggle" role="tablist" aria-label="Аудитория">
+                            <span class="hero__toggle-bar" aria-hidden="true"></span>
+                            <span class="hero__toggle-pill" aria-hidden="true"></span>
+                            <button type="button" class="hero__toggle-segment hero__toggle-segment--left" role="tab" data-action="fundraisers" aria-selected="false">для<br>фандрайзеров</button>
+                            <button type="button" class="hero__toggle-segment hero__toggle-segment--center" role="tab" data-action="both" aria-selected="true">для&nbsp;всех</button>
+                            <button type="button" class="hero__toggle-segment hero__toggle-segment--right" role="tab" data-action="employers" aria-selected="false">для<br>нанимателей</button>
+                            <p class="hero__toggle-descriptor" data-for="fundraisers">это проект о&nbsp;том, чем должен заниматься фандрайзер в&nbsp;вашей конкретной организации, и&nbsp;где его искать</p>
+                            <p class="hero__toggle-descriptor" data-for="employers">это проект о&nbsp;том, что важно учитывать нанимателю при&nbsp;работе с&nbsp;фандрайзером в&nbsp;вашей конкретной организации</p>
+                        </div>
+                    </div>
+                </section>
+            </div>
+        </div>
+    </div>
+
+    <div class="container-wrapper">
+        <div class="container">
+
+            <section class="section1">
+                <div class="section1__canvas">
+                    <p class="section1__lead">Мы&nbsp;собрали данные о&nbsp;действительной роли фандрайзера, потому что на&nbsp;рынке сложилась тревожная ситуация: специалистов ищут постоянно, но&nbsp;совпадения происходят реже, чем хотелось&nbsp;бы. НКО не&nbsp;находят «своих» людей, а&nbsp;фандрайзеры сталкиваются с&nbsp;размытыми ожиданиями и&nbsp;непрозрачными условиями.</p>
+
+                    <div class="section1__sreda">
+                        <img src="./img/figma/sreda_logo_2.svg" class="section1__logo" alt="Среда своих">
+                        <p class="section1__desc">— пространство в&nbsp;CITYе для&nbsp;благотворительных проектов и&nbsp;тех, кто их&nbsp;создаёт. Проект Комитета общественных связей и&nbsp;молодёжной политики CITYы</p>
+                    </div>
+
+                    <p class="section1__bridge">Чтобы разобраться в&nbsp;причинах противоречия, мы</p>
+
+                    <div class="section1__boxes">
+                        <img src="./img/figma/section1_mask_left.svg" class="section1__mask-left" alt="">
+                        <img src="./img/figma/section1_mask_right.svg" class="section1__bg-arc" alt="">
+                        <img src="./img/figma/section1_boxes_mobile.svg" class="section1__boxes-mobile" alt="" aria-hidden="true">
+                        <h2 class="section1__h-issledovanie">Исследование</h2>
+                        <p class="section1__callout">Провели качественное и&nbsp;количественное исследование и&nbsp;анализ рынка</p>
+                        <h2 class="section1__h-opyt">Опыт</h2>
+                        <p class="section1__opyt-body">Cобрали опыт и&nbsp;мнения людей из&nbsp;сектора и&nbsp;внешних экспертов для&nbsp;того, чтобы продолжить разговор в&nbsp;практическом ключе&nbsp;— в&nbsp;текстах и&nbsp;событиях</p>
+                    </div>
+
+                    <span class="section1__divider" aria-hidden="true"></span>
+                </div>
+            </section>
+    
+
+            <!--
+              Phase 4 — Section 2 (Figma node 219:318, GROUP "Group 2136137594")
+              Frame: x=-38.97  y=2075   w=1518.94  h=641.48
+              Section bleeds 38.97px past the 1440 canvas's left edge.
+              Children (section-relative coords from spec locationRelativeToParent):
+                219:319  heading   x=135.97  y=0       w=931.57  h=144   (Golos Text 400 / 40 / 120% / -2%, #FFFFFF)
+                219:322  portraits x=0       y=204     w=1518.94 h=331.93 (section2_portraits.svg)
+                219:320  track     x=144.87  y=618.93  w=603     h=1     (white)
+                219:321  thumb     x=459.97  y=595.93  w=35      h=45.55 (white, radius 74.02px)
+            -->
+            <section class="section2">
+                <p class="section2_text1">Из&nbsp;мнений 232 респондентов из&nbsp;28&nbsp;регионов COUNTRY, 30&nbsp;интервью и&nbsp;анализа рынка мы&nbsp;собрали портреты</p>
+
+                <canvas id="canvas" width="1100" height="400"></canvas>
+                <div class="controls">
+                    <input type="range" id="slider" min="0.9" max="1" step="0.001" value="0">
+                </div>
+            </section>
+
+
+            <!-- ============================================================
+                 Phase 5 — Sections 3 + 4 (Figma frame 219:243, 1178x1178)
+                 Single canvas wraps both legacy <section class="section3"> and
+                 <section class="section4"> content because Figma treats them
+                 as one frame at x=96.21, y=2905. Legacy class names are
+                 preserved so existing JS (opt-3..opt-6 -> .section3_text2/3,
+                 .section4_text1/2) keeps working.
+                 ============================================================ -->
+            <section class="section3 section3__phase5" data-state="both">
+                <div class="section3__canvas">
+
+                    <!-- Heading 219:259 + lime underline 219:260 (under "противоречия") -->
+                    <p class="section3_text1 s3p5__heading">Результаты дали нам возможность увидеть <span class="s3p5__underline-target">противоречия</span>. Например, в&nbsp;представлении об&nbsp;обязанностях и&nbsp;заработной плате</p>
+
+                    <!-- Mega numbers 219:255: 46,7% (orange) overlapping 71,7% (purple),
+                         each rendered with a 3-color outline stack (orange + purple + white)
+                         for chromatic-aberration treatment. -->
+                    <div class="s3p5__mega">
+                        <span class="s3p5__mega-num s3p5__mega-num--orange" aria-hidden="true"><span class="s3p5__mega-digits">46</span><span class="s3p5__mega-suffix">,7%</span></span>
+                        <span class="s3p5__mega-num s3p5__mega-num--purple" aria-hidden="true"><span class="s3p5__mega-digits">71</span><span class="s3p5__mega-suffix">,7%</span></span>
+                        <span class="visually-hidden">46,7% и 71,7%</span>
+                    </div>
+
+                    <!-- Small color paragraphs 219:285 + 219:286 (sit on the right of mega numbers) -->
+                    <div class="s3p5__minicopy">
+                        <p class="section3_text2 s3p5__minicopy-purple">Фандрайзеров совмещают свою работу с&nbsp;другими задачами в&nbsp;организации.</p>
+                        <p class="section3_text3 s3p5__minicopy-orange">Нанимателей признают, что фандрайзеры выполняют и&nbsp;другие задачи.</p>
+                    </div>
+
+                    <!-- Top toggle 219:262 (508x54 wrapper). 3 segments are buttons that
+                         set [data-state] on the section root; CSS reacts to that. -->
+                    <div class="s3p5__toggle s3p5__toggle--top">
+                        <div class="s3p5__toggle-inner">
+                            <button type="button" class="s3p5__seg s3p5__seg--left" data-action="fundraisers">
+                                <span class="s3p5__seg-label">мнение<br>фандрайзеров</span>
+                            </button>
+                            <button type="button" class="s3p5__seg s3p5__seg--mid" data-action="both">
+                                <span class="s3p5__seg-pill" aria-hidden="true"></span>
+                                <span class="s3p5__seg-pill-label">оба мнения</span>
+                            </button>
+                            <button type="button" class="s3p5__seg s3p5__seg--right" data-action="employers">
+                                <span class="s3p5__seg-label">мнение<br>нанимателей</span>
+                            </button>
+                        </div>
+                    </div>
+
+                    <!-- Outline headline 219:246: "несоразмерный / завышенный + уровень оплаты"
+                         (legacy .text-container kept for back-compat, but Phase 5 styling is
+                         driven by .s3p5__outline overrides on the same element.) -->
+                    <div class="text-container s3p5__outline">
+                        <div class="top-row-stack s3p5__outline-top">
+                            <div class="word word-purple s3p5__outline-word s3p5__outline-word--purple">несоразмерный</div>
+                            <div class="word word-orange s3p5__outline-word s3p5__outline-word--orange">завышенный</div>
+                        </div>
+                        <div class="bottom-row s3p5__outline-bottom">уровень оплаты</div>
+                    </div>
+
+                    <!-- Big body paragraphs 219:252 + 219:253 (610x208 each) -->
+                    <div class="section4-wrap s3p5__bodywrap">
+                        <p class="section4_text1 s3p5__body s3p5__body--purple">Фандрайзеры часто оценивают текущий уровень оплаты как несоразмерный сложности и&nbsp;ответственности роли. Большинство фандрайзеров (34,7%) получают от&nbsp;50&nbsp;до&nbsp;100 тысяч рублей в&nbsp;месяц. Однако хотят они другого: в&nbsp;абсолютных значениях уровень оплаты труда, который больше половины фандрайзеров (61,4%) оценивают как «приемлемый», соответствует доходу 100&nbsp;000&nbsp;рублей в&nbsp;месяц.</p>
+                        <p class="section4_text2 s3p5__body s3p5__body--orange">Наниматели часто считают ожидания фандрайзеров по&nbsp;фиксированной части оплаты завышенными. Больше трети организаций (38%) ориентируются на&nbsp;волонтёрский формат или исключительно переменную модель оплаты (например, процент от&nbsp;привлеченных средств), а&nbsp;премии за&nbsp;перевыполнение плана встречаются только у&nbsp;3,4%. 85% опрошенных нанимателей утверждают, что применяют нематериальную мотивацию для своих фандрайзеров.</p>
+                    </div>
+
+                    <!-- Bottom toggle 219:274 (mirror of top toggle, syncs to same state). -->
+                    <div class="s3p5__toggle s3p5__toggle--bottom">
+                        <div class="s3p5__toggle-inner">
+                            <button type="button" class="s3p5__seg s3p5__seg--left" data-action="fundraisers">
+                                <span class="s3p5__seg-label">мнение<br>фандрайзеров</span>
+                            </button>
+                            <button type="button" class="s3p5__seg s3p5__seg--mid" data-action="both">
+                                <span class="s3p5__seg-pill" aria-hidden="true"></span>
+                                <span class="s3p5__seg-pill-label">оба мнения</span>
+                            </button>
+                            <button type="button" class="s3p5__seg s3p5__seg--right" data-action="employers">
+                                <span class="s3p5__seg-label">мнение<br>нанимателей</span>
+                            </button>
+                        </div>
+                    </div>
+
+                </div>
+            </section>
+
+            <!-- Legacy <section class="section4"> retained as empty stub so any
+                 anchor / nav reference keeps resolving; the visible content moved
+                 into the section3__canvas above per Figma. -->
+            <section class="section4 section4__phase5-empty" aria-hidden="true"></section>
+
+            <section class="section5 section5__phase6" data-state="initial" aria-label="Section 5 — общий взгляд">
+                <div class="section5__viewport">
+                    <div class="section5__canvas">
+                        <h2 class="section5__heading">А&nbsp;в&nbsp;некоторых вопросах&nbsp;— заметить <span class="section5__heading-mark">совпадение</span> и&nbsp;собрать цельную картину</h2>
+                        <span class="section5__heading-underline" aria-hidden="true"></span>
+
+                        <!-- Left polygon: exact paths from Figma (notch BOTTOM-RIGHT) + masked ellipse.
+                             viewBox 0 0 547 412, step at (284, 209). The ellipse here extends to the
+                             RIGHT (positive x, into purple area) and is clipped by the polygon mask. -->
+                        <div class="section5__poly section5__poly--left" aria-label="мнение нанимателей">
+                            <!-- Mobile-only polygon: matched 170×108 notch at 50% / 58% so it can puzzle-lock with the bottom polygon during merge -->
+                            <svg class="section5__poly-shape section5__poly-shape--mobile" viewBox="0 0 340 256" preserveAspectRatio="none" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+                                <path class="section5__poly-fill" d="M2 2 L338 2 L338 148 L171 148 L171 254 L2 254 Z" fill="#FF6E32"/>
+                                <mask id="mask_p6_orange_mobile" maskUnits="userSpaceOnUse" x="0" y="0" width="340" height="256">
+                                    <path d="M2 2 L338 2 L338 148 L171 148 L171 254 L2 254 Z" fill="#FFFFFF"/>
+                                </mask>
+                                <g mask="url(#mask_p6_orange_mobile)">
+                                    <path d="M299.301 127.393C328.486 178.717 340.547 233.576 336.476 280.767C332.405 327.961 312.21 367.437 276.935 388.115C241.659 408.793 197.891 406.812 155.601 386.795C113.313 366.778 72.5512 328.744 43.3659 277.42C14.1807 226.095 2.1196 171.236 6.1904 124.044C10.2614 76.85 30.4557 37.375 65.7313 16.697C101.007 -3.982 144.775 -2.001 187.065 18.017C229.353 38.033 270.115 76.068 299.301 127.393Z" stroke="white" fill="none"/>
+                                </g>
+                                <path d="M2 2 L338 2 L338 148 L171 148 L171 254 L2 254 Z" stroke="#FF6E32" stroke-width="2"/>
+                            </svg>
+                            <svg class="section5__poly-shape section5__poly-shape--desktop" width="547" height="412" viewBox="0 0 547 412" preserveAspectRatio="none" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+                                <path class="section5__poly-fill" d="M0.999948 3.3282C0.999998 2.04224 2.04293 1.0003 3.32893 1.00029L542.785 0.999311C544.071 0.999311 545.113 2.0423 545.113 3.32829L545.114 206.464C545.114 207.75 544.071 208.793 542.785 208.793L288.391 208.793C286 208.793 284.062 210.731 284.062 213.121L284.062 408.376C284.062 409.662 283.019 410.704 281.733 410.704L3.32888 410.705C2.04288 410.705 1.00033 409.662 1.00033 408.376L0.999948 3.3282Z" fill="#FF6E32"/>
+                                <mask id="mask_p6_orange" style="mask-type:alpha" maskUnits="userSpaceOnUse" x="0" y="0" width="547" height="412">
+                                    <path d="M0.999948 3.3282C0.999998 2.04224 2.04293 1.0003 3.32893 1.00029L542.785 0.999311C544.071 0.999311 545.113 2.0423 545.113 3.32829L545.114 206.464C545.114 207.75 544.071 208.793 542.785 208.793L288.391 208.793C286 208.793 284.062 210.731 284.062 213.121L284.062 408.376C284.062 409.662 283.019 410.704 281.733 410.704L3.32888 410.705C2.04288 410.705 1.00033 409.662 1.00033 408.376L0.999948 3.3282Z" fill="#FFFFFF"/>
+                                    <path d="M0.999948 3.3282C0.999998 2.04224 2.04293 1.0003 3.32893 1.00029L542.785 0.999311C544.071 0.999311 545.113 2.0423 545.113 3.32829L545.114 206.464C545.114 207.75 544.071 208.793 542.785 208.793L288.391 208.793C286 208.793 284.062 210.731 284.062 213.121L284.062 408.376C284.062 409.662 283.019 410.704 281.733 410.704L3.32888 410.705C2.04288 410.705 1.00033 409.662 1.00033 408.376L0.999948 3.3282Z" stroke="#FFFFFF" stroke-width="2"/>
+                                </mask>
+                                <g mask="url(#mask_p6_orange)">
+                                    <path d="M488.8 41.0082C606.683 76.5706 707.002 129.909 773.904 187.375C807.356 216.108 832.434 245.857 847.185 274.914C861.933 303.969 866.343 332.303 858.517 358.245C850.691 384.186 831.348 405.354 802.992 421.404C774.633 437.457 737.287 448.375 693.526 453.815C606.005 464.696 492.926 453.655 375.043 418.093C257.16 382.531 156.839 329.193 89.9375 271.727C56.486 242.994 31.4078 213.244 16.6576 184.187C1.90901 155.133 -2.50126 126.799 5.32467 100.857C13.1507 74.9154 32.4943 53.7473 60.85 37.6966C89.2086 21.6443 126.555 10.7272 170.316 5.28679C257.837 -5.5938 370.917 5.4459 488.8 41.0082Z" stroke="white" fill="none"/>
+                                    <path d="M0.999948 3.3282C0.999998 2.04224 2.04293 1.0003 3.32893 1.00029L542.785 0.999311C544.071 0.999311 545.113 2.0423 545.113 3.32829L545.114 206.464C545.114 207.75 544.071 208.793 542.785 208.793L288.391 208.793C286 208.793 284.062 210.731 284.062 213.121L284.062 408.376C284.062 409.662 283.019 410.704 281.733 410.704L3.32888 410.705C2.04288 410.705 1.00033 409.662 1.00033 408.376L0.999948 3.3282Z" stroke="#FF6E32" stroke-width="2"/>
+                                </g>
+                            </svg>
+                            <p class="section5__poly-kpi">В&nbsp;58,8% случаях в&nbsp;фандрайзинге организации отсутствуют KPI или даже формальный&nbsp; характер цели фандрайзинга.</p>
+                            <span class="section5__opinion section5__opinion--employers">мнение<br>нанимателей</span>
+                        </div>
+
+                        <!-- Right polygon: exact path from Figma (notch in TOP-LEFT) + masked ellipse curve.
+                             viewBox 0 0 585 486, step at (262, 232). -->
+                        <div class="section5__poly section5__poly--right" aria-label="мнение фандрайзеров">
+                            <!-- Mobile-only polygon: notch mirrored at 50% / 42% — locks with the top polygon's protrusion -->
+                            <svg class="section5__poly-shape section5__poly-shape--mobile" viewBox="0 0 340 256" preserveAspectRatio="none" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+                                <path class="section5__poly-fill" d="M338 254 L2 254 L2 108 L171 108 L171 2 L338 2 Z" fill="#AA6EFF"/>
+                                <mask id="mask_p6_purple_mobile" maskUnits="userSpaceOnUse" x="0" y="0" width="340" height="256">
+                                    <path d="M338 254 L2 254 L2 108 L171 108 L171 2 L338 2 Z" fill="#FFFFFF"/>
+                                </mask>
+                                <g mask="url(#mask_p6_purple_mobile)">
+                                    <path d="M296.44 -19.111C325.625 32.214 337.686 87.073 333.615 134.264C329.544 181.458 309.35 220.933 274.075 241.611C238.799 262.29 195.031 260.309 152.741 240.291C110.453 220.275 69.6908 182.241 40.5056 130.916C11.3203 79.592 -0.7408 24.732 3.33 -22.459C7.4011 -69.653 27.5954 -109.128 62.8709 -129.807C98.146 -150.485 141.915 -148.504 184.205 -128.487C226.493 -108.47 267.255 -70.435 296.44 -19.111Z" stroke="white" fill="none"/>
+                                </g>
+                                <path d="M338 254 L2 254 L2 108 L171 108 L171 2 L338 2 Z" stroke="#AA6EFF" stroke-width="2"/>
+                            </svg>
+                            <svg class="section5__poly-shape section5__poly-shape--desktop" width="585" height="486" viewBox="0 0 585 486" preserveAspectRatio="none" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+                                <path class="section5__poly-fill" d="M586.265 482.917C586.265 484.203 585.222 485.245 583.936 485.245L3.32831 485.245C2.04247 485.244 1.00038 484.201 1.00041 482.916L1.00193 234.017C1.00192 232.731 2.04427 231.688 3.33025 231.688L257.609 231.688C260 231.688 261.937 229.75 261.938 227.359L261.938 0.298634C261.938 -0.987166 262.98 -2.02963 264.266 -2.02999L583.937 -2.02984C585.223 -2.02966 586.265 -0.986742 586.265 0.299135L586.265 482.917Z" fill="#AA6EFF"/>
+                                <mask id="mask_p6_purple" style="mask-type:alpha" maskUnits="userSpaceOnUse" x="0" y="-4" width="588" height="491">
+                                    <path d="M586.265 482.917C586.265 484.203 585.222 485.245 583.936 485.245L3.32831 485.245C2.04247 485.244 1.00038 484.201 1.00041 482.916L1.00193 234.017C1.00192 232.731 2.04427 231.688 3.33025 231.688L257.609 231.688C260 231.688 261.937 229.75 261.938 227.359L261.938 0.298634C261.938 -0.987166 262.98 -2.02963 264.266 -2.02999L583.937 -2.02984C585.223 -2.02966 586.265 -0.986742 586.265 0.299135L586.265 482.917Z" fill="#FFFFFF"/>
+                                    <path d="M586.265 482.917C586.265 484.203 585.222 485.245 583.936 485.245L3.32831 485.245C2.04247 485.244 1.00038 484.201 1.00041 482.916L1.00193 234.017C1.00192 232.731 2.04427 231.688 3.33025 231.688L257.609 231.688C260 231.688 261.937 229.75 261.938 227.359L261.938 0.298634C261.938 -0.987166 262.98 -2.02963 264.266 -2.02999L583.937 -2.02984C585.223 -2.02966 586.265 -0.986742 586.265 0.299135L586.265 482.917Z" stroke="#FFFFFF" stroke-width="2"/>
+                                </mask>
+                                <g mask="url(#mask_p6_purple)">
+                                    <path d="M583.775 482.188C583.775 483.474 582.733 484.517 581.447 484.516L3.53141 484.459C2.24553 484.459 1.20282 483.417 1.20279 482.131L1.20397 233.637C1.20411 232.351 2.24691 231.309 3.53294 231.309L257.75 231.365C260.141 231.365 262.08 229.427 262.08 227.036L262.079 3.32869C262.079 2.04282 263.122 1.00028 264.407 1.00007L581.447 0.999471C582.733 0.999548 583.775 2.04248 583.775 3.32845L583.775 482.188Z" stroke="#AA6EFF" stroke-width="2"/>
+                                    <path d="M208.92 64.8017C326.803 100.364 427.123 153.702 494.024 211.168C527.476 239.901 552.554 269.651 567.305 298.708C582.053 327.762 586.463 356.096 578.637 382.038C570.811 407.98 551.468 429.147 523.112 445.198C494.754 461.25 457.407 472.168 413.646 477.609C326.126 488.489 213.046 477.449 95.163 441.887C-22.7198 406.324 -123.04 352.987 -189.942 295.521C-223.394 266.787 -248.472 237.037 -263.222 207.98C-277.971 178.926 -282.381 150.593 -274.555 124.651C-266.729 98.7089 -247.386 77.5408 -219.03 61.4901C-190.671 45.4377 -153.325 34.5206 -109.564 29.0802C-22.0434 18.1997 91.0375 29.2394 208.92 64.8017Z" stroke="white" fill="none"/>
+                                </g>
+                            </svg>
+                            <p class="section5__poly-kpi">больше 30% нанимателей вообще не&nbsp;формулируют фандрайзинговые цели своих НКО на&nbsp;год.</p>
+                            <span class="section5__opinion section5__opinion--fundraisers">мнение<br>фандрайзеров</span>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <section class="section6 section6__phase7" aria-label="Section 6 — приглашение к исследованию">
+                <div class="section6__viewport">
+                    <div class="section6__canvas">
+                        <!-- Decorative orbital rings (12 ellipses, plus-lighter blending, soft halo blur) -->
+                        <img src="./img/figma/section6_rings.svg" class="section6__rings" alt="" aria-hidden="true">
+
+                        <h2 class="section6__heading">Это лишь маленькая часть большого <span class="section6__heading-underline">исследования</span></h2>
+                        <button type="button" class="section6__cta">Посмотреть полный текст</button>
+                        <span class="section6__divider" aria-hidden="true"></span>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Shared lime→dark gradient bg spans phases 8–9. The wrapper
+                 background-color matches body's #272727 so the wrap's top
+                 edge is indistinguishable from the page bg above — no
+                 horizontal seam. -->
+            <div class="phase-gradient-wrap">
+
+            <!-- ============================================================
+                 Phase 8 — Section 8 (Figma node 219:650, FRAME "Buttons", 1440x551)
+                 Dark green linear-gradient bg (180deg, #31332B → #607137).
+                 Four cards at y=76, evenly spaced across the 1440 canvas:
+                   pos1 x=100   event  (295x395)
+                   pos2 x=415   story  (295x454, photo + byline)
+                   pos3 x=730   event  (295x395)
+                   pos4 x=1046  story  (295x454, photo + byline)
+                 Pills: 23.6px tall, radius 73.75px, Golos Medium 14/120%/-2%.
+                 Heading: Golos Medium 20/120%/-2%, white, 295x48.
+                 ============================================================ -->
+            <section class="section8 section8__phase8" aria-label="Section 8 — материалы и события">
+                <div class="section8__viewport">
+                    <div class="section8__canvas">
+
+                        <!-- Intro shown on both desktop and mobile (different body copy each). -->
+                        <div class="s8__intro">
+                            <h2 class="s8__intro-heading">Чтобы продолжить разговор, мы&nbsp;собрали <span class="s8__intro-underline">опыт</span></h2>
+                            <p class="s8__intro-body s8__intro-body--desktop">коллег из&nbsp;сектора, экспертов из&nbsp;других индустрий в&nbsp;текстах,<br>а&nbsp;ещё подготовили события по&nbsp;теме. Смотрите, читайте, регистрируйтесь.</p>
+                            <p class="s8__intro-body s8__intro-body--mobile">Наш спецпроект&nbsp;— это не&nbsp;только само исследование, но&nbsp;и&nbsp;его обсуждение. Мы&nbsp;собрали опыт коллег из&nbsp;сектора, узнали мнение экспертов из&nbsp;других индустрий, организовали события. Смотрите, читайте, регистрируйтесь.</p>
+                        </div>
+
+                        <!-- Track wraps all cards. On desktop the pager moves a lime
+                             "active" outline between cards (no horizontal slide).
+                             On mobile the track becomes a horizontal scroll-snap carousel. -->
+                        <div class="s8__track" data-index="0">
+
+                            <!-- Card 1 (pos1, x=100): event, initially active (lime outline). -->
+                            <article class="s8__card s8__card--event s8__card--pos1" data-active="true">
+                                <img src="./img/figma/section8_event_thumb_b.svg" class="s8__media s8__media--svg" alt="">
+                                <span class="s8__pill s8__pill--outline s8__pill--event-left">Закрытая встреча</span>
+                                <span class="s8__connector s8__connector--event" aria-hidden="true"></span>
+                                <span class="s8__pill s8__pill--lime s8__pill--event-right">15&nbsp;мая</span>
+                                <p class="s8__heading">Фандрайзеры очарованные<br>и&nbsp;разочарованные</p>
+                            </article>
+
+                            <!-- Card 2 (pos2, x=415): story with photo + byline -->
+                            <article class="s8__card s8__card--story s8__card--pos2">
+                                <img src="./img/figma/section8_story_photo.png" class="s8__media s8__media--photo" alt="">
+                                <span class="s8__pill s8__pill--outline s8__pill--story-left">Про&nbsp;деньги</span>
+                                <span class="s8__connector s8__connector--story" aria-hidden="true"></span>
+                                <span class="s8__pill s8__pill--white s8__pill--story-right">Текст</span>
+                                <p class="s8__heading">Фандрайзеры очарованные<br>и&nbsp;разочарованные</p>
+                                <p class="s8__byline">История Анастасии Саманлыоглу</p>
+                            </article>
+
+                            <!-- Card 3 (pos3, x=730): event with plain dark thumbnail -->
+                            <article class="s8__card s8__card--event s8__card--pos3">
+                                <img src="./img/figma/section8_event_thumb_b.svg" class="s8__media s8__media--svg" alt="">
+                                <span class="s8__pill s8__pill--outline s8__pill--event-left">Закрытая встреча</span>
+                                <span class="s8__connector s8__connector--event" aria-hidden="true"></span>
+                                <span class="s8__pill s8__pill--lime s8__pill--event-right">15&nbsp;мая</span>
+                                <p class="s8__heading">Фандрайзеры очарованные<br>и&nbsp;разочарованные</p>
+                            </article>
+
+                            <!-- Card 4 (pos4, x=1046): story with photo + byline -->
+                            <article class="s8__card s8__card--story s8__card--pos4">
+                                <img src="./img/figma/section8_story_photo.png" class="s8__media s8__media--photo" alt="">
+                                <span class="s8__pill s8__pill--outline s8__pill--story-left">Про&nbsp;деньги</span>
+                                <span class="s8__connector s8__connector--story" aria-hidden="true"></span>
+                                <span class="s8__pill s8__pill--white s8__pill--story-right">Текст</span>
+                                <p class="s8__heading">Фандрайзеры очарованные<br>и&nbsp;разочарованные</p>
+                                <p class="s8__byline">История Анастасии Саманлыоглу</p>
+                            </article>
+
+                        </div>
+
+                        <!-- Pager (Figma node 219:513): two chevrons, left dimmed at 0.4 when at start. -->
+                        <div class="s8__nav" role="group" aria-label="Перелистать карточки">
+                            <button type="button" class="s8__nav-btn s8__nav-btn--prev" aria-label="Предыдущая карточка" disabled>
+                                <svg width="14" height="25" viewBox="0 0 14 25" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+                                    <path d="M12.6624 24.3194L0.747 12.4935L12.6624 0.667595" stroke="currentColor" stroke-width="1.86957"/>
+                                </svg>
+                            </button>
+                            <button type="button" class="s8__nav-btn s8__nav-btn--next" aria-label="Следующая карточка">
+                                <svg width="14" height="25" viewBox="0 0 14 25" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+                                    <path d="M0.747 24.3194L12.6624 12.4935L0.747 0.667595" stroke="currentColor" stroke-width="1.86957"/>
+                                </svg>
+                            </button>
+                        </div>
+
+                        <!-- Mobile-only carousel pagination dots (hidden on desktop). -->
+                        <div class="s8__dots" role="tablist" aria-label="Перелистать карточки">
+                            <button type="button" class="s8__dot" data-index="0" aria-current="true" aria-label="Карточка 1"></button>
+                            <button type="button" class="s8__dot" data-index="1" aria-label="Карточка 2"></button>
+                            <button type="button" class="s8__dot" data-index="2" aria-label="Карточка 3"></button>
+                            <button type="button" class="s8__dot" data-index="3" aria-label="Карточка 4"></button>
+                        </div>
+
+                    </div>
+                </div>
+            </section>
+
+            <!-- ============================================================
+                 Phase 9 — Section 9 (Figma node 219:558, GROUP "Group 2136137724")
+                 Group dims 1239.59×465.3, centered in 1440 canvas (left 100.2px).
+                 Continues Phase 8's dark green gradient.
+                   • heading "Вместе с нами говорят о фандрайзинге"
+                     y=76, full-width, Golos Medium 40 / 120% / -2%, white, center
+                   • 4 partner columns, top y=219.08:
+                       col1 left=100,     w=292.26  logo 658 (87×48)  text 8 lines
+                       col2 left=415.37,  w=294.37  logo 656 (69×61)  text 6 lines
+                       col3 left=729.85,  w=294.44  logo 657 (145×44) text 4 lines
+                       col4 left=1045.22, w=294.37  logo 656 (69×61)  text 6 lines
+                     Logo at column top:0, body text at top:95.92
+                   • pager (Figma 219:560): right:101 bottom:59, same chevron
+                     pattern as Phase 8 (left dimmed initially)
+                 ============================================================ -->
+            <section class="section9 section9__phase9" aria-label="Section 9 — партнёры">
+                <div class="section9__viewport">
+                    <div class="section9__canvas">
+
+                        <h2 class="s9__heading">Вместе с&nbsp;нами говорят о&nbsp;фандрайзинге</h2>
+
+                        <!-- On desktop columns are absolutely positioned (track is a no-op
+                             pass-through). On mobile the track becomes a horizontal
+                             scroll-snap carousel, one column per snap. -->
+                        <div class="s9__track">
+                            <article class="s9__col s9__col--1">
+                                <img src="./img/figma/section9_partner_658.svg" class="s9__logo s9__logo--658" alt="">
+                                <p class="s9__col-text">Погрузиться в&nbsp;вопрос или определиться с&nbsp;точкой зрения помогут и&nbsp;медиамателриалы, которые подготовила наша редакция. которые подготовила наша редакция.<br><a href="#" class="s9__col-link">Полный текст на&nbsp;Т—Ж</a></p>
+                            </article>
+
+                            <article class="s9__col s9__col--2">
+                                <img src="./img/figma/section9_partner_656.svg" class="s9__logo s9__logo--656" alt="">
+                                <p class="s9__col-text">Погрузиться в&nbsp;вопрос или определиться с&nbsp;точкой зрения помогут и&nbsp;медиамателриалы, которые подготовила наша редакция.<br><a href="#" class="s9__col-link">Полный текст на&nbsp;Т—Ж</a></p>
+                            </article>
+
+                            <article class="s9__col s9__col--3">
+                                <img src="./img/figma/section9_partner_657.svg" class="s9__logo s9__logo--657" alt="">
+                                <p class="s9__col-text">Погрузиться в&nbsp;вопрос или определиться которые подготовила.<br><a href="#" class="s9__col-link">Полный текст на&nbsp;Т—Ж</a></p>
+                            </article>
+
+                            <article class="s9__col s9__col--4">
+                                <img src="./img/figma/section9_partner_656.svg" class="s9__logo s9__logo--656" alt="">
+                                <p class="s9__col-text">Погрузиться в&nbsp;вопрос или определиться с&nbsp;точкой зрения помогут и&nbsp;медиамателриалы, которые подготовила наша редакция.<br><a href="#" class="s9__col-link">Полный текст на&nbsp;Т—Ж</a></p>
+                            </article>
+                        </div>
+
+                        <!-- Pager (Figma 219:560), shared chevron pattern with Phase 8. -->
+                        <div class="s9__nav" role="group" aria-label="Перелистать партнёров">
+                            <button type="button" class="s9__nav-btn s9__nav-btn--prev" aria-label="Предыдущий" disabled>
+                                <svg width="14" height="25" viewBox="0 0 14 25" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+                                    <path d="M12.6624 24.3194L0.747 12.4935L12.6624 0.667595" stroke="currentColor" stroke-width="1.86957"/>
+                                </svg>
+                            </button>
+                            <button type="button" class="s9__nav-btn s9__nav-btn--next" aria-label="Следующий">
+                                <svg width="14" height="25" viewBox="0 0 14 25" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+                                    <path d="M0.747 24.3194L12.6624 12.4935L0.747 0.667595" stroke="currentColor" stroke-width="1.86957"/>
+                                </svg>
+                            </button>
+                        </div>
+
+                        <!-- Mobile-only carousel pagination dots (hidden on desktop). -->
+                        <div class="s9__dots" role="tablist" aria-label="Перелистать партнёров">
+                            <button type="button" class="s9__dot" data-index="0" aria-current="true" aria-label="Партнёр 1"></button>
+                            <button type="button" class="s9__dot" data-index="1" aria-label="Партнёр 2"></button>
+                            <button type="button" class="s9__dot" data-index="2" aria-label="Партнёр 3"></button>
+                            <button type="button" class="s9__dot" data-index="3" aria-label="Партнёр 4"></button>
+                        </div>
+
+                    </div>
+                </div>
+            </section>
+
+            </div><!-- /.phase-gradient-wrap (phases 8–9) -->
+        </div>
+    </div>
+
+    <div class="container-wrapper__solid">
+        <div class="container">
+            <footer>
+                <div class="footer-block footer-block__1">
+                    <div class="footer-wrap1">
+                        <a href="https://sredasvoih.com/?utm_source=site&amp;utm_medium=email&amp;utm_campaign=spec&amp;utm_term=fundraising" target="_blank"><img src="./img/icons/logo_footer.svg" class="footer-logo"></a>
+                        <p class="footer-text1">Пространство в&nbsp;CITYе<br> для благотворительных проектов и&nbsp;тех, кто их&nbsp;создаёт.</p>
+                    </div>
+                    
+                    <p class="footer-text2">Участвуйте в&nbsp;программе и&nbsp;используйте студии, помещения, образовательные модули и&nbsp;другие ресурсы для ваших социальных проектов.</p>
+
+                    <div class="footer-wrap2">
+                        <div class="footer-wrap3">
+                            <a href="https://fundr.sredasvoih.com/about/" class="footer-link1">Об организаторах</a>
+                            <div class="footer-wrap4">
+                                <a href="https://t.me/sredasvoih?utm_source=site&amp;utm_medium=email&amp;utm_campaign=spec&amp;utm_term=fundraising" target="_blank"><img src="./img/icons/tg.svg" class="footer-social"></a>
+                                <a href="https://vk.com/sredasvoih?utm_source=site&amp;utm_medium=email&amp;utm_campaign=spec&amp;utm_term=fundraizing" target="_blank"><img src="./img/icons/vk.svg" class="footer-social"></a>
+                            </div>
+                        </div>
+
+                        <p class="footer-text3">2026</p>
+                    </div>
+                </div>
+                <div class="footer-block footer-block__2">
+                    <p class="footer-text4">Подпишитесь на&nbsp;анонсы Среды, чтобы не&nbsp;пропускать события в&nbsp;рамках этого и&nbsp;других проектов</p>
+                    <form action="https://api.sendsay.com/general/api/v100/json/mdoo" method="POST" class="subscribe">
+                        <input type="email" name="email" class="footer-input footer-input__email" autocomplete="email" placeholder="Электронная почта*" required="">
+                        <input type="text" name="name" class="footer-input footer-input__name" minlength="2" placeholder="Имя*" required="">
+
+                        <div class="footer-checkbox__wrap">
+                            <label class="footer-checkbox__label">
+                                <input type="checkbox" name="footer-checkbox__agreement" required="" class="footer-checkbox__input"> 
+                                <span class="footer-checkbox__span">Я&nbsp;принимаю <a href="https://rubitime.com/agreements/user-agreement" target="_blank" class="footer-checkbox__link">условия пользовательского соглашения</a></span>
+                            </label>
+                            <label class="footer-checkbox__label">
+                                <input type="checkbox" name="footer-checkbox__agreement" required="" class="footer-checkbox__input"> 
+                                <span class="footer-checkbox__span"><a href="https://sredasvoih.com/terms/" target="_blank" class="footer-checkbox__link">Согласие на&nbsp;обработку персональных данных</a></span>
+                            </label>
+                        </div>
+                        <button type="submit" class="footer-btn">Подписаться</button>
+                    </form>
+                </div>
+            </footer>
+        </div>
+    </div>
+
+    <div class="popup-bg"></div>
+    <div class="popup-research">
+        <img src="./img/icons/popup-close.svg" class="popup-research__close">
+        <div class="popup-research__wrap">
+            <div class="popup-research__block">
+                <p class="popup-research__text__default popup-research__text1">На&nbsp;оставленный вами адрес мы&nbsp;пришлём материалы исследования и&nbsp;анонсы</p>
+                <form action="https://api.sendsay.com/general/api/v100/json/mdoo" method="POST" class="popup-research--form">
+                    <input type="text" name="name" class="footer-input footer-input__name" minlength="2" placeholder="Имя*" required="">
+                    <input type="email" name="email" class="footer-input footer-input__email" autocomplete="email" placeholder="Электронная почта*" required="">
+                    
+
+                    <div class="footer-checkbox__wrap">
+                        <label class="footer-checkbox__label">
+                            <input type="checkbox" name="footer-checkbox__agreement" required="" class="footer-checkbox__input"> 
+                            <span class="footer-checkbox__span">Я&nbsp;принимаю <a href="https://rubitime.com/agreements/user-agreement" target="_blank" class="footer-checkbox__link">условия пользовательского соглашения</a></span>
+                        </label>
+                        <label class="footer-checkbox__label">
+                            <input type="checkbox" name="footer-checkbox__personal" required="" class="footer-checkbox__input"> 
+                            <span class="footer-checkbox__span"><a href="https://sredasvoih.com/terms/" target="_blank" class="footer-checkbox__link">Согласие на&nbsp;обработку персональных данных</a></span>
+                        </label>
+                    </div>
+
+                    <button type="submit" id="popup-research-btn" class="footer-btn">Получить исследование</button>
+                </form>
+                <div class="popup-research__success">
+                    <p class="popup-research__text1">Спасибо! Через <span class="popup-research__success-days">28 дней</span>&nbsp; вы&nbsp;получите результаты исследования в&nbsp;числе первых</p>
+                    <p class="popup-research__text2">Анонсы и&nbsp;материалы этого и&nbsp;других проектов Среды своих мы&nbsp;публикуем в&nbsp;<nobr><a href="https://t.me/sredasvoih" class="popup-research__social_link" target="_blank"><img src="./img/icons/tg_icon_mini.svg" class="popup-research__social"> Телеграм</a></nobr> <nobr>и&nbsp;<a href="https://vk.com/sredasvoih" class="popup-research__social_link" target="_blank"><img src="./img/icons/vk_icon_mini.svg" class="popup-research__social"> Вконтакте</a>.</nobr> Подпишитесь!</p>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="burger-menu__bg"></div>
+    <div class="burger-menu">
+        <div class="burger-menu__wrap">
+            <div>
+                <img src="./img/icons/burger_menu__close.svg" class="burger-menu__close">
+
+                <div class="header_inside">
+                    <div class="header_inside-wrap">
+                        <a href="javascript:void(0);" class="header_inside-item active">Тема</a>
+                        <a href="javascript:void(0);" class="header_inside-item header_inside-item_custom header_inside-item-disabled">
+                            Исследование
+                            <div class="header_inside-hr"></div>
+                            Опыт
+                        </a>
+                    </div>
+                    <div class="header_inside-wrap">
+                        <a href="javascript:void(0);" class="header_inside-item header_inside-item_custom2 burger-menu__events-toggle" aria-haspopup="true" aria-expanded="false" aria-controls="burger-events-popup">
+                            События
+                            <img src="./img/icons/plus.svg">
+                        </a>
+                        <!-- Items rendered from the EVENTS array (see <script>) -->
+                        <div class="burger-menu__events-popup" id="burger-events-popup" role="menu" aria-hidden="true"></div>
+                        <a href="https://fundr.sredasvoih.com/about/" class="header_inside-item">Об организаторах</a>
+                    </div>
+                </div>
+            </div>
+            <div>
+                <p class="burger-menu__text1">спецпроект</p>
+                <a href="https://sredasvoih.com/?utm_source=site&amp;utm_medium=email&amp;utm_campaign=spec&amp;utm_term=fundraising" target="_blank"><img src="./img/figma/logo_specproject.svg" class="burger-menu__logo"></a>
+                <div class="footer-wrap4">
+                    <a href="https://t.me/sredasvoih?utm_source=site&amp;utm_medium=email&amp;utm_campaign=spec&amp;utm_term=fundraising" target="_blank"><img src="./img/icons/tg.svg" class="footer-social"></a>
+                    <a href="https://vk.com/sredasvoih?utm_source=site&amp;utm_medium=email&amp;utm_campaign=spec&amp;utm_term=fundraizing" target="_blank"><img src="./img/icons/vk.svg" class="footer-social"></a>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div id="access-notification" class="notification-hidden">
+        <div class="notification-content">
+            <img src="./img/icons/notification.svg" class="notification-icon">
+            <span class="notification-text">Полный доступ к&nbsp;проекту откроется позже</span>
+        </div>
+    </div>
+<script defer="" src="./js/common.js"></script>
+<script defer="" src="./js/main-backup.js"></script>
+<script defer src="./js/main.js"></script>
+
+</body></html>
