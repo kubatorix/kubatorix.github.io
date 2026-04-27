@@ -747,9 +747,19 @@ body > .header-burger__icon {
 }
 
 /* ---------- DECORATIVE SVGs (inlined <svg>, explicit fixed sizes) -------- */
-/* The SVGs are inlined directly in the HTML so the browser renders them   */
-/* as live SVG documents (NOT raster <img>), preserving the per-stroke     */
-/* drop-shadow filter chain at full vector quality.                         */
+/* The four .hero__bg SVGs ship as <img src="*.svg"> on purpose.           */
+/* Inlining them as live <svg> blew up mobile Chrome ("couldn't render"):  */
+/* together they hold ~36 paths, each with its own feGaussianBlur filter   */
+/* AND mix-blend-mode: plus-lighter; with will-change: transform on each   */
+/* the engine tries to allocate four separate GPU layers rasterised at the */
+/* full DPR display resolution (the arc layer alone is ~3870×3550 px on    */
+/* a 3x phone), which exhausts mobile GPU memory.                           */
+/* As <img> the browser rasterises each SVG once into an intrinsic-size    */
+/* bitmap that the GPU can hold cheaply. To compensate for the bilinear-   */
+/* upscale blur on hi-DPR phones, each source SVG declares 2× intrinsic    */
+/* width/height (viewBox unchanged), so the cached raster has 4× the pixel */
+/* density. The displayed size is still controlled here in CSS, so this    */
+/* trick is purely a quality boost — strokes stay the same visual width.   */
 .hero__bg {
     position: absolute;
     pointer-events: none;
