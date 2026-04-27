@@ -1034,6 +1034,16 @@ body > .header-burger__icon {
 .hero__bg {
     transition: transform 0.45s ease;
     transform-origin: center center;
+    /* Force a dedicated GPU layer so the ±45° rotation animates smoothly on
+       mobile (iOS Safari / Android Chrome). Without these hints the SVGs —
+       large, with baked-in feGaussianBlur and, for the oval, a mask-image —
+       get rasterised on the CPU each frame and the rotation stutters.
+       translateZ(0) is set in the default and rotated states so the layer
+       exists at page load, not lazily on first toggle.                       */
+    transform: translateZ(0);
+    will-change: transform;
+    backface-visibility: hidden;
+    -webkit-backface-visibility: hidden;
 }
 
 .hero[data-state="fundraisers"] .hero__caption-line--2,
@@ -1045,10 +1055,10 @@ body > .header-burger__icon {
 }
 
 .hero[data-state="fundraisers"] .hero__bg {
-    transform: rotate(-45deg);
+    transform: rotate(-45deg) translateZ(0);
 }
 .hero[data-state="employers"] .hero__bg {
-    transform: rotate(45deg);
+    transform: rotate(45deg) translateZ(0);
 }
 
 /* White pill (center) only renders in "both"; otherwise it fades. */
