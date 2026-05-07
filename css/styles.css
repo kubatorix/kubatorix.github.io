@@ -19,10 +19,17 @@
     padding-left: 100px;
     padding-right: 100px;
 }
+/* The <header>/.topnav uses the same 1440 max-width as the regular
+   .container, but with NO horizontal padding — the topnav children are
+   absolutely positioned at Figma frame coords (Тема at x=105.99, Об
+   организаторах right edge at x=1339.99 within a 1440 frame), so the
+   topnav itself must span the full 1440 to contain them. The natural
+   ~100 px gutters baked into the link positions then visually align
+   with section1 / .fs-hero content edges.                              */
 header .container {
-    max-width: 1270px;
-    padding-left: 15px;
-    padding-right: 15px;
+    max-width: 1440px;
+    padding-left: 0;
+    padding-right: 0;
 }
 @media (max-width: 770px) {
     .container {
@@ -1386,7 +1393,7 @@ body > .header-burger__icon {
 .section1__sreda {
     position: absolute;
     left: 924.58px;
-    top: 27.95px;
+    top: 0;
     width: 325px;
     height: 108px;
 }
@@ -1853,7 +1860,8 @@ body > .header-burger__icon {
 }
 
 /* Visually-hidden helper for SR-only mega-number text */
-.section3__canvas .visually-hidden {
+.section3__canvas .visually-hidden,
+.visually-hidden {
     position: absolute;
     width: 1px; height: 1px;
     margin: -1px; padding: 0;
@@ -2042,7 +2050,8 @@ body > .header-burger__icon {
     top: 1124.71px;                                         /* layout_GXDAR0 y */
 }
 
-.section3__phase5 .s3p5__toggle-inner {
+.section3__phase5 .s3p5__toggle-inner,
+.fs-f4 .s3p5__toggle-inner {
     position: relative;
     width: 100%;
     height: 100%;
@@ -2054,8 +2063,9 @@ body > .header-burger__icon {
 }
 
 /* Each segment is absolutely positioned per spec layout coords inside
-   the 508.93 x 54.14 toggle. */
-.section3__phase5 .s3p5__seg {
+   the 508.93 x 54.14 toggle (s3p5) / 610.55 x 72.9 (F4). */
+.section3__phase5 .s3p5__seg,
+.fs-f4 .s3p5__seg {
     position: absolute;
     display: flex;
     align-items: center;
@@ -2084,7 +2094,8 @@ body > .header-burger__icon {
 }
 
 /* Hide the native checkbox inside the segment but keep it interactive */
-.section3__phase5 .s3p5__seg-input {
+.section3__phase5 .s3p5__seg-input,
+.fs-f4 .s3p5__seg-input {
     position: absolute;
     width: 1px;
     height: 1px;
@@ -2095,8 +2106,10 @@ body > .header-burger__icon {
     background: none;
 }
 
-/* Segment text (фандрайзеров / нанимателей) — Golos VF Medium 17.33px */
-.section3__phase5 .s3p5__seg-label {
+/* Segment text (фандрайзеров / нанимателей).
+   s3p5 = 17.33 px, F4 = 20.79 px (per spec). */
+.section3__phase5 .s3p5__seg-label,
+.fs-f4 .s3p5__seg-label {
     font-family: 'Golos Text VF', 'Golos Text', sans-serif;
     font-weight: 500;
     font-size: 17.33px;
@@ -2105,27 +2118,34 @@ body > .header-burger__icon {
     color: var(--text-white);
     margin: 0;
     padding: 0;
+    text-align: left;
     /* dim slightly when its checkbox is unchecked */
     transition: opacity 0.2s ease;
 }
 
-.section3__phase5 .s3p5__seg-input:not(:checked) ~ .s3p5__seg-label {
+.section3__phase5 .s3p5__seg-input:not(:checked) ~ .s3p5__seg-label,
+.fs-f4 .s3p5__seg-input:not(:checked) ~ .s3p5__seg-label {
     opacity: 0.45;
 }
 
-/* ---- 5.5b State-driven toggle (data-state on .section3__phase5) ---------
-   .s3p5__seg buttons set [data-state] on the section root via JS.
+/* ---- 5.5b State-driven toggle (data-state on the section root) ---------
+   .s3p5__seg buttons set [data-state] on the host section via JS.
    Active segment is the one whose data-action == data-state. The active
-   segment renders a white pill via ::before with edge bleeds. The inner
-   .s3p5__seg-pill (pre-existing decorative) shows only when state="both".  */
-.section3__phase5 .s3p5__seg {
+   segment renders a coloured pill via ::before. The inner .s3p5__seg-pill
+   (pre-existing decorative white-with-edge-bleeds) shows only when
+   state="both". Same rules apply to FullStudy F4 (.fs-f4 root carries
+   data-state).                                                            */
+.section3__phase5 .s3p5__seg,
+.fs-f4 .s3p5__seg {
     cursor: pointer;
 }
-.section3__phase5 .s3p5__seg:focus-visible {
+.section3__phase5 .s3p5__seg:focus-visible,
+.fs-f4 .s3p5__seg:focus-visible {
     outline: 2px solid var(--accent-lime, #C2F04F);
     outline-offset: 4px;
 }
-.section3__phase5 .s3p5__seg::before {
+.section3__phase5 .s3p5__seg::before,
+.fs-f4 .s3p5__seg::before {
     content: '';
     position: absolute;
     inset: -7px -16px;
@@ -2136,30 +2156,38 @@ body > .header-burger__icon {
     opacity: 0;
 }
 .section3__phase5 .s3p5__seg-label,
-.section3__phase5 .s3p5__seg-pill-label {
+.section3__phase5 .s3p5__seg-pill-label,
+.fs-f4 .s3p5__seg-label,
+.fs-f4 .s3p5__seg-pill-label {
     position: relative;
     z-index: 1;                        /* above ::before pill */
 }
 /* Pill on left segment when state="fundraisers" — solid purple per Figma */
-.section3__phase5[data-state="fundraisers"] .s3p5__seg--left::before {
+.section3__phase5[data-state="fundraisers"] .s3p5__seg--left::before,
+.fs-f4[data-state="fundraisers"] .s3p5__seg--left::before {
     background: var(--color-purple);                    /* #AA6EFF */
     opacity: 1;
 }
 /* Pill on right segment when state="employers" — solid orange per Figma */
-.section3__phase5[data-state="employers"] .s3p5__seg--right::before {
+.section3__phase5[data-state="employers"] .s3p5__seg--right::before,
+.fs-f4[data-state="employers"] .s3p5__seg--right::before {
     background: var(--color-orange);                       /* #FF6E32 */
     opacity: 1;
 }
 /* Hide the inner middle pill div when state != "both" */
-.section3__phase5:not([data-state="both"]) .s3p5__seg-pill {
+.section3__phase5:not([data-state="both"]) .s3p5__seg-pill,
+.fs-f4:not([data-state="both"]) .s3p5__seg-pill {
     opacity: 0;
 }
-.section3__phase5 .s3p5__seg-pill {
+.section3__phase5 .s3p5__seg-pill,
+.fs-f4 .s3p5__seg-pill {
     transition: opacity 0.18s ease;
 }
 /* Active label: white text on the solid purple/orange pill (Figma master) */
 .section3__phase5[data-state="fundraisers"] .s3p5__seg--left .s3p5__seg-label,
-.section3__phase5[data-state="employers"] .s3p5__seg--right .s3p5__seg-label {
+.section3__phase5[data-state="employers"] .s3p5__seg--right .s3p5__seg-label,
+.fs-f4[data-state="fundraisers"] .s3p5__seg--left .s3p5__seg-label,
+.fs-f4[data-state="employers"] .s3p5__seg--right .s3p5__seg-label {
     color: var(--text-white);
     opacity: 1;
 }
@@ -2169,7 +2197,13 @@ body > .header-burger__icon {
 .section3__phase5[data-state="employers"] .s3p5__seg--left .s3p5__seg-label,
 .section3__phase5[data-state="employers"] .s3p5__seg--mid .s3p5__seg-pill-label,
 .section3__phase5[data-state="both"] .s3p5__seg--left .s3p5__seg-label,
-.section3__phase5[data-state="both"] .s3p5__seg--right .s3p5__seg-label {
+.section3__phase5[data-state="both"] .s3p5__seg--right .s3p5__seg-label,
+.fs-f4[data-state="fundraisers"] .s3p5__seg--right .s3p5__seg-label,
+.fs-f4[data-state="fundraisers"] .s3p5__seg--mid .s3p5__seg-pill-label,
+.fs-f4[data-state="employers"] .s3p5__seg--left .s3p5__seg-label,
+.fs-f4[data-state="employers"] .s3p5__seg--mid .s3p5__seg-pill-label,
+.fs-f4[data-state="both"] .s3p5__seg--left .s3p5__seg-label,
+.fs-f4[data-state="both"] .s3p5__seg--right .s3p5__seg-label {
     opacity: 0.45;
 }
 
@@ -2204,8 +2238,20 @@ body > .header-burger__icon {
     pointer-events: none;
 }
 
-/* Middle "оба мнения" decorative pill (219:268 / 219:280) ---------------
-   layout_O6JUO3: x=171, y=4.21, w=167.44, h=45.72, radius 887.98. */
+/* When a single side is selected, the suffix ",7%" on the highlighted
+   number switches from the chromatic-overlap white to the side's brand
+   colour — all digits + the comma read as one solid colour. The default
+   ("both") state keeps the white suffix unchanged.                       */
+.section3__phase5[data-state="fundraisers"] .s3p5__mega-num--purple .s3p5__mega-suffix {
+    -webkit-text-stroke-color: var(--color-purple);
+}
+.section3__phase5[data-state="employers"] .s3p5__mega-num--orange .s3p5__mega-suffix {
+    -webkit-text-stroke-color: var(--color-orange);
+}
+
+/* Middle "оба мнения" / "обе стороны" decorative pill (219:268 / 219:280
+   in s3p5; 282:738 in F4). Position differs per context — defaults below
+   are for s3p5; .fs-f4 .s3p5__seg--mid overrides them.                    */
 .section3__phase5 .s3p5__seg--mid {
     position: absolute;
     left: 171px;
@@ -2216,8 +2262,15 @@ body > .header-burger__icon {
     align-items: center;
     justify-content: center;
 }
+.fs-f4 .s3p5__seg--mid {
+    position: absolute;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
 
-.section3__phase5 .s3p5__seg-pill {
+.section3__phase5 .s3p5__seg-pill,
+.fs-f4 .s3p5__seg-pill {
     position: absolute;
     inset: 0;
     border-radius: 887.98px;
@@ -2230,7 +2283,8 @@ body > .header-burger__icon {
     z-index: 0;
 }
 
-.section3__phase5 .s3p5__seg-pill-label {
+.section3__phase5 .s3p5__seg-pill-label,
+.fs-f4 .s3p5__seg-pill-label {
     position: relative;
     z-index: 1;
     font-family: 'Golos Text VF', 'Golos Text', sans-serif;
@@ -2243,7 +2297,8 @@ body > .header-burger__icon {
     width: 100%;
 }
 /* When state="both" the white pill is behind it — switch to dark for contrast */
-.section3__phase5[data-state="both"] .s3p5__seg-pill-label {
+.section3__phase5[data-state="both"] .s3p5__seg-pill-label,
+.fs-f4[data-state="both"] .s3p5__seg-pill-label {
     color: var(--bg-secondary);                             /* #2F2F2F on white pill */
 }
 
@@ -2260,7 +2315,7 @@ body > .header-burger__icon {
    All outline-only (transparent fill, 2px stroke). */
 .section3__phase5 .s3p5__outline {
     position: absolute;
-    left: 49.61px;                                          /* layout_Y664CY x */
+    left: 0;                                          /* layout_Y664CY x */
     top: 569.01px;                                          /* layout_HSP40E y */
     width: 1124.76px;
     height: 265.24px;
@@ -2346,7 +2401,7 @@ body > .header-burger__icon {
    interleaving. We position each absolutely to its per-spec coords. */
 .section3__phase5 .s3p5__bodywrap {
     position: absolute;
-    left: 49.61px;                                          /* layout_Y664CY x */
+    left: 0;                                          /* layout_Y664CY x */
     top: 856.71px;                                          /* 569.01 + 287.7 */
     width: 1124.76px;
     height: 208px;
@@ -3020,6 +3075,9 @@ background-image: linear-gradient(
     cursor: pointer;
     z-index: 2;
     transition: background 0.18s ease, color 0.18s ease;
+    text-decoration: none;                               /* defeat <a> default underline */
+    display: block;                                      /* anchor needs block to honour width/height */
+    box-sizing: border-box;
 }
 .section6__phase7 .section6__cta:hover,
 .section6__phase7 .section6__cta:focus-visible {
@@ -3804,6 +3862,9 @@ footer .footer-block__2 {
     flex: 0 0 501.162px;
     display: flex;
     flex-direction: column;
+    /* Pin text4 at the top, form at the bottom — so the form's last
+       row (the submit button) lines up with .footer-wrap2 in block 1. */
+    justify-content: space-between;
 }
 
 /* --- Left column ---------------------------------------------------------- */
@@ -3877,6 +3938,9 @@ footer .footer-text3 {
     line-height: 100%;
     color: #FFFFFF;
     margin: 0;
+    /* Pin "2026" to the bottom of .footer-wrap2 (which has
+       align-items: center for the rest of the row).               */
+    align-self: flex-end;
 }
 
 /* --- Right column heading ------------------------------------------------- */
@@ -4049,4 +4113,3168 @@ footer .footer-btn:focus-visible {
         height: 46px;
         font-size: 16px;
     }
+}
+
+
+/* ==========================================================================
+   ===  FullStudy (fullstudy.html)  ==========================================
+   Phases F0–F11. Page is the long-form research article reached via the
+   "Посмотреть полный текст" CTA on the index. Layout 1:1 with Figma frame
+   282:503 (1440 × ~13360). Phase boundaries mirror the section list in that
+   frame (Y-coords given in each phase header).
+
+   Reuse strategy:
+     • <header>/.topnav, <footer>, .popup-research, .burger-menu — verbatim
+       markup from index.html (same component instances in Figma).
+     • Mega numbers, segmented toggle, body palette — reuse .s3p5__* (phase F7).
+     • Lime brand row — reuse .hero__brand markup (same logo_specproject.svg,
+       same 18.4px Golos type).
+   New per-phase CSS uses the `fs-` prefix to namespace.
+   ========================================================================== */
+
+
+/* ============================================================
+   Phase F1 — Hero (Figma 282:503 children, frame y=0..941)
+   Children (frame coords; canvas-y = frame-y - 58 nav):
+     282:531 brand strip      x=561.34   y=112    316.92x18.21
+     282:546 4-line heading   x=232      y=151    976x353
+     282:509 descriptor block x=-11      y=551    1452x390.63
+   Hero canvas: 1440 × 883 (= 941-58).
+   "Исследование" link in topnav becomes active (lime underline 115px).
+   ============================================================ */
+
+/* Active state for "Исследование" link — overrides the ::after underline
+   width/offset that's otherwise sized for the 4-char "Тема" link.          */
+.topnav .topnav__link--issledovanie.topnav__link--active {
+    color: #FFFFFF;                                    /* defeat the disabled-look 50% white */
+}
+.topnav .topnav__link--issledovanie.topnav__link--active::after {
+    left: 0;
+    width: 115px;                                      /* matches link width (line 440) */
+}
+
+/* Hero shell. Sits flush below <header> (which is 58 tall) — no top margin
+   like .hero on the index, since the FullStudy hero canvas already includes
+   the descriptor block within its own 883 height.                            */
+.fs-hero {
+    position: relative;
+    width: 100%;
+    background: var(--bg-primary);                     /* #272727 */
+    display: flex;
+    justify-content: center;
+    overflow-x: clip;
+}
+
+.fs-hero__canvas {
+    position: relative;
+    width: 1440px;
+    height: 883px;                                     /* frame y 58..941 */
+    flex-shrink: 0;
+    margin-top: 58px;
+}
+
+/* --- Brand strip (282:531 at frame 561.34, 112 → canvas y=54) ----------- */
+/* Same content as .hero__brand; copy of those rules with the new canvas-y. */
+.fs-hero__brand {
+    position: absolute;
+    left: 561.34px;
+    top: 54px;                                         /* 112 - 58 nav */
+    width: 316.92px;
+    height: 18.21px;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    gap: 19.14px;
+    z-index: 5;
+}
+.fs-hero__brand-word {
+    font-family: 'Golos', 'Golos Text', sans-serif;
+    font-weight: 500;
+    font-size: 18.4px;
+    line-height: 1;
+    letter-spacing: -0.02em;
+    color: var(--text-white);
+    white-space: nowrap;
+    text-transform: lowercase;
+}
+.fs-hero__brand-logo {
+    width: 190.79px;
+    height: 18.21px;
+    display: block;
+    flex-shrink: 0;
+}
+
+/* --- 4-line heading (282:546 group at frame 232, 151 → canvas y=93) ------ */
+/* Group is 976×353. Lines absolutely positioned at their parent-relative
+   (x, y) inside the group, with per-line line-height (99 / 90 / 80 / 80%).  */
+.fs-hero__caption {
+    position: absolute;
+    left: 232px;
+    top: 93px;                                         /* 151 - 58 */
+    width: 976px;
+    height: 353px;
+    margin: 0;
+    padding: 0;
+    font-family: 'Golos', 'Golos Text', sans-serif;
+    font-weight: 500;
+    font-size: 106.93px;
+    letter-spacing: -0.04em;
+    color: var(--text-white);
+    z-index: 5;
+}
+.fs-hero__caption-line {
+    position: absolute;
+    display: block;
+    margin: 0;
+    padding: 0;
+    white-space: nowrap;
+}
+.fs-hero__caption-line--1 {                            /* "Исследование" — 137,0 722×106 99% */
+    left: 137px;
+    top: 0;
+    width: 722px;
+    height: 106px;
+    line-height: 99%;
+}
+.fs-hero__caption-line--2 {                            /* "фандрайзеров"  — 0,94 728×96 90% */
+    left: 0;
+    top: 94px;
+    width: 728px;
+    height: 96px;
+    line-height: 90%;
+}
+.fs-hero__caption-line--3 {                            /* "и их"          — 484,183 205×86 80% */
+    left: 484px;
+    top: 183px;
+    width: 205px;
+    height: 86px;
+    line-height: 80%;
+}
+.fs-hero__caption-line--4 {                            /* "нанимателей"   — 321,267 655×86 80% */
+    left: 321px;
+    top: 267px;
+    width: 655px;
+    height: 86px;
+    line-height: 80%;
+}
+
+/* --- Descriptor block (282:509 at frame -11, 551 → canvas y=493) ---------
+   The block bleeds 11 px past the 1440 canvas's left edge. Children carry
+   their parent-relative (x, y) from spec; the block is `position: relative`
+   so absolute children resolve against it.                                  */
+.fs-hero__intro {
+    position: absolute;
+    left: -11px;
+    top: 493px;                                        /* 551 - 58 */
+    width: 1452px;
+    height: 390.63px;
+    z-index: 4;
+}
+
+/* Body type: Golos 20 / 120% / -2% / weight 500 (style_10VK6G). */
+.fs-hero__intro-body,
+.fs-hero__intro-highlight {
+    position: absolute;
+    margin: 0;
+    padding: 0;
+    font-family: 'Golos', 'Golos Text', sans-serif;
+    font-weight: 500;
+    font-size: 20px;
+    line-height: 120%;
+    letter-spacing: -0.02em;
+}
+
+/* Top half of 282:527 (white). The Figma layer is one tall paragraph with
+   internal line-breaks, but the visible flow has two highlight inserts in
+   the middle — so we split it into two CSS paragraphs (--1 above, --2 below
+   the highlights) anchored at the spec's vertical positions.                */
+.fs-hero__intro-body--1 {                              /* lines 1..3 of 282:527 */
+    left: 226px;
+    top: 0;
+    width: 1020px;
+    color: var(--text-white);
+}
+/* Continuation paragraph — sits below the two highlight lines. Spec doesn't
+   give a separate y; derived as: highlight-purple (108) + highlight height
+   (~14) + a small gap ≈ 145 px from the top of the descriptor block.       */
+.fs-hero__intro-body--2 {
+    left: 226px;
+    top: 145px;
+    width: 1020px;
+    color: var(--text-white);
+}
+
+/* Highlight (282:526 orange — at parent-rel 0,81; full-bleed left). */
+.fs-hero__intro-highlight--orange {
+    left: 0;
+    top: 81px;
+    width: 1020px;
+    color: var(--color-orange);                        /* #FF6E32 */
+}
+
+/* Highlight (282:528 purple — at parent-rel 432,108; offset right). */
+.fs-hero__intro-highlight--purple {
+    left: 432px;
+    top: 108px;
+    width: 1020px;
+    color: var(--color-purple);                        /* #AA6EFF */
+}
+
+/* Dividers (282:529 horizontal, 282:530 small vertical at the line break) -- */
+.fs-hero__intro-divider--h {                           /* 791×1 at parent-rel 335,311 */
+    position: absolute;
+    left: 335px;
+    top: 311px;
+    width: 791px;
+    height: 1px;
+    background: var(--overlay-cream-50, rgba(255,255,255,0.5));
+}
+.fs-hero__intro-divider--v {                           /* 1×16 at parent-rel 687,340 */
+    position: absolute;
+    left: 687px;
+    top: 340px;
+    width: 1px;
+    height: 16px;
+    background: rgba(255, 255, 255, 0.5);
+}
+
+/* Sreda credit row (282:510 group at parent-rel 339, 341, 822×49). Inside:
+   logo (121.51×44.97) + text-group (684×49). Implemented via flex.          */
+.fs-hero__sreda {
+    position: absolute;
+    left: 339px;
+    top: 341px;
+    width: 822.16px;
+    height: 49.63px;
+    display: flex;
+    flex-direction: row;
+    align-items: flex-start;
+    gap: 16.33px;                                      /* 137.84 - 121.51 */
+}
+.fs-hero__sreda-logo {
+    width: 121.51px;
+    height: 44.97px;
+    margin-top: 2.33px;                                /* spec offset */
+    display: block;
+    flex-shrink: 0;
+}
+.fs-hero__sreda-text {
+    width: 684.33px;
+    flex-shrink: 0;
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
+}
+.fs-hero__sreda-label {
+    margin: 0;
+    font-family: 'Golos', 'Golos Text', sans-serif;
+    font-weight: 400;
+    font-size: 16px;
+    line-height: 110%;
+    color: #939393;                                    /* spec fill_UDZ6VF */
+}
+.fs-hero__sreda-body {
+    margin: 0;
+    font-family: 'Golos', 'Golos Text', sans-serif;
+    font-weight: 400;
+    font-size: 16px;
+    line-height: 120%;
+    letter-spacing: -0.02em;
+    color: var(--text-white);
+    opacity: 0.5;                                      /* per spec opacity */
+}
+
+
+/* ============================================================
+   FullStudy F1 — MOBILE (≤770px)
+   Collapse the absolute hero canvas into a vertical stack:
+     - brand row centered at top
+     - 4-line caption stacked, smaller font
+     - descriptor flows as plain prose with the highlights inline
+       (still color-coded via colour classes)
+     - sreda credit becomes a column
+   ============================================================ */
+@media (max-width: 770px) {
+    .fs-hero {
+        overflow: hidden;
+    }
+    .fs-hero__canvas {
+        width: 100%;
+        height: auto;
+        padding: 32px 16px 48px;
+        box-sizing: border-box;
+    }
+    .fs-hero__brand {
+        position: relative;
+        left: auto;
+        top: auto;
+        width: auto;
+        height: auto;
+        justify-content: center;
+        margin: 0 auto 32px;
+    }
+    .fs-hero__caption {
+        position: relative;
+        left: auto;
+        top: auto;
+        width: 100%;
+        max-width: 360px;
+        height: auto;
+        font-size: 44px;
+        margin: 0 auto 40px;
+    }
+    .fs-hero__caption-line {
+        position: relative;
+        left: auto !important;
+        top: auto !important;
+        width: 100%;
+        height: auto;
+        line-height: 1;
+        display: block;
+    }
+    .fs-hero__caption-line--1 { text-align: right; }
+    .fs-hero__caption-line--2 { text-align: left;  }
+    .fs-hero__caption-line--3 { text-align: right; }
+    .fs-hero__caption-line--4 { text-align: right; }
+
+    .fs-hero__intro {
+        position: relative;
+        left: auto;
+        top: auto;
+        width: 100%;
+        height: auto;
+        display: flex;
+        flex-direction: column;
+        gap: 16px;
+    }
+    .fs-hero__intro-body,
+    .fs-hero__intro-highlight {
+        position: relative;
+        left: auto !important;
+        top: auto !important;
+        width: 100%;
+        font-size: 16px;
+        line-height: 1.25;
+        text-align: center;
+    }
+    .fs-hero__intro-divider--h {
+        position: relative;
+        left: auto;
+        top: auto;
+        width: 100%;
+        margin: 16px 0 8px;
+        order: 2;                                      /* between label (1) and logo (3) */
+    }
+    .fs-hero__intro-divider--v {
+        display: none;                                 /* the small kink isn't meaningful at 1-col */
+    }
+    /* Flatten the sreda block so its children become flex siblings of
+       .fs-hero__intro — lets us reorder them as: label → divider → logo → body. */
+    .fs-hero__sreda { display: contents; }
+    .fs-hero__sreda-text { display: contents; }
+    .fs-hero__sreda-label {
+        order: 1;
+        width: 100%;
+        text-align: center;
+    }
+    .fs-hero__sreda-logo {
+        order: 3;
+        align-self: center;
+        margin-top: 0;
+    }
+    .fs-hero__sreda-body {
+        order: 4;
+        width: 100%;
+        text-align: center;
+    }
+}
+
+
+/* ============================================================
+   Phase F2 — Methodology block + PDF/scroll-down CTA
+   (Figma 282:747 + 282:786, frame y=1078..2640, height 1562)
+
+   The two groups visually overlap on the bottom 103 px (282:786 starts
+   at 1755 while 282:747 ends at 1858) so they share a single 1440-wide
+   canvas. The lime→transparent gradient rectangle (282:748) lives at the
+   top half, fading out before the orbital-rings CTA art (282:800).
+
+   Section-relative coordinates = frame-y - 1078 for y, and frame-x for x.
+   ============================================================ */
+.fs-f2 {
+    position: relative;
+    width: 100%;
+    margin-top: 137px;                                 /* gap from F1 hero (frame 1078 - 941) */
+    background: var(--bg-primary);                     /* #272727 carries between groups */
+    display: flex;
+    justify-content: center;
+    overflow-x: clip;
+}
+.fs-f2__canvas {
+    position: relative;
+    width: 1440px;
+    height: 1562px;
+    flex-shrink: 0;
+}
+
+/* --- 282:748 lime → transparent gradient rectangle (1441×643 at -1, 137).
+   Spec: linear-gradient(180deg, #C2F04F 0%, rgba(47,47,47,0) 95%). The
+   rectangle bleeds 1 px past the canvas's left edge per spec.            */
+.fs-f2__gradient {
+    position: absolute;
+    left: -1px;
+    top: 137px;
+    width: 1441px;
+    height: 643px;
+    background: linear-gradient(180deg, #C2F04F 0%, rgba(47,47,47,0) 95%);
+    pointer-events: none;
+    z-index: 0;
+}
+
+/* --- 282:751 grid-line texture (1482×387 at -31, 290), soft-light blend
+   so the white strokes only modulate the lime gradient underneath.       */
+.fs-f2__diagram {
+    position: absolute;
+    left: -31px;
+    top: 290px;
+    width: 1482px;
+    height: 387px;
+    mix-blend-mode: soft-light;
+    pointer-events: none;
+    z-index: 1;
+}
+
+/* --- 282:749 heading "Как проводилось исследование" (275×57 at 104, 0). */
+.fs-f2__heading {
+    position: absolute;
+    left: 104px;
+    top: 0;
+    width: 275px;
+    height: 57px;
+    margin: 0;
+    padding: 0;
+    font-family: 'Golos', 'Golos Text', sans-serif;
+    font-weight: 500;
+    font-size: 30px;
+    line-height: 120%;
+    letter-spacing: -0.02em;
+    color: var(--text-white);
+    z-index: 3;
+}
+
+/* --- 282:750 lead body (945×40 at 100, 190). */
+.fs-f2__lead {
+    position: absolute;
+    left: 100px;
+    top: 190px;
+    width: 945px;
+    margin: 0;
+    padding: 0;
+    font-family: 'Golos', 'Golos Text', sans-serif;
+    font-weight: 500;
+    font-size: 20px;
+    line-height: 130%;
+    letter-spacing: -0.02em;
+    color: var(--text-white);
+    z-index: 3;
+}
+
+/* --- 282:775 date label "Ноябрь 2025 — Январь 2026:" (281×14 at 231, 325). */
+.fs-f2__date {
+    position: absolute;
+    left: 231px;
+    top: 325px;
+    width: 281px;
+    margin: 0;
+    padding: 0;
+    font-family: 'Golos', 'Golos Text', sans-serif;
+    font-weight: 500;
+    font-size: 20px;
+    line-height: 120%;
+    color: var(--text-white);
+    z-index: 3;
+}
+
+/* --- 282:776..780 + 282:781..785: bulleted rows.
+   Lime 9×9 round bullet at frame x=192 (canvas-x=192), text at x=231.
+   Each row is positioned absolutely at its spec y.                        */
+.fs-f2__list {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    z-index: 3;
+}
+.fs-f2__row {
+    position: absolute;
+    left: 231px;
+    width: 1003px;                                     /* widest row (282:778) */
+    margin: 0;
+    padding: 0;
+    font-family: 'Golos', 'Golos Text', sans-serif;
+    font-weight: 500;
+    font-size: 20px;
+    color: var(--text-white);
+    letter-spacing: 0;
+}
+.fs-f2__row--label { line-height: 120%; }
+.fs-f2__row--stat  { line-height: 90%;  }
+.fs-f2__row--y397 { top: 397px; }
+.fs-f2__row--y445 { top: 445px; }
+.fs-f2__row--y494 { top: 494px; }
+.fs-f2__row--y542 { top: 542px; }
+.fs-f2__row--y590 { top: 590px; }
+
+/* Lime 9×9 bullet rendered as ::before, sized + positioned to land at
+   frame x=192 (39 px to the left of the row's text origin). The dot's
+   spec-y is the same as the row's text-y so vertical-align: middle works. */
+.fs-f2__row::before {
+    content: "";
+    position: absolute;
+    left: -39px;                                       /* 192 - 231 */
+    top: 0.45em;                                       /* roughly text mid-line */
+    width: 9px;
+    height: 9px;
+    border-radius: 50%;
+    background: #C2F04F;                               /* fill_FHZNGA */
+}
+
+/* ============================================================
+   Phase F2 (cont.) — PDF/scroll-down CTA (282:786, frame x=160, y=1755).
+   Section-relative offsets:  group-x = 160, group-y = 1755 - 1078 = 677.
+   ============================================================ */
+
+/* 282:800 decorative orbital-rings art. Spec layout box is 1119.91 × 873
+   (parent-rel 0,0), but the source SVG (805 × 628 viewBox) has its rings
+   filling its entire viewBox edge-to-edge. Stretching to spec box makes
+   the rings reach down to y=1550 — covering where the hint paragraph sits
+   (y=1519..1567). Figma's render of the same SVG looks softer because of
+   the per-path mix-blend-mode: plus-lighter that an <img>-loaded SVG
+   ignores. To match Figma's visible ring extent (≈ 80 % of the group),
+   render the SVG at 80 % scale and centre it inside the spec layout box. */
+/* CSS variable driven by JS on scroll; 0 when section enters from below,
+   1 when it has fully passed the top. Used to rotate the orbital rings. */
+@property --fs-f2-progress {
+    syntax: '<number>';
+    inherits: true;
+    initial-value: 0;
+}
+.fs-f2__cta-art {
+    position: absolute;
+    left: calc(160px + (1119.91px - 900px) / 2);       /* horizontally centred in group */
+    top: calc(677px + (873px - 702px) / 2);            /* vertically centred in group */
+    width: 900px;
+    height: 702px;
+    object-fit: contain;
+    pointer-events: none;
+    z-index: 2;
+    /* scroll-driven full 360° clockwise rotation (matches the index
+       section6 rings exactly). At progress=0 and progress=1 the rings
+       are at the same horizontal orientation; in between they sweep
+       through a full revolution. 180° was tried first but left the
+       chromatic strokes mirrored at the end — not horizontally
+       identical to the start. */
+    transform: rotate(calc(360deg * var(--fs-f2-progress, 0)));
+    transform-origin: 50% 50%;
+    will-change: transform;
+}
+
+/* 282:787 PDF pill button.
+   Spec layout chain (frame y=394 is the OUTER hug-frame x position; the
+   ACTUAL button is the inner Frame 282:788 with FIXED dims 526.66 × 68.21
+   per layout_6QCIGR — size we use here. Border-radius 121.5 px makes it
+   a pill regardless of height. Text style: 21.06 / 42.62 px Golos Medium. */
+.fs-f2__cta-pdf {
+    position: absolute;
+    left: calc(160px + 305.5px);                       /* group-x + inner-x */
+    top: calc(677px + 394px);                          /* group-y + inner-y */
+    width: 526.66px;
+    height: 68.21px;
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+    border: 1px solid #FFFFFF;
+    border-radius: 121.5px;
+    background: transparent;
+    color: #FFFFFF;
+    font-family: 'Golos', 'Golos Text', sans-serif;
+    font-weight: 500;
+    font-size: 21.06px;
+    line-height: 1;                                    /* defer vertical centring to flex */
+    letter-spacing: -0.02em;
+    text-decoration: none;
+    white-space: nowrap;
+    cursor: pointer;
+    z-index: 4;
+    transition: background 0.18s ease, color 0.18s ease;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+}
+.fs-f2__cta-pdf:hover,
+.fs-f2__cta-pdf:focus-visible {
+    background: #FFFFFF;
+    color: #2F2F2F;
+}
+
+/* 282:792 share affordance — icon LEFT, text RIGHT.
+   Spec sub-coords:
+     282:794 icon at (0, 5.21)        32.07 × 32.55
+     282:793 text at (48.52, 0)       286 × 42
+   Group at parent-rel (401.5, 488), w=334.52 h=42, opacity 0.6.            */
+.fs-f2__cta-share {
+    position: absolute;
+    left: calc(160px + 401.5px);
+    top: calc(677px + 488px);
+    width: 334.52px;
+    height: 42px;
+    margin: 0;
+    padding: 0;
+    background: transparent;
+    border: 0;
+    color: #FFFFFF;
+    opacity: 0.6;
+    cursor: pointer;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    gap: 16.45px;                                      /* 48.52 - 32.07 */
+    z-index: 4;
+    text-align: left;
+}
+.fs-f2__cta-share-icon {
+    width: 32.07px;
+    height: 32.55px;
+    display: block;
+    flex-shrink: 0;
+}
+.fs-f2__cta-share-text {
+    font-family: 'Golos', 'Golos Text', sans-serif;
+    font-weight: 500;
+    font-size: 21.49px;
+    line-height: 100%;
+    letter-spacing: -0.02em;
+}
+.fs-f2__cta-share:hover { opacity: 1; }
+
+/* 282:799 vertical hairline divider (1×107 at parent-rel 433, 552).
+   On scroll the height grows from 107 → 280 (stops 10px above the
+   .fs-f2__cta-hint top), driven by --fs-f2-divider-progress (a separate
+   var so it doesn't share with the rotation). Top-anchored, so growth
+   extends downward toward the hint.                                   */
+.fs-f2__cta-divider {
+    position: absolute;
+    left: calc(160px + 433px);
+    top: calc(677px + 552px);
+    width: 1px;
+    height: calc(107px + 173px * var(--fs-f2-divider-progress, 0));
+    background: rgba(255, 255, 255, 0.8);
+    z-index: 4;
+    will-change: height;
+}
+
+/* 282:814 "Ниже — кратко..." prompt (parent-rel 453.49, 842, w=400, h≈48).
+   Wraps to 2 lines naturally — Figma puts "выводы" at the start of line 2
+   with a 74×1 lime underline (Vector 7941 at sub-y=43, exactly under the
+   "выводы" word). Implemented as a `.fs-f2__cta-hint-link` span with a
+   ::after pseudo of the spec dimensions.                                    */
+.fs-f2__cta-hint {
+    position: absolute;
+    left: calc(160px + 453.49px);
+    top: calc(677px + 842px);
+    width: 400px;
+    margin: 0;
+    padding: 0;
+    font-family: 'Golos', 'Golos Text', sans-serif;
+    font-weight: 500;
+    font-size: 20px;
+    line-height: 120%;
+    letter-spacing: -0.02em;
+    color: #D9D9D9;
+    z-index: 4;
+}
+.fs-f2__cta-hint-link {
+    position: relative;
+    display: inline-block;
+}
+.fs-f2__cta-hint-link::after {
+    content: "";
+    position: absolute;
+    left: 0;
+    bottom: -3px;                                      /* sits just under the baseline */
+    width: 100%;                                       /* matches the word width (≈74 px for "выводы") */
+    height: 1px;
+    background: #C3F150;                               /* spec stroke fill_R2K7DS */
+}
+
+
+/* --- F2 mobile (≤770px) --------------------------------------------------
+   Collapse the two-group canvas into a vertical flow: methodology on top,
+   then CTA stack. Drop the gradient rectangle to a flowing background and
+   replace the absolute positions with normal flow.                         */
+@media (max-width: 770px) {
+    .fs-f2 {
+        margin-top: 64px;
+        overflow: hidden;
+    }
+    .fs-f2__canvas {
+        width: 100%;
+        height: auto;
+        padding: 32px 16px 48px;
+        box-sizing: border-box;
+        display: flex;
+        flex-direction: column;
+        gap: 24px;
+    }
+
+    /* Gradient covers the whole methodology area (heading included).
+       Lime opaque at top, fades to transparent toward CTA below. */
+    .fs-f2__gradient {
+        position: absolute !important;
+        left: 0 !important; top: 0 !important; right: 0 !important;
+        width: 100% !important;
+        height: 100% !important;
+        background: linear-gradient(180deg, #C2F04F 0%, #C2F04F 55%, rgba(47,47,47,0) 100%) !important;
+        z-index: 0;
+    }
+    /* Bring back the grid texture — scaled to viewport, soft-light blended. */
+    .fs-f2__diagram {
+        display: block !important;
+        position: absolute !important;
+        left: 0 !important;
+        top: 80px !important;
+        width: 100% !important;
+        height: auto !important;
+        max-height: none;
+        z-index: 1;
+        opacity: 0.6;
+        mix-blend-mode: soft-light;
+        pointer-events: none;
+    }
+
+    .fs-f2__heading,
+    .fs-f2__lead,
+    .fs-f2__date,
+    .fs-f2__list {
+        position: relative;
+        z-index: 2;                                    /* above gradient + grid */
+    }
+    .fs-f2__heading,
+    .fs-f2__lead,
+    .fs-f2__date {
+        left: auto;
+        top: auto;
+        width: 100%;
+        height: auto;
+    }
+    .fs-f2__heading { font-size: 28px; line-height: 110%; font-weight: 500; }
+    .fs-f2__lead { font-size: 16px; line-height: 135%; font-weight: 500; }
+    .fs-f2__date { font-size: 16px; font-weight: 500; }
+
+    .fs-f2__list {
+        display: flex;
+        flex-direction: column;
+        gap: 14px;
+    }
+    .fs-f2__row {
+        position: relative;
+        left: auto !important;
+        top: auto !important;
+        width: 100%;
+        padding-left: 24px;                            /* room for larger bullet */
+        font-size: 16px;
+        font-weight: 500;                              /* Golos Medium per Figma */
+        line-height: 130%;
+    }
+    .fs-f2__row::before {
+        left: 0;
+        top: 0.45em;
+        width: 12px;
+        height: 12px;
+    }
+
+    /* CTA art shrinks to viewport width; ratios preserved. */
+    .fs-f2__cta-art {
+        position: relative;
+        left: auto;
+        top: auto;
+        width: 100%;
+        max-width: 360px;
+        height: auto;
+        aspect-ratio: 1119.91 / 873;
+        margin: 16px auto 0;
+        align-self: center;
+    }
+
+    /* PDF button + share + divider + hint stack vertically below the art.
+       Use a separate wrapper-less flow: each element inherits gap from
+       .fs-f2__canvas's flex. Preserve order via order: <n>.               */
+    .fs-f2__cta-pdf,
+    .fs-f2__cta-share,
+    .fs-f2__cta-divider,
+    .fs-f2__cta-hint {
+        position: relative;
+        left: auto !important;
+        top: auto !important;
+    }
+    .fs-f2__cta-pdf {
+        width: 100%;
+        max-width: 360px;
+        margin: 8px auto 0;
+        text-align: center;
+        font-size: 18px;
+        line-height: 50px;
+        padding: 0;
+        height: 56px;
+        align-self: center;
+        box-sizing: border-box;
+    }
+    .fs-f2__cta-share {
+        width: 100%;
+        max-width: 360px;
+        margin: 0 auto;
+        height: auto;
+        flex-direction: row;
+        justify-content: center;
+        align-self: center;
+    }
+    .fs-f2__cta-share-text { font-size: 14px; }
+    .fs-f2__cta-share-text br { display: none; }       /* re-flow inline on small screens */
+    .fs-f2__cta-divider {
+        width: 1px;
+        height: 56px;
+        margin: 8px auto;
+        align-self: center;
+    }
+    .fs-f2__cta-hint {
+        width: 100%;
+        max-width: 360px;
+        margin: 0 auto;
+        text-align: center;
+        font-size: 14px;
+        line-height: 130%;
+        align-self: center;
+    }
+}
+
+
+/* ============================================================
+   Phase F3 — "Слово" block (Figma 282:551 + 282:507/508 + 282:847/890 +
+   320:2124 + 282:848, frame y=2776..3723, height 947).
+
+   Section-relative coords = frame-y - 2776:
+     282:551 heading + lime underline   x=100  y=0
+     282:507 left body                  x=101  y=143  609×248
+     282:508 right body                 x=817  y=221  569×178
+     282:847 "Слово:" label             x=100  y=467  367×28
+     282:890 word-marquee SVG           x=180  y=512.5 1080×141.5
+     320:2124 callout                   x=100  y=700  469×247
+     282:848 stat box                   x=654  y=700  606×108
+   ============================================================ */
+.fs-f3 {
+    position: relative;
+    width: 100%;
+    margin-top: 136px;                                 /* gap from F2 (frame 2776 - 2640) */
+    background: var(--bg-primary);                     /* #272727 */
+    display: flex;
+    justify-content: center;
+    overflow-x: clip;
+}
+.fs-f3__canvas {
+    position: relative;
+    width: 1440px;
+    height: 947px;
+    flex-shrink: 0;
+}
+
+/* --- 282:551..553 heading + 249 px lime underline at sub-y=64 ---------- */
+.fs-f3__heading {
+    position: absolute;
+    left: 100px;
+    top: 0;
+    width: 453px;
+    height: 64px;
+    margin: 0;
+    padding: 0;
+    font-family: 'Golos', 'Golos Text', sans-serif;
+    font-weight: 500;
+    font-size: 30px;
+    line-height: 120%;
+    letter-spacing: -0.02em;
+    color: var(--text-white);
+}
+.fs-f3__heading-underline {
+    position: absolute;
+    left: 41px;                                        /* 141 (group-rel) - 100 (heading-left within container is 0; spec underline at sub-x=141, heading text starts at sub-x=0) */
+    top: 64px;
+    width: 249px;
+    height: 1px;
+    background: #C3F150;                               /* spec stroke fill_R2K7DS */
+    pointer-events: none;
+}
+
+/* --- 282:507/508 body columns (Golos Medium 20 / 130 % / -2 %, white) -- */
+.fs-f3__body {
+    position: absolute;
+    margin: 0;
+    padding: 0;
+    font-family: 'Golos', 'Golos Text', sans-serif;
+    font-weight: 500;
+    font-size: 20px;
+    line-height: 130%;
+    letter-spacing: -0.02em;
+    color: var(--text-white);
+}
+.fs-f3__body--left {
+    left: 101px;
+    top: 143px;                                        /* 2919 - 2776 */
+    width: 609px;
+    height: 248px;
+}
+.fs-f3__body--right {
+    left: 817px;
+    top: 221px;                                        /* 2997 - 2776 */
+    width: 569px;
+    height: 178px;
+}
+.fs-f3__hl--orange { color: var(--color-orange); }     /* #FF6E32 */
+.fs-f3__hl--purple { color: var(--color-purple); }     /* #AA6EFF */
+
+/* --- 282:847 "Слово:" purple-90% large label ---------------------------- */
+.fs-f3__label {
+    position: absolute;
+    left: 100px;
+    top: 467px;                                        /* 3243 - 2776 */
+    width: 367px;
+    height: 28px;
+    margin: 0;
+    padding: 0;
+    font-family: 'Golos', 'Golos Text', sans-serif;
+    font-weight: 500;
+    font-size: 40px;
+    line-height: 90%;
+    letter-spacing: -0.02em;
+    color: #AA6EFF;
+}
+
+/* --- 282:890 horizontal-words SVG (1080 × 141.5 at 180, 512.5) --------- */
+/* Scroll-driven fade: progress 0..1 set on .fs-f3 by JS, used here to
+   interpolate opacity from 1.0 (full at progress 0) down to 0.2 (at
+   progress 1). 1 - 0.8*progress so progress=1 → opacity 0.2.            */
+@property --fs-f3-progress {
+    syntax: '<number>';
+    inherits: true;
+    initial-value: 0;
+}
+.fs-f3__words {
+    position: absolute;
+    left: 180px;
+    top: 512.5px;                                      /* 3288.5 - 2776 */
+    width: 1080px;
+    height: 141.5px;
+    pointer-events: none;
+    display: block;
+    opacity: calc(1 - 0.8 * var(--fs-f3-progress, 0));
+    will-change: opacity;
+}
+
+/* --- 320:2124 big purple callout (40 / 100 % / -2 %, purple 90 % alpha) - */
+.fs-f3__callout {
+    position: absolute;
+    left: 100px;
+    top: 700px;                                        /* 3476 - 2776 */
+    width: 469px;
+    margin: 0;
+    padding: 0;
+    font-family: 'Golos', 'Golos Text', sans-serif;
+    font-weight: 500;
+    font-size: 40px;
+    line-height: 100%;
+    letter-spacing: -0.02em;
+    color: rgba(170, 110, 255, 0.9);
+}
+.fs-f3__callout-num {
+    /* Same color/size as parent — span exists for future treatment hooks. */
+}
+
+/* --- 282:848 stat-box: 606 × 108 with 1 px white frame + center divider.
+   Divider at sub-x=312 splits into left (312 wide) + right (294 wide).
+   Lines (282:856..862) reproduced via container border + .stats-divider. - */
+.fs-f3__stats {
+    position: absolute;
+    left: 654px;
+    top: 700px;
+    width: 606px;
+    height: 108px;
+    border: 1px solid #FFFFFF;
+    box-sizing: border-box;
+}
+.fs-f3__stats-divider {
+    position: absolute;
+    left: 312px;
+    top: 0;
+    width: 1px;
+    height: 108px;
+    background: #FFFFFF;
+}
+
+/* Stat cells. Left cell: text top, percent below.
+   Right cell: percent top, text below.                                   */
+.fs-f3__stat {
+    position: absolute;
+    margin: 0;
+    padding: 0;
+}
+.fs-f3__stat--left {
+    /* sub group 282:853 at (18, 19.44), 279×62.64 */
+    left: 18px;
+    top: 19.44px;
+    width: 279px;
+    height: 62.64px;
+}
+.fs-f3__stat--right {
+    /* sub group 282:850 at (347, 19.44), 236×62.64 */
+    left: 347px;
+    top: 19.44px;
+    width: 236px;
+    height: 62.64px;
+}
+
+.fs-f3__stat-text,
+.fs-f3__stat-percent {
+    position: absolute;
+    margin: 0;
+    padding: 0;
+    font-family: 'Golos', 'Golos Text', sans-serif;
+    font-weight: 500;
+    font-size: 20px;
+    letter-spacing: -0.02em;
+    left: 0;
+}
+.fs-f3__stat-text {
+    line-height: 110%;
+    color: var(--text-white);
+}
+.fs-f3__stat-percent {
+    line-height: 120%;
+    color: rgba(170, 110, 255, 0.9);
+}
+
+/* Left cell: text top:0 (h=38.88), percent top:44.28 */
+.fs-f3__stat--left .fs-f3__stat-text    { top: 0;     width: 279px;    height: 38.88px; }
+.fs-f3__stat--left .fs-f3__stat-percent { top: 44.28px; width: 251.13px; height: 18.36px; }
+
+/* Right cell: percent top:0 (h=15.12), text top:31.32 */
+.fs-f3__stat--right .fs-f3__stat-percent { top: 0;     width: 231px; height: 15.12px; }
+.fs-f3__stat--right .fs-f3__stat-text    { top: 31.32px; width: 236px; height: 31.32px; }
+
+
+/* --- F3 mobile (≤770px) ----------------------------------------------- */
+@media (max-width: 770px) {
+    .fs-f3 {
+        margin-top: 64px;
+        overflow: hidden;
+    }
+    .fs-f3__canvas {
+        width: 100%;
+        height: auto;
+        padding: 32px 16px 48px;
+        box-sizing: border-box;
+        display: flex;
+        flex-direction: column;
+        gap: 24px;
+    }
+    .fs-f3__heading,
+    .fs-f3__body,
+    .fs-f3__label,
+    .fs-f3__words,
+    .fs-f3__callout,
+    .fs-f3__stats {
+        position: relative;
+        left: auto !important;
+        top: auto !important;
+        width: 100%;
+        height: auto;
+    }
+    .fs-f3__heading {
+        font-size: 22px;
+        line-height: 120%;
+        max-width: 320px;                              /* matches the original 453 / line wrap */
+    }
+    .fs-f3__heading-underline {
+        position: relative;
+        left: 0;
+        top: 4px;
+        width: 100px;                                  /* underline a fixed portion of the wrapped heading */
+        display: block;
+    }
+    .fs-f3__body { font-size: 16px; line-height: 130%; }
+    .fs-f3__label { font-size: 28px; }
+    .fs-f3__words {
+        width: 100%;
+        height: auto;
+        max-width: 540px;
+        aspect-ratio: 1080 / 141.5;
+    }
+    .fs-f3__callout {
+        font-size: 28px;
+        line-height: 100%;
+        max-width: 360px;
+    }
+
+    /* Stats: stack the two cells vertically; rebuild borders so the divider
+       becomes horizontal between cells.                                     */
+    .fs-f3__stats {
+        max-width: 360px;
+        height: auto;
+        display: flex;
+        flex-direction: column;
+        border: 1px solid #FFFFFF;
+    }
+    .fs-f3__stats-divider {
+        position: relative;
+        left: auto;
+        top: auto;
+        width: 100%;
+        height: 1px;
+        order: 1;                                      /* sits between the two cells */
+    }
+    .fs-f3__stat {
+        position: relative;
+        left: auto !important;
+        top: auto !important;
+        width: 100%;
+        height: auto;
+        padding: 16px 18px;
+        box-sizing: border-box;
+    }
+    .fs-f3__stat--right { order: 2; }                  /* below the divider */
+
+    .fs-f3__stat .fs-f3__stat-text,
+    .fs-f3__stat .fs-f3__stat-percent {
+        position: relative;
+        left: auto;
+        top: auto;
+        width: 100%;
+        height: auto;
+        font-size: 16px;
+    }
+    .fs-f3__stat--right .fs-f3__stat-percent { margin-bottom: 6px; }
+    .fs-f3__stat--left  .fs-f3__stat-percent { margin-top: 6px; }
+}
+
+
+/* ============================================================
+   Phase F4 — "Наниматели — в регионах, фандрайзеры — в Москве"
+   (Figma 282:743 + 282:723 + 282:722 + 282:719 + 282:731,
+   frame y=3802..4604, height 802).
+
+   Section-relative coords = frame-y - 3802:
+     282:743 heading                  x=99   y=0    399×64
+     282:723 left circles + caps      x=106  y=99   629×625
+     282:722 right body               x=817  y=141  528×196
+     282:719 right pull-quote         x=817  y=363  529×301
+     282:731 audience toggle          x=99   y=730  610.55×72.9
+   ============================================================ */
+.fs-f4 {
+    position: relative;
+    width: 100%;
+    margin-top: 79px;                                  /* gap from F3 (frame 3802 - 3723) */
+    background: var(--bg-primary);                     /* #272727 */
+    display: flex;
+    justify-content: center;
+    overflow-x: clip;
+}
+.fs-f4__canvas {
+    position: relative;
+    width: 1440px;
+    height: 803px;                                     /* spec: 730 toggle-top + 72.9 toggle-h ≈ 803 */
+    flex-shrink: 0;
+}
+
+/* --- 282:743..746 heading + two 1 px lime underlines ----------------- */
+.fs-f4__heading {
+    position: absolute;
+    left: 99px;
+    top: 0;
+    width: 399px;
+    height: 64px;
+    margin: 0;
+    padding: 0;
+    font-family: 'Golos', 'Golos Text', sans-serif;
+    font-weight: 500;
+    font-size: 30px;
+    line-height: 120%;
+    letter-spacing: -0.02em;
+    color: var(--text-white);
+}
+/* 282:745 underline 140 wide at sub (244, 29) — under "регионах" on line 1 */
+.fs-f4__heading-u1 {
+    position: absolute;
+    left: 244px;
+    top: 29px;
+    width: 140px;
+    height: 1px;
+    background: #C3F150;
+    pointer-events: none;
+}
+/* 282:746 underline 132 wide at sub (243, 64) — under "Москве" on line 2 */
+.fs-f4__heading-u2 {
+    position: absolute;
+    left: 243px;
+    top: 64px;
+    width: 132px;
+    height: 1px;
+    background: #C3F150;
+    pointer-events: none;
+}
+
+/* --- 282:723 left graphic: 2 outlined circles + 2 outlined percentages
+   overlapping at the centre, plus 2 contrasting captions overlapping at
+   the bottom (sub-y=562). The two captions deliberately occupy the same
+   x/y so the chromatic effect emerges when both are visible (data-state).
+   --------------------------------------------------------------------- */
+.fs-f4__graph {
+    position: absolute;
+    left: 106px;
+    top: 99px;                                         /* 3901 - 3802 */
+    width: 629.77px;
+    height: 625.39px;                                  /* spec ellipse bbox */
+    isolation: isolate;                                /* contain plus-lighter blend to this graph */
+}
+
+/* --- Crescent pie shapes (the "C" / horseshoe shapes Figma actually
+   uses for 282:729 + 282:730). Original ellipse bboxes:
+     purple: 625.39 × 625.39 at sub (2.37, 0)    SVG content 354 × 449
+     orange: 531.28 × 531.28 at sub (-0, 0.28)   SVG content 333 × 271
+   The downloaded SVGs were tightened by Figma's MCP to just the visible
+   path bbox, so we centre each SVG inside its spec ellipse bbox.           */
+.fs-f4__graph-pac {
+    position: absolute;
+    pointer-events: none;
+    display: block;
+    overflow: visible;
+}
+.fs-f4__graph-pac--purple {
+    /* SVG centred inside spec bbox 625.39 × 625.39 at sub (2.37, 0).
+       Centre = (2.37 + 625.39/2, 0 + 625.39/2) = (315.07, 312.70).
+       SVG natural 354 × 449 → top-left = (315.07 - 177, 312.70 - 224.5). */
+    left: 150.07px;
+    top: 88.20px;
+    width: 354px;
+    height: 449px;
+}
+.fs-f4__graph-pac--orange {
+    /* Centre of spec bbox 531.28 × 531.28 at sub (0, 0.28) is
+       (265.64, 265.92). SVG natural 333 × 271 → top-left
+       (265.64 - 166.5, 265.92 - 135.5) = (99.14, 130.42). */
+    left: 20.14px;
+    top: 30.42px;
+    width: 333px;
+    height: 271px;
+}
+
+/* --- Chromatic mega numbers (mirrors .s3p5__mega in index).
+   Each number splits into .fs-f4__graph-digits (digits with the colour
+   stroke that matches the side) + .fs-f4__graph-suffix (the ",X%" tail
+   in WHITE), so the two numbers blend additively in plus-lighter — orange
+   + purple → near-white at overlap, suffix sits on top in pure white.    */
+.fs-f4__graph-num {
+    position: absolute;
+    margin: 0;
+    padding: 0;
+    font-family: 'Golos', 'Golos Text', sans-serif;
+    font-weight: 500;
+    font-size: 71.24px;
+    line-height: 130%;
+    letter-spacing: 0;
+    color: transparent;
+    -webkit-text-fill-color: transparent;
+    -webkit-text-stroke-width: 1px;
+    text-shadow: none;
+    background: transparent;
+    pointer-events: none;
+    white-space: nowrap;
+    paint-order: stroke fill;
+    mix-blend-mode: plus-lighter;
+    transition: opacity 0.3s ease;
+}
+.fs-f4__graph-num--orange {
+    left: 118px;
+    top: 266.28px;
+    -webkit-text-stroke-color: var(--color-orange);
+}
+.fs-f4__graph-num--orange .fs-f4__graph-digits {
+    -webkit-text-stroke-color: var(--color-orange);
+}
+.fs-f4__graph-num--purple {
+    left: 181px;
+    top: 266.28px;
+    -webkit-text-stroke-color: var(--color-purple);
+}
+.fs-f4__graph-num--purple .fs-f4__graph-digits {
+    -webkit-text-stroke-color: var(--color-purple);
+}
+.fs-f4__graph-suffix {
+    -webkit-text-stroke-color: #FFFFFF;                /* white tail (",3%" / "%") */
+}
+
+/* --- State-driven visibility (same pattern as s3p5):
+   data-state="fundraisers" → orange (employer) side fades to 10 %
+   data-state="employers"   → purple (fundraiser) side fades to 10 %
+   data-state="both" (default) shows both with chromatic blend.            */
+.fs-f4[data-state="fundraisers"] .fs-f4__graph-num--orange,
+.fs-f4[data-state="fundraisers"] .fs-f4__graph-pac--orange {
+    opacity: 0.1;
+    pointer-events: none;
+}
+.fs-f4[data-state="employers"] .fs-f4__graph-num--purple,
+.fs-f4[data-state="employers"] .fs-f4__graph-pac--purple {
+    opacity: 0.1;
+    pointer-events: none;
+}
+.fs-f4__graph-pac { transition: opacity 0.3s ease; }
+
+/* Captions (282:724 purple + 282:725 orange). Spec puts both at sub (0, 562)
+   — they overlap chromatically using the same outline-stack pattern as
+   .s3p5__outline-top: transparent fill + coloured -webkit-text-stroke, with
+   mix-blend-mode: plus-lighter so the two paragraphs additively blend
+   (purple + orange → near-white at overlap). The parent .fs-f4__graph has
+   isolation: isolate to contain the blend.                                  */
+.fs-f4__graph-cap {
+    position: absolute;
+    left: 0;
+    top: 562px;
+    width: 458px;
+    margin: 0;
+    padding: 0;
+    font-family: 'Golos', 'Golos Text', sans-serif;
+    font-weight: 500;
+    font-size: 20px;
+    line-height: 130%;
+    letter-spacing: -0.02em;
+    color: transparent;
+    -webkit-text-fill-color: transparent;
+    -webkit-text-stroke-width: 1px;
+    paint-order: stroke fill;
+    mix-blend-mode: plus-lighter;
+    transition: opacity 0.3s ease;
+}
+.fs-f4__graph-cap--purple { -webkit-text-stroke-color: var(--color-purple); }
+.fs-f4__graph-cap--orange { -webkit-text-stroke-color: var(--color-orange); }
+/* Single-side toggle states fade out the other caption (mirrors
+   .s3p5 outline / mega behavior). */
+.fs-f4[data-state="fundraisers"] .fs-f4__graph-cap--orange { opacity: 0.1; }
+.fs-f4[data-state="employers"]   .fs-f4__graph-cap--purple { opacity: 0.1; }
+
+/* --- 282:722 right body (Golos Medium 20 / 130 %, white) -------------- */
+.fs-f4__body {
+    position: absolute;
+    left: 817px;
+    top: 141px;                                        /* 3943 - 3802 */
+    width: 528px;
+    margin: 0;
+    padding: 0;
+    font-family: 'Golos', 'Golos Text', sans-serif;
+    font-weight: 500;
+    font-size: 20px;
+    line-height: 130%;
+    letter-spacing: -0.02em;
+    color: var(--text-white);
+}
+
+/* --- 282:719..721 right pull-quote (45 / 100 %, white) with 178 px lime
+   underline at sub (273, 130). ---------------------------------------- */
+.fs-f4__quote {
+    position: absolute;
+    left: 817px;
+    top: 363px;                                        /* 4165 - 3802 */
+    width: 529px;
+    height: 301px;
+    margin: 0;
+    padding: 0;
+    font-family: 'Golos', 'Golos Text', sans-serif;
+    font-weight: 500;
+    font-size: 45px;
+    line-height: 100%;
+    letter-spacing: -0.02em;
+    color: var(--text-white);
+}
+.fs-f4__quote-underline {
+    position: absolute;
+    left: 273px;
+    top: 130px;
+    width: 178px;
+    height: 1px;
+    background: #C3F150;                               /* spec stroke fill_R2K7DS */
+    pointer-events: none;
+}
+
+/* --- 282:731..742 audience toggle. Reuses .s3p5__toggle markup from index;
+   overrides here are dimension-only (toggle is bigger in F4 vs s3p5).
+   Spec: outer 610.55 × 72.9, active centre pill 200.88 × 61.56 at sub
+   (204.83, 5.66). Segment text Golos Medium 20.79 / 110 % / -5 %.       */
+.fs-f4 .s3p5__toggle {
+    position: absolute;
+    left: 99px;
+    top: 730px;                                        /* spec: 4532 - 3802 */
+    width: 610.55px;
+    height: 72.9px;
+}
+.fs-f4 .s3p5__toggle-inner {
+    border-radius: 75.35px;                            /* spec — bigger pill than s3p5's 62.81 */
+}
+/* Bigger labels (20.79 vs 17.33 in s3p5) per spec. */
+.fs-f4 .s3p5__seg-label,
+.fs-f4 .s3p5__seg-pill-label {
+    font-size: 20.79px;
+}
+/* Segment heights are bigger in F4 (text fits the bigger pill). */
+.fs-f4 .s3p5__seg {
+    height: 23px;
+}
+.fs-f4 .s3p5__seg--left {
+    left: 34.66px;
+    top: 24.59px;
+    width: 132px;
+}
+.fs-f4 .s3p5__seg--right {
+    left: 458.55px;
+    top: 24.59px;
+    width: 115px;
+}
+.fs-f4 .s3p5__seg--mid {
+    left: 204.83px;
+    top: 5.66px;
+    width: 200.88px;
+    height: 61.56px;
+}
+
+/* When the left or right side seg is active in F4, its ::before pill should
+   match the centre pill's vertical extent (top 5.66 → bottom 67.22, height
+   61.56). The 23 px text-line of the side seg sits at top:24.59, so we need
+   to expand the pill by 18.93 px up and 19.63 px down to span the same y
+   as the centre pill — overrides the default s3p5 -7 -16 inset.            */
+.fs-f4 .s3p5__seg--left::before,
+.fs-f4 .s3p5__seg--right::before {
+    inset: -18.93px -16px -19.63px;
+}
+
+
+/* --- F4 mobile (≤770px) ---------------------------------------------- */
+@media (max-width: 770px) {
+    .fs-f4 {
+        margin-top: 64px;
+        overflow: hidden;
+    }
+    .fs-f4__canvas {
+        width: 100%;
+        height: auto;
+        padding: 32px 16px 48px;
+        box-sizing: border-box;
+        display: flex;
+        flex-direction: column;
+        gap: 24px;
+    }
+    .fs-f4__heading,
+    .fs-f4__graph,
+    .fs-f4__body,
+    .fs-f4__quote,
+    .fs-f4__toggle {
+        position: relative;
+        left: auto !important;
+        top: auto !important;
+        width: 100%;
+        height: auto;
+    }
+    .fs-f4__heading { font-size: 22px; line-height: 120%; max-width: 320px; }
+    .fs-f4__heading-u1, .fs-f4__heading-u2 { display: none; }
+
+    /* Graph: keep aspect-ratio square, scale circles to viewport. */
+    .fs-f4__graph {
+        max-width: 360px;
+        aspect-ratio: 629.77 / 625.39;
+        margin: 0 auto;
+    }
+    .fs-f4__graph-pac {
+        position: absolute;
+        left: 50%; top: 50%;
+        transform: translate(-50%, -50%);
+        height: auto;
+    }
+    .fs-f4__graph-pac--purple { width: 100%; aspect-ratio: 1; }
+    .fs-f4__graph-pac--orange { width: 84%;  aspect-ratio: 1; }
+    .fs-f4__graph-num {
+        font-size: 44px;
+        line-height: 100%;
+        top: 38%;                                      /* roughly centered */
+    }
+    .fs-f4__graph-num--orange { left: 18%; }
+    .fs-f4__graph-num--purple { left: 28%; }
+    .fs-f4__graph-cap {
+        position: relative;
+        top: auto !important;
+        left: auto !important;
+        width: 100%;
+        font-size: 14px;
+        text-align: center;
+        margin-top: 8px;
+        mix-blend-mode: normal;
+    }
+    .fs-f4__graph-cap--orange { margin-top: 4px; }
+
+    /* Body / quote stack vertically below graph. */
+    .fs-f4__body { font-size: 16px; line-height: 130%; }
+    .fs-f4__quote { font-size: 24px; line-height: 110%; }
+    .fs-f4__quote-underline { display: none; }
+
+    /* Toggle: full-width pill, segment labels shrink. Uses the s3p5 markup
+       so reuses index's mobile rules where they overlap; F4-specific layout
+       overrides below.                                                     */
+    .fs-f4 .s3p5__toggle {
+        max-width: 360px;
+        height: 56px;
+        margin: 0 auto;
+    }
+    .fs-f4 .s3p5__seg-label,
+    .fs-f4 .s3p5__seg-pill-label { font-size: 12px; }
+    .fs-f4 .s3p5__seg--left  { left: 6%;  top: 50%; width: auto; height: auto; transform: translateY(-50%); }
+    .fs-f4 .s3p5__seg--mid   { left: 33%; top: 4px; width: 34%; height: 48px; }
+    .fs-f4 .s3p5__seg--right { left: 75%; top: 50%; width: auto; height: auto; transform: translateY(-50%); }
+}
+
+
+/* ============================================================
+   Phase F5 — "Разные поколения, разное образование"
+   (Figma 282:579 + 282:646, frame y=4748..5912, height 1164).
+
+   Section-relative coords = frame-y - 4748:
+     282:579 education block:  x=98  y=0    1240×640.87
+       heading + underline      x=100 y=0    331×57   (underline 107×1 at y=27)
+       body                     x=100 y=133  610×118
+       chart (2 cells)          x=98  y=309  1240×242
+         left  cell (purple)    x=98  w=822  rounded 60.51
+         right cell (orange)    x=936 w=402
+       legend                   x=367 y=605  705×35.87
+     282:646 generations:       x=367 y=744  705.05×420.87
+       blob-orange              x=771 y=744  216×214
+       blob-purple              x=509 y=800  103×101
+       callout (orange)         x=457 y=1000 525×75   24/120% wt 500
+       legend                   x=367 y=1129 705×35.87
+   ============================================================ */
+.fs-f5 {
+    position: relative;
+    width: 100%;
+    margin-top: 143px;                                 /* gap from F4 (frame 4748 - 4605) */
+    background: var(--bg-primary);
+    display: flex;
+    justify-content: center;
+    overflow-x: clip;
+}
+.fs-f5__canvas {
+    position: relative;
+    width: 1440px;
+    height: 1165px;                                    /* spec: 1129 + 35.87 ≈ 1165 */
+    flex-shrink: 0;
+}
+
+/* --- 282:581..583 heading + lime underline -------------------------- */
+.fs-f5__edu-heading {
+    position: absolute;
+    left: 100px;
+    top: 0;
+    width: 331px;
+    height: 57px;
+    margin: 0;
+    padding: 0;
+    font-family: 'Golos', 'Golos Text', sans-serif;
+    font-weight: 500;
+    font-size: 30px;
+    line-height: 120%;
+    letter-spacing: -0.02em;
+    color: var(--text-white);
+}
+.fs-f5__edu-heading-underline {
+    /* 282:583 Vector 7943: 107×1 lime stroke at sub (0, 27) */
+    position: absolute;
+    left: 0;
+    top: 27px;
+    width: 107px;
+    height: 1px;
+    background: #C3F150;
+    pointer-events: none;
+}
+
+/* --- 282:580 body paragraph ---------------------------------------- */
+.fs-f5__edu-body {
+    position: absolute;
+    left: 100px;
+    top: 133px;
+    width: 610px;
+    margin: 0;
+    padding: 0;
+    font-family: 'Golos', 'Golos Text', sans-serif;
+    font-weight: 500;
+    font-size: 20px;
+    line-height: 130%;
+    letter-spacing: -0.02em;
+    color: var(--text-white);
+}
+
+/* --- 282:584 chart container -------------------------------------- */
+.fs-f5__chart {
+    position: absolute;
+    left: 98px;
+    top: 309px;
+    width: 1240px;
+    height: 242px;
+}
+/* Two stroked rounded rectangles with internal text + mega percent.
+   Two states driven by data-state on .fs-f5:
+     "humanitarian" (default): purple wide LEFT (822) + orange narrow RIGHT (402)
+                                — corresponds to humanitarian-education stats
+     "technical":              purple narrow LEFT (403) + orange wide RIGHT (813)
+                                — corresponds to technical-education stats
+   Cells animate with a smooth width/left/top transition.                  */
+.fs-f5__chart-cell {
+    position: absolute;
+    top: 0;
+    height: 242px;
+    border: 1px solid;
+    border-radius: 60.51px;
+    box-sizing: border-box;
+    transition: left 0.4s ease, width 0.4s ease, border-color 0.3s ease;
+}
+.fs-f5[data-state="humanitarian"] .fs-f5__chart-cell--purple {
+    left: 0;
+    width: 822px;
+    border-color: var(--color-purple);
+}
+.fs-f5[data-state="humanitarian"] .fs-f5__chart-cell--orange {
+    left: 838px;
+    width: 402px;
+    border-color: var(--color-orange);
+}
+.fs-f5[data-state="technical"] .fs-f5__chart-cell--purple {
+    left: 0;
+    width: 402.98px;
+    border-color: var(--color-purple);
+}
+.fs-f5[data-state="technical"] .fs-f5__chart-cell--orange {
+    left: 426px;
+    width: 812.98px;
+    border-color: var(--color-orange);
+}
+
+/* Mega percent — sibling of cells, fixed coords on the chart canvas.
+   Stays put when the cell frames swap proportions on toggle.
+   Coords match the centre of state-1 cells:
+     purple cell state-1: left:0   width:822 → centre x = 411
+     orange cell state-1: left:838 width:402 → centre x = 1039          */
+.fs-f5__chart-num {
+    position: absolute;
+    top: 42px;
+    margin: 0;
+    padding: 0;
+    font-family: 'Golos', 'Golos Text', sans-serif;
+    font-weight: 500;
+    font-size: 100px;
+    line-height: 120%;
+    letter-spacing: -0.02em;
+    white-space: nowrap;
+    transform: translateX(-50%);
+}
+.fs-f5__chart-num--purple { left: 176px; color: var(--color-purple); }
+.fs-f5__chart-num--orange { left: 1039px; color: var(--color-orange); }
+
+/* Body text — sibling of cells, fixed coords on the chart canvas.
+   Doesn't move when cell frames swap proportions.
+     purple text state-1: cell-left 0   + sub-x 40 → absolute 40
+     orange text state-1: cell-left 838 + sub-x 51 → absolute 889       */
+.fs-f5__chart-text {
+    position: absolute;
+    top: 161px;
+    margin: 0;
+    padding: 0;
+    font-family: 'Golos', 'Golos Text', sans-serif;
+    font-weight: 500;
+    font-size: 20px;
+    line-height: 130%;
+    letter-spacing: -0.02em;
+}
+.fs-f5__chart-text--purple {
+    left: 40px;
+    width: 371px;
+    color: var(--color-purple);
+}
+.fs-f5__chart-text--orange {
+    left: 889px;
+    width: 300px;
+    color: var(--color-orange);
+}
+
+/* State-driven text swap: only the [data-show] matching the section's
+   data-state is visible; siblings are hidden.                          */
+.fs-f5 [data-show] { display: none; }
+.fs-f5[data-state="humanitarian"] [data-show="humanitarian"] { display: inline; }
+.fs-f5[data-state="technical"]    [data-show="technical"]    { display: inline; }
+
+/* --- 282:591 / 282:650 legend rows ---------------------------------
+   Both legends share a 4-column grid: swatch | text | swatch | text.
+   The two text columns each take 1fr of the remaining space, so the
+   second swatch sits at the same X in --edu and --gen regardless of
+   how long the first text is.                                       */
+.fs-f5__legend {
+    position: absolute;
+    left: 367px;
+    width: 705px;
+    height: 35.87px;
+    display: grid;
+    grid-template-columns: 35.87px minmax(0, 1fr) 35.87px minmax(0, 1fr);
+    align-items: center;
+    column-gap: 11px;                                  /* 46.45 - 35.87 ≈ 10.6 */
+}
+.fs-f5__legend--edu { top: 605px; }
+.fs-f5__legend--gen { top: 1129px; }
+
+/* Swatch is a 35.87 × 35.87 white circle, also acts as a toggle button
+   (legend doubles as the chart-state selector). Active state shows a
+   16px black dot in the centre via ::after.                            */
+.fs-f5__legend-swatch {
+    position: relative;
+    width: 35.87px;
+    height: 35.87px;
+    border-radius: 50%;
+    background: var(--text-white);
+    flex-shrink: 0;
+    /* button-element defaults reset */
+    border: 0;
+    padding: 0;
+    margin: 0;
+    cursor: pointer;
+    appearance: none;
+    -webkit-appearance: none;
+}
+.fs-f5__legend-swatch:focus-visible {
+    outline: 2px solid var(--accent-lime, #C2F04F);
+    outline-offset: 4px;
+}
+
+/* Active-state 16px black dot. Triggers:
+     • .fs-f5__legend-swatch.is-selected → per-swatch (class-based)      */
+.fs-f5__legend-swatch.is-selected::after {
+    content: '';
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 16px;
+    height: 16px;
+    border-radius: 50%;
+    background: #000;
+    transform: translate(-50%, -50%);
+}
+
+.fs-f5__legend-text {
+    font-family: 'Golos', 'Golos Text', sans-serif;
+    font-weight: 500;
+    font-size: 20px;
+    line-height: 90%;
+    letter-spacing: -0.02em;
+    color: var(--text-white);
+    white-space: nowrap;
+}
+
+/* --- 282:646 generations panel ------------------------------------- */
+.fs-f5__gen {
+    position: absolute;
+    left: 367px;
+    top: 744px;                                        /* 5492 - 4748 */
+    width: 705.05px;
+    height: 420.87px;
+}
+/* Two starburst slots — purple (LEFT) and orange (RIGHT). Each slot is
+   positioned at its BIG bounding box (216 × 214) and ALWAYS rendered at
+   that size. To produce the "small" state we shrink it via transform:
+   scale(); the visual centre is preserved so the SUN grows / shrinks in
+   place. The big bounding boxes are mirrored horizontally:
+     purple slot big bbox: left 85,  top 0  (centre ≈ 193, 107)
+     orange slot big bbox: left 404, top 0  (centre ≈ 512, 107)
+   In each state, ONE slot is at scale 1 (big), the other at scale ≈0.477
+   (≈ 103 / 216, matching the original small spec).                       */
+.fs-f5__gen-blob {
+    position: absolute;
+    pointer-events: none;
+    display: block;
+    width: 216px;
+    height: 214px;
+    transform-origin: 50% 50%;
+    transition: transform 0.55s cubic-bezier(0.4, 0, 0.2, 1);
+    will-change: transform;
+}
+.fs-f5__gen-blob--purple-slot { left: 85px;  top: 0; }
+.fs-f5__gen-blob--orange-slot { left: 404px; top: 0; }
+
+/* "older" — orange BIG, purple shrunk small.                            */
+.fs-f5[data-state-gen="older"] .fs-f5__gen-blob--orange-slot { transform: scale(1); }
+.fs-f5[data-state-gen="older"] .fs-f5__gen-blob--purple-slot { transform: scale(0.477); }
+/* "younger" — purple BIG, orange shrunk small.                          */
+.fs-f5[data-state-gen="younger"] .fs-f5__gen-blob--purple-slot { transform: scale(1); }
+.fs-f5[data-state-gen="younger"] .fs-f5__gen-blob--orange-slot { transform: scale(0.477); }
+
+/* Body copy swap: only the [data-show-gen] matching the current state
+   is visible; the other is hidden via display.                          */
+.fs-f5__gen [data-show-gen] { display: none; }
+.fs-f5[data-state-gen="older"]   .fs-f5__gen-body [data-show-gen="older"]   { display: inline; }
+.fs-f5[data-state-gen="younger"] .fs-f5__gen-body [data-show-gen="younger"] { display: inline; }
+
+.fs-f5__gen-body {
+    position: absolute;
+    left: 90px;
+    top: 256px;
+    width: 525px;
+    margin: 0;
+    padding: 0;
+    font-family: 'Golos', 'Golos Text', sans-serif;
+    font-weight: 500;
+    font-size: 24px;
+    line-height: 120%;
+    letter-spacing: -0.02em;
+}
+.fs-f5[data-state-gen="older"]   .fs-f5__gen-body { color: var(--color-orange); text-align: left; }
+.fs-f5[data-state-gen="younger"] .fs-f5__gen-body { color: var(--color-purple); text-align: right; }
+
+
+/* --- F5 mobile (≤770px) ------------------------------------------- */
+@media (max-width: 770px) {
+    .fs-f5 {
+        margin-top: 64px;
+        overflow: hidden;
+    }
+    .fs-f5__canvas {
+        width: 100%;
+        height: auto;
+        padding: 32px 16px 48px;
+        box-sizing: border-box;
+        display: flex;
+        flex-direction: column;
+        gap: 24px;
+    }
+    .fs-f5__edu-heading,
+    .fs-f5__edu-body,
+    .fs-f5__chart,
+    .fs-f5__legend,
+    .fs-f5__gen {
+        position: relative;
+        left: auto !important;
+        top: auto !important;
+        width: 100%;
+        height: auto;
+    }
+    .fs-f5__edu-heading { font-size: 24px; line-height: 120%; max-width: 320px; }
+    .fs-f5__edu-heading-underline {
+        position: relative;
+        left: 0;
+        top: 4px;
+        display: block;
+    }
+    .fs-f5__edu-body { font-size: 16px; line-height: 130%; }
+
+    /* Mobile: cells/nums/texts stacked column via flex order.            */
+    .fs-f5__chart {
+        display: flex;
+        flex-direction: column;
+        gap: 8px;
+    }
+    .fs-f5__chart-cell {
+        position: relative;
+        left: auto !important;
+        top: auto !important;
+        width: 100%;
+        height: 4px;
+        padding: 0;
+        border-radius: 4px;
+        background: currentColor;
+    }
+    .fs-f5__chart-cell--purple { color: var(--color-purple); border-color: transparent; order: 1; }
+    .fs-f5__chart-num--purple  { order: 2; }
+    .fs-f5__chart-text--purple { order: 3; margin-bottom: 16px; }
+    .fs-f5__chart-cell--orange { color: var(--color-orange); border-color: transparent; order: 4; }
+    .fs-f5__chart-num--orange  { order: 5; }
+    .fs-f5__chart-text--orange { order: 6; }
+    .fs-f5__chart-num {
+        position: relative;
+        left: auto !important;
+        top: auto !important;
+        transform: none;
+        font-size: 56px;
+        line-height: 100%;
+        display: block;
+    }
+    .fs-f5__chart-text {
+        position: relative;
+        left: auto !important;
+        top: auto !important;
+        width: 100%;
+        font-size: 16px;
+        line-height: 130%;
+    }
+    .fs-f5__chart-text--orange br { display: none; }
+
+    .fs-f5__legend {
+        flex-wrap: wrap;
+        gap: 8px 11px;
+        height: auto;
+    }
+    .fs-f5__legend-text { font-size: 14px; margin-right: 16px; white-space: normal; }
+
+    .fs-f5__gen-blob {
+        width: 36%;
+        height: auto;
+        aspect-ratio: 1;
+    }
+    .fs-f5__gen-blob--orange-slot { left: 56%; top: 0; }
+    .fs-f5__gen-blob--purple-slot { left: 8%;  top: 0; }
+    .fs-f5__gen { aspect-ratio: 705 / 420; }
+    .fs-f5__gen-body {
+        position: relative;
+        left: auto;
+        top: auto;
+        width: 100%;
+        font-size: 18px;
+    }
+}
+
+
+/* ============================================================
+   Phase F6 — "Фандрайзер как «волшебная таблетка»"
+   (Figma 282:684..695 + 282:696, frame y=6049..7194, height 1145).
+   ============================================================ */
+.fs-f6 {
+    position: relative;
+    width: 100%;
+    margin-top: 137px;
+    background: var(--bg-primary);
+    display: flex;
+    justify-content: center;
+    overflow-x: clip;
+}
+.fs-f6__canvas {
+    position: relative;
+    width: 1440px;
+    height: 1145px;
+    flex-shrink: 0;
+}
+.fs-f6__heading {
+    position: absolute;
+    left: 99px; top: 0;
+    width: 411px; height: 66px;
+    margin: 0; padding: 0;
+    font-family: 'Golos', 'Golos Text', sans-serif;
+    font-weight: 500; font-size: 30px; line-height: 120%; letter-spacing: -0.02em;
+    color: var(--text-white);
+}
+.fs-f6__heading-underline {
+    position: absolute;
+    left: 1px; top: 66px;
+    width: 336px; height: 1px;
+    background: #C3F150;
+    pointer-events: none;
+}
+
+.fs-f6__equation {
+    position: absolute;
+    left: 0; top: 0;
+    width: 1440px; height: 460px;
+    pointer-events: none;
+    isolation: isolate;
+}
+/* Each ellipse SVG canvas is the full 1243 × 234 with the ellipse drawn
+   at its original Figma position inside; both stack at the same anchor
+   and slide horizontally via --fs-f6-progress (0 = apart, 1 = overlapped
+   on the SVG centre x = 621.5).
+     purple ellipse centre: 365      → 621.5  → +256.5px
+     orange ellipse centre: 845.665  → 621.5  → -224.165px               */
+.fs-f6__eq-ellipse {
+    position: absolute;
+    left: 100px; top: 142px;
+    width: 1243px; height: 234px;
+    pointer-events: none;
+    display: block;
+    will-change: transform;
+}
+.fs-f6__eq-ellipse--purple { transform: translateX(calc(256.5px  * var(--fs-f6-progress, 0))); }
+.fs-f6__eq-ellipse--orange { transform: translateX(calc(-224.165px * var(--fs-f6-progress, 0))); }
+
+.fs-f6__eq-word,
+.fs-f6__eq-eq {
+    position: absolute;
+    margin: 0; padding: 0;
+    font-family: 'Golos', 'Golos Text', sans-serif;
+    font-weight: 500; font-size: 80px; line-height: 120%; letter-spacing: -0.02em;
+    color: transparent;
+    -webkit-text-fill-color: transparent;
+    -webkit-text-stroke-width: 1px;
+    paint-order: stroke fill;
+    mix-blend-mode: plus-lighter;
+    white-space: nowrap;
+    will-change: transform;
+}
+/* Words follow their containing ellipse: orange word lives inside the
+   purple ellipse on the LEFT, so it tracks the purple shift; purple word
+   sits inside the orange ellipse on the RIGHT, so it tracks the orange
+   shift. The "=" pair stays put — already centred between the words.   */
+.fs-f6__eq-word--orange { left: 157px; top: 202px; -webkit-text-stroke-color: var(--color-orange); transform: translateX(calc(256.5px  * var(--fs-f6-progress, 0))); }
+.fs-f6__eq-word--purple { left: 759px; top: 202px; -webkit-text-stroke-color: var(--color-purple); transform: translateX(calc(-224.165px * var(--fs-f6-progress, 0))); }
+.fs-f6__eq-eq--orange   { left: 711px; top: 211px; -webkit-text-stroke-color: var(--color-orange); }
+.fs-f6__eq-eq--purple   { left: 716px; top: 211px; -webkit-text-stroke-color: var(--color-purple); }
+/* The "=" pair fades out the moment motion starts (opacity hits 0 by
+   the time progress reaches ~0.05) — the converged cluster reads as
+   one blurred mark, not as an equation any more.                       */
+.fs-f6__eq-eq { opacity: calc(1 - 20 * var(--fs-f6-progress, 0)); }
+
+.fs-f6__callout {
+    position: absolute;
+    left: 558px; top: 442px;
+    width: 323px;
+    margin: 0; padding: 0;
+    font-family: 'Golos', 'Golos Text', sans-serif;
+    font-weight: 500; font-size: 20px; line-height: 130%; letter-spacing: -0.02em;
+    color: var(--text-white);
+}
+.fs-f6__hl--purple { color: var(--color-purple); }
+.fs-f6__hl--orange { color: var(--color-orange); }
+
+.fs-f6__quote {
+    text-align: center;
+    position: absolute;
+    left: 97px; top: 585px;
+    width: 1246px;
+    margin: 0; padding: 0;
+    font-family: 'Golos', 'Golos Text', sans-serif;
+    font-weight: 500; font-size: 40px; line-height: 100%; letter-spacing: -0.02em;
+    color: var(--text-white);
+}
+.fs-f6__body {
+    text-align: center;
+    position: absolute;
+    left: 265px; top: 693px;
+    width: 909px;
+    margin: 0; padding: 0;
+    font-family: 'Golos', 'Golos Text', sans-serif;
+    font-weight: 500; font-size: 20px; line-height: 130%; letter-spacing: -0.02em;
+    color: var(--text-white);
+}
+.fs-f6__final {
+    position: absolute;
+    left: 94px; top: 852px;
+    width: 1241px; height: 293.82px;
+}
+.fs-f6__stat {
+    position: absolute;
+    left: 0; top: 0;
+    width: 653px; height: 293.82px;
+}
+.fs-f6__stat-num {
+    position: absolute;
+    left: 2px; top: 0;
+    width: 340px; height: 75px;
+    margin: 0; padding: 0;
+    font-family: 'Golos', 'Golos Text', sans-serif;
+    font-weight: 500; font-size: 90px; line-height: 90%; letter-spacing: -0.02em;
+    color: transparent;
+    -webkit-text-fill-color: transparent;
+    -webkit-text-stroke-width: 1px;
+    -webkit-text-stroke-color: var(--color-orange);
+    paint-order: stroke fill;
+    white-space: nowrap;
+}
+.fs-f6__stat-dots {
+    position: absolute;
+    left: 2.03px; top: 91px;
+    width: 614px; height: 67px;
+    pointer-events: none;
+    display: block;
+}
+.fs-f6__stat-text {
+    position: absolute;
+    left: 0; top: 174px;
+    width: 653px;
+    margin: 0; padding: 0;
+    font-family: 'Golos', 'Golos Text', sans-serif;
+    font-weight: 500; font-size: 45px; line-height: 90%; letter-spacing: -0.02em;
+    color: var(--color-orange);
+}
+.fs-f6__final-body {
+    position: absolute;
+    left: 697px; top: 0;
+    width: 544px;
+    margin: 0; padding: 0;
+    font-family: 'Golos', 'Golos Text', sans-serif;
+    font-weight: 500; font-size: 20px; line-height: 130%; letter-spacing: -0.02em;
+    color: var(--text-white);
+}
+
+@media (max-width: 770px) {
+    .fs-f6 { margin-top: 64px; overflow: hidden; }
+    .fs-f6__canvas { width: 100%; height: auto; padding: 32px 16px 48px; box-sizing: border-box; display: flex; flex-direction: column; gap: 24px; }
+    .fs-f6__heading, .fs-f6__equation, .fs-f6__callout, .fs-f6__quote, .fs-f6__body, .fs-f6__final {
+        position: relative; left: auto !important; top: auto !important; width: 100%; height: auto;
+    }
+    .fs-f6__heading { font-size: 22px; line-height: 120%; max-width: 320px; }
+    .fs-f6__heading-underline { position: relative; left: 0; top: 4px; display: block; width: 200px; }
+    .fs-f6__equation { height: auto; display: flex; flex-wrap: wrap; align-items: center; justify-content: center; gap: 6px 12px; }
+    .fs-f6__eq-ellipse { display: none; }
+    .fs-f6__eq-word, .fs-f6__eq-eq { position: relative; left: auto !important; top: auto !important; font-size: 32px; line-height: 100%; transform: none !important; }
+    .fs-f6__callout { font-size: 16px; line-height: 130%; }
+    .fs-f6__quote { font-size: 24px; line-height: 110%; }
+    .fs-f6__body { font-size: 16px; line-height: 130%; }
+    .fs-f6__final { display: flex; flex-direction: column; gap: 24px; }
+    .fs-f6__stat, .fs-f6__stat-num, .fs-f6__stat-dots, .fs-f6__stat-text, .fs-f6__final-body {
+        position: relative; left: auto !important; top: auto !important; width: 100%; height: auto;
+    }
+    .fs-f6__stat-num { font-size: 56px; line-height: 100%; display: block; margin-bottom: 12px; }
+    .fs-f6__stat-dots { aspect-ratio: 614 / 67; margin-bottom: 12px; }
+    .fs-f6__stat-text { font-size: 24px; line-height: 100%; }
+    .fs-f6__final-body { font-size: 16px; line-height: 130%; }
+}
+
+
+/* ============================================================
+   Phase F7 — "Работы больше, чем кажется"
+   (Figma 282:554..563, frame y=7355..8101, height 746).
+   ============================================================ */
+.fs-f7 {
+    position: relative;
+    width: 100%;
+    margin-top: 161px;
+    background: var(--bg-primary);
+    display: flex;
+    justify-content: center;
+    overflow-x: clip;
+}
+.fs-f7__canvas { position: relative; width: 1440px; height: 746px; flex-shrink: 0; }
+.fs-f7__heading {
+    position: absolute;
+    left: 99.21px; top: 0;
+    width: 508.94px; height: 57px;
+    margin: 0; padding: 0;
+    font-family: 'Golos', 'Golos Text', sans-serif;
+    font-weight: 500; font-size: 30px; line-height: 120%; letter-spacing: -0.02em;
+    color: var(--text-white);
+}
+.fs-f7__heading-underline {
+    position: absolute;
+    left: 117.79px; top: 31px;
+    width: 117px; height: 1px;
+    background: #C3F150;
+    pointer-events: none;
+}
+.fs-f7__poly {
+    position: absolute;
+    pointer-events: none;
+    display: block;
+    overflow: visible;
+    z-index: 1;
+    /* Rotate from the fixed top corner: pin the top, swing the body.
+       With transform-origin at top-centre, CSS rotate(+deg) (CW) swings
+       the body LEFT and rotate(-deg) (CCW) swings it RIGHT. So orange
+       (needs to swing right) gets a negative angle and purple (left)
+       gets a positive one.                                            */
+    transform-origin: 50% 0;
+    will-change: transform;
+}
+.fs-f7__poly--orange {
+    left: calc(465.86px - 174px / 2);
+    top:  calc(163.22px - 112px / 2);
+    width: 174px; height: 112px;
+    transform: rotate(calc(-55deg * var(--fs-f7-progress, 0)));
+}
+.fs-f7__poly--purple {
+    left: calc(805.64px - 450px / 2);
+    top:  calc(231.71px - 286px / 2);
+    width: 450px; height: 286px;
+    transform: rotate(calc( 55deg * var(--fs-f7-progress, 0)));
+}
+.fs-f7__num {
+    position: absolute;
+    top: 138px;
+    margin: 0; padding: 0;
+    font-family: 'Golos', 'Golos Text', sans-serif;
+    font-weight: 500; font-size: 100px; line-height: 130%; letter-spacing: -0.02em;
+    white-space: nowrap;
+    z-index: 2;
+}
+.fs-f7__num--orange { left: 100px;  width: 292px; color: var(--color-orange); }
+.fs-f7__num--purple { left: 1068px; width: 272px; color: var(--color-purple); }
+.fs-f7__cap {
+    position: absolute;
+    top: 269px;
+    margin: 0; padding: 0;
+    font-family: 'Golos', 'Golos Text', sans-serif;
+    font-weight: 500; font-size: 20px; line-height: 130%; letter-spacing: -0.02em;
+    z-index: 2;
+}
+.fs-f7__cap--orange { left: 99px;   width: 290.01px; color: var(--color-orange); }
+.fs-f7__cap--purple { left: 1025px; width: 315px;    color: var(--color-purple); }
+.fs-f7__bridge {
+    position: absolute;
+    left: 101px; top: 497px;
+    width: 1239px;
+    margin: 0; padding: 0;
+    font-family: 'Golos', 'Golos Text', sans-serif;
+    font-weight: 500; font-size: 40px; line-height: 100%; letter-spacing: -0.02em;
+    color: var(--text-white);
+}
+
+@media (max-width: 770px) {
+    .fs-f7 { margin-top: 64px; overflow: hidden; }
+    .fs-f7__canvas { width: 100%; height: auto; padding: 32px 16px 48px; box-sizing: border-box; display: flex; flex-direction: column; gap: 24px; }
+    .fs-f7__heading, .fs-f7__num, .fs-f7__cap, .fs-f7__bridge {
+        position: relative; left: auto !important; top: auto !important; width: 100%; height: auto;
+    }
+    .fs-f7__heading { font-size: 22px; line-height: 120%; }
+    .fs-f7__heading-underline { position: relative; left: 0; top: 4px; display: block; width: 80px; }
+    .fs-f7__poly { display: none; }
+    .fs-f7__num { font-size: 56px; line-height: 100%; }
+    .fs-f7__cap { font-size: 16px; line-height: 130%; }
+    .fs-f7__bridge { font-size: 24px; line-height: 110%; }
+}
+
+
+/* ============================================================
+   Phase F8 — KPI + оплата (two stacked sub-blocks with synced toggles).
+   Figma 282:658 + 282:863, frame y=8176..9692, height 1516.
+   Reuses .s3p5__toggle-inner markup; the s3p5 toggle base rules need
+   .fs-f8 added to their selectors (done below as @supports-style
+   parallel selectors right before .fs-f8 phase block).
+   ============================================================ */
+
+/* Extend s3p5 base toggle rules to also apply inside .fs-f8 (visual
+   styling only; F4-specific dimension overrides DON'T extend here). */
+.fs-f8 .s3p5__toggle-inner {
+    position: relative;
+    width: 100%;
+    height: 100%;
+    border: 1px solid var(--text-white);
+    border-radius: 62.81px;
+    background: transparent;
+    box-sizing: border-box;
+    overflow: visible;
+}
+.fs-f8 .s3p5__seg {
+    position: absolute;
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+    height: 32px;
+    margin: 0; padding: 0;
+    cursor: pointer;
+    user-select: none;
+    background: none;
+    border: 0;
+}
+.fs-f8 .s3p5__seg-label {
+    font-family: 'Golos Text VF', 'Golos Text', sans-serif;
+    font-weight: 500; font-size: 17.33px; line-height: 90%; letter-spacing: -0.05em;
+    color: var(--text-white);
+    margin: 0; padding: 0;
+    transition: opacity 0.2s ease;
+}
+.fs-f8 .s3p5__seg:focus-visible {
+    outline: 2px solid var(--accent-lime, #C2F04F);
+    outline-offset: 4px;
+}
+.fs-f8 .s3p5__seg::before {
+    content: '';
+    position: absolute;
+    inset: -7px -16px;
+    border-radius: 887.98px;
+    background: transparent;
+    z-index: 0;
+    transition: opacity 0.18s ease;
+    opacity: 0;
+}
+.fs-f8 .s3p5__seg-label,
+.fs-f8 .s3p5__seg-pill-label { position: relative; z-index: 1; }
+.fs-f8[data-state="fundraisers"] .s3p5__seg--left::before { background: var(--color-purple); opacity: 1; }
+.fs-f8[data-state="employers"]   .s3p5__seg--right::before { background: var(--color-orange); opacity: 1; }
+.fs-f8:not([data-state="both"]) .s3p5__seg-pill { opacity: 0; }
+.fs-f8 .s3p5__seg-pill { transition: opacity 0.18s ease; }
+.fs-f8[data-state="fundraisers"] .s3p5__seg--left .s3p5__seg-label,
+.fs-f8[data-state="employers"]   .s3p5__seg--right .s3p5__seg-label { color: var(--text-white); opacity: 1; }
+.fs-f8[data-state="fundraisers"] .s3p5__seg--right .s3p5__seg-label,
+.fs-f8[data-state="fundraisers"] .s3p5__seg--mid .s3p5__seg-pill-label,
+.fs-f8[data-state="employers"]   .s3p5__seg--left .s3p5__seg-label,
+.fs-f8[data-state="employers"]   .s3p5__seg--mid .s3p5__seg-pill-label,
+.fs-f8[data-state="both"] .s3p5__seg--left .s3p5__seg-label,
+.fs-f8[data-state="both"] .s3p5__seg--right .s3p5__seg-label { opacity: 0.45; }
+.fs-f8 .s3p5__seg-pill {
+    position: absolute;
+    inset: 0;
+    border-radius: 887.98px;
+    background: var(--text-white);
+    box-shadow: -3.62px 0 0 0 var(--color-orange), 3.62px 0 0 0 var(--color-purple);
+    z-index: 0;
+}
+.fs-f8 .s3p5__seg-pill-label {
+    position: relative;
+    z-index: 1;
+    font-family: 'Golos Text VF', 'Golos Text', sans-serif;
+    font-weight: 500; font-size: 17.33px; line-height: 90%; letter-spacing: -0.05em;
+    color: var(--text-white);
+    text-align: center; width: 100%;
+}
+.fs-f8[data-state="both"] .s3p5__seg-pill-label { color: var(--bg-secondary); }
+
+/* Toggle segment positions (s3p5 layout: 508.93×54.14). */
+.fs-f8 .s3p5__seg--left  { left: 28.88px;  top: 11.07px; width: 116px; }
+.fs-f8 .s3p5__seg--right { left: 369.54px; top: 11.07px; width: 105px; }
+.fs-f8 .s3p5__seg--mid {
+    position: absolute;
+    left: 171px; top: 4.21px;
+    width: 167.44px; height: 45.72px;
+    display: flex; align-items: center; justify-content: center;
+}
+
+/* F8 section + canvas. */
+.fs-f8 {
+    position: relative;
+    width: 100%;
+    margin-top: 75px;
+    background: var(--bg-primary);
+    display: flex;
+    justify-content: center;
+    overflow-x: clip;
+}
+.fs-f8__canvas { position: relative; width: 1440px; height: 1516px; flex-shrink: 0; }
+
+.fs-f8__heading {
+    position: absolute;
+    margin: 0; padding: 0;
+    font-family: 'Golos', 'Golos Text', sans-serif;
+    font-weight: 500; font-size: 30px; line-height: 120%; letter-spacing: -0.02em;
+    color: var(--text-white);
+}
+.fs-f8__heading--1 { left: 99.21px; top: 0;    width: 508.94px; height: 66px; }
+.fs-f8__heading--2 { left: 99px;    top: 815px; width: 358px;   height: 57px; }
+.fs-f8__heading-underline {
+    position: absolute;
+    left: 0; top: 35px;
+    width: 100%; height: 1px;
+    background: #C3F150;
+    pointer-events: none;
+}
+
+.fs-f8 .s3p5__mega.fs-f8__mega-1 {
+    position: absolute;
+    left: 98px; top: 112px;
+    width: 603.26px; height: 247px;
+    font-family: 'Golos', 'Golos Text', sans-serif;
+    font-weight: 500; font-size: 205.6px; line-height: 1; letter-spacing: -0.02em;
+    isolation: isolate;
+}
+.fs-f8 .s3p5__mega-num {
+    position: absolute; top: 0;
+    margin: 0; padding: 0;
+    color: transparent;
+    -webkit-text-fill-color: transparent;
+    -webkit-text-stroke-width: 2px;
+    text-shadow: none;
+    background: transparent;
+    pointer-events: none;
+    white-space: nowrap;
+    paint-order: stroke fill;
+    mix-blend-mode: plus-lighter;
+}
+.fs-f8 .s3p5__mega-num--orange { left: 60px;    -webkit-text-stroke-color: var(--color-orange); }
+.fs-f8 .s3p5__mega-num--purple { left: 60px; -webkit-text-stroke-color: var(--color-purple); }
+.fs-f8 .s3p5__mega-num--orange .s3p5__mega-digits { -webkit-text-stroke-color: var(--color-orange); }
+.fs-f8 .s3p5__mega-num--purple .s3p5__mega-digits { -webkit-text-stroke-color: var(--color-purple); }
+.fs-f8 .s3p5__mega-suffix { -webkit-text-stroke-color: #FFFFFF; }
+
+.fs-f8__minicopy-1 {
+    position: absolute;
+    left: 817px; top: 167px;
+    width: 494px; height: 120px;
+    isolation: isolate;
+}
+/* Typography + overlap pattern mirror .section3__phase5 .s3p5__minicopy p:
+   purple sits on top, orange is offset down by ~14px so the lines stagger
+   instead of fully stacking (no mix-blend-mode trick).                  */
+.fs-f8__minicopy {
+    position: absolute;
+    left: 0;
+    width: 494px;
+    margin: 0; padding: 0;
+    font-family: 'Golos', 'Golos Text', sans-serif;
+    font-weight: 500; font-size: 20px; line-height: 130%;
+    max-width: none;
+    pointer-events: auto;
+    transition: opacity 0.2s ease;
+}
+.fs-f8__minicopy--purple { top: 0;    color: var(--color-purple); }
+.fs-f8__minicopy--orange { top: 14px; color: var(--color-orange); }
+
+.fs-f8__connector-1 {
+    position: absolute;
+    left: 817px; top: 287px;
+    width: 523px;
+    margin: 0; padding: 0;
+    font-family: 'Golos', 'Golos Text', sans-serif;
+    font-weight: 500; font-size: 20px; line-height: 120%; letter-spacing: -0.02em;
+    color: var(--text-white);
+}
+
+.fs-f8 .s3p5__toggle.fs-f8__toggle--1 {
+    position: absolute;
+    left: 99px; top: 382px;
+    width: 508.93px; height: 54.14px;
+}
+.fs-f8 .s3p5__toggle.fs-f8__toggle--2 {
+    position: absolute;
+    left: 466px; top: 1462px;
+    width: 508.93px; height: 54.14px;
+}
+
+.fs-f8__body-1 {
+    position: absolute;
+    top: 509px;
+    margin: 0; padding: 0;
+    font-family: 'Golos', 'Golos Text', sans-serif;
+    font-weight: 500; font-size: 20px; line-height: 130%; letter-spacing: -0.02em;
+    transition: opacity 0.2s ease;
+}
+.fs-f8__body--purple { left: 100px; width: 575px; color: var(--color-purple); }
+.fs-f8__body--orange { left: 817px; width: 523px; color: var(--color-orange); text-align: end; }
+
+.fs-f8__word {
+    position: absolute;
+    top: 936px;
+    margin: 0; padding: 0;
+    font-family: 'Golos', 'Golos Text', sans-serif;
+    font-weight: 500; font-size: 100px; line-height: 120%; letter-spacing: -0.02em;
+    color: transparent;
+    -webkit-text-fill-color: transparent;
+    -webkit-text-stroke-width: 1px;
+    paint-order: stroke fill;
+    mix-blend-mode: plus-lighter;
+    white-space: nowrap;
+    transition: opacity 0.2s ease;
+}
+.fs-f8__word--orange { left: 296px; width: 610px; -webkit-text-stroke-color: var(--color-orange); }
+.fs-f8__word--purple { left: 436px; width: 694px; -webkit-text-stroke-color: var(--color-purple); }
+
+/* 282:868 decorative — two thin orange strokes (left vertical + right
+   diagonal) behind the chromatic words / leads. Spec sub (205, 237),
+   826×228 → section (304, 1052).                                          */
+.fs-f8__deco {
+    position: absolute;
+    left: 304px; top: 1052px;
+    width: 826px; height: 228px;
+    pointer-events: none;
+    display: block;
+}
+
+.fs-f8__lead {
+    position: absolute;
+    top: 1280px;
+    margin: 0; padding: 0;
+    font-family: 'Golos', 'Golos Text', sans-serif;
+    font-weight: 500; font-size: 40px; line-height: 110%; letter-spacing: -0.02em;
+    transition: opacity 0.2s ease;
+}
+.fs-f8__lead--purple { left: 189px; width: 1061px; color: var(--color-purple); }
+.fs-f8__lead--orange { left: 304px; width: 831px;  color: var(--color-orange); mix-blend-mode: plus-lighter; }
+
+/* Decorative line transitions (inside .fs-f8__deco SVG paths). */
+.fs-f8__deco-line { transition: opacity 0.2s ease; }
+
+/* State-driven visibility — fade the off-side to 10 %. */
+.fs-f8[data-state="fundraisers"] .s3p5__mega-num--orange,
+.fs-f8[data-state="fundraisers"] .fs-f8__minicopy--orange,
+.fs-f8[data-state="fundraisers"] .fs-f8__body--orange,
+.fs-f8[data-state="fundraisers"] .fs-f8__word--orange,
+.fs-f8[data-state="fundraisers"] .fs-f8__lead--orange,
+.fs-f8[data-state="fundraisers"] .fs-f8__deco-line--orange { opacity: 0.1; pointer-events: none; }
+.fs-f8[data-state="employers"] .s3p5__mega-num--purple,
+.fs-f8[data-state="employers"] .fs-f8__minicopy--purple,
+.fs-f8[data-state="employers"] .fs-f8__body--purple,
+.fs-f8[data-state="employers"] .fs-f8__word--purple,
+.fs-f8[data-state="employers"] .fs-f8__lead--purple,
+.fs-f8[data-state="employers"] .fs-f8__deco-line--purple { opacity: 0.1; pointer-events: none; }
+
+/* Mirror of the s3p5 rule: when one side is selected in F8, the suffix
+   on the highlighted number switches from chromatic-overlap white to
+   the side's brand colour so all digits + comma read uniformly.        */
+.fs-f8[data-state="fundraisers"] .s3p5__mega-num--purple .s3p5__mega-suffix {
+    -webkit-text-stroke-color: var(--color-purple);
+}
+.fs-f8[data-state="employers"] .s3p5__mega-num--orange .s3p5__mega-suffix {
+    -webkit-text-stroke-color: var(--color-orange);
+}
+
+@media (max-width: 770px) {
+    .fs-f8 { margin-top: 64px; overflow: hidden; }
+    .fs-f8__canvas { width: 100%; height: auto; padding: 32px 16px 48px; box-sizing: border-box; display: flex; flex-direction: column; gap: 24px; }
+    .fs-f8__heading, .fs-f8__heading--1, .fs-f8__heading--2,
+    .fs-f8 .s3p5__mega.fs-f8__mega-1, .fs-f8__minicopy-1, .fs-f8__connector-1,
+    .fs-f8 .s3p5__toggle, .fs-f8__body-1, .fs-f8__word, .fs-f8__deco, .fs-f8__lead {
+        position: relative; left: auto !important; top: auto !important; width: 100%; height: auto;
+    }
+    .fs-f8__heading { font-size: 22px; line-height: 120%; }
+    .fs-f8__heading br { display: none; }
+    .fs-f8__heading-underline { position: relative; left: 0; top: 4px; display: block; width: 60%; }
+    .fs-f8 .s3p5__mega.fs-f8__mega-1 { font-size: 96px; height: 110px; }
+    .fs-f8 .s3p5__mega-num--purple { left: 30px; }
+    .fs-f8__minicopy-1 { display: flex; flex-direction: column; gap: 12px; }
+    .fs-f8__minicopy { position: relative; left: auto !important; top: auto !important; font-size: 16px; mix-blend-mode: normal; }
+    .fs-f8__connector-1 { font-size: 16px; line-height: 130%; }
+    .fs-f8 .s3p5__toggle { max-width: 360px; height: 56px; margin: 0 auto; }
+    .fs-f8__body-1 { font-size: 16px; line-height: 130%; }
+    .fs-f8__word { font-size: 56px; line-height: 100%; }
+    .fs-f8__word--purple { mix-blend-mode: normal; }
+    .fs-f8__deco { display: none; }
+    .fs-f8__lead { font-size: 24px; line-height: 110%; mix-blend-mode: normal; }
+}
+
+
+/* ============================================================
+   Phase F9 — Salary breakdown (Figma 282:567 + 282:568..573 +
+   282:889 + 282:564..566, frame y=9752..10673, height 921).
+   Two-column compare with vertical divider; static (no toggle).
+   ============================================================ */
+.fs-f9 {
+    position: relative;
+    width: 100%;
+    margin-top: 60px;
+    background: var(--bg-primary);
+    display: flex;
+    justify-content: center;
+    overflow-x: clip;
+}
+.fs-f9__canvas {
+    position: relative;
+    width: 1440px;
+    height: 921px;
+    flex-shrink: 0;
+}
+
+.fs-f9__heading {
+    position: absolute;
+    left: 400px; top: 0;
+    width: 614px;
+    margin: 0; padding: 0;
+    font-family: 'Golos', 'Golos Text', sans-serif;
+    font-weight: 500; font-size: 20px; line-height: 130%; letter-spacing: -0.02em;
+    color: var(--text-white);
+}
+
+/* 282:889 vertical divider line — 1 px white, 457 tall. */
+.fs-f9__divider {
+    position: absolute;
+    left: 720px; top: 112px;
+    width: 1px; height: 457px;
+    background: rgba(255, 255, 255, 0.8);
+    pointer-events: none;
+}
+
+.fs-f9__row {
+    position: absolute;
+    margin: 0; padding: 0;
+    font-family: 'Golos', 'Golos Text', sans-serif;
+    font-weight: 500; font-size: 20px; line-height: 130%; letter-spacing: -0.02em;
+}
+.fs-f9__row--purple { left: 104px; width: 561px; color: var(--color-purple); }
+.fs-f9__row--orange { left: 767px; width: 564px; color: var(--color-orange); }
+.fs-f9__row--y111 { top: 111px; }
+.fs-f9__row--y287 { top: 287px; }
+.fs-f9__row--y450 { top: 450px; }
+
+.fs-f9__takeaway {
+    position: absolute;
+    top: 642px;
+    margin: 0; padding: 0;
+    font-family: 'Golos', 'Golos Text', sans-serif;
+    font-weight: 500; font-size: 20px; line-height: 130%; letter-spacing: -0.02em;
+    color: var(--text-white);
+}
+.fs-f9__takeaway--left  { left: 99px;  width: 611px; }
+.fs-f9__takeaway--right { left: 791px; width: 548px; }
+
+.fs-f9__bridge {
+    position: absolute;
+    left: 100px; top: 813px;
+    width: 1252px;
+    margin: 0; padding: 0;
+    font-family: 'Golos', 'Golos Text', sans-serif;
+    font-weight: 500; font-size: 40px; line-height: 100%; letter-spacing: -0.02em;
+    color: var(--text-white);
+}
+
+@media (max-width: 770px) {
+    .fs-f9 { margin-top: 64px; overflow: hidden; }
+    .fs-f9__canvas {
+        width: 100%; height: auto;
+        padding: 32px 16px 48px;
+        box-sizing: border-box;
+        display: flex; flex-direction: column;
+        gap: 18px;
+    }
+    .fs-f9__heading, .fs-f9__row, .fs-f9__takeaway, .fs-f9__bridge {
+        position: relative;
+        left: auto !important; top: auto !important;
+        width: 100%; height: auto;
+    }
+    .fs-f9__divider { display: none; }
+    .fs-f9__heading { font-size: 16px; line-height: 130%; margin-bottom: 12px; }
+    .fs-f9__row, .fs-f9__takeaway { font-size: 16px; line-height: 130%; }
+    .fs-f9__bridge   { font-size: 24px; line-height: 110%; margin-top: 16px; }
+    /* Pair purple→orange rows together so the comparison reads top to bottom */
+    .fs-f9__row--purple.fs-f9__row--y111 { order: 1; }
+    .fs-f9__row--orange.fs-f9__row--y111 { order: 2; }
+    .fs-f9__row--purple.fs-f9__row--y287 { order: 3; }
+    .fs-f9__row--orange.fs-f9__row--y287 { order: 4; }
+    .fs-f9__row--purple.fs-f9__row--y450 { order: 5; }
+    .fs-f9__row--orange.fs-f9__row--y450 { order: 6; }
+    .fs-f9__takeaway--left  { order: 7; }
+    .fs-f9__takeaway--right { order: 8; }
+    .fs-f9__bridge          { order: 9; }
+}
+
+
+/* ============================================================
+   Phase F10 — "Опыт, за который не готовы платить"
+   (Figma 282:601 + 282:574, frame y=10849..11806, height 957).
+
+   Section-relative coords = frame-y - 10849:
+     heading                  x=99   y=0    508.94×57   30/120 white
+     lime underline           x=100  y=68   266×1
+     orange rect              x=100  y=164  651×232
+     purple rect              x=733  y=164  607×232
+     orange label             x=146  y=208  271×43      20/144 white
+     orange num "1–3 года"    x=146  y=295  527×28      40/130 white
+     purple label             x=789  y=208  527×43      20/144 white
+     purple num "1—3 лет..."  x=789  y=279  527×73      40/113 white
+     body                     x=100  y=583  1240×144    20/130 white
+     staircase (282:574)      x=518  y=803  403×154     40/90 white
+       "… больше —"           sub (166, 0)
+       "в полном тексте"      sub (0, 42)
+       "результатов"          sub (107, 84)
+       "исследования"         sub (40, 126)
+   ============================================================ */
+.fs-f10 {
+    position: relative;
+    width: 100%;
+    margin-top: 176px;                                 /* gap from F9 (frame 10849 - 10673) */
+    background: var(--bg-primary);
+    display: flex;
+    justify-content: center;
+    overflow-x: clip;
+}
+.fs-f10__canvas {
+    position: relative;
+    width: 1440px;
+    height: 957px;
+    flex-shrink: 0;
+}
+
+.fs-f10__heading {
+    position: absolute;
+    left: 99px; top: 0;
+    width: 508.94px; height: 100px;                    /* +room for 2 wrapped lines */
+    margin: 0; padding: 0;
+    font-family: 'Golos', 'Golos Text', sans-serif;
+    font-weight: 500; font-size: 30px; line-height: 120%; letter-spacing: -0.02em;
+    color: var(--text-white);
+}
+.fs-f10__heading-underline {
+    position: absolute;
+    left: 1px; top: 68px;
+    width: 266px; height: 1px;
+    background: #C3F150;
+    pointer-events: none;
+}
+
+/* 282:602 grid overlay — sits ABOVE the rectangles (mix-blend-mode:
+   soft-light bakes in the SVG; at the CSS level we keep z-index so
+   the rectangles + labels stack underneath). Native size 1240×362
+   at sub (1, 164), so section (100, 164).                              */
+.fs-f10__grid {
+    position: absolute;
+    left: 100px;
+    top: 164px;
+    width: 1240px;
+    height: 362px;
+    pointer-events: none;
+    display: block;
+    z-index: 2;                                        /* over the solid fills */
+    mix-blend-mode: soft-light;                        /* lets the white strokes modulate the orange/purple under them */
+}
+
+/* Filled rectangles. Trimmed to leave an 18.21 px white strip between
+   them (the two grid vertical lines at sub-x 632.66 + 650.87 mark the
+   gap edges). Section coords:
+     orange: 100..732.66 (width 632.66)
+     strip : 732.66..750.87 (width 18.21)
+     purple: 750.87..1340 (width 589.13)                                */
+.fs-f10__rect {
+    position: absolute;
+    top: 164px;
+    height: 232px;
+    box-sizing: border-box;
+    z-index: 1;
+}
+.fs-f10__rect--orange { left: 100px;    width: 632.66px; background: var(--color-orange); }
+/* Purple rect grows DOWNWARD on scroll: top is pinned at 164, height
+   ramps from 232 (the orange-matched baseline that represents "1—3")
+   to 362 (matching .fs-f10__grid which is also top:164 height:362, so
+   the rect bottom lands exactly at the grid bottom y=526).             */
+.fs-f10__rect--purple {
+    left: 750.87px;
+    width: 589.13px;
+    height: calc(232px + 130px * var(--fs-f10-progress, 0));
+    background: var(--color-purple);
+    will-change: height;
+}
+.fs-f10__strip {
+    position: absolute;
+    left: 732.66px;
+    top: 164px;
+    width: 18.21px;
+    height: 232px;
+    background: #FFFFFF;
+    z-index: 1;
+    pointer-events: none;
+}
+
+/* Labels — absolute children of the canvas, positioned at frame coords
+   (frame-x - section-x = sub-x relative to 282:601 group at frame 99).  */
+.fs-f10__rect-label,
+.fs-f10__rect-num {
+    position: absolute;
+    margin: 0; padding: 0;
+    font-family: 'Golos', 'Golos Text', sans-serif;
+    font-weight: 500;
+    letter-spacing: -0.02em;
+    color: var(--text-white);
+    z-index: 3;                                        /* above grid + rects */
+}
+.fs-f10__rect-label { font-size: 20px; line-height: 144%; }
+.fs-f10__rect-num   { font-size: 40px; }
+
+/* spec 282:641 at sub (46.79, 208) → section (145.79, 208) */
+.fs-f10__rect-label--orange { left: 145.79px; top: 208px; width: 271.13px; }
+/* spec 282:642 at sub (46.79, 295) → section (145.79, 295) */
+.fs-f10__rect-num--orange   { left: 145.79px; top: 295px; width: 527.98px; line-height: 130%; }
+/* spec 282:643 at sub (689.54, 208) → section (788.54, 208) */
+.fs-f10__rect-label--purple { left: 788.54px; top: 208px; width: 527.98px; }
+/* spec 282:644 at sub (689.79, 279) → section (788.79, 279) */
+.fs-f10__rect-num--purple   { left: 788.79px; top: 279px; width: 527.98px; line-height: 113%; }
+
+/* 282:635 + 282:636 two body paragraphs under the rectangles. */
+.fs-f10__body {
+    position: absolute;
+    top: 583px;
+    margin: 0; padding: 0;
+    font-family: 'Golos', 'Golos Text', sans-serif;
+    font-weight: 500; font-size: 20px; line-height: 130%; letter-spacing: -0.02em;
+}
+.fs-f10__body--left  { left: 100px; width: 610px; color: var(--text-white); }
+.fs-f10__body--right { left: 817px; width: 523px; color: var(--color-purple); }
+.fs-f10__body-hl     { color: var(--color-orange); }
+
+/* 282:574 staircase pull text — 4 lines indented to step inward.    */
+.fs-f10__staircase {
+    position: absolute;
+    left: 518px; top: 803px;                           /* 11652 - 10849 */
+    width: 403px; height: 154px;
+}
+.fs-f10__staircase-line {
+    position: absolute;
+    margin: 0; padding: 0;
+    font-family: 'Golos', 'Golos Text', sans-serif;
+    font-weight: 500; font-size: 40px; line-height: 90%; letter-spacing: -0.02em;
+    color: var(--text-white);
+    white-space: nowrap;
+}
+.fs-f10__staircase-line--1 { left: 166.23px; top: 0;     }    /* "… больше —" */
+.fs-f10__staircase-line--2 { left: 0;        top: 42px;  }    /* "в полном тексте" */
+.fs-f10__staircase-line--3 { left: 107.38px; top: 84px;  }    /* "результатов" */
+.fs-f10__staircase-line--4 { left: 40.45px;  top: 126px; }    /* "исследования" */
+
+
+/* --- F10 mobile (≤770px) ----------------------------------------- */
+@media (max-width: 770px) {
+    .fs-f10 { margin-top: 64px; overflow: hidden; }
+    .fs-f10__canvas {
+        width: 100%; height: auto;
+        padding: 32px 16px 48px;
+        box-sizing: border-box;
+        display: flex; flex-direction: column;
+        gap: 24px;
+    }
+    .fs-f10__heading,
+    .fs-f10__rect,
+    .fs-f10__strip,
+    .fs-f10__rect-label,
+    .fs-f10__rect-num,
+    .fs-f10__body,
+    .fs-f10__staircase,
+    .fs-f10__staircase-line {
+        position: relative;
+        left: auto !important;
+        top: auto !important;
+        width: 100%;
+        height: auto;
+    }
+    .fs-f10__grid { display: none; }
+    .fs-f10__strip { display: none; }
+    .fs-f10__heading { font-size: 22px; line-height: 120%; max-width: 320px; }
+    .fs-f10__heading-underline { position: relative; left: 0; top: 4px; display: block; width: 80px; }
+    .fs-f10__rect {
+        height: auto;
+        min-height: 140px;
+        padding: 24px;
+        border-radius: 16px;
+        box-sizing: border-box;
+    }
+    .fs-f10__rect-label { font-size: 16px; line-height: 130%; margin-bottom: 8px; }
+    .fs-f10__rect-num   { font-size: 32px; line-height: 110%; }
+    .fs-f10__rect-num br { display: none; }
+    .fs-f10__body { font-size: 16px; line-height: 130%; }
+    /* Re-order so each rect is followed by its label + num + body pair. */
+    .fs-f10__rect--orange         { order: 1; }
+    .fs-f10__rect-label--orange   { order: 2; padding: 0 24px; }
+    .fs-f10__rect-num--orange     { order: 3; padding: 0 24px; }
+    .fs-f10__rect--purple         { order: 4; }
+    .fs-f10__rect-label--purple   { order: 5; padding: 0 24px; }
+    .fs-f10__rect-num--purple     { order: 6; padding: 0 24px; }
+    .fs-f10__body--left           { order: 7; }
+    .fs-f10__body--right          { order: 8; }
+
+    .fs-f10__staircase {
+        height: auto;
+        max-width: 320px;
+        margin: 0 auto;
+        text-align: center;
+    }
+    .fs-f10__staircase-line {
+        display: block;
+        font-size: 28px;
+        line-height: 110%;
+        white-space: normal;
+        text-align: center;
+    }
+}
+
+
+/* ============================================================
+   Phase F11 — Final CTA + "Опыт" block
+   (Figma 282:817 + 282:599, frame y=11745..12851, height 1106).
+
+   Same orbital-rings backdrop + PDF + share + divider + bottom block
+   pattern as F2; the PDF button here is SOLID white (not outline).
+
+   Section-relative coords (= sub-y within 282:817):
+     rings (282:599)            x=2 (101.77 - 99 group offset) y=4.46
+                                1228.17×959.76
+     PDF button (282:819)       sub (364, 412)     526.66×68.21
+     share (282:823)            sub (460, 508)     334.52×42
+     divider (282:830)          sub (627, 572)     1×136
+     final block (282:842)      sub (416, 927)     421.85×179
+       "Опыт" heading           sub (155, 0)       111.67×41
+       underline (282:845)      sub (12.41, 43)    88.23×1
+       body                     sub (0, 54)        421.85×125
+   ============================================================ */
+.fs-f11 {
+    position: relative;
+    width: 100%;
+    margin-top: 60px;
+    /* transparent so the lime gradient on the parent .phase-gradient-wrap
+       shows through (same recipe as index sections 6-9).                  */
+    background: transparent;
+    display: flex;
+    justify-content: center;
+    overflow-x: clip;
+}
+.fs-f11__canvas {
+    position: relative;
+    width: 1440px;
+    height: 1106px;
+    flex-shrink: 0;
+}
+
+/* Orbital rings backdrop — reuse F2 cta art. Spec layout box is
+   1228×960 starting at section (102, 4.46), but at that size the rings
+   bottom (y≈964) collides with the "Опыт" heading at y=927. Scale to
+   80 % so the rings still encircle button + share + divider but end
+   well above the heading.
+   New: 1228 × 0.80 = 982,  960 × 0.80 = 768 → ends at y≈772.
+   Centred horizontally on the spec-box centre (x=716).                  */
+.fs-f11__rings {
+    position: absolute;
+    left: calc(102px + (1228.17px - 982px) / 2);       /* = 225 px */
+    top: 4.46px;
+    width: 982px;
+    height: 768px;
+    object-fit: contain;
+    pointer-events: none;
+    display: block;
+    z-index: 1;
+    /* Scroll-driven full 360° clockwise rotation — same model as
+       .fs-f2__cta-art (rings end at the same horizontal orientation
+       they started at, just having swept a full revolution).        */
+    transform: rotate(calc(360deg * var(--fs-f11-progress, 0)));
+    transform-origin: 50% 50%;
+    will-change: transform;
+}
+
+/* SOLID white PDF button (vs F2's outline-only). Spec inner Frame
+   526.66 × 68.21 with border-radius 121.5 → pill. Text #2F2F2F dark on
+   white. Spec section x=466 puts button centre at x=729 — slightly
+   right of the rings centre x=716. With the rings shrunk to 80 %, that
+   13 px offset reads as off-centre, so we recentre the button on the
+   rings centre: left = 716 − 526.66/2 = 452.67.                         */
+.fs-f11__cta-pdf {
+    position: absolute;
+    left: 452.67px;
+    top: 302px;
+    width: 526.66px;
+    height: 68.21px;
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+    border: 0;
+    border-radius: 121.5px;
+    background: #FFFFFF;
+    color: #2F2F2F;
+    font-family: 'Golos', 'Golos Text', sans-serif;
+    font-weight: 500;
+    font-size: 21.06px;
+    line-height: 1;
+    letter-spacing: -0.02em;
+    text-decoration: none;
+    white-space: nowrap;
+    cursor: pointer;
+    z-index: 4;
+    transition: background 0.18s ease, color 0.18s ease, transform 0.12s ease;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+}
+.fs-f11__cta-pdf:hover,
+.fs-f11__cta-pdf:focus-visible {
+    background: var(--color-orange);
+    color: #FFFFFF;
+}
+
+/* Share affordance: icon left + text right. Section position: 102 + 460
+   = 562. Sub: icon at (0, 5.21), text at (48.52, 0). Spec text colour
+   white at ~60% opacity (fill_G7YDPI) — approximated as opacity 0.6.    */
+.fs-f11__cta-share {
+    position: absolute;
+    left: 562px;
+    top: 398px;
+    width: 334.52px;
+    height: 42px;
+    margin: 0;
+    padding: 0;
+    background: transparent;
+    border: 0;
+    color: #FFFFFF;
+    opacity: 0.6;
+    cursor: pointer;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    gap: 16.45px;
+    z-index: 4;
+    text-align: left;
+}
+.fs-f11__cta-share-icon {
+    width: 32.07px;
+    height: 32.55px;
+    display: block;
+    flex-shrink: 0;
+    /* invert the dark icon to white (icon was originally dark on light) */
+    filter: brightness(0) invert(1);
+}
+.fs-f11__cta-share-text {
+    font-family: 'Golos', 'Golos Text', sans-serif;
+    font-weight: 500;
+    font-size: 21.49px;
+    line-height: 100%;
+    letter-spacing: -0.02em;
+}
+.fs-f11__cta-share:hover { opacity: 1; }
+
+/* Vertical hairline divider (1 × 136 at sub 627, 572 → section 729, 572).
+   On scroll the height grows from 136 → 445 (stops 10px above the
+   .fs-f11__final block at top: 927), driven by --fs-f11-divider-progress.
+   Mirrors the .fs-f2__cta-divider behaviour.                              */
+.fs-f11__cta-divider {
+    position: absolute;
+    left: 729px;
+    top: 472px;
+    width: 1px;
+    height: calc(136px + 309px * var(--fs-f11-divider-progress, 0));
+    background: rgba(255, 255, 255, 0.8);
+    z-index: 4;
+    will-change: height;
+}
+
+/* Final block: "Опыт" heading + underline + body. */
+.fs-f11__final {
+    position: absolute;
+    left: 518px;                                       /* 102 + 416 */
+    top: 927px;
+    width: 421.85px;
+    height: 179px;
+    z-index: 4;
+}
+.fs-f11__final-heading {
+    position: absolute;
+    left: 155px;                                       /* sub 282:843 x=155 within 282:842 */
+    top: 0;
+    width: 111.67px;
+    height: 41px;
+    margin: 0;
+    padding: 0;
+    font-family: 'Golos', 'Golos Text', sans-serif;
+    font-weight: 500;
+    font-size: 34.46px;
+    line-height: 120%;
+    letter-spacing: -0.02em;
+    color: var(--text-white);
+}
+.fs-f11__final-heading-underline {
+    /* spec 282:845 line at sub (12.41, 43), 88.23 wide, opacity 0.8 */
+    position: absolute;
+    left: 12.41px;
+    top: 43px;
+    width: 88.23px;
+    height: 1px;
+    background: rgba(255, 255, 255, 0.8);
+    pointer-events: none;
+}
+.fs-f11__final-body {
+    position: absolute;
+    left: 0;
+    top: 54px;
+    width: 421.85px;
+    margin: 0;
+    padding: 0;
+    font-family: 'Golos', 'Golos Text', sans-serif;
+    font-weight: 500;
+    font-size: 18px;
+    line-height: 130%;
+    letter-spacing: -0.02em;
+    color: var(--text-white);
+}
+
+
+/* --- F11 mobile (≤770px) ----------------------------------------- */
+@media (max-width: 770px) {
+    .fs-f11 { margin-top: 48px; overflow: hidden; }
+    .fs-f11__canvas {
+        width: 100%; height: auto;
+        padding: 32px 16px 48px;
+        box-sizing: border-box;
+        display: flex; flex-direction: column;
+        align-items: center;
+        gap: 20px;
+    }
+    .fs-f11__rings,
+    .fs-f11__cta-pdf,
+    .fs-f11__cta-share,
+    .fs-f11__cta-divider,
+    .fs-f11__final {
+        position: relative;
+        left: auto !important;
+        top: auto !important;
+        width: 100%;
+        height: auto;
+    }
+    .fs-f11__rings {
+        max-width: 360px;
+        aspect-ratio: 1228 / 960;
+        margin: 16px auto 0;
+    }
+    .fs-f11__cta-pdf {
+        max-width: 360px;
+        height: 56px;
+        font-size: 18px;
+        line-height: 50px;
+        padding: 0;
+        text-align: center;
+    }
+    .fs-f11__cta-share {
+        max-width: 360px;
+        height: auto;
+        flex-direction: row;
+        justify-content: center;
+    }
+    .fs-f11__cta-share-text br { display: none; }
+    .fs-f11__cta-share-text { font-size: 14px; }
+    .fs-f11__cta-divider { width: 1px; height: 56px; align-self: center; }
+    .fs-f11__final {
+        max-width: 360px;
+        text-align: center;
+    }
+    .fs-f11__final-heading,
+    .fs-f11__final-heading-underline,
+    .fs-f11__final-body {
+        position: relative;
+        left: auto !important;
+        top: auto !important;
+        width: 100%;
+        height: auto;
+    }
+    .fs-f11__final-heading { font-size: 28px; line-height: 110%; margin: 0 auto 8px; }
+    .fs-f11__final-heading-underline { display: block; width: 60px; margin: 0 auto 12px; }
+    .fs-f11__final-body { font-size: 16px; line-height: 130%; }
+}
+
+
+/* =============================================================
+   Brand-coloured text/graphics — Figma global blend rule
+   -------------------------------------------------------------
+   In the Figma source, every layer painted in --color-orange or
+   --color-purple sits on top of the dark canvas with blend mode
+   "Plus Lighter". This lifts the colour additively against
+   #272727, producing the slightly milky/luminous tint seen in
+   the design (vs the muted look you get from straight RGB on a
+   dark BG). All the chromatic-outline (text-stroke) selectors
+   already declare this locally; the rule below covers the
+   solid-fill brand text elements that were missing it.
+   ============================================================= */
+.section3__phase5 .s3p5__minicopy-purple,
+.section3__phase5 .s3p5__minicopy-orange,
+.section3__phase5 .s3p5__body--purple,
+.section3__phase5 .s3p5__body--orange,
+.fs-hero__intro-highlight--orange,
+.fs-hero__intro-highlight--purple,
+.fs-f3__hl--orange,
+.fs-f3__hl--purple,
+.fs-f5__chart-num--purple,
+.fs-f5__chart-num--orange,
+.fs-f5__chart-text--purple,
+.fs-f5__chart-text--orange,
+.fs-f5 .fs-f5__gen-body,
+.fs-f6__hl--purple,
+.fs-f6__hl--orange,
+.fs-f6__stat-text,
+.fs-f7__num--orange,
+.fs-f7__num--purple,
+.fs-f7__cap--orange,
+.fs-f7__cap--purple,
+.fs-f8__minicopy--purple,
+.fs-f8__minicopy--orange,
+.fs-f8__body--purple,
+.fs-f8__body--orange,
+.fs-f8__lead--purple,
+.fs-f9__row--purple,
+.fs-f9__row--orange,
+.fs-f10__body--right,
+.fs-f10__body-hl {
+    mix-blend-mode: plus-lighter;
 }

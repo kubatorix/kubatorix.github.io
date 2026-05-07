@@ -1,0 +1,32 @@
+<svg width="614" height="68" viewBox="0 0 614 68" fill="none" xmlns="http://www.w3.org/2000/svg">
+<circle cx="30.6913" cy="33.1132" r="30.1913" fill="#FF6E32"/>
+<circle cx="30.6913" cy="33.1132" r="30.1913" stroke="#FF6E32"/>
+<circle cx="337.605" cy="33.1132" r="30.1913" fill="#FF6E32"/>
+<circle cx="337.605" cy="33.1132" r="30.1913" stroke="#FF6E32"/>
+<circle cx="398.988" cy="33.1132" r="30.1913" fill="#FF6E32"/>
+<circle cx="398.988" cy="33.1132" r="30.1913" stroke="#FF6E32"/>
+<circle cx="460.371" cy="33.1132" r="30.1913" fill="#FF6E32"/>
+<circle cx="460.371" cy="33.1132" r="30.1913" stroke="#FF6E32"/>
+<circle cx="92.0741" cy="33.1132" r="30.1913" fill="#FF6E32"/>
+<circle cx="92.0741" cy="33.1132" r="30.1913" stroke="#FF6E32"/>
+<circle cx="153.457" cy="33.1132" r="30.1913" fill="#FF6E32"/>
+<circle cx="153.457" cy="33.1132" r="30.1913" stroke="#FF6E32"/>
+<circle cx="214.84" cy="33.1132" r="30.1913" fill="#FF6E32"/>
+<circle cx="214.84" cy="33.1132" r="30.1913" stroke="#FF6E32"/>
+<circle cx="276.223" cy="33.1132" r="30.1913" fill="#FF6E32"/>
+<circle cx="276.223" cy="33.1132" r="30.1913" stroke="#FF6E32"/>
+<mask id="mask0_282_701" style="mask-type:alpha" maskUnits="userSpaceOnUse" x="490" y="3" width="63" height="62">
+<circle cx="521.668" cy="33.758" r="30.2189" fill="#D9D9D9"/>
+<circle cx="521.668" cy="33.758" r="30.2189" stroke="#FF6E32"/>
+</mask>
+<g mask="url(#mask0_282_701)">
+<rect x="486.305" y="3.03906" width="30.7306" height="73.8135" fill="#FF6E32"/>
+</g>
+<mask id="mask1_282_701" style="mask-type:alpha" maskUnits="userSpaceOnUse" x="517" y="0" width="36" height="68">
+<path d="M517.027 0H552.384V67.0758H517.027V0Z" fill="#D9D9D9"/>
+</mask>
+<g mask="url(#mask1_282_701)">
+<circle cx="521.668" cy="33.758" r="30.2189" stroke="#FF6E32"/>
+</g>
+<circle cx="583.133" cy="33.1132" r="30.1913" stroke="#FF6E32"/>
+</svg>

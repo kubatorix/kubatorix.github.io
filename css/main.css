@@ -720,7 +720,6 @@ header {
 }
 .section2 {
     margin-bottom: 230px;
-    margin-left: 100px;
 }
 .section2_text1 {
     font-size: clamp(1.5625rem, 1.2847rem + 1.3889vw, 2.5rem);

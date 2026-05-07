@@ -1,0 +1,899 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Полное исследование — фандрайзеры и их наниматели</title>
+
+    <link rel="apple-touch-icon" sizes="180x180" href="https://nkocenter.com/build/images/coworking/favicon/apple-touch-icon.png">
+    <link rel="icon" type="image/png" sizes="32x32" href="https://nkocenter.com/build/images/coworking/favicon/favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="https://nkocenter.com/build/images/coworking/favicon/favicon-16x16.png">
+    <link rel="mask-icon" href="https://nkocenter.com/build/images/coworking/favicon/safari-pinned-tab.svg" color="#5bbad5">
+    <link rel="shortcut icon" href="https://nkocenter.com/build/images/coworking/favicon/favicon.ico">
+
+    <meta property="og:image" content="https://fundr.sredasvoih.com/img/share-tiny.png">
+    <meta property="og:image:width" content="1200">
+    <meta property="og:image:height" content="630">
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:image" content="https://fundr.sredasvoih.com/img/share-tiny.png">
+
+    <link href="./css/animate.css" rel="stylesheet">
+    <link href="./css/main.css" rel="stylesheet">
+    <link rel="stylesheet" href="./css/styles.css">
+</head>
+<body>
+    <button type="button" class="header-burger__icon" aria-label="Открыть меню">
+        <svg width="20" height="17" viewBox="0 0 20 17" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+            <path d="M0 1.24765C0 1.93671 0.558592 2.4953 1.24765 2.4953H18.7523C19.4414 2.4953 20 1.93671 20 1.24765C20 0.558592 19.4414 0 18.7523 0H1.24765C0.558592 0 0 0.558592 0 1.24765Z" fill="white"/>
+            <path d="M0 15.2242C0 15.9133 0.558592 16.4719 1.24765 16.4719H18.7523C19.4414 16.4719 20 15.9133 20 15.2242C20 14.5352 19.4414 13.9766 18.7523 13.9766H1.24765C0.558592 13.9766 0 14.5352 0 15.2242Z" fill="white"/>
+            <path d="M0 8.23202C0 8.92108 0.558592 9.47967 1.24765 9.47967H18.7523C19.4414 9.47967 20 8.92108 20 8.23202C20 7.54297 19.4414 6.98438 18.7523 6.98438H1.24765C0.558592 6.98438 0 7.54297 0 8.23202Z" fill="white"/>
+        </svg>
+    </button>
+    <header>
+        <div class="container">
+            <nav class="topnav header_inside">
+                <a href="index.html" class="topnav__link topnav__link--tema header_inside-item">Тема</a>
+                <a href="fullstudy.html" class="topnav__link topnav__link--issledovanie topnav__link--active header_inside-item">Исследование</a>
+                <a href="javascript:void(0);" class="topnav__link topnav__link--opyt header_inside-item header_inside-item-disabled">Опыт</a>
+                <a href="javascript:void(0);" class="topnav__link topnav__link--sobytiya header_inside-item" aria-haspopup="true" aria-expanded="false" aria-controls="topnav-events-popup">
+                    <span class="topnav__label">События</span>
+                    <svg class="topnav__plus" width="9.92" height="9.92" viewBox="0 0 9.92 9.92" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+                        <line class="topnav__plus-v" x1="4.96" y1="0" x2="4.96" y2="9.92" stroke="currentColor" stroke-width="0.816"/>
+                        <line x1="0" y1="4.96" x2="9.92" y2="4.96" stroke="currentColor" stroke-width="0.816"/>
+                    </svg>
+                </a>
+                <a href="https://fundr.sredasvoih.com/about/" class="topnav__link topnav__link--about header_inside-item">Об организаторах</a>
+                <div class="topnav__events-popup" id="topnav-events-popup" role="menu" aria-hidden="true"></div>
+            </nav>
+        </div>
+    </header>
+
+    <!-- ============================================================
+         FullStudy Phase F1 — Hero (Figma 282:503 children at y=0..941)
+         Frame 1440 wide. Contents:
+           282:531 brand strip      x=561.34  y=112  316.92x18.21
+           282:546 4-line heading   x=232     y=151  976x353
+           282:509 descriptor block x=-11     y=551  1452x390.63
+         Hero canvas height = 941 - 58 (nav) = 883.
+         ============================================================ -->
+    <section class="fs-hero" aria-label="Заголовок исследования">
+        <div class="fs-hero__canvas">
+            <div class="fs-hero__brand">
+                <span class="fs-hero__brand-word">Спецпроект</span>
+                <img src="./img/figma/logo_specproject.svg" alt="СРЕДА_СВОИХ" class="fs-hero__brand-logo">
+            </div>
+
+            <h1 class="fs-hero__caption">
+                <span class="fs-hero__caption-line fs-hero__caption-line--1">Исследование</span>
+                <span class="fs-hero__caption-line fs-hero__caption-line--2">фандрайзеров</span>
+                <span class="fs-hero__caption-line fs-hero__caption-line--3">и&nbsp;их</span>
+                <span class="fs-hero__caption-line fs-hero__caption-line--4">нанимателей</span>
+            </h1>
+
+            <!-- Descriptor block (Figma 282:509). Children positioned absolutely
+                 inside .fs-hero__intro using their canvas-relative coords. -->
+            <div class="fs-hero__intro">
+                <p class="fs-hero__intro-body fs-hero__intro-body--1">Поводом для&nbsp;исследования стала устойчивая и&nbsp;на&nbsp;первый взгляд парадоксальная ситуация: фандрайзеров ищут постоянно, вакансии открыты месяцами, однако ощущение взаимного неудовлетворения сохраняется и&nbsp;у&nbsp;НКО, и&nbsp;у&nbsp;самих специалистов.</p>
+
+                <p class="fs-hero__intro-highlight fs-hero__intro-highlight--orange">Организации говорят о&nbsp;дефиците «хороших фандрайзеров» и&nbsp;сложностях подбора,</p>
+                <p class="fs-hero__intro-highlight fs-hero__intro-highlight--purple">фандрайзеры&nbsp;— о&nbsp;размытых ожиданиях, непрозрачных условиях и&nbsp;высокой нагрузке.</p>
+
+                <p class="fs-hero__intro-body fs-hero__intro-body--2">При&nbsp;растущей потребности сектора в&nbsp;ресурсах устойчивых совпадений по-прежнему немного. Исследование было задумано как попытка зафиксировать реальное устройство этой профессиональной роли по&nbsp;обе стороны&nbsp;— понять, как НКО формулируют задачи, KPI и&nbsp;условия сотрудничества, и&nbsp;как сами фандрайзеры описывают свою работу, нагрузку и&nbsp;точки напряжения. Цель&nbsp;— обозначить текущее состояние роли в&nbsp;России и&nbsp;создать основу для&nbsp;более прозрачных и&nbsp;устойчивых моделей работы в&nbsp;секторе.</p>
+
+                <span class="fs-hero__intro-divider fs-hero__intro-divider--h" aria-hidden="true"></span>
+                <span class="fs-hero__intro-divider fs-hero__intro-divider--v" aria-hidden="true"></span>
+
+                <div class="fs-hero__sreda">
+                    <img src="./img/figma/sreda_logo_2.svg" alt="Среда своих" class="fs-hero__sreda-logo">
+                    <div class="fs-hero__sreda-text">
+                        <p class="fs-hero__sreda-label">Заказчик исследования</p>
+                        <p class="fs-hero__sreda-body">Пространство для&nbsp;работы, учёбы и&nbsp;развития в&nbsp;центре CITYы, где собираются люди, влияющие на&nbsp;сферу благотворительности: сотрудники и&nbsp;лидеры НКО, представители бизнеса, искусства, медиа и&nbsp;государства.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ============================================================
+         FullStudy Phase F2 — Methodology + PDF/scroll CTA
+         (Figma 282:747 + 282:786, frame y=1078..2640)
+         Two visually-overlapping groups share a single fading lime→
+         transparent gradient panel that bleeds across both — so they
+         are rendered inside one .fs-f2__canvas (1440 × 1562 = 2640-1078).
+         ============================================================ -->
+    <section class="fs-f2" aria-label="Методология и переход к выводам">
+        <div class="fs-f2__canvas">
+            <!-- 282:748 lime gradient rectangle (frame x=-1, y=137, 1441×643). -->
+            <span class="fs-f2__gradient" aria-hidden="true"></span>
+
+            <!-- 282:751 horizontal rule pattern, soft-light blend (frame x=-31, y=290 → section-y=290). -->
+            <img src="./img/figma/study_method_diagram.svg" class="fs-f2__diagram" alt="" aria-hidden="true">
+
+            <!-- 282:749 heading -->
+            <h2 class="fs-f2__heading">Как проводилось исследование</h2>
+
+            <!-- 282:750 lead -->
+            <p class="fs-f2__lead">2&nbsp;параллельных онлайн-опроса: среди специалистов, занимающихся привлечением ресурсов (фандрайзеров), и&nbsp;среди руководителей и&nbsp;сотрудников НКО, принимающих решения о&nbsp;найме.</p>
+
+            <!-- 282:775 date label (no bullet) -->
+            <p class="fs-f2__date">Ноябрь 2025 - Январь 2026:</p>
+
+            <!-- 282:776..780 + 282:781..785: 5 bulleted rows.
+                 First two rows (label tier, 120% line-height, 282:776 + 282:777),
+                 last three (stat tier, 90% line-height, 282:780 + 282:778 + 282:779). -->
+            <ul class="fs-f2__list">
+                <li class="fs-f2__row fs-f2__row--label fs-f2__row--y397">Количественные и&nbsp;качественные методы</li>
+                <li class="fs-f2__row fs-f2__row--label fs-f2__row--y445">Анализ рынка вакансий</li>
+                <li class="fs-f2__row fs-f2__row--stat fs-f2__row--y494">В&nbsp;опросе фандрайзеров приняли участие 142 респондента из&nbsp;27 регионов России</li>
+                <li class="fs-f2__row fs-f2__row--stat fs-f2__row--y542">В&nbsp;опросе нанимателей&nbsp;— 90 респондентов из&nbsp;28 регионов России</li>
+                <li class="fs-f2__row fs-f2__row--stat fs-f2__row--y590">30 глубинных интервью с&nbsp;фандрайзерами и&nbsp;нанимателями</li>
+            </ul>
+
+            <!-- ===== 282:786 PDF + scroll-down CTA (frame x=160, y=1755 → section-x=160, section-y=677) ===== -->
+            <!-- 282:800 decorative orbital-rings art (frame coverage 1119×873). -->
+            <img src="./img/figma/study_cta_art.svg" class="fs-f2__cta-art" alt="" aria-hidden="true">
+
+            <!-- 282:787 PDF button (pill, white border, transparent). -->
+            <a href="https://sredasvoih.ru/program/event-130" target="_blank" rel="noopener" class="fs-f2__cta-pdf">Получить исследование в&nbsp;PDF</a>
+
+            <!-- 282:792 share affordance (icon + text; icon at sub-x=0, text at sub-x=48.52). -->
+            <button type="button" class="fs-f2__cta-share">
+                <img src="./img/figma/study_share_icon.svg" class="fs-f2__cta-share-icon" alt="" aria-hidden="true">
+                <span class="fs-f2__cta-share-text">Скопировать ссылку, чтобы <br>поделиться с&nbsp;коллегами</span>
+            </button>
+
+            <!-- 282:799 vertical hairline divider (1×107). -->
+            <span class="fs-f2__cta-divider" aria-hidden="true"></span>
+
+            <!-- 282:814 "Ниже — кратко..." prompt. Wraps to 2 lines so "выводы"
+                 starts line 2 and gets the lime underline (282:816, 74×1). -->
+            <p class="fs-f2__cta-hint">Ниже&nbsp;— кратко сформулированные<br><span class="fs-f2__cta-hint-link">выводы</span> и&nbsp;интересные детали</p>
+        </div>
+    </section>
+
+    <!-- ============================================================
+         FullStudy Phase F3 — Слово block (Figma 282:551 + 282:507/508 +
+         282:847/890 + 320:2124 + 282:848, frame y=2776..3723).
+         Two-row layout:
+           1) heading + lime underline  (282:551..553)
+           2) two body columns          (282:507 left, 282:508 right)
+           3) "Слово:" label            (282:847)
+           4) horizontal-words marquee  (282:890)
+           5) big purple callout (left) + 2-cell stat box (right)
+                                         (320:2124 + 282:848)
+         ============================================================ -->
+    <section class="fs-f3" aria-label="Слово">
+        <div class="fs-f3__canvas">
+            <!-- 282:551..553 heading + lime underline (249×1 at sub 141,64). -->
+            <h2 class="fs-f3__heading">
+                Фандрайзер&nbsp;— специалист, которого нельзя называть
+                <span class="fs-f3__heading-underline" aria-hidden="true"></span>
+            </h2>
+
+            <!-- 282:507 left column with two inline highlights {ts1} → orange,
+                 {ts2} → purple (matching the index palette where naниматель-
+                 sentences are orange and фандрайзер-sentences are purple). -->
+            <p class="fs-f3__body fs-f3__body--left">Термина «фандрайзер» избегают в&nbsp;официальных названиях позиций <span class="fs-f3__hl fs-f3__hl--orange">как наниматели</span>, <span class="fs-f3__hl fs-f3__hl--purple">так и&nbsp;сами специалисты.</span><br><br>Вместо него&nbsp;– «менеджеры по&nbsp;партнёрам», «специалисты по&nbsp;развитию», «руководители направления». И&nbsp;это даже тогда, когда привлечение финансовых ресурсов составляет значительную часть обязанностей. Эта языковая неопределенность отражает проблему: профессиональная идентичность фандрайзера остается не&nbsp;до&nbsp;конца оформленной и&nbsp;сформулированной.</p>
+
+            <!-- 282:508 right column. -->
+            <p class="fs-f3__body fs-f3__body--right">Пока сама роль не&nbsp;закреплена в&nbsp;названии позиции и&nbsp;не&nbsp;сформулирован четкий список задач для этой роли, сложно говорить о&nbsp;признании фандрайзинга как самостоятельной профессии и&nbsp;о&nbsp;формировании устойчивых профессиональных стандартов.</p>
+
+            <!-- 282:847 "Слово:" label (purple #AA6EFF, 40 / 90 % Golos Medium). -->
+            <h3 class="fs-f3__label">Слово:</h3>
+
+            <!-- 282:890 horizontal-words SVG (alternative job-title marquee). -->
+            <img src="./img/figma/study_word_marquee.svg" class="fs-f3__words" alt="" aria-hidden="true">
+
+            <!-- 320:2124 big purple callout. -->
+            <p class="fs-f3__callout">отсутствует у&nbsp;<span class="fs-f3__callout-num">44,4%</span> фандрайзеров и&nbsp;в&nbsp;официальном названии позиции, и&nbsp;в&nbsp;профессиональном представлении</p>
+
+            <!-- 282:848 stat-box: 2 cells separated by a vertical line, all
+                 four sides bordered (282:856..862, 7 lines = rect + divider). -->
+            <div class="fs-f3__stats">
+                <span class="fs-f3__stats-divider" aria-hidden="true"></span>
+                <!-- Left cell (282:853): text on top, percent below. -->
+                <div class="fs-f3__stat fs-f3__stat--left">
+                    <p class="fs-f3__stat-text">отсутствует в&nbsp;официальном названии позиции</p>
+                    <p class="fs-f3__stat-percent">11,3% фандрайзеров</p>
+                </div>
+                <!-- Right cell (282:850): percent on top, text below. -->
+                <div class="fs-f3__stat fs-f3__stat--right">
+                    <p class="fs-f3__stat-percent">18,8% фандрайзеров</p>
+                    <p class="fs-f3__stat-text">не используют его&nbsp;при&nbsp;представлении</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ============================================================
+         FullStudy Phase F4 — "Наниматели в регионах, фандрайзеры в Москве"
+         (Figma 282:743 + 282:723 + 282:722 + 282:719 + 282:731,
+         frame y=3802..4604, height 802).
+         Layout:
+           1) heading + 2 lime underlines (282:743..746)
+           2) left:  47,3% / 70% double-circle Venn (282:723) with
+              two contrasting captions overlapping at y=562
+           3) right: body paragraph (282:722) + large quote (282:719)
+              with lime underline (282:721)
+           4) audience toggle (282:731): фандрайзеры / обе стороны /
+              наниматели — same pattern as the index hero toggle
+         ============================================================ -->
+    <section class="fs-f4" aria-label="Регион работы" data-state="both">
+        <div class="fs-f4__canvas">
+            <!-- 282:743..746 heading + 2 lime underlines under "регионах" / "Москве". -->
+            <h2 class="fs-f4__heading">
+                Наниматели&nbsp;— в&nbsp;регионах, фандрайзеры&nbsp;— в&nbsp;Москве
+                <span class="fs-f4__heading-u1" aria-hidden="true"></span>
+                <span class="fs-f4__heading-u2" aria-hidden="true"></span>
+            </h2>
+
+            <!-- 282:723 left graphic: two Pac-Man (circle-minus-pie-wedge) shapes
+                 + two chromatic-outlined percentages overlapping in the centre
+                 (same digit/suffix split + plus-lighter blend as s3p5__mega in
+                 the index), plus a pair of contrasting captions below.
+
+                 Pac-Man wedge angle = (1 − percentage) × 360°:
+                   orange "47,3%" → 190° mouth (more cut, smaller value)
+                   purple "70%"   → 108° mouth (less cut, bigger value)
+                 Mouth direction approximated from the Figma reference: orange
+                 opens upper-left, purple opens upper-right.                -->
+            <div class="fs-f4__graph">
+                <!-- 282:730 purple crescent (Figma 354×449 path). The original
+                     ellipse layout box is 625.39×625.39 at sub (2.37, 0) in
+                     the parent group; the SVG content is a thick "C" shape
+                     with an inner cutout, naturally smaller than the bbox.
+                     We centre the SVG inside the spec ellipse bbox.            -->
+                <img src="./img/figma/study_pie_purple.svg" class="fs-f4__graph-pac fs-f4__graph-pac--purple" alt="" aria-hidden="true">
+
+                <!-- 282:729 orange crescent (Figma 333×271 path). Layout box
+                     531.28×531.28 at sub (-0, 0.28); SVG centred inside.       -->
+                <img src="./img/figma/study_pie_orange.svg" class="fs-f4__graph-pac fs-f4__graph-pac--orange" alt="" aria-hidden="true">
+
+                <!-- Mega numbers — same s3p5__mega pattern (digits with coloured
+                     stroke + suffix with WHITE stroke, both in plus-lighter so
+                     they layer chromatically). -->
+                <span class="fs-f4__graph-num fs-f4__graph-num--orange" aria-hidden="true"><span class="fs-f4__graph-digits">47</span><span class="fs-f4__graph-suffix">,3%</span></span>
+                <span class="fs-f4__graph-num fs-f4__graph-num--purple" aria-hidden="true"><span class="fs-f4__graph-digits">70</span><span class="fs-f4__graph-suffix">%</span></span>
+                <span class="visually-hidden">47,3% и 70%</span>
+
+                <p class="fs-f4__graph-cap fs-f4__graph-cap--purple">Большинство фандрайзеров&nbsp;— из&nbsp;CITYы и&nbsp;других крупных городов</p>
+                <p class="fs-f4__graph-cap fs-f4__graph-cap--orange">Почти половина нанимателей&nbsp;— из&nbsp;регионов</p>
+            </div>
+
+            <!-- 282:722 right body. -->
+            <p class="fs-f4__body">Даже при формальной доступности удалённого и&nbsp;гибридного форматов работы региональные НКО часто не&nbsp;могут предложить условия, которые совпадут с&nbsp;ожиданиями специалистов, сформировавшимися во&nbsp;время работы в&nbsp;мегаполисах. В&nbsp;результате стороны не&nbsp;находят друг друга ещё на&nbsp;этапе поиска, даже не&nbsp;начав переговоры.</p>
+
+            <!-- 282:719..721 right pull-quote (45 / 100 %) with lime underline at sub-y=130. -->
+            <h3 class="fs-f4__quote">
+                Это означает, что стороны изначально находятся в&nbsp;разных экономических, профессиональных и&nbsp;институциональных условиях.
+                <span class="fs-f4__quote-underline" aria-hidden="true"></span>
+            </h3>
+
+            <!-- 282:731..742 audience toggle. Reuses the .s3p5__toggle markup
+                 from the index (same chromatic white-pill-with-edge-bleeds
+                 design); F4 only overrides outer dimensions + segment positions
+                 in CSS. -->
+            <div class="s3p5__toggle fs-f4__toggle" role="tablist" aria-label="Аудитория">
+                <div class="s3p5__toggle-inner">
+                    <button type="button" class="s3p5__seg s3p5__seg--left" data-action="fundraisers" role="tab" aria-selected="false">
+                        <span class="s3p5__seg-label">фандрайзеры</span>
+                    </button>
+                    <button type="button" class="s3p5__seg s3p5__seg--mid" data-action="both" role="tab" aria-selected="true">
+                        <span class="s3p5__seg-pill" aria-hidden="true"></span>
+                        <span class="s3p5__seg-pill-label">обе стороны</span>
+                    </button>
+                    <button type="button" class="s3p5__seg s3p5__seg--right" data-action="employers" role="tab" aria-selected="false">
+                        <span class="s3p5__seg-label">наниматели</span>
+                    </button>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ============================================================
+         FullStudy Phase F5 — "Разные поколения, разное образование"
+         Two stacked groups (Figma 282:579 + 282:646, frame y=4748..5912):
+           1) Education chart (282:579, 1240×640):
+              heading + lime underline → body → 2-cell chart
+              (purple 55,5% + orange 33,3%) → legend
+           2) Age/generations panel (282:646, 705×420):
+              two decorative blobs + orange callout + legend
+         ============================================================ -->
+    <section class="fs-f5" aria-label="Разные поколения, разное образование" data-state="humanitarian" data-state-gen="older">
+        <div class="fs-f5__canvas">
+
+            <!-- ===== Education block (282:579) ===== -->
+            <h2 class="fs-f5__edu-heading">
+                Разные поколения, разное образование
+                <span class="fs-f5__edu-heading-underline" aria-hidden="true"></span>
+            </h2>
+
+            <p class="fs-f5__edu-body">Формально уровень образования у&nbsp;сторон сопоставим, но&nbsp;сам профиль&nbsp;– нет. Добавляется и&nbsp;поколенческий разрыв. Это различие влияет не&nbsp;только на&nbsp;стиль и&nbsp;логику мышления, но&nbsp;и&nbsp;отражается в&nbsp;коммуникации: напрямую влияет на&nbsp;постановку задач, оценку результатов и&nbsp;успехов.</p>
+
+            <!-- 282:584 chart: 2 rounded rectangle frames + mega percentages
+                 + body texts. Numbers and texts are SIBLINGS of the cells
+                 (not nested inside) so their absolute coords stay fixed
+                 when the cell frames swap proportions on toggle. Each
+                 num/text holds two inner spans — one per state — toggled
+                 via data-show / data-state.                              -->
+            <div class="fs-f5__chart">
+                <div class="fs-f5__chart-cell fs-f5__chart-cell--purple"></div>
+                <div class="fs-f5__chart-cell fs-f5__chart-cell--orange"></div>
+
+                <span class="fs-f5__chart-num fs-f5__chart-num--purple">
+                    <span data-show="humanitarian">55,5%</span>
+                    <span data-show="technical">6,9%</span>
+                </span>
+                <p class="fs-f5__chart-text fs-f5__chart-text--purple">
+                    <span data-show="humanitarian">Более половины фандрайзейров имеют гуманитарное образование</span>
+                    <span data-show="technical">Фандрайзеров имеют техническое образование</span>
+                </p>
+
+                <span class="fs-f5__chart-num fs-f5__chart-num--orange">
+                    <span data-show="humanitarian">33,3%</span>
+                    <span data-show="technical">13,3%</span>
+                </span>
+                <p class="fs-f5__chart-text fs-f5__chart-text--orange">
+                    <span data-show="humanitarian">Около трети имеют<br>гуманитарное образование</span>
+                    <span data-show="technical">Наниматели —<br>в 2 раза чаще</span>
+                </p>
+            </div>
+
+            <!-- 282:591 legend row (purple + orange swatches with labels).
+                 Acts as a toggle: clicking a swatch sets data-state on the
+                 .fs-f5 root which drives the chart layout swap.            -->
+            <div class="fs-f5__legend fs-f5__legend--edu" role="tablist">
+                <button type="button" class="fs-f5__legend-swatch fs-f5__legend-swatch--purple is-selected" data-state="humanitarian" role="tab" aria-selected="true" aria-label="Гуманитарное образование"></button>
+                <span class="fs-f5__legend-text">Гуманитарное образование</span>
+                <button type="button" class="fs-f5__legend-swatch fs-f5__legend-swatch--orange" data-state="technical" role="tab" aria-selected="false" aria-label="Техническое образование"></button>
+                <span class="fs-f5__legend-text">Техническое образование</span>
+            </div>
+
+            <!-- ===== Generations panel (282:646) =====
+                 Blobs + body live in their own positioned container; the
+                 legend is hoisted out so its absolute position resolves
+                 against .fs-f5__canvas (avoids double-absolute nesting). -->
+            <div class="fs-f5__gen">
+                <!-- Two slots, each rendered at its BIG bounding box; scale
+                     transform shrinks the inactive one to small size for a
+                     smooth "sun grows / shrinks" animation on toggle.       -->
+                <img src="./img/figma/study_age_blob_3.svg" class="fs-f5__gen-blob fs-f5__gen-blob--purple-slot" alt="" aria-hidden="true">
+                <img src="./img/figma/study_age_blob_1.svg" class="fs-f5__gen-blob fs-f5__gen-blob--orange-slot" alt="" aria-hidden="true">
+                <p class="fs-f5__gen-body">
+                    <span data-show-gen="older">Наниматели в&nbsp;основном старше фандрайзеров: среди опрошенных в&nbsp;13 раз больше людей старше&nbsp;60 лет.</span>
+                    <span data-show-gen="younger">В&nbsp;основном моложе нанимателей: среди опрошенных в&nbsp;7 раз больше людей моложе&nbsp;30 лет.</span>
+                </p>
+            </div>
+
+            <!-- 282:650 generations legend (sibling of .fs-f5__gen).
+                 Acts as a toggle for data-state-gen on .fs-f5:
+                   "older"   → orange swatch selected (default)
+                   "younger" → purple swatch selected             -->
+            <div class="fs-f5__legend fs-f5__legend--gen" role="tablist">
+                <button class="fs-f5__legend-swatch fs-f5__legend-swatch--purple" data-state-gen="younger" role="tab" aria-selected="false"></button>
+                <span class="fs-f5__legend-text">Поколение до&nbsp;30</span>
+                <button class="fs-f5__legend-swatch fs-f5__legend-swatch--orange is-selected" data-state-gen="older" role="tab" aria-selected="true"></button>
+                <span class="fs-f5__legend-text">Поколение старше 60</span>
+            </div>
+
+        </div>
+    </section>
+
+    <!-- ============================================================
+         FullStudy Phase F6 — "Фандрайзер как «волшебная таблетка»"
+         (Figma 282:684 + 282:687..695 + 282:696, frame y=6049..7194).
+
+         Layout:
+           1) heading + lime underline (282:684..686)
+           2) equation panel: orange stroked ellipse + chromatic equation
+              "руководитель  =  =  фандрайзер?" with the two = signs
+              offset 5 px to chromatically blend (282:687..693)
+           3) white callout w/ inline orange + purple highlights (282:694)
+           4) large pull-quote (282:683)
+           5) body paragraph (282:695)
+           6) final two-column block (282:696):
+                stat "84,2% нанимателей считают..." (left, orange)
+                long body paragraph (right, white)
+         ============================================================ -->
+    <section class="fs-f6" aria-label="Фандрайзер как волшебная таблетка">
+        <div class="fs-f6__canvas">
+
+            <!-- 282:684..686 heading + 336 px lime underline -->
+            <h2 class="fs-f6__heading">
+                Фандрайзер как «волшебная таблетка»
+                <span class="fs-f6__heading-underline" aria-hidden="true"></span>
+            </h2>
+
+            <!-- 282:687..693 equation. Words use the same chromatic-stroke
+                 + plus-lighter pattern as s3p5__mega / fs-f4__graph-num.
+                 Ellipses split into two SVGs so each can slide indepen-
+                 dently on scroll: as --fs-f6-progress goes 0→1 they (and
+                 their words) converge to the centre and overlap into an
+                 unreadable cluster.                                      -->
+            <div class="fs-f6__equation">
+                <img src="./img/figma/study_eq_ellipse_purple.svg" class="fs-f6__eq-ellipse fs-f6__eq-ellipse--purple" alt="" aria-hidden="true">
+                <img src="./img/figma/study_eq_ellipse_orange.svg" class="fs-f6__eq-ellipse fs-f6__eq-ellipse--orange" alt="" aria-hidden="true">
+
+                <span class="fs-f6__eq-word fs-f6__eq-word--orange" aria-hidden="true">руководитель</span>
+                <span class="fs-f6__eq-eq   fs-f6__eq-eq--orange"   aria-hidden="true">=</span>
+                <span class="fs-f6__eq-eq   fs-f6__eq-eq--purple"   aria-hidden="true">=</span>
+                <span class="fs-f6__eq-word fs-f6__eq-word--purple" aria-hidden="true">фандрайзер?</span>
+                <span class="visually-hidden">руководитель = фандрайзер?</span>
+            </div>
+
+            <!-- 282:694 white callout with inline highlights — purple
+                 "фандрайзингом" (фандрайзер side) + orange "руководители"
+                 (наниматель side). -->
+            <p class="fs-f6__callout">Во&nbsp;многих НКО (47,3%) <span class="fs-f6__hl fs-f6__hl--purple">фандрайзингом</span> занимаются сами&nbsp;<span class="fs-f6__hl fs-f6__hl--orange">руководители</span> или вся команда.</p>
+
+            <!-- 282:683 big pull-quote (40 / 100 % white). -->
+            <h3 class="fs-f6__quote">Такой подход формирует иллюзию,<br/> что процесс абсолютно понятен и&nbsp;управляем.</h3>
+
+            <!-- 282:695 body paragraph. -->
+            <p class="fs-f6__body">А&nbsp;отдельного фандрайзера, по&nbsp;словам нанимателей, сложно найти из-за ряда причин: и&nbsp;хороших профессионалов в&nbsp;секторе мало, и&nbsp;зарплатные ожидания у&nbsp;них завышенные, и&nbsp;результаты работы сильно отложены во&nbsp;времени.</p>
+
+            <!-- 282:696 final two-column block. -->
+            <div class="fs-f6__final">
+                <!-- 282:698 stat: 84,2% (orange chromatic stroke) + dots
+                     visualisation (8.43 of 10 circles filled, ≈ 84,2 %) +
+                     caption. -->
+                <div class="fs-f6__stat">
+                    <span class="fs-f6__stat-num" aria-hidden="true">84,2%</span>
+                    <span class="visually-hidden">84,2%</span>
+                    <img src="./img/figma/study_f6_stat_dots.svg" class="fs-f6__stat-dots" alt="" aria-hidden="true">
+                    <p class="fs-f6__stat-text">нанимателей считают, что вакансий больше, чем кандидатов</p>
+                </div>
+                <!-- 282:697 right column body. -->
+                <p class="fs-f6__final-body">Но при этом когда появляется отдельный специалист, на&nbsp;него наниматели или возлагают уже свои завышенные ожидания и&nbsp;ждут мгновенных результатов, или полностью снимают ответственность с&nbsp;остальной команды (зачастую: и&nbsp;то, и&nbsp;другое).<br><br>В&nbsp;итоге фандрайзер остается один на&nbsp;один с&nbsp;задачей по&nbsp;привлечению денег, без поддержки и&nbsp;с&nbsp;огромной нагрузкой. На&nbsp;практике это означает полную изоляцию.</p>
+            </div>
+
+        </div>
+    </section>
+
+    <!-- ============================================================
+         FullStudy Phase F7 — "Работы больше, чем кажется"
+         (Figma 282:554..563, frame y=7355..8101, height 746).
+
+         Layout:
+           1) heading + lime underline (282:555..557)
+           2) two decorative polygons framing the percentages
+              (282:560 orange — Polygon 6, 282:561 purple — Polygon 7)
+           3) two SOLID mega percentages: 46,7% orange (left) + 71,7%
+              purple (right) (282:559 + 282:563)
+           4) two captions: orange (left) + purple (right)
+              (282:558 + 282:562)
+           5) big white bridge paragraph (282:554)
+         ============================================================ -->
+    <section class="fs-f7" aria-label="Работы больше, чем кажется">
+        <div class="fs-f7__canvas">
+
+            <!-- 282:555..557 heading -->
+            <h2 class="fs-f7__heading">
+                Работы больше, чем кажется
+                <span class="fs-f7__heading-underline" aria-hidden="true"></span>
+            </h2>
+
+            <!-- 282:560 Polygon 6 — orange-stroked stylised triangle
+                 (rounded vertices via tiny corner curves). Figma SVG is
+                 174×112 (path bbox); spec layout box is 241.71×158.44 so
+                 we centre the SVG inside that box.                       -->
+            <img src="./img/figma/study_f7_poly_orange.svg" class="fs-f7__poly fs-f7__poly--orange" alt="" aria-hidden="true">
+
+            <!-- 282:561 Polygon 7 — bigger purple-stroked triangle.
+                 Figma SVG 450×286; spec layout box 545.27×409.41.        -->
+            <img src="./img/figma/study_f7_poly_purple.svg" class="fs-f7__poly fs-f7__poly--purple" alt="" aria-hidden="true">
+
+            <!-- 282:559 / 282:563 mega percentages — solid colour (not the
+                 chromatic outline used in s3p5/F4), Golos Medium 100/130%. -->
+            <span class="fs-f7__num fs-f7__num--orange">46,7%</span>
+            <span class="fs-f7__num fs-f7__num--purple">71,7%</span>
+
+            <!-- 282:558 / 282:562 captions -->
+            <p class="fs-f7__cap fs-f7__cap--orange">Почти половина нанимателей признают, что фандрайзеры совмещают свою работу с&nbsp;другими задачами</p>
+            <p class="fs-f7__cap fs-f7__cap--purple">Сами специалисты по&nbsp;привлечению ресурсов говорят об&nbsp;этом еще чаще: примерно в&nbsp;полтора раза</p>
+
+            <!-- 282:554 big white bridge text -->
+            <p class="fs-f7__bridge">Это расхождение показывает: реальный объём работы или&nbsp;недооценён, или просто не&nbsp;проговаривается изначально нанимателем. В&nbsp;результате ожидания по&nbsp;нагрузке, ответственности и&nbsp;приоритетам не&nbsp;совпадают, и&nbsp;стороны быстро приходят к&nbsp;разочарованию.</p>
+
+        </div>
+    </section>
+
+    <!-- ============================================================
+         FullStudy Phase F8 — two stacked sub-blocks, each with a
+         segment toggle (фандрайзеров / оба мнения / нанимателей):
+           1) "Фандрайзинг без цели и KPI" (282:658) — mega 30,2%/58,8% +
+              two side bodies + toggle
+           2) "Деньги: слишком много или слишком мало?" (282:863) —
+              chromatic Наниматели/Фандрайзеры words + decorative SVG +
+              two side bodies + toggle
+         Both toggles drive the same data-state on .fs-f8 (just like
+         section3 in the index has top + bottom toggles syncing).
+         ============================================================ -->
+    <section class="fs-f8" aria-label="KPI и оплата" data-state="both">
+        <div class="fs-f8__canvas">
+
+            <!-- ====== Sub-block 1 (282:658, frame y=8176..8848) ====== -->
+
+            <!-- 282:660..662 heading + lime underline -->
+            <h2 class="fs-f8__heading fs-f8__heading--1">
+                Фандрайзинг<br>без цели и&nbsp;KPI
+                <span class="fs-f8__heading-underline" aria-hidden="true"></span>
+            </h2>
+
+            <!-- 282:663..665 chromatic mega: 30,2% (orange) + 58,8% (purple).
+                 Reuses .s3p5__mega-num markup so wireToggle's count-up
+                 animation picks them up automatically.                       -->
+            <div class="fs-f8__mega-1 s3p5__mega">
+                <span class="s3p5__mega-num s3p5__mega-num--orange" aria-hidden="true"><span class="s3p5__mega-digits">30</span><span class="s3p5__mega-suffix">,2%</span></span>
+                <span class="s3p5__mega-num s3p5__mega-num--purple" aria-hidden="true"><span class="s3p5__mega-digits">58</span><span class="s3p5__mega-suffix">,8%</span></span>
+                <span class="visually-hidden">30,2% и 58,8%</span>
+            </div>
+
+            <!-- 282:666..668 dual descriptions overlapping (purple + orange). -->
+            <div class="fs-f8__minicopy-1">
+                <p class="fs-f8__minicopy fs-f8__minicopy--purple">У&nbsp;58,8% опрошенных отсутствуют KPI или даже формальный характер цели.</p>
+                <p class="fs-f8__minicopy fs-f8__minicopy--orange">Больше 30% не&nbsp;формулируют фандрайзинговые цели своих НКО на&nbsp;год.</p>
+            </div>
+
+            <!-- 282:659 white connector body. -->
+            <p class="fs-f8__connector-1">И&nbsp;наниматели, и&nbsp;фандрайзеры заявляют об&nbsp;этом, однако объективно цели и&nbsp;ожидаемые результаты часто не&nbsp;формулируются для специалистов.</p>
+
+            <!-- 282:671 audience toggle (reuses .s3p5__toggle markup). -->
+            <div class="s3p5__toggle fs-f8__toggle fs-f8__toggle--1">
+                <div class="s3p5__toggle-inner">
+                    <button type="button" class="s3p5__seg s3p5__seg--left" data-action="fundraisers" role="tab" aria-selected="false">
+                        <span class="s3p5__seg-label">мнение<br>фандрайзеров</span>
+                    </button>
+                    <button type="button" class="s3p5__seg s3p5__seg--mid" data-action="both" role="tab" aria-selected="true">
+                        <span class="s3p5__seg-pill" aria-hidden="true"></span>
+                        <span class="s3p5__seg-pill-label">оба мнения</span>
+                    </button>
+                    <button type="button" class="s3p5__seg s3p5__seg--right" data-action="employers" role="tab" aria-selected="false">
+                        <span class="s3p5__seg-label">мнение<br>нанимателей</span>
+                    </button>
+                </div>
+            </div>
+
+            <!-- 282:669 / 282:670 side body paragraphs (purple left, orange right). -->
+            <p class="fs-f8__body-1 fs-f8__body--purple">Часть специалистов указали, что грантрайтинг не&nbsp;входит в&nbsp;число их&nbsp;задач, что свидетельствует о&nbsp;том, что задачи фандрайзера в&nbsp;организациях не&nbsp;всегда чётко определены.</p>
+            <p class="fs-f8__body-1 fs-f8__body--orange">По&nbsp;словам нанимателей, среди применяемых KPI наиболее распространены KPI по&nbsp;объёму привлечённых средств.</p>
+
+            <!-- ====== Sub-block 2 (282:863, frame y=8991..9692) ====== -->
+
+            <!-- 282:864..866 heading + lime underline. -->
+            <h2 class="fs-f8__heading fs-f8__heading--2">
+                Деньги: слишком много или слишком мало?
+                <span class="fs-f8__heading-underline" aria-hidden="true"></span>
+            </h2>
+
+            <!-- 282:867 + 282:876 chromatic words "Наниматели" (orange) +
+                 "Фандрайзеры" (purple) overlapping at the same y. -->
+            <span class="fs-f8__word fs-f8__word--orange" aria-hidden="true">Наниматели</span>
+            <span class="fs-f8__word fs-f8__word--purple" aria-hidden="true">Фандрайзеры</span>
+            <span class="visually-hidden">Наниматели и фандрайзеры</span>
+
+            <!-- 282:868 + 282:871 decorative strokes (inline SVG so individual
+                 paths can be opacity-faded per data-state). Four lines:
+                   orange (282:868): left vertical + right diagonal
+                   purple (282:871): right vertical + left diagonal
+                 Position: sub (205, 237), 826×228 → section (304, 1052).  -->
+            <svg class="fs-f8__deco" viewBox="0 0 827 229" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+                <path class="fs-f8__deco-line fs-f8__deco-line--purple" d="M826.5 228.357L826.5 4.35742" stroke="#AA6EFF"/>
+                <path class="fs-f8__deco-line fs-f8__deco-line--purple" d="M0.5 219.357L224.5 0.357422" stroke="#AA6EFF"/>
+                <path class="fs-f8__deco-line fs-f8__deco-line--orange" d="M0.5 228.357L0.5 4.35742" stroke="#FF6E32"/>
+                <path class="fs-f8__deco-line fs-f8__deco-line--orange" d="M826.5 219.357L602.5 0.357422" stroke="#FF6E32"/>
+            </svg>
+
+            <!-- 282:874 / 282:875 dual descriptions (orange + purple). -->
+            <p class="fs-f8__lead fs-f8__lead--purple">Часто оценивают текущий уровень оплаты как несоразмерный сложности и&nbsp;ответственности роли.</p>
+            <p class="fs-f8__lead fs-f8__lead--orange">Часто считают ожидания фандрайзеров по&nbsp;фиксированной части оплаты завышенными.</p>
+
+            <!-- 282:877 second toggle (mirror of first, syncs same state). -->
+            <div class="s3p5__toggle fs-f8__toggle fs-f8__toggle--2">
+                <div class="s3p5__toggle-inner">
+                    <button type="button" class="s3p5__seg s3p5__seg--left" data-action="fundraisers" role="tab" aria-selected="false">
+                        <span class="s3p5__seg-label">мнение<br>фандрайзеров</span>
+                    </button>
+                    <button type="button" class="s3p5__seg s3p5__seg--mid" data-action="both" role="tab" aria-selected="true">
+                        <span class="s3p5__seg-pill" aria-hidden="true"></span>
+                        <span class="s3p5__seg-pill-label">оба мнения</span>
+                    </button>
+                    <button type="button" class="s3p5__seg s3p5__seg--right" data-action="employers" role="tab" aria-selected="false">
+                        <span class="s3p5__seg-label">мнение<br>нанимателей</span>
+                    </button>
+                </div>
+            </div>
+
+        </div>
+    </section>
+
+    <!-- ============================================================
+         FullStudy Phase F9 — Salary breakdown, two-column compare
+         (Figma 282:567 + 282:568..573 + 282:889 + 282:564..566,
+         frame y=9752..10673, height 921).
+
+         Layout (frame coords):
+           heading body                x=400  y=9752  614×40    white 20/130
+           vertical divider            x=720  y=9864  1×457     white stroke
+           LEFT column (purple, фандрайзер):
+             row 1 (282:568)           x=104  y=9863  561×164
+             row 2 (282:569)           x=104  y=10039 561×66
+             row 3 (282:570)           x=104  y=10202 561×118
+           RIGHT column (orange, наниматель):
+             row 1 (282:571)           x=767  y=9863  564×66
+             row 2 (282:572)           x=767  y=10039 564×170
+             row 3 (282:573)           x=767  y=10202 564×66
+           bottom takeaways (white 20/130):
+             left  (282:564)           x=99   y=10394 611×144
+             right (282:565)           x=791  y=10394 548×118
+           bridge (white 40/100)        x=100  y=10565 1252×108
+         ============================================================ -->
+    <section class="fs-f9" aria-label="Разбор по оплате труда">
+        <div class="fs-f9__canvas">
+
+            <!-- 282:567 heading body — small intro line. -->
+            <p class="fs-f9__heading">Вот более детальный разбор, демонстрирующий детали несовпадения во&nbsp;взглядах на&nbsp;условия совместной работы:</p>
+
+            <!-- 282:889 vertical divider line between the two columns. -->
+            <span class="fs-f9__divider" aria-hidden="true"></span>
+
+            <!-- LEFT (purple) column — фандрайзер perspective -->
+            <p class="fs-f9__row fs-f9__row--purple fs-f9__row--y111">Большинство фандрайзеров (34,7%) получают от&nbsp;50 до&nbsp;100 тысяч рублей в&nbsp;месяц. Однако хотят они другого: в&nbsp;абсолютных значениях уровень оплаты труда, который больше половины фандрайзеров (61,4%) оценивают как «приемлемый», соответствует доходу 100&nbsp;000 рублей в&nbsp;месяц.</p>
+            <p class="fs-f9__row fs-f9__row--purple fs-f9__row--y287">Только фиксированную часть оплаты труда получают 54,8% фандрайзеров, тогда как 7,7% опрошенных специалистов работают только с&nbsp;переменной моделью.</p>
+            <p class="fs-f9__row fs-f9__row--purple fs-f9__row--y450">Редко формулируют прямой запрос на&nbsp;повышение оплаты. Гораздо чаще звучат запросы на&nbsp;статус, признание или чёткие границы роли. 65,2% респондентов отмечают применение дополнительных форм нематериальной мотивации со&nbsp;стороны нанимателей.</p>
+
+            <!-- RIGHT (orange) column — наниматель perspective -->
+            <p class="fs-f9__row fs-f9__row--orange fs-f9__row--y111">Почти две трети организаций (61,1%), готовых платить фиксированную часть, предлагают ежемесячное вознаграждение до&nbsp;110 тысяч рублей.</p>
+            <p class="fs-f9__row fs-f9__row--orange fs-f9__row--y287">Больше трети организаций (38%) ориентируются на&nbsp;волонтёрский формат или исключительно переменную модель оплаты (например, процент от&nbsp;привлечённых средств), а&nbsp;премии за&nbsp;перевыполнение плана встречаются только у&nbsp;3,4%.</p>
+            <p class="fs-f9__row fs-f9__row--orange fs-f9__row--y450">85% опрошенных нанимателей утверждают, что применяют нематериальную мотивацию для своих фандрайзеров.</p>
+
+            <!-- 282:564 + 282:565 white takeaways under both columns. -->
+            <p class="fs-f9__takeaway fs-f9__takeaway--left">Фиксированная ставка&nbsp;— по-прежнему основная модель оплаты труда, но&nbsp;также сосуществуют и&nbsp;смешанные схемы, переменная часть (процент от&nbsp;привлечённых средств или премии), а&nbsp;в&nbsp;отдельных случаях&nbsp;— и&nbsp;волонтёрский формат.</p>
+            <p class="fs-f9__takeaway fs-f9__takeaway--right">Это говорит о&nbsp;том, что профессия до&nbsp;сих пор живёт в&nbsp;режиме финансовой неопределённости. В&nbsp;исследовании отмечается, что наименее значимым фактором при выборе работодателя или заказчика является наличие премий.</p>
+
+            <!-- 282:566 large white bridge text. -->
+            <p class="fs-f9__bridge">И&nbsp;это при том, что последние 10&nbsp;лет в&nbsp;профессиональном сообществе ведётся дискуссия о&nbsp;том, насколько профессионально получать процент от&nbsp;собранной суммы.</p>
+
+        </div>
+    </section>
+
+    <!-- ============================================================
+         FullStudy Phase F10 — "Опыт, за который не готовы платить"
+         (Figma 282:601 + 282:574, frame y=10849..11806, height 957).
+
+         Layout:
+           heading + lime underline (282:637 + 282:638)
+           two filled rectangles side-by-side at y=164:
+             orange (left, 651×232) — наниматель stat
+             purple (right, 607×232) — фандрайзер stat
+           label + big number inside each rect
+           bottom body paragraph (282:634)
+           «… больше — в полном тексте результатов исследования» staircase
+           text (282:574..578) pointing to the full report
+         ============================================================ -->
+    <section class="fs-f10" aria-label="Опыт, за который не готовы платить">
+        <div class="fs-f10__canvas">
+
+            <!-- 282:637 heading + 282:638 lime underline (266 wide). -->
+            <h2 class="fs-f10__heading">
+                Опыт, за который<br>не&nbsp;готовы платить
+                <span class="fs-f10__heading-underline" aria-hidden="true"></span>
+            </h2>
+
+            <!-- 282:602 grid overlay (8 horizontal lines + 2 vertical, soft-light
+                 blend) covering the rectangle row at sub (1, 164), 1240×362. -->
+            <img src="./img/figma/study_f10_grid.svg" class="fs-f10__grid" alt="" aria-hidden="true">
+
+            <!-- 282:640 orange rectangle (left). Spec width 651 starting at
+                 frame x=100 → ends at 751 (overlaps with purple in spec).
+                 To get the visible white strip Figma shows, we trim the
+                 orange to end at the first grid vertical line (x=732.66)
+                 and leave an 18.21 px gap filled with .fs-f10__strip.        -->
+            <div class="fs-f10__rect fs-f10__rect--orange"></div>
+
+            <!-- White strip between the rectangles, exactly bounded by the
+                 grid's two vertical lines (sub x=632.66 and 650.87 in the
+                 1240-wide grid → section x=732.66..750.87, 18.21 px).      -->
+            <span class="fs-f10__strip" aria-hidden="true"></span>
+
+            <!-- 282:639 purple rectangle (right). Trimmed start to 750.87
+                 (= second grid vertical line position).                      */ -->
+            <div class="fs-f10__rect fs-f10__rect--purple"></div>
+
+            <!-- Labels live as absolute children of the canvas (not inside
+                 rects) so their spec sub-x coords resolve cleanly.            -->
+            <p class="fs-f10__rect-label fs-f10__rect-label--orange">Наниматели чаще ищут специалистов с&nbsp;опытом</p>
+            <p class="fs-f10__rect-num fs-f10__rect-num--orange">1–3 года</p>
+            <p class="fs-f10__rect-label fs-f10__rect-label--purple">При этом на&nbsp;рынке много фандрайзеров со&nbsp;стажем</p>
+            <p class="fs-f10__rect-num fs-f10__rect-num--purple">1—<span class="fs-f10__rect-num-upper" data-from="3" data-to="15">3</span>&nbsp;лет<br>и&nbsp;более</p>
+
+            <!-- 282:634..636 two body paragraphs below the rectangles.
+                 Left (282:635): white with the last sentence in orange
+                 ("ведь на них у организаций просто нет денег.")
+                 Right (282:636): purple paragraph.                            -->
+            <p class="fs-f10__body fs-f10__body--left">Это не&nbsp;случайность. Более опытные специалисты ожидают других условий, оплаты и&nbsp;статуса. Поэтому ориентация на&nbsp;«1–3 года опыта» часто выглядит как попытка найти более дешёвого кандидата. В&nbsp;итоге рынок сознательно отсекает тех, кто уже сформировался как профессионал и&nbsp;эксперт, <span class="fs-f10__body-hl">ведь на&nbsp;них у&nbsp;организаций просто нет денег.</span></p>
+            <p class="fs-f10__body fs-f10__body--right">Каждый десятый фандрайзер в&nbsp;нашем исследовании предупреждает начинающих специалистов о&nbsp;сложности профессии, а&nbsp;практически каждый третий напоминает о&nbsp;важности заботы о&nbsp;себе: сюда входят и&nbsp;осознание собственной ценности, и&nbsp;развитие личного бренда.</p>
+
+            <!-- 282:574..578 staircase pull text — sends the reader to the full study. -->
+            <div class="fs-f10__staircase">
+                <span class="fs-f10__staircase-line fs-f10__staircase-line--1">… больше&nbsp;—</span>
+                <span class="fs-f10__staircase-line fs-f10__staircase-line--2">в&nbsp;полном тексте</span>
+                <span class="fs-f10__staircase-line fs-f10__staircase-line--3">результатов</span>
+                <span class="fs-f10__staircase-line fs-f10__staircase-line--4">исследования</span>
+            </div>
+
+        </div>
+    </section>
+
+    <!-- Lime → transparent gradient backdrop (same recipe as index sections
+         6-9 via .phase-gradient-wrap). Wraps F11 so the orbital-rings
+         section sits on a faintly-glowing lime field that fades up. -->
+    <div class="phase-gradient-wrap">
+
+    <!-- ============================================================
+         FullStudy Phase F11 — Final CTA + "Опыт" intro
+         (Figma 282:817 + 282:599, frame y=11745..12851, height 1106).
+
+         Same orbital-rings + PDF + share + divider pattern as F2 but
+         placed at the END of the article. PDF button uses SOLID white
+         (vs F2's outline). Below: heading "Опыт" + body inviting the
+         reader into the experience materials.
+
+         Section-relative coords (frame-y - 11745):
+           orbital rings (282:599)   x=101.77 y=4.46  1228.17×959.76
+           PDF button (282:819)      sub (364, 412)   526.66×68.21
+           share (282:823)           sub (460, 508)   334.52×42
+           vertical divider (282:830) sub (627, 572)   1×136
+           "Опыт" heading + line     sub (416+155, 927)
+           body                      sub (416, 981)   421×125
+         ============================================================ -->
+    <section class="fs-f11" aria-label="Что дальше — Опыт">
+        <div class="fs-f11__canvas">
+
+            <!-- 282:599 orbital rings backdrop (reuses the F2 cta art SVG —
+                 same nested ellipse pattern, slightly bigger here).         -->
+            <img src="./img/figma/study_cta_art.svg" class="fs-f11__rings" alt="" aria-hidden="true">
+
+            <!-- 282:818..822 PDF button. SOLID white (different from F2's
+                 outline). Text colour #2F2F2F (dark on white).               -->
+            <a href="https://sredasvoih.ru/program/event-130" target="_blank" rel="noopener" class="fs-f11__cta-pdf">Получить исследование в&nbsp;PDF</a>
+
+            <!-- 282:823..825 share affordance (same icon as F2). -->
+            <button type="button" class="fs-f11__cta-share">
+                <img src="./img/figma/study_share_icon.svg" class="fs-f11__cta-share-icon" alt="" aria-hidden="true">
+                <span class="fs-f11__cta-share-text">Скопировать ссылку, чтобы <br>поделиться с&nbsp;коллегами</span>
+            </button>
+
+            <!-- 282:830 vertical hairline divider (1×136, lower opacity). -->
+            <span class="fs-f11__cta-divider" aria-hidden="true"></span>
+
+            <!-- 282:842 final "Опыт" block: heading with white underline +
+                 body inviting the reader to the experience materials. -->
+            <div class="fs-f11__final">
+                <h3 class="fs-f11__final-heading">
+                    Опыт
+                    <span class="fs-f11__final-heading-underline" aria-hidden="true"></span>
+                </h3>
+                <p class="fs-f11__final-body">Наш спецпроект&nbsp;— не&nbsp;только исследование, но&nbsp;и&nbsp;его обсуждение. Посмотрите тексты и&nbsp;события, которые мы&nbsp;подготовили, чтобы продолжить обсуждение в&nbsp;практической плоскости.</p>
+            </div>
+        </div>
+    </section>
+
+    </div><!-- /.phase-gradient-wrap -->
+
+    <div class="container-wrapper__solid">
+        <div class="container">
+            <footer>
+                <div class="footer-block footer-block__1">
+                    <div class="footer-wrap1">
+                        <a href="https://sredasvoih.com/?utm_source=site&amp;utm_medium=email&amp;utm_campaign=spec&amp;utm_term=fundraising" target="_blank"><img src="./img/icons/logo_footer.svg" class="footer-logo"></a>
+                        <p class="footer-text1">Пространство в&nbsp;CITYе<br> для благотворительных проектов и&nbsp;тех, кто их&nbsp;создаёт.</p>
+                    </div>
+                    <p class="footer-text2">Участвуйте в&nbsp;программе и&nbsp;используйте студии, помещения, образовательные модули и&nbsp;другие ресурсы для ваших социальных проектов.</p>
+                    <div class="footer-wrap2">
+                        <div class="footer-wrap3">
+                            <a href="https://fundr.sredasvoih.com/about/" class="footer-link1">Об организаторах</a>
+                            <div class="footer-wrap4">
+                                <a href="https://t.me/sredasvoih" target="_blank"><img src="./img/icons/tg.svg" class="footer-social"></a>
+                                <a href="https://vk.com/sredasvoih" target="_blank"><img src="./img/icons/vk.svg" class="footer-social"></a>
+                            </div>
+                        </div>
+                        <p class="footer-text3">2026</p>
+                    </div>
+                </div>
+                <div class="footer-block footer-block__2">
+                    <p class="footer-text4">Подпишитесь на&nbsp;анонсы Среды, чтобы не&nbsp;пропускать события в&nbsp;рамках этого и&nbsp;других проектов</p>
+                    <form action="https://api.sendsay.com/general/api/v100/json/mdoo" method="POST" class="subscribe">
+                        <input type="email" name="email" class="footer-input footer-input__email" autocomplete="email" placeholder="Электронная почта*" required="">
+                        <input type="text" name="name" class="footer-input footer-input__name" minlength="2" placeholder="Имя*" required="">
+                        <div class="footer-checkbox__wrap">
+                            <label class="footer-checkbox__label">
+                                <input type="checkbox" name="footer-checkbox__agreement" required="" class="footer-checkbox__input">
+                                <span class="footer-checkbox__span">Я&nbsp;принимаю <a href="https://rubitime.com/agreements/user-agreement" target="_blank" class="footer-checkbox__link">условия пользовательского соглашения</a></span>
+                            </label>
+                            <label class="footer-checkbox__label">
+                                <input type="checkbox" name="footer-checkbox__agreement" required="" class="footer-checkbox__input">
+                                <span class="footer-checkbox__span"><a href="https://sredasvoih.com/terms/" target="_blank" class="footer-checkbox__link">Согласие на&nbsp;обработку персональных данных</a></span>
+                            </label>
+                        </div>
+                        <button type="submit" class="footer-btn">Подписаться</button>
+                    </form>
+                </div>
+            </footer>
+        </div>
+    </div>
+
+    <div class="popup-bg"></div>
+    <div class="popup-research">
+        <img src="./img/icons/popup-close.svg" class="popup-research__close">
+        <div class="popup-research__wrap">
+            <div class="popup-research__block">
+                <p class="popup-research__text__default popup-research__text1">На&nbsp;оставленный вами адрес мы&nbsp;пришлём материалы исследования и&nbsp;анонсы</p>
+                <form action="https://api.sendsay.com/general/api/v100/json/mdoo" method="POST" class="popup-research--form">
+                    <input type="text" name="name" class="footer-input footer-input__name" minlength="2" placeholder="Имя*" required="">
+                    <input type="email" name="email" class="footer-input footer-input__email" autocomplete="email" placeholder="Электронная почта*" required="">
+                    <div class="footer-checkbox__wrap">
+                        <label class="footer-checkbox__label">
+                            <input type="checkbox" name="footer-checkbox__agreement" required="" class="footer-checkbox__input">
+                            <span class="footer-checkbox__span">Я&nbsp;принимаю <a href="https://rubitime.com/agreements/user-agreement" target="_blank" class="footer-checkbox__link">условия пользовательского соглашения</a></span>
+                        </label>
+                        <label class="footer-checkbox__label">
+                            <input type="checkbox" name="footer-checkbox__personal" required="" class="footer-checkbox__input">
+                            <span class="footer-checkbox__span"><a href="https://sredasvoih.com/terms/" target="_blank" class="footer-checkbox__link">Согласие на&nbsp;обработку персональных данных</a></span>
+                        </label>
+                    </div>
+                    <button type="submit" id="popup-research-btn" class="footer-btn">Получить исследование</button>
+                </form>
+                <div class="popup-research__success">
+                    <p class="popup-research__text1">Спасибо! Через <span class="popup-research__success-days">28 дней</span>&nbsp; вы&nbsp;получите результаты исследования в&nbsp;числе первых</p>
+                    <p class="popup-research__text2">Анонсы и&nbsp;материалы этого и&nbsp;других проектов Среды своих мы&nbsp;публикуем в&nbsp;<nobr><a href="https://t.me/sredasvoih" class="popup-research__social_link" target="_blank"><img src="./img/icons/tg_icon_mini.svg" class="popup-research__social"> Телеграм</a></nobr> <nobr>и&nbsp;<a href="https://vk.com/sredasvoih" class="popup-research__social_link" target="_blank"><img src="./img/icons/vk_icon_mini.svg" class="popup-research__social"> Вконтакте</a>.</nobr> Подпишитесь!</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="burger-menu__bg"></div>
+    <div class="burger-menu">
+        <div class="burger-menu__wrap">
+            <div>
+                <img src="./img/icons/burger_menu__close.svg" class="burger-menu__close">
+                <div class="header_inside">
+                    <div class="header_inside-wrap">
+                        <a href="index.html" class="header_inside-item">Тема</a>
+                        <a href="fullstudy.html" class="header_inside-item active">Исследование</a>
+                        <a href="javascript:void(0);" class="header_inside-item header_inside-item-disabled">Опыт</a>
+                    </div>
+                    <div class="header_inside-wrap">
+                        <a href="javascript:void(0);" class="header_inside-item header_inside-item_custom2 burger-menu__events-toggle" aria-haspopup="true" aria-expanded="false" aria-controls="burger-events-popup">
+                            События
+                            <img src="./img/icons/plus.svg">
+                        </a>
+                        <div class="burger-menu__events-popup" id="burger-events-popup" role="menu" aria-hidden="true"></div>
+                        <a href="https://fundr.sredasvoih.com/about/" class="header_inside-item">Об организаторах</a>
+                    </div>
+                </div>
+            </div>
+            <div>
+                <p class="burger-menu__text1">спецпроект</p>
+                <a href="https://sredasvoih.com/?utm_source=site&amp;utm_medium=email&amp;utm_campaign=spec&amp;utm_term=fundraising" target="_blank"><img src="./img/figma/logo_specproject.svg" class="burger-menu__logo"></a>
+                <div class="footer-wrap4">
+                    <a href="https://t.me/sredasvoih" target="_blank"><img src="./img/icons/tg.svg" class="footer-social"></a>
+                    <a href="https://vk.com/sredasvoih" target="_blank"><img src="./img/icons/vk.svg" class="footer-social"></a>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div id="access-notification" class="notification-hidden">
+        <div class="notification-content">
+            <img src="./img/icons/notification.svg" class="notification-icon">
+            <span class="notification-text">Полный доступ к&nbsp;проекту откроется позже</span>
+        </div>
+    </div>
+
+    <script defer src="./js/common.js"></script>
+    <script defer src="./js/main-backup.js"></script>
+    <script defer src="./js/main.js"></script>
+</body>
+</html>
