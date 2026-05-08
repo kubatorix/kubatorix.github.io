@@ -51,11 +51,13 @@ renderEventsInto(document.querySelector('.burger-menu__events-popup'), 'burger-m
    ============================================================ */
 (function () {
     function wireToggle(cfg) {
-        var section = document.querySelector(cfg.section);
+        var section = typeof cfg.section === 'string'
+            ? document.querySelector(cfg.section)
+            : cfg.section;
         if (!section) return;
         var segs       = section.querySelectorAll(cfg.segSel);
-        var orangeNum  = section.querySelector(cfg.orangeNumSel);
-        var purpleNum  = section.querySelector(cfg.purpleNumSel);
+        var orangeNum  = cfg.orangeNumSel ? section.querySelector(cfg.orangeNumSel) : null;
+        var purpleNum  = cfg.purpleNumSel ? section.querySelector(cfg.purpleNumSel) : null;
         var digitsSel  = cfg.digitsSel;
         var suffixSel  = cfg.suffixSel;
 
@@ -157,14 +159,24 @@ renderEventsInto(document.querySelector('.burger-menu__events-popup'), 'burger-m
         setState(section.getAttribute('data-state') || 'both');
     }
 
-    // s3p5 (index section 3+4) — uses .s3p5__mega-* hooks.
-    wireToggle({
-        section:      '.section3__phase5',
-        segSel:       '.s3p5__seg[data-action]',
-        orangeNumSel: '.s3p5__mega-num--orange',
-        purpleNumSel: '.s3p5__mega-num--purple',
-        digitsSel:    '.s3p5__mega-digits',
-        suffixSel:    '.s3p5__mega-suffix'
+    // s3p5 (index section 3+4) — top + bottom toggles operate independently.
+    // Top group hosts the mega numbers (count-up animation runs here).
+    // Bottom group has no count-up — only fades outline + body paragraphs.
+    document.querySelectorAll('.section3__phase5 .s3p5__group--top').forEach(function (group) {
+        wireToggle({
+            section:      group,
+            segSel:       '.s3p5__seg[data-action]',
+            orangeNumSel: '.s3p5__mega-num--orange',
+            purpleNumSel: '.s3p5__mega-num--purple',
+            digitsSel:    '.s3p5__mega-digits',
+            suffixSel:    '.s3p5__mega-suffix'
+        });
+    });
+    document.querySelectorAll('.section3__phase5 .s3p5__group--bottom').forEach(function (group) {
+        wireToggle({
+            section: group,
+            segSel:  '.s3p5__seg[data-action]'
+        });
     });
 
     // FullStudy F4 — same toggle markup (.s3p5__seg) but graph numbers
@@ -188,6 +200,27 @@ renderEventsInto(document.querySelector('.burger-menu__events-popup'), 'burger-m
         purpleNumSel: '.fs-f8__mega-1 .s3p5__mega-num--purple',
         digitsSel:    '.s3p5__mega-digits',
         suffixSel:    '.s3p5__mega-suffix'
+    });
+
+    // FullStudy F8 / F9 — body-row swipe progress indicator.
+    // Each swipe container has a sibling track; toggle data-step on the
+    // track based on which card is currently snapped under the start
+    // edge of the scroll viewport.
+    document.querySelectorAll('.fs-f8__bodyswipe, .fs-f9__bodyswipe').forEach(function (strip) {
+        var track = strip.nextElementSibling;
+        if (!track) return;
+        if (!track.classList.contains('fs-f8__swipe-track') &&
+            !track.classList.contains('fs-f9__swipe-track')) return;
+        function update() {
+            var max = strip.scrollWidth - strip.clientWidth;
+            if (max <= 0) return;
+            var step = strip.scrollLeft / max > 0.5 ? '1' : '0';
+            if (track.getAttribute('data-step') !== step) {
+                track.setAttribute('data-step', step);
+            }
+        }
+        strip.addEventListener('scroll', update, { passive: true });
+        update();
     });
 })();
 
@@ -387,8 +420,14 @@ renderEventsInto(document.querySelector('.burger-menu__events-popup'), 'burger-m
         ticking = false;
         var r = rect.getBoundingClientRect();
         var vh = window.innerHeight || document.documentElement.clientHeight;
-        var startTop = vh;            /* rect top crosses viewport bottom */
-        var endTop = vh * 0.5;        /* rect top reaches viewport centre */
+        /* Animation kicks in only AFTER the rect's bottom (at its
+           baseline height) has fully entered the viewport. We use
+           the rect's CURRENT bottom as the gate — at progress 0 the
+           rect is still at baseline so this measures the baseline
+           bottom; once growing, bottom moves down, but the gating
+           condition has already been crossed.                          */
+        var startTop = vh - r.height;   /* rect just became fully visible */
+        var endTop = 0;                 /* rect's top reaches viewport top */
         var range = startTop - endTop;
         var progress = range > 0
             ? Math.max(0, Math.min(1, (startTop - r.top) / range))
@@ -571,27 +610,36 @@ renderEventsInto(document.querySelector('.burger-menu__events-popup'), 'burger-m
     var eq = section.querySelector('.fs-f6__equation') || section;
     var ticking = false;
 
+    /* easeInOutCubic — smooths the linear scroll progress into a
+       gentle ease-in-out curve.                                       */
+    function easeInOutCubic(t) {
+        return t < 0.5
+            ? 4 * t * t * t
+            : 1 - Math.pow(-2 * t + 2, 3) / 2;
+    }
+
     function compute() {
         ticking = false;
         var rect = eq.getBoundingClientRect();
         var vh = window.innerHeight || document.documentElement.clientHeight;
-        /* Start once the user has scrolled a bit past the fully-visible
-           position — gives them a moment to read the initial state. END
-           is held at "vertically centred". Tweak START_FRACTION lower
-           to delay further (0 = start at fully-visible, 1 = start at end). */
-        var START_FRACTION = 0.55;
-        var fullyVisibleTop = vh - rect.height;
-        var endTop = (vh - rect.height) / 2;
-        var startTop = endTop + (fullyVisibleTop - endTop) * (1 - START_FRACTION);
+        /* Animation starts when the equation block becomes fully
+           visible and ENDS while it is still on screen — at ~25 %
+           from viewport top — so the user actually sees the final
+           merged state before scrolling past it. Eased in-out cubic
+           for smoothness.                                             */
+        var startTop = vh - rect.height;
+        var endTop = vh * 0.25;
         if (startTop < 0) startTop = 0;
         if (endTop < 0) endTop = 0;
+        if (endTop > startTop) endTop = startTop * 0.3;
         var range = startTop - endTop;
-        var progress = 0;
+        var raw = 0;
         if (range > 0) {
-            progress = Math.max(0, Math.min(1, (startTop - rect.top) / range));
-        } else if (rect.top <= 0) {
-            progress = 1;
+            raw = Math.max(0, Math.min(1, (startTop - rect.top) / range));
+        } else if (rect.top <= startTop) {
+            raw = 1;
         }
+        var progress = easeInOutCubic(raw);
         section.style.setProperty('--fs-f6-progress', progress.toFixed(4));
     }
     function onScroll() {
