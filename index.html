@@ -329,16 +329,22 @@
             -->
         <section class="section2">
           <p class="section2_text1">
-            Из&nbsp;мнений 232 респондентов из&nbsp;28&nbsp;регионов COUNTRY,
+            Из&nbsp;мнений 232 респондентов из&nbsp;29&nbsp;регионов России
             30&nbsp;интервью и&nbsp;анализа рынка мы&nbsp;собрали портреты
           </p>
 
+          <!-- Lined-paper backdrop + center vertical divider (Figma 219:325..358):
+                       repeating horizontal hairlines every 12 px and a single
+                       vertical hairline at 50% width are painted via canvas
+                       CSS background. The canvas itself stays transparent so
+                       the pattern reads through between particles. -->
           <canvas id="canvas" width="1100" height="400"></canvas>
+
           <div class="controls">
             <input
               type="range"
               id="slider"
-              min="0.9"
+              min="0"
               max="1"
               step="0.001"
               value="0"

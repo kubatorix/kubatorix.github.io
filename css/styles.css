@@ -2273,6 +2273,53 @@ body>.header-burger__icon {
 }
 
 /* ============================================================================
+   Phase 4 — Section 2 lined backdrop (Figma 219:325..358 + center divider)
+   Figma renders the scattered-letters region over a "lined paper" backdrop:
+   ~28 hairline horizontal rules at 11.57 px pitch (mix-blend-soft-light)
+   + a single vertical hairline splitting the area in two (purple фандрайзер
+   on the left half, orange наниматель on the right). We paint that pattern
+   as a CSS background on the transparent <canvas> element — particles draw
+   on top, the pattern reads through clear regions.
+   ============================================================================ */
+.section2 #canvas {
+    margin-top: 60px;
+    background-color: transparent;
+    background-image:
+        /* vertical center divider */
+        linear-gradient(to right,
+            transparent calc(50% - 0.5px),
+            rgba(255, 255, 255, 0.45) calc(50% - 0.5px),
+            rgba(255, 255, 255, 0.45) calc(50% + 0.5px),
+            transparent calc(50% + 0.5px)),
+        /* horizontal lined-paper rules — wider spacing per design */
+        repeating-linear-gradient(to bottom,
+            rgba(255, 255, 255, 0.32) 0px,
+            rgba(255, 255, 255, 0.32) 1px,
+            transparent 1px,
+            transparent 32px);
+    background-repeat: no-repeat, repeat;
+    background-size: 100% 100%, 100% auto;
+}
+
+@media (max-width: 770px) {
+    .section2 #canvas {
+        margin-top: 32px;
+        /* Mobile: horizontal hairlines only, 24 px spacing, no center
+           divider. Columns stack top/bottom; the divider line is dropped
+           per the mobile mock. */
+        background-image:
+            repeating-linear-gradient(to bottom,
+                rgba(255, 255, 255, 0.28) 0px,
+                rgba(255, 255, 255, 0.28) 1px,
+                transparent 1px,
+                transparent 24px);
+        background-size: 100% 100%;
+        background-repeat: repeat;
+    }
+}
+
+
+/* ============================================================================
    Phase 4 — Section 2 slider shortening + white pulsing affordance
    Legacy section2 markup (canvas + input[type=range]) is preserved for the
    existing animated portraits behavior. Track shortened to Figma's 603px;
@@ -3742,7 +3789,6 @@ body>.header-burger__icon {
        isn't hidden by the wrap's opaque bg — the bottom of the ring stays
        visible across the section 6 → section 8 boundary. */
     z-index: 2;
-    transform-origin: 50% 50%;
     transform-box: fill-box;
     will-change: transform;
     /* Rotation is purely scroll-driven (360° sweep across the section's
@@ -11158,4 +11204,1247 @@ a.fs-f11__cta-pdf:focus-visible,
 .fs-f10__body--right,
 .fs-f10__body-hl {
     mix-blend-mode: plus-lighter;
+}
+
+
+/* ============================================================================
+   EXPERIENCE PAGE — Figma 286:2943 (1440 × 7188)
+   Light page (#D2D2D2) with white cards, dark text. Hero on the same
+   light surface; only the backstage photo at the bottom is dark.
+   3-column 400-wide card grid; one XL card spans 2 columns × 2 rows.
+   ============================================================================ */
+
+.exp-page {
+    background: #D2D2D2;
+    color: #2F2F2F;
+}
+
+/* Header sits on the dark canvas globally — keep its colors as-is, just
+   ensure it can read against light below it (header itself stays dark). */
+.exp-page header {
+    background: #272727;
+    color: #FFFFFF;
+}
+
+.exp {
+    max-width: 1440px;
+    margin: 0 auto;
+    padding: 0 100px;
+    position: relative;
+    background: #D2D2D2;
+}
+
+
+/* ---- Hero ---------------------------------------------------------------- */
+.exp-hero {
+    position: relative;
+    padding-top: 60px;
+    text-align: center;
+    overflow: hidden;
+    /* full-bleed against centered .exp container so background shapes
+       can extend to viewport edges */
+    margin-left: calc(50% - 50vw);
+    margin-right: calc(50% - 50vw);
+}
+
+.exp-hero__canvas {
+    position: relative;
+    z-index: 1;
+}
+
+.exp-hero__shape {
+    position: absolute;
+    pointer-events: none;
+    user-select: none;
+    z-index: 0;
+    height: auto;
+    filter: blur(3px);
+}
+
+/* Правый клин: apex наверху-справа (натуральная ориентация SVG) */
+.exp-hero__shape--lines-lg {
+    top: -200px;
+    right: -120px;
+    width: 900px;
+    max-width: none;
+}
+
+/* Левый клин: натуральная ориентация (apex смотрит вверх-вправо, арм уходит влево) */
+.exp-hero__shape--lines-sm {
+    top: 60px;
+    left: -200px;
+    width: 720px;
+    max-width: none;
+}
+
+/* Большой эллипс — справа сверху, частично за кромку */
+.exp-hero__shape--orbit-lg {
+    top: -1300px;
+    right: -500px;
+    width: 2200px;
+    max-width: none;
+}
+
+/* Меньший эллипс — слева снизу, частично за кромку */
+.exp-hero__shape--orbit-sm {
+    bottom: -74px;
+    left: -109px;
+    width: 1000px;
+    max-width: none;
+}
+
+@media (max-width: 1280px) {
+    .exp-hero__shape--lines-lg {
+        width: 760px;
+        right: -100px;
+    }
+
+    .exp-hero__shape--lines-sm {
+        width: 600px;
+        left: -80px;
+    }
+
+    .exp-hero__shape--orbit-lg {
+        width: 960px;
+        right: -191px;
+        top: -388px;
+    }
+
+    .exp-hero__shape--orbit-sm {
+        width: 640px;
+        left: 65px;
+        bottom: 164px;
+    }
+}
+
+@media (max-width: 768px) {
+    .exp-hero__shape--lines-lg {
+        width: 540px;
+        right: -80px;
+        top: 0;
+    }
+
+    .exp-hero__shape--lines-sm {
+        width: 460px;
+        left: -60px;
+        top: 60px;
+    }
+
+    .exp-hero__shape--orbit-lg {
+        width: 720px;
+        right: -300px;
+        top: -120px;
+    }
+
+    .exp-hero__shape--orbit-sm {
+        width: 480px;
+        left: -160px;
+        bottom: -140px;
+    }
+}
+
+@media (max-width: 480px) {
+    .exp-hero__shape--lines-lg {
+        width: 380px;
+        right: -60px;
+    }
+
+    .exp-hero__shape--lines-sm {
+        width: 320px;
+        left: -40px;
+    }
+
+    .exp-hero__shape--orbit-lg {
+        width: 520px;
+        right: -240px;
+    }
+
+    .exp-hero__shape--orbit-sm {
+        display: none;
+    }
+}
+
+.exp-hero__brand {
+    display: flex;
+    gap: 14px;
+    align-items: center;
+    justify-content: center;
+    padding: 32px 0 80px;
+    color: #2F2F2F;
+}
+
+.exp-hero__brand-word {
+    font-family: 'Golos Text VF', 'Golos Text', sans-serif;
+    font-weight: 500;
+    font-size: 16px;
+    letter-spacing: -0.04em;
+}
+
+.exp-hero__brand-logo {
+    width: 190px;
+    height: auto;
+    /* invert the white SVG logo to render dark on light bg */
+    filter: invert(1) hue-rotate(180deg) brightness(0.2);
+}
+
+.exp-hero__title {
+    margin: 0 auto;
+    max-width: 920px;
+    font-family: 'Golos', 'Golos Text', sans-serif;
+    font-weight: 500;
+    font-size: 96px;
+    line-height: 1;
+    letter-spacing: -0.04em;
+    color: #2F2F2F;
+}
+
+.exp-hero__title-line {
+    display: block;
+}
+
+/* Green gradient panel (Figma 286:3872) — wraps intro + toggle + sub */
+.exp-hero__panel {
+    position: relative;
+    z-index: 1;
+    margin-top: 140px;
+    padding: 80px 100px 120px;
+    background: linear-gradient(to bottom, #C2F04F 0%, #C2F04F 36.114%, rgba(228, 229, 239, 0) 81.807%);
+}
+
+.exp-hero__intro {
+    max-width: 1240px;
+    margin: 0 auto 12px;
+    font-family: 'Golos Text VF', 'Golos Text', sans-serif;
+    font-weight: 400;
+    font-size: 22px;
+    line-height: 1.3;
+    letter-spacing: -0.02em;
+    color: #2F2F2F;
+    text-align: left;
+}
+
+
+/* ---- Segmented filter (Figma 286:3242) ----------------------------------- */
+.exp-toggle {
+    width: 509px;
+    max-width: 100%;
+    height: 54px;
+    margin: 56px auto 32px;
+    border: 1px solid #2F2F2F;
+    border-radius: 999px;
+    display: grid;
+    grid-template-columns: 1fr auto 1fr;
+    align-items: center;
+    position: relative;
+    z-index: 1;
+    padding: 4px;
+    box-sizing: border-box;
+    background: transparent;
+}
+
+.exp-toggle__seg {
+    background: transparent;
+    border: 0;
+    color: #2F2F2F;
+    font-family: 'Golos Text VF', 'Golos Text', sans-serif;
+    font-weight: 500;
+    font-size: 16px;
+    letter-spacing: -0.04em;
+    padding: 0 16px;
+    height: 100%;
+    cursor: pointer;
+    text-align: center;
+    transition: background 0.18s ease, color 0.18s ease;
+    position: relative;
+    z-index: 1;
+}
+
+.exp-toggle__seg[aria-selected="true"] {
+    opacity: 1;
+    background: #2F2F2F;
+    color: #FFFFFF;
+    border-radius: 999px;
+}
+
+.exp-toggle__seg--mid {
+    position: relative;
+    width: 164px;
+    height: 46px;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.exp-toggle__pill {
+    position: absolute;
+    inset: 0;
+    border-radius: 999px;
+    background: #2F2F2F;
+    z-index: 0;
+    transition: opacity 0.18s ease;
+}
+
+.exp-toggle__pill-label {
+    position: relative;
+    z-index: 1;
+    color: #FFFFFF;
+    font-weight: 500;
+    font-size: 16px;
+    letter-spacing: -0.04em;
+}
+
+.exp-toggle[data-state="texts"] .exp-toggle__seg--left,
+.exp-toggle[data-state="events"] .exp-toggle__seg--right {
+    opacity: 1;
+}
+
+.exp-toggle[data-state="texts"] .exp-toggle__pill,
+.exp-toggle[data-state="events"] .exp-toggle__pill {
+    opacity: 0;
+}
+
+.exp-toggle[data-state="texts"] .exp-toggle__pill-label,
+.exp-toggle[data-state="events"] .exp-toggle__pill-label {
+    color: #2F2F2F;
+}
+
+.exp-hero__sub {
+    position: relative;
+    z-index: 1;
+    max-width: 500px;
+    margin: 0 auto 100px;
+    text-align: center;
+    font-family: 'Golos Text VF', 'Golos Text', sans-serif;
+    font-weight: 400;
+    font-size: 18px;
+    line-height: 1.3;
+    letter-spacing: -0.02em;
+    color: #2F2F2F;
+}
+
+
+/* ---- Card grid ----------------------------------------------------------- */
+.exp-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 400px);
+    grid-auto-rows: minmax(560px, auto);
+    gap: 20px;
+    justify-content: center;
+    margin: 0 auto 80px;
+    align-items: start;
+}
+
+.exp-card {
+    width: 400px;
+    min-height: 560px;
+    border: 1px solid transparent;
+    border-radius: 16px;
+    background: transparent;
+    padding: 24px 28px 28px;
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    position: relative;
+    overflow: hidden;
+    transition: border-color 0.18s ease, opacity 0.22s ease;
+    color: #2F2F2F;
+}
+
+.exp-card:hover {
+    border-color: #2F2F2F;
+}
+
+/* Card A (286:3811) has a permanent 1px solid border per Figma */
+.exp-card--bordered {
+    border-color: #2F2F2F;
+}
+
+/* Card A caption "Личный бренд фандрайзера" — 20px Medium per Figma */
+.exp-card__sub--inset {
+    font-size: 20px;
+    line-height: 1.2;
+}
+
+.exp-card[hidden] {
+    display: none;
+}
+
+/* XL card spans 2 cols × 2 rows (818×1166 in Figma → ~820×1166 here) */
+.exp-card--xl {
+    grid-column: span 2;
+    grid-row: span 2;
+    width: 820px;
+    height: 1166px;
+    padding: 0;
+    overflow: hidden;
+}
+
+.exp-card__photo {
+    position: absolute;
+    inset: 0;
+    z-index: 0;
+    object-fit: cover;
+    width: 100%;
+    height: 100%;
+}
+
+.exp-card--xl .exp-card__photo {
+    object-position: bottom;
+}
+
+.exp-card__photo--inset {
+    /* small inline image (Figma 286:3113 / 286:3207 — R6VB0502 65×98) */
+    position: absolute;
+    width: 65px;
+    height: 98px;
+    left: 33px;
+    top: 438px;
+    object-fit: cover;
+    border-radius: 4px;
+    z-index: 1;
+}
+
+/* Card content sits above the absolute photo (when present) */
+.exp-card__tags,
+.exp-card__kicker,
+.exp-card__title,
+.exp-card__sub,
+.exp-card__body {
+    position: relative;
+    z-index: 2;
+}
+
+.exp-card__tags {
+    display: flex;
+    gap: 6px;
+    flex-wrap: wrap;
+    align-items: center;
+}
+
+.exp-tag {
+    display: inline-flex;
+    align-items: center;
+    height: 31px;
+    padding: 0 15px;
+    border-radius: 100px;
+    border: 1px solid #2F2F2F;
+    background: transparent;
+    font-family: 'Golos Text VF', 'Golos Text', sans-serif;
+    font-weight: 500;
+    font-size: 16px;
+    letter-spacing: -0.02em;
+    color: #2F2F2F;
+    white-space: nowrap;
+}
+
+.exp-tag--ghost {
+    border-color: #2F2F2F;
+    background: #2F2F2F;
+    color: #E4E5EF;
+}
+
+.exp-tag-divider {
+    flex: 1;
+    height: 0;
+    border-top: 1px solid #2F2F2F;
+    align-self: center;
+}
+
+.exp-card__kicker {
+    margin: 0;
+    font-family: 'Golos Text VF', 'Golos Text', sans-serif;
+    font-weight: 500;
+    font-size: 32px;
+    line-height: 1.2;
+    letter-spacing: -0.02em;
+    color: #2F2F2F;
+}
+
+.exp-card__title {
+    margin: 0;
+    font-family: 'Golos', 'Golos Text', sans-serif;
+    font-weight: 500;
+    font-size: 40px;
+    line-height: 1;
+    letter-spacing: -0.02em;
+    color: #2F2F2F;
+}
+
+/* Photo/dark cards use 20px Golos Medium for title (Figma 286:3746 spec) */
+.exp-card__title--mid {
+    font-size: 20px;
+    line-height: 1;
+    letter-spacing: -0.02em;
+}
+
+.exp-card__sub {
+    margin: 0;
+    font-family: 'Golos Text VF', 'Golos Text', sans-serif;
+    font-weight: 500;
+    font-size: 16px;
+    line-height: 1.2;
+    letter-spacing: -0.02em;
+    color: #2F2F2F;
+    opacity: 0.78;
+}
+
+.exp-card__body {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    margin-top: auto;
+}
+
+
+/* ---- Partners section ---------------------------------------------------- */
+.exp-partners {
+    margin: 80px auto 96px;
+    color: #2F2F2F;
+}
+
+/* Override section9 styles when reused inside exp-partners:
+   no green/dark background, dark text instead of white */
+.exp-partners.section9.section9__phase9 {
+    background: transparent;
+    color: #2F2F2F;
+    overflow: visible;
+}
+
+.exp-partners .s9__heading,
+.exp-partners .s9__col-text,
+.exp-partners .s9__col-link {
+    color: #2F2F2F;
+}
+
+.exp-partners .s9__nav-btn {
+    color: #2F2F2F;
+}
+
+.exp-partners .s9__nav-btn[disabled] {
+    color: rgba(47, 47, 47, 0.4);
+}
+
+.exp-partners__title {
+    text-align: center;
+    margin: 0 0 56px;
+    font-family: 'Golos', 'Golos Text', sans-serif;
+    font-weight: 500;
+    font-size: 40px;
+    line-height: 1.2;
+    letter-spacing: -0.04em;
+    color: #2F2F2F;
+}
+
+.exp-partners__grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 28px;
+}
+
+.exp-partner {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+}
+
+.exp-partner__logo {
+    height: 60px;
+    width: 100%;
+    background: rgba(47, 47, 47, 0.08);
+    border-radius: 6px;
+}
+
+.exp-partner__text {
+    margin: 0;
+    font-family: 'Golos Text VF', 'Golos Text', sans-serif;
+    font-weight: 400;
+    font-size: 15px;
+    line-height: 1.45;
+    letter-spacing: -0.01em;
+    color: #2F2F2F;
+    opacity: 0.78;
+}
+
+
+/* ---- Discussion + circular CTA (Figma 286:3070..3095) ------------------ */
+.exp-discuss {
+    text-align: center;
+    margin: 80px auto 96px;
+    position: relative;
+    color: #2F2F2F;
+}
+
+/* Override section6 styles when reused inside exp-discuss:
+   no green/dark gradient bg, dark text, dark rings, black button → white on hover.
+   Canvas is taller (900) so the near-square ring SVG can render large. */
+.exp-discuss.section6.section6__phase7 {
+    color: #2F2F2F;
+    --canvas-h: 1200;
+    --canvas-scale: 1 !important;
+}
+
+.exp-discuss .section6__heading {
+    color: #2F2F2F;
+    top: 520px;
+    width: 100%;
+}
+
+/* Rings: invert SVG (white → dark), size explicitly, center in canvas + keep
+   scroll-driven 360° rotation from section6 (--section6-progress JS variable). */
+.exp-discuss.section6.section6__phase7 .section6__rings {
+    filter: invert(1);
+    width: 1000px !important;
+    height: auto !important;
+    inset: auto !important;
+    left: 50% !important;
+    top: 50% !important;
+    transform: translate(-50%, -50%) rotate(calc(360deg * var(--section6-progress, 0))) !important;
+}
+
+.exp-discuss .section6__cta {
+    left: 50%;
+    top: 640px;
+    transform: translateX(-50%);
+    width: 360px;
+    border-color: #2F2F2F;
+    color: #FFFFFF;
+    background: #2F2F2F;
+    margin-top: 50px;
+}
+
+.exp-discuss .section6__cta:hover,
+.exp-discuss .section6__cta:focus-visible {
+    background: #FFFFFF;
+    color: #2F2F2F;
+}
+
+.exp-discuss .section6__divider {
+    display: none;
+}
+
+/* Vertical hairline divider above the ring — grows on scroll, mirrors
+   .fs-f11__cta-divider behavior. Driven by --exp-discuss-divider-progress. */
+.exp-discuss__divider {
+    position: absolute;
+    left: 50%;
+    top: 0;
+    width: 1px;
+    height: calc(40px + 240px * var(--exp-discuss-divider-progress, 0));
+    background: #2F2F2F;
+    transform: translateX(-50%);
+    z-index: 4;
+    will-change: height;
+    pointer-events: none;
+}
+
+.exp-discuss__text {
+    max-width: 1106px;
+    margin: 0 auto 80px;
+    font-family: 'Golos Text VF', 'Golos Text', sans-serif;
+    font-weight: 500;
+    font-size: 32px;
+    line-height: 1.2;
+    letter-spacing: -0.02em;
+    color: #2F2F2F;
+}
+
+.exp-discuss__btn {
+    position: relative;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 380px;
+    height: 380px;
+    border-radius: 50%;
+    color: #2F2F2F;
+    text-decoration: none;
+    font-family: 'Golos Text VF', 'Golos Text', sans-serif;
+    font-weight: 500;
+    font-size: 18px;
+    letter-spacing: -0.02em;
+    margin: 0 auto;
+}
+
+.exp-discuss__btn-circle {
+    position: absolute;
+    inset: 0;
+    border: 1px solid #2F2F2F;
+    border-radius: 50%;
+    pointer-events: none;
+}
+
+.exp-discuss__btn-label {
+    position: relative;
+}
+
+.exp-discuss__caption {
+    margin-top: 24px;
+    font-family: 'Golos Text VF', 'Golos Text', sans-serif;
+    font-weight: 400;
+    font-size: 18px;
+    color: #2F2F2F;
+    opacity: 0.7;
+}
+
+
+/* ---- Backstage image hero (Figma 286:3062) ----------------------------- */
+.exp-backstage {
+    position: relative;
+    width: 100vw;
+    margin-left: calc(50% - 50vw);
+    margin-bottom: 0;
+    min-height: 859px;
+    overflow: hidden;
+    background: #1a1a1a;
+    /* internal padding so the quote (top) and footer (bottom) can flow within
+       the photo-backed area */
+    padding-top: 100px;
+    padding-bottom: 0;
+    display: flex;
+    flex-direction: column;
+}
+
+.exp-backstage__photo {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    z-index: 0;
+}
+
+/* Footer wrapper inside exp-backstage: transparent so the photo bg shows through */
+.exp-backstage__footer-wrap {
+    position: relative;
+    z-index: 1;
+    background: transparent !important;
+    margin-top: auto;
+}
+
+.exp-backstage__photo--placeholder::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background:
+        repeating-linear-gradient(45deg,
+            rgba(255, 255, 255, 0.04) 0 12px,
+            transparent 12px 24px);
+}
+
+.exp-backstage__overlay {
+    position: absolute;
+    left: 50%;
+    transform: translateX(-50%);
+    top: 32px;
+    width: 538px;
+    margin: 0;
+    font-family: 'Golos Text VF', 'Golos Text', sans-serif;
+    font-weight: 500;
+    font-size: 22px;
+    line-height: 1.18;
+    letter-spacing: -0.02em;
+    color: #FFFFFF;
+    text-align: center;
+}
+
+
+/* Footer on light page — light variant. Keeping the existing dark footer
+   would clash; override key colors here. */
+.exp-page footer {
+    color: #2F2F2F;
+}
+
+
+/* ---- Mobile (≤ 770 px) -------------------------------------------------- */
+@media (max-width: 770px) {
+    .exp {
+        padding: 0 16px;
+    }
+
+    .exp-hero {
+        padding-top: 24px;
+    }
+
+    .exp-hero__canvas {
+        min-height: auto;
+    }
+
+    .exp-hero__brand {
+        padding: 16px 0 32px;
+    }
+
+    .exp-hero__title {
+        font-size: 44px;
+    }
+
+    .exp-hero__intro {
+        font-size: 16px;
+        margin: 0 auto 12px;
+    }
+
+    .exp-hero__panel {
+        margin-top: 32px;
+        padding: 40px 24px 60px;
+    }
+
+    .exp-toggle {
+        margin: 32px auto 16px;
+        width: 100%;
+        height: 46px;
+    }
+
+    .exp-toggle__seg {
+        font-size: 14px;
+    }
+
+    .exp-toggle__seg--mid {
+        width: 120px;
+        height: 38px;
+    }
+
+    .exp-hero__sub {
+        font-size: 15px;
+        margin-bottom: 56px;
+    }
+
+    .exp-grid {
+        grid-template-columns: 1fr;
+        grid-auto-rows: auto;
+        gap: 16px;
+    }
+
+    .exp-card,
+    .exp-card--xl {
+        width: 100%;
+        height: auto;
+        min-height: 480px;
+        grid-column: auto;
+        grid-row: auto;
+        padding: 16px 18px 20px;
+    }
+
+    .exp-card__title {
+        font-size: 28px;
+    }
+
+    .exp-card__kicker {
+        font-size: 22px;
+    }
+
+    .exp-partners {
+        margin: 56px auto 64px;
+    }
+
+    .exp-partners__title {
+        font-size: 28px;
+        margin-bottom: 32px;
+    }
+
+    .exp-partners__grid {
+        grid-template-columns: 1fr;
+        gap: 24px;
+    }
+
+    .exp-discuss {
+        margin: 56px auto 64px;
+    }
+
+    .exp-discuss__text {
+        font-size: 22px;
+    }
+
+    .exp-discuss__btn {
+        width: 240px;
+        height: 240px;
+        font-size: 16px;
+    }
+
+    .exp-backstage__overlay {
+        width: 90%;
+        top: 16px;
+        font-size: 16px;
+    }
+}
+
+
+/* Photo card variant: full-bleed image with text overlay at the bottom */
+.exp-card--photo {
+    padding: 0;
+    overflow: hidden;
+}
+
+/* Default photo for photo cards without media wrapper (C, H, I, M) — flow, full width 400 */
+.exp-card--photo>.exp-card__photo {
+    position: relative;
+    inset: auto;
+    z-index: 0;
+    width: 100%;
+    height: 400px;
+    object-fit: cover;
+    flex: 0 0 auto;
+}
+
+/* Card B only: media wrapper 400×400 (Figma 286:3128) holds base image
+   positioned with Figma coords for zoomed-in face + duotone overlay. */
+.exp-card--photo .exp-card__media {
+    position: relative;
+    width: 100%;
+    height: 400px;
+    overflow: hidden;
+    flex: 0 0 auto;
+}
+
+.exp-card--photo .exp-card__media .exp-card__photo {
+    position: absolute;
+    top: -33px;
+    width: 445px;
+    height: 718px;
+    object-fit: cover;
+    z-index: 0;
+}
+
+.exp-card--photo .exp-card__media .exp-card__photo--duotone {
+    position: absolute;
+    left: 120px;
+    top: 30px;
+    width: 320px;
+    height: auto;
+    object-fit: contain;
+    mix-blend-mode: darken;
+    z-index: 1;
+    pointer-events: none;
+}
+
+/* Cards C, I, M (Figma 286:3214 / 286:3160 / 286:3225):
+   light gray #f2f2f2 media bg + only image 547 (purple face) — no base 546.
+   Figma coords: left:51 top:15 w:349 h:385 inside 400×400 media. */
+.exp-card--photo-only-547 .exp-card__media {
+    background: #f2f2f2;
+}
+
+.exp-card--photo-only-547 .exp-card__media .exp-card__photo--duotone {
+    /* Figma coords (286:3223 etc): image 547 at left:51 top:15 w:349 h:385
+       inside the 400×400 media box */
+    left: 51px;
+    top: 15px;
+    width: 349px;
+    height: 385px;
+    transform: none;
+    object-fit: contain;
+    object-position: bottom right;
+    mix-blend-mode: normal;
+    opacity: 1;
+}
+
+/* Card H (Figma 286:3145): orange media bg + image 547 (purple face)
+   with mix-blend-darken creates an orange-toned duotone figure */
+.exp-card--photo-orange .exp-card__media {
+    background: #FF8A50;
+}
+
+.exp-card--photo-orange .exp-card__media .exp-card__photo--duotone {
+    left: 51px;
+    top: 15px;
+    width: 349px;
+    height: 385px;
+    transform: none;
+    object-fit: contain;
+    object-position: bottom right;
+    mix-blend-mode: darken;
+    opacity: 1;
+}
+
+/* old block kept for variants that still need full-bleed photo */
+.exp-card--photo.exp-card--text-on-photo .exp-card__photo {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+}
+
+.exp-card__overlay {
+    position: relative;
+    z-index: 2;
+    padding: 22px 7px 0;
+    display: flex;
+    flex-direction: column;
+    gap: 14px;
+    color: #2F2F2F;
+    flex: 1 1 auto;
+}
+
+/* text-on-photo variant: text floats on top of photo with white gradient bg */
+.exp-card--text-on-photo .exp-card__overlay {
+    position: absolute;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    flex: none;
+    background: linear-gradient(to top,
+            rgba(255, 255, 255, 0.96) 0%,
+            rgba(255, 255, 255, 0.96) 70%,
+            rgba(255, 255, 255, 0) 100%);
+}
+
+.exp-card--photo .exp-card__title,
+.exp-card--photo .exp-card__sub,
+.exp-card--photo .exp-card__tags {
+    color: #2F2F2F;
+}
+
+.exp-backstage__photo {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.exp-backstage__arrow {
+    display: inline-block;
+    width: 52px;
+    height: 24px;
+    vertical-align: middle;
+    margin-left: 6px;
+}
+
+/* XL card duotone overlay (Figma 286:3253: image 546 + image 547 with
+   mix-blend-darken at 50% opacity, offset by ~96 px to create the
+   ghosting/portrait effect) */
+.exp-card--xl .exp-card__photo--duotone {
+    mix-blend-mode: darken;
+    z-index: 1;
+}
+
+
+/* ---- Card colour tints (Figma duotone overlays on the photo) ----------- */
+.exp-card__tint {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 400px;
+    z-index: 1;
+    pointer-events: none;
+}
+
+/* tint covers full card on text-on-photo and XL variants */
+.exp-card--text-on-photo .exp-card__tint,
+.exp-card--xl .exp-card__tint {
+    inset: 0;
+    width: auto;
+    height: auto;
+}
+
+.exp-card__tint--purple {
+    background: #AA6EFF;
+    mix-blend-mode: multiply;
+    opacity: 0.55;
+}
+
+.exp-card__tint--purple-strong {
+    background: #AA6EFF;
+    mix-blend-mode: multiply;
+    opacity: 0.75;
+}
+
+.exp-card__tint--orange {
+    background: #FF6E32;
+    mix-blend-mode: multiply;
+    opacity: 0.55;
+}
+
+.exp-card__photo--blur {
+    filter: blur(13.32px);
+    transform: scale(1.08);
+    /* hide blurred edge */
+}
+
+/* Title positioned at the TOP of a photo card (Figma 286:3132 / 286:3170) */
+.exp-card__title--top {
+    position: absolute;
+    z-index: 3;
+    top: 28px;
+    left: 28px;
+    right: 28px;
+    margin: 0;
+    text-align: left;
+}
+
+/* Card variant: text directly on photo (no white overlay panel) */
+.exp-card--text-on-photo .exp-card__overlay {
+    background: transparent;
+}
+
+.exp-card--text-on-photo .exp-card__title,
+.exp-card--text-on-photo .exp-card__sub,
+.exp-card--text-on-photo .exp-card__tags {
+    color: #FFFFFF;
+}
+
+
+/* ---- Dark card variant (Figma 286:3100 / 286:3183) --------------------- */
+.exp-card--dark {
+    padding: 0;
+    color: #2F2F2F;
+    overflow: hidden;
+    position: relative;
+}
+
+/* Square media block at top of card (analog of photo block in photo cards).
+   Used by dark/polygons cards (286:3100, 286:3183, 286:3194). */
+.exp-card__media {
+    position: relative;
+    width: 100%;
+    height: 400px;
+    overflow: hidden;
+    flex: 0 0 auto;
+}
+
+.exp-card--dark .exp-card__media,
+.exp-card--polygons .exp-card__media {
+    background: #272727;
+}
+
+/* Smaller title used on dark/event cards (Figma 20px) */
+.exp-card__title--small {
+    font-size: 20px;
+    line-height: 1;
+}
+
+.exp-card__diagonal {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    z-index: 0;
+    pointer-events: none;
+}
+
+.exp-card--dark .exp-card__tags,
+.exp-card--dark .exp-card__title,
+.exp-card--dark .exp-card__sub,
+.exp-card--dark .exp-card__kicker,
+.exp-card--dark .exp-card__body {
+    position: relative;
+    z-index: 2;
+}
+
+
+/* ---- Blurred-photo card variant (Figma 286:3766 / 286:3170) ----------
+   Dark media block 400×400 with blurred face photo inside + 40px white
+   centered title overlay (mix-blend-difference), tags + title + caption below */
+.exp-card--blurred {
+    padding: 0;
+    overflow: hidden;
+    position: relative;
+}
+
+.exp-card--blurred .exp-card__media {
+    background: #272727;
+}
+
+.exp-card__photo--blurred {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    filter: blur(13.32px);
+    pointer-events: none;
+}
+
+.exp-card__media-title {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    margin: 0;
+    width: 90%;
+    text-align: center;
+    font-family: 'Golos Text VF', 'Golos Text', sans-serif;
+    font-weight: 500;
+    font-size: 40px;
+    line-height: 1;
+    letter-spacing: -0.04em;
+    color: #FFFFFF;
+    mix-blend-mode: difference;
+    z-index: 2;
+    pointer-events: none;
+}
+
+
+/* ---- Polygon card variant (Figma 286:3194 / 286:3804) -----------------
+   Dark media block 400×400 with 3px lime border, polygons inside,
+   tags + title + caption below in normal flow */
+.exp-card--polygons {
+    padding: 0;
+    overflow: hidden;
+    position: relative;
+}
+
+.exp-card--polygons .exp-card__media {
+    border: 3px solid #C2F04F;
+    box-sizing: border-box;
+}
+
+.exp-card__polygons {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    z-index: 0;
+    pointer-events: none;
+}
+
+
+/* ---- Inverse / accent tag variants ------------------------------------- */
+.exp-tag--inv {
+    border-color: #FFFFFF;
+    color: #FFFFFF;
+}
+
+.exp-tag--lime {
+    background: #C2F04F;
+    border-color: #C2F04F;
+    color: #2F2F2F;
+}
+
+.exp-tag-divider--inv {
+    border-top-color: #FFFFFF;
+}
+
+.exp-card__title--inv {
+    color: #FFFFFF;
+}
+
+.exp-card__sub--inv {
+    color: rgba(255, 255, 255, 0.78);
+}
+
+.exp-card__kicker--inv {
+    color: #FFFFFF;
+}
+
+/* Remove all rounded corners on the experience page (tags keep pill shape) */
+.exp-page,
+.exp-page *,
+.exp-page *::before,
+.exp-page *::after {
+    border-radius: 0 !important;
+}
+
+.exp-page .exp-tag {
+    border-radius: 100px !important;
+}
+
+/* Footer subscribe button on experience page is white (not lime), per Figma */
+.exp-page footer .footer-btn {
+    background: #FFFFFF !important;
+    color: #2F2F2F !important;
+    border-color: #FFFFFF !important;
+    border-radius: 999px !important;
+}
+
+/* Footer on experience page is transparent — photo bg shows through */
+.exp-page footer {
+    background: transparent !important;
 }

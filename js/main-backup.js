@@ -5,16 +5,20 @@ document.addEventListener("DOMContentLoaded", function() {
     const ctx = canvas.getContext('2d');
     const slider = document.getElementById('slider');
 
+    // Both columns target positions stay strictly inside their half of the
+    // 1100-px canvas (split at x=550): purple фандрайзер in 80..480 (left),
+    // orange наниматель in 620..1020 (right). Matches the scatter zones so
+    // letters land cleanly on their own side when the slider hits 1.
     const texts = [
         {
             content: "Портрет современного фандрайзера: над чем он работает и о чём переживает, в каких условиях находится и что его мотивирует, чего ищет и что хочет изменить.",
             color: "#AA6EFF",
-            x: 50, y: 100, width: 400
+            x: 80, y: 100, width: 400
         },
         {
             content: "Портрет руководителя НКО или руководителя департамента, который фандрайзеров нанимает и фандрайзерами управляет: каков опыт работы с ними, насколько успешен поиск, каковы результаты и какие вызовы стоят.",
             color: "#FF6E32",
-            x: 500, y: 200, width: 450
+            x: 620, y: 180, width: 400
         }
     ];
 
@@ -55,6 +59,26 @@ document.addEventListener("DOMContentLoaded", function() {
             let currentY = textY;
             const lineHeight = 25;
 
+            // Scatter zone per column: desktop splits canvas left/right
+            // (purple фандрайзер LEFT, orange наниматель RIGHT) at x=halfW.
+            // Mobile stacks the columns vertically, so the scatter splits
+            // top/bottom at y=halfH instead.
+            const halfW = canvas.width / 2;
+            const halfH = canvas.height / 2;
+            const isFirst = index === 0;
+            let xMin, xMax, yMin, yMax;
+            if (isMobile) {
+                xMin = 0;
+                xMax = canvas.width;
+                yMin = isFirst ? 0 : halfH;
+                yMax = isFirst ? halfH : canvas.height;
+            } else {
+                xMin = isFirst ? 0 : halfW;
+                xMax = isFirst ? halfW : canvas.width;
+                yMin = 0;
+                yMax = canvas.height;
+            }
+
             words.forEach(word => {
                 const wordWidth = ctx.measureText(word + ' ').width;
                 if (currentX + wordWidth > textX + textWidth) {
@@ -71,8 +95,8 @@ document.addEventListener("DOMContentLoaded", function() {
                         targetX: currentX,
                         targetY: currentY,
 
-                        startX: Math.random() * canvas.width,
-                        startY: Math.random() * canvas.height,
+                        startX: xMin + Math.random() * (xMax - xMin),
+                        startY: yMin + Math.random() * (yMax - yMin),
 
                         startAngle: (Math.random() - 0.5) * Math.PI
                     });

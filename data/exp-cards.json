@@ -1,0 +1,166 @@
+[
+  {
+    "id": "A",
+    "variant": "bordered",
+    "kind": "text",
+    "figma": "286:3111",
+    "tags": [
+      { "label": "О карьере" },
+      { "label": "Текст", "type": "ghost" }
+    ],
+    "title": "Как не поссориться с руководителем и как сделать сотрудников амбассадорами НКО",
+    "insetPhoto": "./img/figma/exp_R6VB0502.png",
+    "caption": "Личный бренд фандрайзера"
+  },
+  {
+    "id": "B",
+    "variant": "duotone",
+    "kind": "text",
+    "figma": "286:3120",
+    "tags": [
+      { "label": "Путь фандрайзера" },
+      { "label": "Текст", "type": "ghost" }
+    ],
+    "title": "Из коммерческого PR — в фандрайзинг — и в корпорацию",
+    "caption": "История Александры Мавренковой",
+    "photo": "./img/figma/exp_card_b_image546.png",
+    "photoOverlay": "./img/figma/exp_card_b_image547.png"
+  },
+  {
+    "id": "C",
+    "variant": "photo-only-547",
+    "kind": "text",
+    "figma": "286:3214",
+    "tags": [
+      { "label": "О деньгах" },
+      { "label": "Текст", "type": "ghost" }
+    ],
+    "title": "Как фандрайзеру говорить о деньгах: в том числе и о своей зарплате",
+    "caption": "Советует бизнес-тренер и специалист по продажам",
+    "photo": "./img/figma/exp_purple_face_547.png"
+  },
+  {
+    "id": "D",
+    "variant": "xl",
+    "kind": "text",
+    "figma": "286:3253",
+    "photo": "./img/figma/exp_card_b_image546.png",
+    "photoOverlay": "./img/figma/exp_card_b_image547.png"
+  },
+  {
+    "id": "E",
+    "variant": "dark-diagonal",
+    "kind": "event",
+    "figma": "286:3100",
+    "tags": [
+      { "label": "Паблик-ток" },
+      { "label": "29 мая", "type": "lime" }
+    ],
+    "title": "Деньги, доноры, базы, встречи и счастье партнёров",
+    "caption": "Какие показатели эффективности для фандрайзеров использовать в работе?"
+  },
+  {
+    "id": "F",
+    "variant": "dark-polygons",
+    "kind": "text",
+    "figma": "286:3194",
+    "tags": [
+      { "label": "О показателях эффективности" },
+      { "label": "Текст", "type": "ghost" }
+    ],
+    "title": "Как поставить KPI фандрайзеру: 4 совета, которые уже работают",
+    "caption": "Отвечают руководители из «Ночлежки», «Ники», «Дедморозим» и «Дорогою добра»"
+  },
+  {
+    "id": "G",
+    "variant": "dark-blurred",
+    "kind": "event",
+    "figma": "286:3766",
+    "mediaTitle": "Фандрайзеры очарованные и разочарованные",
+    "mediaPhoto": "./img/figma/exp_image546_real.png",
+    "tags": [
+      { "label": "Закрытая встреча" },
+      { "label": "30 мая", "type": "lime" }
+    ],
+    "title": "Фандрайзеры очарованные и разочарованные",
+    "caption": "Закрытая встреча для профессионалов для честного разговора"
+  },
+  {
+    "id": "H",
+    "variant": "photo-orange",
+    "kind": "text",
+    "figma": "286:3145",
+    "tags": [
+      { "label": "Путь фандрайзера" },
+      { "label": "Текст", "type": "ghost" }
+    ],
+    "title": "Из проджекта и SMM в бизнесе — в фандрайзинг",
+    "caption": "История Анастасии Саманлыоглу",
+    "photo": "./img/figma/exp_purple_face_547.png"
+  },
+  {
+    "id": "I",
+    "variant": "photo-only-547",
+    "kind": "text",
+    "figma": "286:3160",
+    "tags": [
+      { "label": "Путь фандрайзера" },
+      { "label": "Текст", "type": "ghost" }
+    ],
+    "title": "Из фандрайзинга — в предприниматели",
+    "caption": "История Сергея Юхина",
+    "photo": "./img/figma/exp_purple_face_547.png"
+  },
+  {
+    "id": "J",
+    "variant": "dark-blurred",
+    "kind": "text",
+    "figma": "286:3170",
+    "mediaTitle": "Фандрайзеры очарованные и разочарованные",
+    "mediaPhoto": "./img/figma/exp_image546_real.png",
+    "tags": [
+      { "label": "О поиске сотрудников" },
+      { "label": "Текст", "type": "ghost" }
+    ],
+    "title": "Почему так сложно найти фандрайзера — и что с этим делать",
+    "caption": "Учимся у владелицы компании по поиску и подбору персонала"
+  },
+  {
+    "id": "K",
+    "variant": "dark-diagonal",
+    "kind": "event",
+    "figma": "286:3183",
+    "tags": [
+      { "label": "Лекция" },
+      { "label": "31 мая", "type": "lime" }
+    ],
+    "title": "Деньги. Экономика благотворительности",
+    "caption": "Большие экономисты о том, как устроен третий сектор"
+  },
+  {
+    "id": "L",
+    "variant": "bordered",
+    "kind": "text",
+    "figma": "286:3205",
+    "tags": [
+      { "label": "О карьере" },
+      { "label": "Текст", "type": "ghost" }
+    ],
+    "title": "Учимся у владелицы компании по поиску и подбору персонала",
+    "insetPhoto": "./img/figma/exp_image546_real.png",
+    "caption": "Учимся у владелицы компании по поиску и подбору персонала"
+  },
+  {
+    "id": "M",
+    "variant": "photo-only-547",
+    "kind": "event",
+    "figma": "286:3225",
+    "tags": [
+      { "label": "Дискуссия на МФНКО" },
+      { "label": "—", "type": "ghost" }
+    ],
+    "title": "Как найти себя в фандрайзинге",
+    "caption": "Экс-предприниматель, экс-бренд-менеджер и основатель фандрайзингового бюро о профессии",
+    "photo": "./img/figma/exp_purple_face_547.png"
+  }
+]
