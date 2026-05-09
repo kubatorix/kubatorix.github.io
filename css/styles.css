@@ -11280,7 +11280,7 @@ a.fs-f11__cta-pdf:focus-visible,
 /* Большой эллипс — справа сверху, частично за кромку */
 .exp-hero__shape--orbit-lg {
     top: -1300px;
-    right: -500px;
+    right: -1000px;
     width: 2200px;
     max-width: none;
 }
