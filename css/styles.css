@@ -13603,4 +13603,271 @@ a.fs-f11__cta-pdf:focus-visible,
 }
 
 
+/* ============================================================================
+   PDF MODAL  (Figma 282:1092)
+   ============================================================================
+   Modal that opens on click of "Получить исследование в PDF" CTAs in
+   fullstudy.html (.fs-f2__cta-pdf and .fs-f11__cta-pdf). Glass card with
+   lime border + decorative swirls, close X in top-right.
+   ============================================================================ */
+
+.pdf-modal {
+    position: fixed;
+    inset: 0;
+    z-index: 1000;
+    display: none;
+    align-items: center;
+    justify-content: center;
+    padding: 24px;
+}
+
+.pdf-modal--open {
+    display: flex;
+}
+
+.pdf-modal__backdrop {
+    position: absolute;
+    inset: 0;
+    background: rgba(0, 0, 0, 0.55);
+    backdrop-filter: blur(6px);
+    -webkit-backdrop-filter: blur(6px);
+    cursor: pointer;
+}
+
+.pdf-modal__card {
+    position: relative;
+    width: 838px;
+    max-width: 100%;
+    min-height: 594px;
+    background: rgba(255, 255, 255, 0.06);
+    backdrop-filter: blur(14px);
+    -webkit-backdrop-filter: blur(14px);
+    border: 1px solid #C2F04F;
+    border-radius: 100px;
+    overflow: hidden;
+    padding: 60px 70px 60px 70px;
+    box-sizing: border-box;
+}
+
+.pdf-modal__decor {
+    position: absolute;
+    left: -120px;
+    top: 50%;
+    transform: translateY(-50%);
+    width: 600px;
+    height: auto;
+    pointer-events: none;
+    opacity: 0.55;
+    z-index: 0;
+}
+
+/* Close button sits OUTSIDE the card, anchored to the top-right of the
+   card via a fixed translate so it always appears just outside the lime
+   border regardless of viewport width. */
+.pdf-modal__close {
+    position: absolute;
+    /* card is centered in flex; its top-right corner is at
+       (50% + cardWidth/2 + cardPad, 50% - cardHeight/2). Use top/right
+       on the modal wrapper instead — works when card is centered. */
+    top: 50%;
+    left: 50%;
+    transform: translate(calc(838px / 2 + 8px), calc(-594px / 2 - 8px));
+    width: 38px;
+    height: 38px;
+    padding: 0;
+    background: transparent;
+    border: 0;
+    cursor: pointer;
+    z-index: 2;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.pdf-modal__close img {
+    display: block;
+    width: 100%;
+    height: 100%;
+}
+
+.pdf-modal__close:hover {
+    opacity: 0.8;
+}
+
+.pdf-modal__body {
+    position: relative;
+    z-index: 1;
+    margin-left: auto;
+    width: 100%;
+    max-width: 420px;
+}
+
+.pdf-modal__title {
+    margin: 0 0 28px;
+    font-family: 'Golos Text', sans-serif;
+    font-weight: 500;
+    font-size: 29px;
+    line-height: 1.05;
+    color: #FFFFFF;
+}
+
+.pdf-modal__form {
+    display: flex;
+    flex-direction: column;
+    gap: 14px;
+}
+
+.pdf-modal__input {
+    height: 56px;
+    padding: 0 22px;
+    background: transparent;
+    border: 0.5px solid #C2F04F;
+    border-radius: 28px;
+    color: #FFFFFF;
+    font-family: 'Golos Text', sans-serif;
+    font-weight: 400;
+    font-size: 17px;
+    line-height: 1.1;
+    letter-spacing: -0.34px;
+    outline: none;
+    transition: border-color 0.15s ease;
+}
+
+.pdf-modal__input::placeholder {
+    color: rgba(255, 255, 255, 0.5);
+}
+
+.pdf-modal__input:focus {
+    border-color: #FFFFFF;
+}
+
+.pdf-modal__checks {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    margin: 14px 0 8px;
+}
+
+.pdf-modal__check {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    cursor: pointer;
+}
+
+.pdf-modal__check-input {
+    -webkit-appearance: none;
+    appearance: none;
+    width: 14px;
+    height: 14px;
+    flex: 0 0 14px;
+    background-color: transparent;
+    border: 1.5px solid #FFFFFF;
+    border-radius: 3px;
+    cursor: pointer;
+    margin: 0;
+    transition: background-color 0.15s ease, border-color 0.15s ease;
+}
+
+.pdf-modal__check-input:hover {
+    border-color: #C2F04F;
+}
+
+.pdf-modal__check-input:checked {
+    background-color: #C2F04F;
+    border-color: #C2F04F;
+    background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 12 12' fill='none'><path d='M2.5 6.5L5 9L9.5 3.5' stroke='%23272727' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'/></svg>");
+    background-size: 70% 70%;
+    background-position: center;
+    background-repeat: no-repeat;
+}
+
+.pdf-modal__check-text {
+    font-family: 'Golos Text', sans-serif;
+    font-weight: 500;
+    font-size: 12px;
+    line-height: 1.6;
+    color: #FFFFFF;
+}
+
+.pdf-modal__check-text a {
+    color: inherit;
+    text-decoration: underline;
+}
+
+.pdf-modal__submit {
+    margin-top: 14px;
+    height: 60px;
+    padding: 0;
+    background: #FFFFFF;
+    border: 1px solid #FFFFFF;
+    border-radius: 999px;
+    color: #272727;
+    font-family: 'Golos Text', sans-serif;
+    font-weight: 400;
+    font-size: 18px;
+    line-height: 1.1;
+    cursor: pointer;
+    transition: background-color 0.2s ease, border-color 0.2s ease, opacity 0.2s ease;
+}
+
+.pdf-modal__form:valid .pdf-modal__submit {
+    background: #C2F04F;
+    border-color: #C2F04F;
+}
+
+.pdf-modal__submit:hover {
+    opacity: 0.9;
+}
+
+@media (max-width: 770px) {
+    .pdf-modal {
+        padding: 16px;
+    }
+
+    .pdf-modal__card {
+        width: 100%;
+        min-height: 0;
+        padding: 50px 24px 32px;
+        border-radius: 32px;
+    }
+
+    .pdf-modal__decor {
+        left: -180px;
+        width: 480px;
+        opacity: 0.35;
+    }
+
+    .pdf-modal__close {
+        top: 18px;
+        left: auto;
+        right: 18px;
+        transform: none;
+        width: 30px;
+        height: 30px;
+    }
+
+    .pdf-modal__body {
+        max-width: 100%;
+    }
+
+    .pdf-modal__title {
+        font-size: 22px;
+        line-height: 1.1;
+        margin-bottom: 22px;
+    }
+
+    .pdf-modal__input {
+        height: 48px;
+        font-size: 15px;
+    }
+
+    .pdf-modal__submit {
+        height: 52px;
+        font-size: 16px;
+    }
+}
+
+
+
 
