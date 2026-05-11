@@ -17,7 +17,7 @@
                     ? '<img src="' + c.insetPhoto + '" class="exp-card__photo--inset" alt="" aria-hidden="true" />'
                     : '')
                 + (c.caption
-                    ? '<p class="exp-card__sub exp-card__sub--inset" style="position:absolute;left:110px;bottom:28px;max-width:260px;">' + c.caption + '</p>'
+                    ? '<p class="exp-card__sub exp-card__sub--inset">' + c.caption + '</p>'
                     : '')
                 + '</article>';
         },
@@ -143,7 +143,50 @@
         var cards = document.querySelectorAll('.exp-card[data-kind]');
         if (!toggle || !cards.length) return;
 
+        var loadMoreBtn = document.querySelector('.exp-loadmore');
+        var loadMoreLabel = loadMoreBtn && loadMoreBtn.querySelector('.exp-loadmore__label');
+        var mobileQuery = window.matchMedia('(max-width: 770px)');
+        var collapseLimit = 3;
+        var isCollapsed = true;
+        var currentState = 'all';
+
+        function applyVisibility() {
+            var matched = [];
+            cards.forEach(function (card) {
+                var kind = card.getAttribute('data-kind');
+                var match =
+                    currentState === 'all' ||
+                    (currentState === 'texts' && kind === 'text') ||
+                    (currentState === 'events' && kind === 'event');
+                card.hidden = !match;
+                if (match) matched.push(card);
+            });
+
+            // On mobile, when collapsed, hide cards beyond the first 3 matches.
+            if (mobileQuery.matches && isCollapsed) {
+                matched.forEach(function (card, i) {
+                    if (i >= collapseLimit) card.hidden = true;
+                });
+            }
+
+            updateLoadMore(matched.length);
+        }
+
+        function updateLoadMore(matchedCount) {
+            if (!loadMoreBtn) return;
+            var needsButton = mobileQuery.matches && matchedCount > collapseLimit;
+            loadMoreBtn.hidden = !needsButton;
+            if (!needsButton) return;
+            loadMoreBtn.dataset.state = isCollapsed ? 'collapsed' : 'expanded';
+            if (loadMoreLabel) {
+                loadMoreLabel.innerHTML = isCollapsed
+                    ? 'Это&nbsp;не&nbsp;всё.<br>Загрузить ещё'
+                    : 'Свернуть';
+            }
+        }
+
         function setState(state) {
+            currentState = state;
             toggle.setAttribute('data-state', state);
             toggle.querySelectorAll('.exp-toggle__seg').forEach(function (seg) {
                 seg.setAttribute(
@@ -151,14 +194,10 @@
                     seg.dataset.action === state ? 'true' : 'false'
                 );
             });
-            cards.forEach(function (card) {
-                var kind = card.getAttribute('data-kind');
-                var match =
-                    state === 'all' ||
-                    (state === 'texts' && kind === 'text') ||
-                    (state === 'events' && kind === 'event');
-                card.hidden = !match;
-            });
+            // Reset to collapsed whenever the filter changes so the user
+            // always sees the first 3 of the newly-filtered set.
+            isCollapsed = true;
+            applyVisibility();
         }
 
         toggle.querySelectorAll('.exp-toggle__seg[data-action]').forEach(function (seg) {
@@ -166,6 +205,17 @@
                 setState(seg.dataset.action);
             });
         });
+
+        if (loadMoreBtn) {
+            loadMoreBtn.addEventListener('click', function () {
+                isCollapsed = !isCollapsed;
+                applyVisibility();
+            });
+        }
+
+        // Re-run when crossing the mobile breakpoint so the button + hidden
+        // cards stay in sync with the current viewport width.
+        mobileQuery.addEventListener('change', applyVisibility);
 
         setState('all');
     }

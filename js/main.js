@@ -707,87 +707,240 @@ renderEventsInto(document.querySelector('.burger-menu__events-popup'), 'burger-m
 })();
 
 /* ============================================================
-   Phase 8 — Section 8 card pager (desktop). Cards stay put; the
-   pager only moves the lime "active" outline between the four
-   cards. Prev disabled at index 0; next disabled at last index.
+   Phase 8 — Section 8 card pager + mobile carousel. Cards are
+   populated from data/exp-cards.json (4 picks, alternating
+   event/text to match the Figma event/story/event/story
+   layout). After rendering, the desktop pager (lime outline
+   between 4 fixed cards) and the mobile dot carousel both
+   re-query the freshly-rendered .s8__card elements.
    ============================================================ */
 (function () {
     var section = document.querySelector('.section8__phase8');
     if (!section) return;
     var track = section.querySelector('.s8__track');
-    var prev  = section.querySelector('.s8__nav-btn--prev');
-    var next  = section.querySelector('.s8__nav-btn--next');
-    if (!track || !prev || !next) return;
+    if (!track) return;
 
-    var cards = track.querySelectorAll('.s8__card');
-    var MAX = Math.max(0, cards.length - 1);
-    var index = 0;
-
-    function update() {
-        cards.forEach(function (c, i) {
-            if (i === index) c.setAttribute('data-active', 'true');
-            else c.removeAttribute('data-active');
-        });
-        track.dataset.index = String(index);
-        prev.disabled = index <= 0;
-        next.disabled = index >= MAX;
+    function escapeHtml(s) {
+        return String(s == null ? '' : s)
+            .replace(/&/g, '&amp;')
+            .replace(/</g, '&lt;')
+            .replace(/>/g, '&gt;')
+            .replace(/"/g, '&quot;');
     }
-    prev.addEventListener('click', function () {
-        if (index > 0) { index--; update(); }
-    });
-    next.addEventListener('click', function () {
-        if (index < MAX) { index++; update(); }
-    });
-    update();
-})();
 
-/* ============================================================
-   Phase 8 — Mobile carousel dots. Clicking a dot scrolls the
-   track to the matching card; scrolling/swiping updates the
-   active dot. No-op on desktop (track has no horizontal
-   overflow there).
-   ============================================================ */
-(function () {
-    var section = document.querySelector('.section8__phase8');
-    if (!section) return;
-    var track = section.querySelector('.s8__track');
-    var dots  = section.querySelectorAll('.s8__dot');
-    if (!track || !dots.length) return;
-    var cards = track.querySelectorAll('.s8__card');
-
-    function setActive(i) {
-        dots.forEach(function (d, j) {
-            if (j === i) d.setAttribute('aria-current', 'true');
-            else d.removeAttribute('aria-current');
-        });
+    /* Build the media box for a card based on its exp-card variant — same
+       art treatment as on the experience page (mix-blend overlays, dark
+       polygons / diagonals, blurred photo + title), just scaled to the
+       295×295 s8 thumbnail. */
+    function diagonalSvg() {
+        return ''
+            + '<svg class="s8__media-svg" viewBox="0 0 295 295" preserveAspectRatio="xMidYMid slice" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">'
+            +   '<rect width="295" height="295" fill="#272727"/>'
+            +   '<path d="M770 40L466 260M373 35L76 257" stroke="#AA6EFF" stroke-width="2"/>'
+            +   '<path d="M263 257L-201 112M-47 17L411 163" stroke="#272727" stroke-width="2" style="mix-blend-mode: plus-lighter"/>'
+            + '</svg>';
     }
-    function nearestIndex() {
-        var center = track.scrollLeft + track.clientWidth / 2;
-        var bestI = 0, bestD = Infinity;
-        cards.forEach(function (c, i) {
-            var c2 = c.offsetLeft + c.offsetWidth / 2;
-            var d = Math.abs(c2 - center);
-            if (d < bestD) { bestD = d; bestI = i; }
-        });
-        return bestI;
-    }
-    var raf = 0;
-    track.addEventListener('scroll', function () {
-        if (raf) return;
-        raf = window.requestAnimationFrame(function () {
-            raf = 0;
-            setActive(nearestIndex());
-        });
-    }, { passive: true });
 
-    dots.forEach(function (dot, i) {
-        dot.addEventListener('click', function () {
-            var card = cards[i];
+    function renderMedia(c) {
+        var variant = c.variant;
+        var photo = c.photo, overlay = c.photoOverlay;
+
+        if (variant === 'dark-diagonal') {
+            return '<div class="s8__media s8__media--diagonal">' + diagonalSvg() + '</div>';
+        }
+        if (variant === 'dark-polygons') {
+            return '<div class="s8__media s8__media--polygons">'
+                +   '<img src="./img/figma/exp_card_polygons.svg" class="s8__media-svg" alt="" />'
+                + '</div>';
+        }
+        if (variant === 'dark-blurred') {
+            return '<div class="s8__media s8__media--blurred">'
+                + (c.mediaPhoto ? '<img src="' + escapeHtml(c.mediaPhoto) + '" class="s8__media-blurred-photo" alt="" />' : '')
+                + (c.mediaTitle ? '<span class="s8__media-blurred-title">' + escapeHtml(c.mediaTitle) + '</span>' : '')
+                + '</div>';
+        }
+        if (variant === 'duotone') {
+            return '<div class="s8__media s8__media--duotone">'
+                + (photo   ? '<img src="' + escapeHtml(photo)   + '" class="s8__media-base" alt="" />' : '')
+                + (overlay ? '<img src="' + escapeHtml(overlay) + '" class="s8__media-overlay" alt="" />' : '')
+                + '</div>';
+        }
+        if (variant === 'photo-only-547') {
+            return '<div class="s8__media s8__media--photo-547">'
+                + (photo ? '<img src="' + escapeHtml(photo) + '" class="s8__media-face" alt="" />' : '')
+                + '</div>';
+        }
+        if (variant === 'photo-orange') {
+            return '<div class="s8__media s8__media--photo-orange">'
+                + (photo ? '<img src="' + escapeHtml(photo) + '" class="s8__media-face" alt="" />' : '')
+                + '</div>';
+        }
+        if (variant === 'bordered') {
+            // The bordered exp-card shows its title large inside the frame
+            // (no main photo). Mirror that in the s8 thumbnail so the box
+            // isn't mostly empty space above the inset photo.
+            return '<div class="s8__media s8__media--bordered">'
+                + (c.title ? '<span class="s8__media-bordered-title">' + escapeHtml(c.title) + '</span>' : '')
+                + (c.insetPhoto ? '<img src="' + escapeHtml(c.insetPhoto) + '" class="s8__media-inset" alt="" />' : '')
+                + '</div>';
+        }
+        // generic fallback
+        var src = photo || c.mediaPhoto || c.insetPhoto || './img/figma/section8_story_photo.png';
+        return '<div class="s8__media s8__media--generic">'
+            +    '<img src="' + escapeHtml(src) + '" class="s8__media-base" alt="" />'
+            + '</div>';
+    }
+
+    function renderCard(c, pos) {
+        var tag1 = (c.tags && c.tags[0]) || { label: '' };
+        var tag2 = (c.tags && c.tags[1]) || { label: '' };
+        var isEvent = c.kind === 'event';
+        // pos1..pos4 still drive the legacy desktop offsets; for cards beyond
+        // the first 4 the track scrolls so pos5+ just keeps a unique class.
+        var posClass = 's8__card--pos' + pos;
+        var typeClass = isEvent ? 's8__card--event' : 's8__card--story';
+        var active = pos === 1 ? ' data-active="true"' : '';
+        var leftPill  = isEvent ? 's8__pill--event-left'  : 's8__pill--story-left';
+        var rightPill = isEvent ? 's8__pill--lime s8__pill--event-right'
+                                : 's8__pill--white s8__pill--story-right';
+        var connector = isEvent ? 's8__connector--event' : 's8__connector--story';
+
+        // Bordered cards put the title inside the framed media (mirroring
+        // the experience-page design) so skip the heading row below to
+        // avoid duplicating the same text.
+        var heading = c.variant === 'bordered'
+            ? ''
+            : '<p class="s8__heading">' + escapeHtml(c.title || c.mediaTitle || '') + '</p>';
+
+        return ''
+            + '<article class="s8__card ' + typeClass + ' ' + posClass + '"' + active + '>'
+            +   renderMedia(c)
+            +   '<span class="s8__pill s8__pill--outline ' + leftPill + '"><span class="s8__pill-text">' + escapeHtml(tag1.label) + '</span></span>'
+            +   '<span class="s8__connector ' + connector + '" aria-hidden="true"></span>'
+            +   '<span class="s8__pill ' + rightPill + '"><span class="s8__pill-text">' + escapeHtml(tag2.label) + '</span></span>'
+            +   heading
+            + '</article>';
+    }
+
+    function renderTrack(cards) {
+        // Render every card except the xl variant (no title/tags to display).
+        var picked = cards.filter(function (c) { return c.variant !== 'xl'; });
+        if (!picked.length) return false;
+        track.innerHTML = picked.map(function (c, i) {
+            return renderCard(c, i + 1);
+        }).join('');
+        renderDots(picked.length);
+        return true;
+    }
+
+    /* Generate one mobile carousel dot per card so the indicator count
+       always matches the rendered track. */
+    function renderDots(count) {
+        var container = section.querySelector('.s8__dots');
+        if (!container) return;
+        var html = '';
+        for (var i = 0; i < count; i++) {
+            html += '<button type="button" class="s8__dot" data-index="' + i + '"'
+                +  (i === 0 ? ' aria-current="true"' : '')
+                +  ' aria-label="Карточка ' + (i + 1) + '"></button>';
+        }
+        container.innerHTML = html;
+    }
+
+    /* Desktop pager — clicking prev/next scrolls the track to the previous /
+       next card. Prev disabled at start; next disabled when the track is at
+       its scroll-right end. */
+    function initPager() {
+        var prev = section.querySelector('.s8__nav-btn--prev');
+        var next = section.querySelector('.s8__nav-btn--next');
+        if (!prev || !next) return;
+        var cards = track.querySelectorAll('.s8__card');
+        if (!cards.length) return;
+
+        function nearestIndex() {
+            var x = track.scrollLeft;
+            var bestI = 0, bestD = Infinity;
+            cards.forEach(function (c, i) {
+                var d = Math.abs(c.offsetLeft - x);
+                if (d < bestD) { bestD = d; bestI = i; }
+            });
+            return bestI;
+        }
+        function maxScrollLeft() {
+            return track.scrollWidth - track.clientWidth;
+        }
+        function updateButtons() {
+            prev.disabled = track.scrollLeft <= 1;
+            next.disabled = track.scrollLeft >= maxScrollLeft() - 1;
+        }
+        function scrollToCard(i) {
+            var card = cards[Math.max(0, Math.min(cards.length - 1, i))];
             if (!card) return;
-            var pad = parseFloat(getComputedStyle(track).paddingLeft) || 0;
-            track.scrollTo({ left: card.offsetLeft - pad, behavior: 'smooth' });
+            track.scrollTo({ left: card.offsetLeft, behavior: 'smooth' });
+        }
+
+        prev.addEventListener('click', function () { scrollToCard(nearestIndex() - 1); });
+        next.addEventListener('click', function () { scrollToCard(nearestIndex() + 1); });
+        track.addEventListener('scroll', updateButtons, { passive: true });
+        window.addEventListener('resize', updateButtons);
+        updateButtons();
+    }
+
+    /* Mobile dot carousel — clicking a dot scrolls track to that card;
+       scrolling updates the active dot. */
+    function initCarousel() {
+        var dots = section.querySelectorAll('.s8__dot');
+        if (!dots.length) return;
+        var cards = track.querySelectorAll('.s8__card');
+
+        function setActive(i) {
+            dots.forEach(function (d, j) {
+                if (j === i) d.setAttribute('aria-current', 'true');
+                else d.removeAttribute('aria-current');
+            });
+        }
+        function nearestIndex() {
+            var center = track.scrollLeft + track.clientWidth / 2;
+            var bestI = 0, bestD = Infinity;
+            cards.forEach(function (c, i) {
+                var c2 = c.offsetLeft + c.offsetWidth / 2;
+                var d = Math.abs(c2 - center);
+                if (d < bestD) { bestD = d; bestI = i; }
+            });
+            return bestI;
+        }
+        var raf = 0;
+        track.addEventListener('scroll', function () {
+            if (raf) return;
+            raf = window.requestAnimationFrame(function () {
+                raf = 0;
+                setActive(nearestIndex());
+            });
+        }, { passive: true });
+
+        dots.forEach(function (dot, i) {
+            dot.addEventListener('click', function () {
+                var card = cards[i];
+                if (!card) return;
+                var pad = parseFloat(getComputedStyle(track).paddingLeft) || 0;
+                track.scrollTo({ left: card.offsetLeft - pad, behavior: 'smooth' });
+            });
         });
-    });
+    }
+
+    fetch('./data/exp-cards.json')
+        .then(function (r) { return r.json(); })
+        .then(function (data) {
+            if (!renderTrack(data)) return;
+            initPager();
+            initCarousel();
+        })
+        .catch(function (err) {
+            // Fall back to the static cards already in the markup.
+            console.error('Failed to load exp-cards.json for section8', err);
+            initPager();
+            initCarousel();
+        });
 })();
 
 /* ============================================================
@@ -848,9 +1001,21 @@ renderEventsInto(document.querySelector('.burger-menu__events-popup'), 'burger-m
     var section = document.querySelector('.section9__phase9');
     if (!section) return;
     var track = section.querySelector('.s9__track');
-    var dots  = section.querySelectorAll('.s9__dot');
-    if (!track || !dots.length) return;
+    var dotsContainer = section.querySelector('.s9__dots');
+    if (!track || !dotsContainer) return;
     var cols = track.querySelectorAll('.s9__col');
+    if (!cols.length) return;
+
+    // Generate one dot per column so the indicator count always tracks the
+    // actual partner list (same pattern as section 8).
+    var html = '';
+    for (var i = 0; i < cols.length; i++) {
+        html += '<button type="button" class="s9__dot" data-index="' + i + '"'
+            +  (i === 0 ? ' aria-current="true"' : '')
+            +  ' aria-label="Партнёр ' + (i + 1) + '"></button>';
+    }
+    dotsContainer.innerHTML = html;
+    var dots = section.querySelectorAll('.s9__dot');
 
     function setActive(i) {
         dots.forEach(function (d, j) {

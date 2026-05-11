@@ -3967,71 +3967,299 @@ body>.header-burger__icon {
     overflow: hidden;
 }
 
-/* --- Track holds the four absolutely-positioned cards. On desktop the cards
-       don't move; the pager only shifts a lime "active" outline between them.
-       On mobile the track stacks vertically (see media query below). --- */
+/* --- Track is a horizontal scroll-snap carousel on desktop too — cards flow
+       in a row and the prev/next pager scrolls between them. The active-
+       outline behavior was dropped; the pager moves scroll position now. --- */
 .section8__phase8 .s8__track {
     position: absolute;
-    inset: 0;
-}
-
-/* --- Active-card outline: 1px lime stroke around the thumbnail of whichever
-       card the pager has selected. Card 1 is the initial active card. ------ */
-.section8__phase8 .s8__card[data-active="true"] .s8__media {
-    outline: 1px solid #C2F04F;
-    outline-offset: -1px;
-}
-
-/* --- Card position + size (top=276 to leave room for the intro above;
-       widths 295). All four cards share the same top edge. ----------------- */
-.section8__phase8 .s8__card {
-    position: absolute;
     top: 276px;
-    width: 295px;
-}
-
-.section8__phase8 .s8__card--pos1 {
     left: 0;
-    height: 395px;
+    right: 0;
+    bottom: 0;
+    display: flex;
+    flex-direction: row;
+    gap: 20px;
+    overflow-x: auto;
+    overflow-y: hidden;
+    scroll-snap-type: x mandatory;
+    scroll-behavior: smooth;
+    scrollbar-width: none;
+    -ms-overflow-style: none;
+    align-items: flex-start;
 }
 
-.section8__phase8 .s8__card--pos2 {
-    left: 315px;
-    height: 454px;
+.section8__phase8 .s8__track::-webkit-scrollbar {
+    display: none;
 }
 
-.section8__phase8 .s8__card--pos3 {
-    left: 630px;
-    height: 395px;
+/* --- Card sizing: width 295, height by type (events shorter than stories).
+       Position-classes are kept for backward compatibility but only their
+       height now matters; horizontal placement comes from the flex flow.
+       Internal layout is a grid so pills + connector flow as a row no
+       matter how wide the pill labels are (longer JSON labels were colliding
+       with the absolute-coordinate connector). */
+.section8__phase8 .s8__card {
+    position: relative;
+    top: auto;
+    left: auto;
+    flex: 0 0 295px;
+    width: 295px;
+    scroll-snap-align: start;
+    display: grid;
+    /* minmax(0, auto) lets long pill labels shrink and the connector keep at
+       least 20px so the divider line always renders between the two pills. */
+    grid-template-columns: minmax(0, auto) minmax(20px, 1fr) auto;
+    grid-template-rows: auto auto auto;
+    grid-template-areas:
+        "media    media     media"
+        "pillL    connector pillR"
+        "heading  heading   heading";
+    align-items: center;
+    column-gap: 8px;
+    row-gap: 14px;
 }
 
+/* All cards share the same height now that bylines were removed — keeps the
+   row visually uniform and the media boxes line up bottom-to-bottom. */
+.section8__phase8 .s8__card,
+.section8__phase8 .s8__card--event,
+.section8__phase8 .s8__card--story,
+.section8__phase8 .s8__card--pos1,
+.section8__phase8 .s8__card--pos2,
+.section8__phase8 .s8__card--pos3,
 .section8__phase8 .s8__card--pos4 {
-    left: 946px;
-    height: 454px;
+    height: 395px;
 }
 
-/* --- Thumbnail (295×295 at top of card; <img> element) ------------------- */
+/* --- Child placement inside the grid card (desktop). Mobile re-applies the
+       same grid via its own rules below. The padding-top:100% trick forces a
+       1:1 box regardless of grid context — aspect-ratio is unreliable when
+       the only children are absolutely positioned. */
 .section8__phase8 .s8__media {
-    position: absolute;
-    left: 0;
-    top: 0;
+    position: relative;
+    grid-area: media;
+    width: 100%;
+    height: 0;
+    padding-top: 100%;
+}
+
+.section8__phase8 .s8__pill {
+    position: relative;
+    left: auto;
+    top: auto;
+}
+
+.section8__phase8 .s8__pill--event-left,
+.section8__phase8 .s8__pill--story-left {
+    grid-area: pillL;
+    justify-self: start;
+}
+
+.section8__phase8 .s8__pill--event-right,
+.section8__phase8 .s8__pill--story-right {
+    grid-area: pillR;
+    justify-self: end;
+}
+
+.section8__phase8 .s8__connector {
+    position: relative;
+    left: auto;
+    top: auto;
+    width: 100%;
+    grid-area: connector;
+}
+
+.section8__phase8 .s8__heading {
+    position: relative;
+    top: auto;
+    width: 100%;
+    grid-area: heading;
+}
+
+/* --- Thumbnail wrapper (sits in the `media` grid area; aspect 1:1 at card
+       width). The variant-specific children stack inside via absolute pos. */
+.section8__phase8 .s8__media {
     display: block;
-    width: 295px;
-    height: 295px;
     box-sizing: border-box;
-    object-fit: cover;
-    object-position: center top;
     border: 0;
     background: #2F2F2F;
+    overflow: hidden;
 }
 
-.section8__phase8 .s8__media--photo {
+/* --- duotone (Card B-style): full-bleed photo + duotone overlay (mix-blend). */
+.section8__phase8 .s8__media--duotone {
+    position: relative;
+    background: #272727;
+}
+
+.section8__phase8 .s8__media--duotone .s8__media-base {
+    position: absolute;
+    top: -8.25%;
+    left: 0;
+    width: 111.25%;
+    height: 179.5%;
+    object-fit: cover;
+    z-index: 0;
+}
+
+.section8__phase8 .s8__media--duotone .s8__media-overlay {
+    position: absolute;
+    left: 30%;
+    top: 7.5%;
+    width: 80%;
+    height: auto;
+    object-fit: contain;
+    mix-blend-mode: darken;
+    z-index: 1;
+    pointer-events: none;
+}
+
+/* --- photo-only-547 (Cards C/I/M): light-gray bg + purple-face image. */
+.section8__phase8 .s8__media--photo-547 {
+    position: relative;
     background: #F2F2F2;
 }
 
-/* --- Pills (shared) ------------------------------------------------------- */
-.section8__phase8 .s8__pill {
+.section8__phase8 .s8__media--photo-547 .s8__media-face {
     position: absolute;
+    left: 12.75%;
+    top: 3.75%;
+    width: 87.25%;
+    height: 96.25%;
+    object-fit: contain;
+    object-position: bottom right;
+}
+
+/* --- photo-orange (Card H): orange bg + duotone face (mix-blend darken). */
+.section8__phase8 .s8__media--photo-orange {
+    position: relative;
+    background: #FF8A50;
+}
+
+.section8__phase8 .s8__media--photo-orange .s8__media-face {
+    position: absolute;
+    left: 12.75%;
+    top: 3.75%;
+    width: 87.25%;
+    height: 96.25%;
+    object-fit: contain;
+    object-position: bottom right;
+    mix-blend-mode: darken;
+}
+
+/* --- dark-polygons (Card F): dark bg + lime border + polygons SVG. */
+.section8__phase8 .s8__media--polygons {
+    position: relative;
+    background: #272727;
+    border: 3px solid #C2F04F;
+}
+
+.section8__phase8 .s8__media--polygons .s8__media-svg {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+/* --- dark-diagonal (Cards E/K events): dark bg + inline diagonal lines. */
+.section8__phase8 .s8__media--diagonal {
+    position: relative;
+    background: #272727;
+}
+
+.section8__phase8 .s8__media--diagonal .s8__media-svg {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    display: block;
+}
+
+/* --- dark-blurred (Cards G/J): dark bg + blurred photo + white mix-blend
+       title centred over it. */
+.section8__phase8 .s8__media--blurred {
+    position: relative;
+    background: #272727;
+}
+
+.section8__phase8 .s8__media--blurred .s8__media-blurred-photo {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    filter: blur(8px);
+    transform: scale(1.05);
+    pointer-events: none;
+}
+
+.section8__phase8 .s8__media--blurred .s8__media-blurred-title {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 90%;
+    margin: 0;
+    text-align: center;
+    font-family: 'Golos', 'Golos Text', sans-serif;
+    font-weight: 500;
+    font-size: 22px;
+    line-height: 1;
+    letter-spacing: -0.04em;
+    color: #FFFFFF;
+    mix-blend-mode: difference;
+    pointer-events: none;
+}
+
+/* --- bordered (Cards A/L): thin outline + large title text + tiny inset
+       photo at bottom-left, mirroring the experience-page bordered card. */
+.section8__phase8 .s8__media--bordered {
+    position: relative;
+    background: transparent;
+    border: 1px solid #FFFFFF;
+}
+
+.section8__phase8 .s8__media--bordered .s8__media-bordered-title {
+    position: absolute;
+    top: 16px;
+    left: 16px;
+    right: 16px;
+    margin: 0;
+    color: #FFFFFF;
+    font-family: 'Golos', 'Golos Text', sans-serif;
+    font-weight: 500;
+    font-size: 18px;
+    line-height: 1.1;
+    letter-spacing: -0.02em;
+}
+
+.section8__phase8 .s8__media--bordered .s8__media-inset {
+    position: absolute;
+    left: 8%;
+    bottom: 8%;
+    width: 18%;
+    aspect-ratio: 2 / 3;
+    object-fit: cover;
+}
+
+/* --- generic / fallback: full-bleed photo. */
+.section8__phase8 .s8__media--generic {
+    position: relative;
+    background: #F2F2F2;
+}
+
+.section8__phase8 .s8__media--generic .s8__media-base {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+/* --- Pills (shared) — positioning comes from the card's grid (pillL / pillR
+       grid areas); this rule only sets the typography + box. -------------- */
+.section8__phase8 .s8__pill {
     box-sizing: border-box;
     display: inline-flex;
     align-items: center;
@@ -4050,6 +4278,22 @@ body>.header-burger__icon {
     border: 1px solid #FFFFFF;
     background: transparent;
     color: #FFFFFF;
+    /* Long JSON labels (e.g. "О показателях эффективности") need to shrink
+       inside the grid cell so the connector keeps space. The inner span
+       handles ellipsis since text-overflow doesn't apply to direct text
+       children of an inline-flex container. */
+    max-width: 100%;
+    min-width: 0;
+    overflow: hidden;
+}
+
+.section8__phase8 .s8__pill-text {
+    display: block;
+    min-width: 0;
+    max-width: 100%;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
 }
 
 .section8__phase8 .s8__pill--white {
@@ -4062,56 +4306,22 @@ body>.header-burger__icon {
     color: #2F2F2F;
 }
 
-/* --- Pill positions per card type (from Figma spec) ---------------------- */
-/* event card: outline-left "Закрытая встреча" + connector + lime "15 мая" */
-.section8__phase8 .s8__pill--event-left {
-    left: 0;
-    top: 312px;
-}
-
-.section8__phase8 .s8__pill--event-right {
-    left: 234.23px;
-    top: 312.32px;
-}
-
-/* story card: outline-left "Про деньги" + connector + white "Текст" */
-.section8__phase8 .s8__pill--story-left {
-    left: 0;
-    top: 312.29px;
-    border-radius: 73.75px;
-}
-
+.section8__phase8 .s8__pill--story-left,
 .section8__phase8 .s8__pill--story-right {
-    left: 239.69px;
-    top: 312.29px;
     border-radius: 73.75px;
 }
 
-/* --- Connector line between pills ---------------------------------------- */
+/* --- Connector line between pills (grid: connector area) ----------------- */
 .section8__phase8 .s8__connector {
-    position: absolute;
     height: 1px;
     background: #FFFFFF;
+    width: 100%;
 }
 
-.section8__phase8 .s8__connector--event {
-    left: 133.74px;
-    top: 325.63px;
-    width: 95.32px;
-}
-
-.section8__phase8 .s8__connector--story {
-    left: 98.09px;
-    top: 325.24px;
-    width: 129.8px;
-}
-
-/* --- Headings + byline (Golos Medium 20 / 120% / -2%) -------------------- */
-.section8__phase8 .s8__heading,
-.section8__phase8 .s8__byline {
-    position: absolute;
-    left: 0;
-    width: 295px;
+/* --- Heading (Golos Medium 20 / 120% / -2%) — placed via grid (heading
+       area); typography + box only here. --- */
+.section8__phase8 .s8__heading {
+    width: 100%;
     margin: 0;
     font-family: 'Golos', 'Golos Text', sans-serif;
     font-weight: 500;
@@ -4119,14 +4329,6 @@ body>.header-burger__icon {
     line-height: 120%;
     letter-spacing: -0.02em;
     color: #FFFFFF;
-}
-
-.section8__phase8 .s8__heading {
-    top: 347px;
-}
-
-.section8__phase8 .s8__byline {
-    top: 406px;
 }
 
 /* --- Pager (Figma 219:513): two chevrons in the bottom-right of canvas.
@@ -4344,8 +4546,8 @@ body>.header-burger__icon {
         position: relative;
         grid-area: media;
         width: 100%;
-        height: auto;
-        aspect-ratio: 1 / 1;
+        height: 0;
+        padding-top: 100%;
     }
 
     .section8__phase8 .s8__pill--event-left,
@@ -4965,22 +5167,37 @@ footer .footer-checkbox__label {
 footer .footer-checkbox__input {
     -webkit-appearance: none;
     appearance: none;
-    width: 10.275px;
-    height: 10.275px;
-    flex: 0 0 10.275px;
-    background: transparent;
+    width: 16px;
+    height: 16px;
+    flex: 0 0 16px;
+    background-color: transparent;
     background-image: none !important;
     /* override main.css svg fallback */
-    border: 1.55px solid #FFFFFF;
-    border-radius: 0;
+    border: 1.5px solid #FFFFFF;
+    border-radius: 3px;
     cursor: pointer;
     outline: none;
     margin: 0;
+    transition: background-color 0.15s ease, border-color 0.15s ease;
+}
+
+footer .footer-checkbox__input:hover {
+    border-color: #C2F04F;
 }
 
 footer .footer-checkbox__input:checked {
-    background: #FFFFFF;
-    background-image: none !important;
+    background-color: #C2F04F !important;
+    border-color: #C2F04F;
+    /* Dark checkmark on lime fill so the "on" state is unmistakable */
+    background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 12 12' fill='none'><path d='M2.5 6.5L5 9L9.5 3.5' stroke='%23272727' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'/></svg>") !important;
+    background-size: 70% 70%;
+    background-position: center;
+    background-repeat: no-repeat;
+}
+
+footer .footer-checkbox__input:focus-visible {
+    outline: 2px solid #C2F04F;
+    outline-offset: 2px;
 }
 
 footer .footer-checkbox__span {
@@ -5001,7 +5218,7 @@ footer .footer-checkbox__link {
     text-underline-offset: 2px;
 }
 
-/* --- CTA button: lime, very rounded, full-column ------------------------- */
+/* --- CTA button: white by default, lime once the form is fully valid ----- */
 footer .footer-btn {
     display: block;
     width: 505.696px;
@@ -5010,9 +5227,9 @@ footer .footer-btn {
     margin: 0 0 0 -4.534px;
     /* extends 4.534px left of input column per Figma */
     padding: 0;
-    border: 1px solid #C2F04F;
+    border: 1px solid #FFFFFF;
     border-radius: 24.4105px;
-    background: #C2F04F;
+    background: #FFFFFF;
     color: #272727;
     font-family: 'Golos', 'Golos Text', sans-serif;
     font-weight: 500;
@@ -5020,7 +5237,12 @@ footer .footer-btn {
     line-height: 100%;
     letter-spacing: -0.02em;
     cursor: pointer;
-    transition: opacity 0.18s ease;
+    transition: background-color 0.2s ease, border-color 0.2s ease, opacity 0.18s ease;
+}
+
+footer .subscribe:valid .footer-btn {
+    background: #C2F04F;
+    border-color: #C2F04F;
 }
 
 footer .footer-btn:hover,
@@ -5131,6 +5353,27 @@ footer .footer-btn:focus-visible {
     left: 0;
     width: 115px;
     /* matches link width (line 440) */
+}
+
+/* Active state for "Опыт" link — same pattern as Исследование, sized to the
+   42px-wide "Опыт" link instead of the 46.65px-wide Тема default. */
+.topnav .topnav__link--opyt.topnav__link--active {
+    color: #FFFFFF;
+}
+
+.topnav .topnav__link--opyt.topnav__link--active::after {
+    left: 0;
+    width: 42px;
+}
+
+.topnav .topnav__link--about.topnav__link--active {
+    color: #FFFFFF;
+}
+
+.topnav .topnav__link--about.topnav__link--active::after {
+    left: 0;
+    width: 144px;
+    /* matches link width (line 872) */
 }
 
 /* Hero shell. Sits flush below <header> (which is 58 tall) — no top margin
@@ -11252,6 +11495,22 @@ a.fs-f11__cta-pdf:focus-visible,
     z-index: 1;
 }
 
+/* Mobile-only hero photo (Figma 286:5425). Hidden on desktop — desktop uses
+   the decorative orbit/lines SVGs instead. */
+.exp-hero__photo {
+    display: none;
+}
+
+/* Mobile-only "Load more" button — hidden on desktop where all cards render
+   in the grid. JS toggles `hidden` based on viewport + matched-card count. */
+.exp-loadmore {
+    display: none;
+}
+
+.exp-loadmore[hidden] {
+    display: none !important;
+}
+
 .exp-hero__shape {
     position: absolute;
     pointer-events: none;
@@ -11538,7 +11797,7 @@ a.fs-f11__cta-pdf:focus-visible,
     width: 400px;
     min-height: 560px;
     border: 1px solid transparent;
-    border-radius: 16px;
+    border-radius: 0;
     background: transparent;
     padding: 24px 28px 28px;
     display: flex;
@@ -11559,8 +11818,15 @@ a.fs-f11__cta-pdf:focus-visible,
     border-color: #2F2F2F;
 }
 
-/* Card A caption "Личный бренд фандрайзера" — 20px Medium per Figma */
-.exp-card__sub--inset {
+/* Card A caption "Личный бренд фандрайзера" — 20px Medium per Figma.
+   Sits to the right of the inset photo, anchored to the bottom of the card.
+   Compound selector outranks the later `.exp-card__sub { position: relative }`
+   line in the shared "card content above the photo" rule (~line 11615). */
+.exp-card__sub.exp-card__sub--inset {
+    position: absolute;
+    left: 110px;
+    bottom: 28px;
+    max-width: 260px;
     font-size: 20px;
     line-height: 1.2;
 }
@@ -11955,36 +12221,189 @@ a.fs-f11__cta-pdf:focus-visible,
 }
 
 
+/* ---- Tablet / intermediate (771–1439px) -------------------------------
+   Stepped `zoom:` scaling so the fixed-pixel 1440-canvas layout shrinks
+   proportionally to fit narrower viewports — same recipe as the
+   fullstudy / index pages. Zoom values match (max_width − 16) / 1440. */
+@media (min-width: 771px) and (max-width: 870px) {
+    .exp-hero,
+    .exp-grid,
+    .exp-loadmore,
+    .exp-partners,
+    .exp-discuss,
+    .exp-backstage {
+        zoom: 0.52;
+    }
+}
+
+@media (min-width: 871px) and (max-width: 970px) {
+    .exp-hero,
+    .exp-grid,
+    .exp-loadmore,
+    .exp-partners,
+    .exp-discuss,
+    .exp-backstage {
+        zoom: 0.59;
+    }
+}
+
+@media (min-width: 971px) and (max-width: 1080px) {
+    .exp-hero,
+    .exp-grid,
+    .exp-loadmore,
+    .exp-partners,
+    .exp-discuss,
+    .exp-backstage {
+        zoom: 0.66;
+    }
+}
+
+@media (min-width: 1081px) and (max-width: 1180px) {
+    .exp-hero,
+    .exp-grid,
+    .exp-loadmore,
+    .exp-partners,
+    .exp-discuss,
+    .exp-backstage {
+        zoom: 0.73;
+    }
+}
+
+@media (min-width: 1181px) and (max-width: 1280px) {
+    .exp-hero,
+    .exp-grid,
+    .exp-loadmore,
+    .exp-partners,
+    .exp-discuss,
+    .exp-backstage {
+        zoom: 0.80;
+    }
+}
+
+@media (min-width: 1281px) and (max-width: 1380px) {
+    .exp-hero,
+    .exp-grid,
+    .exp-loadmore,
+    .exp-partners,
+    .exp-discuss,
+    .exp-backstage {
+        zoom: 0.87;
+    }
+}
+
+@media (min-width: 1381px) and (max-width: 1439px) {
+    .exp-hero,
+    .exp-grid,
+    .exp-loadmore,
+    .exp-partners,
+    .exp-discuss,
+    .exp-backstage {
+        zoom: 0.94;
+    }
+}
+
+
 /* ---- Mobile (≤ 770 px) -------------------------------------------------- */
 @media (max-width: 770px) {
     .exp {
         padding: 0 16px;
     }
 
+    /* Mobile hero — Figma 286:5425. Replaces the desktop decorative shapes
+       with a full-bleed portrait photo (image 575), title overlaid using
+       mix-blend-difference, the Спецпроект brand pinned over the bottom of
+       the photo, and a lime-gradient panel beneath holding the intro + toggle.
+       Hero coords below are taken straight from the Figma frame. */
     .exp-hero {
-        padding-top: 24px;
+        padding-top: 0;
+        position: relative;
     }
 
+    /* Desktop's decorative orbits/lines are not part of the mobile design */
+    .exp-hero__shape {
+        display: none;
+    }
+
+    /* Full-bleed portrait. Cropped to the Figma frame ratio 391:525 (instead
+       of the photo's native 399:599) so the visible image matches the design;
+       object-position: top keeps the face in view. */
+    .exp-hero__photo {
+        display: block;
+        width: 100%;
+        aspect-ratio: 391 / 525;
+        object-fit: cover;
+        object-position: top;
+    }
+
+    /* Canvas overlays the photo so brand + title sit at Figma coordinates.
+       Explicitly resetting z-index to auto — the desktop rule sets z-index:1
+       which creates a stacking context that isolates the title's mix-blend
+       from the photo behind, collapsing the blend to plain white. */
     .exp-hero__canvas {
-        min-height: auto;
+        position: absolute;
+        top: 0;
+        left: 0;
+        right: 0;
+        min-height: 0;
+        z-index: auto;
     }
 
-    .exp-hero__brand {
-        padding: 16px 0 32px;
-    }
-
+    /* Title positioned at top-left of the photo per Figma node 286:5425
+       (y=197, x=28). Styled with white text + mix-blend-mode: difference
+       (same recipe as .exp-card__media-title) so it inverts against the
+       portrait — light text on dark hair, dark on light skin. */
     .exp-hero__title {
-        font-size: 44px;
+        position: absolute;
+        top: 197px;
+        left: 28px;
+        right: 28px;
+        margin: 0;
+        text-align: left;
+        font-family: 'Golos Text VF', 'Golos Text', sans-serif;
+        font-weight: 500;
+        font-size: 40px;
+        line-height: 0.85;
+        letter-spacing: -0.04em;
+        color: #FFFFFF;
+        mix-blend-mode: difference;
+        pointer-events: none;
+    }
+
+    /* "Опыт" is indented in the Figma (left=59 vs 28-29 for the rest) */
+    .exp-hero__title-line:first-child {
+        padding-left: 31px;
+    }
+
+    /* Brand "Спецпроект СРЕДА_СВОИХ" pinned at y=396 (over photo bottom) */
+    .exp-hero__brand {
+        position: absolute;
+        top: 396px;
+        left: 0;
+        right: 0;
+        padding: 0;
+        gap: 14px;
+    }
+
+    .exp-hero__brand-logo {
+        width: 165px;
+    }
+
+    /* Lime gradient panel sits below the photo. Negative margin pulls the
+       lime up to overlap the bottom of the photo at Figma y≈449 of 525
+       (the gradient covers ~20vw of the photo so the brand line sits in
+       front of the solid lime). */
+    .exp-hero__panel {
+        position: relative;
+        margin-top: -20vw;
+        padding: 38px 20px 60px;
+        background: linear-gradient(to bottom, #C2F04F 0%, #C2F04F 51.5%, rgba(228, 229, 239, 0) 81.8%);
     }
 
     .exp-hero__intro {
         font-size: 16px;
+        line-height: 1.3;
         margin: 0 auto 12px;
-    }
-
-    .exp-hero__panel {
-        margin-top: 32px;
-        padding: 40px 24px 60px;
+        text-align: left;
     }
 
     .exp-toggle {
@@ -12011,20 +12430,156 @@ a.fs-f11__cta-pdf:focus-visible,
         grid-template-columns: 1fr;
         grid-auto-rows: auto;
         gap: 16px;
+        padding: 0 16px;
+        box-sizing: border-box;
+    }
+
+    /* Mobile load-more button: Q-icon on the left + 2-line dark label.
+       `width: fit-content` + `margin: 0 auto` centers the button horizontally
+       on the page; flex with `align-items: center` keeps the icon and label
+       vertically aligned to each other. JS sets [hidden] when ≤ 3 matches. */
+    .exp-loadmore {
+        display: flex;
+        align-items: center;
+        gap: 20px;
+        width: fit-content;
+        margin: 24px auto 32px;
+        padding: 0;
+        border: 0;
+        background: transparent;
+        cursor: pointer;
+        text-align: left;
+    }
+
+    .exp-loadmore__icon {
+        flex: 0 0 auto;
+        width: 30px;
+        height: 40px;
+        display: block;
+    }
+
+    .exp-loadmore__label {
+        font-family: 'Golos Text VF', 'Golos Text', sans-serif;
+        font-weight: 500;
+        font-size: 20px;
+        line-height: 1.2;
+        letter-spacing: -0.02em;
+        color: #2F2F2F;
     }
 
     .exp-card,
     .exp-card--xl {
         width: 100%;
         height: auto;
-        min-height: 480px;
+        min-height: 0;
         grid-column: auto;
         grid-row: auto;
         padding: 16px 18px 20px;
     }
 
+    /* Bordered card (A) on mobile — Figma 286:4277.
+       Card 334×473 with ~26px side padding, 32px title, smaller inset photo
+       (54×82) tucked above caption (16px) at the bottom-left. */
+    .exp-card--bordered {
+        min-height: 473px;
+        padding: 22px 26px 24px;
+    }
+
+    .exp-card--bordered .exp-card__title {
+        font-size: 32px;
+    }
+
+    .exp-card__photo--inset {
+        width: 54px;
+        height: 82px;
+        left: 26px;
+        top: auto;
+        bottom: 26px;
+    }
+
+    .exp-card__sub.exp-card__sub--inset {
+        font-size: 16px;
+        left: 92px;
+        bottom: 23px;
+        max-width: 210px;
+    }
+
+    /* Media-wrapper / xl variants: card itself has no padding so the photo is
+       full-bleed inside the card; the overlay (tags + title + caption) gets
+       its own side padding instead — see the .exp-card__overlay rule below. */
+    .exp-card.exp-card--photo,
+    .exp-card.exp-card--dark,
+    .exp-card.exp-card--blurred,
+    .exp-card.exp-card--polygons,
+    .exp-card.exp-card--xl {
+        padding: 0;
+    }
+
+    /* Media block: square at card width (was 400px fixed on desktop) */
+    .exp-card__media,
+    .exp-card--photo > .exp-card__photo {
+        height: auto;
+        aspect-ratio: 1 / 1;
+    }
+
+    /* XL card keeps its desktop portrait aspect when stacked on mobile */
+    .exp-card--xl {
+        aspect-ratio: 820 / 1166;
+    }
+
+    /* Photo positioning inside media — desktop uses px tuned for 400×400.
+       Convert to % so the inner image scales with the card width. */
+    .exp-card--photo .exp-card__media .exp-card__photo {
+        top: -8.25%;
+        width: 111.25%;
+        height: 179.5%;
+    }
+
+    .exp-card--photo .exp-card__media .exp-card__photo--duotone {
+        left: 30%;
+        top: 7.5%;
+        width: 80%;
+        height: auto;
+    }
+
+    .exp-card--photo-only-547 .exp-card__media .exp-card__photo--duotone,
+    .exp-card--photo-orange .exp-card__media .exp-card__photo--duotone {
+        left: 12.75%;
+        top: 3.75%;
+        width: 87.25%;
+        height: 96.25%;
+    }
+
+    .exp-tag {
+        height: 26px;
+        padding: 0 15px;
+    }
+
     .exp-card__title {
         font-size: 28px;
+    }
+
+    .exp-card__title--mid {
+        font-size: 16px;
+        line-height: 1.2;
+    }
+
+    .exp-card__sub {
+        font-size: 14px;
+        line-height: 1.2;
+    }
+
+    .exp-card--photo .exp-card__overlay,
+    .exp-card--dark .exp-card__overlay,
+    .exp-card--blurred .exp-card__overlay,
+    .exp-card--polygons .exp-card__overlay {
+        padding: 17px 18px 20px;
+        gap: 12px;
+    }
+
+    /* Card G's centered media title scales with the smaller mobile media block */
+    .exp-card__media-title {
+        font-size: 32px;
     }
 
     .exp-card__kicker {
@@ -12059,10 +12614,87 @@ a.fs-f11__cta-pdf:focus-visible,
         font-size: 16px;
     }
 
+    /* Mobile exp-discuss layout per Figma node 286:4546+ (754px-tall section,
+       with heading + CTA centered vertically and the ring composition filling
+       the canvas like the base .section6__phase7 mobile rings).
+       Section breaks out of the parent .exp 16px gutter so the rings extend
+       edge-to-edge — needs the compound selector to outrank the base
+       .section6.section6__phase7 { width: 100% } rule. */
+    .exp-discuss.section6.section6__phase7 {
+        width: 100vw;
+        margin-left: calc(50% - 50vw);
+        margin-right: calc(50% - 50vw);
+    }
+
+    .exp-discuss.section6.section6__phase7 .section6__canvas {
+        min-height: 750px;
+        padding: 64px 0;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        gap: 24px;
+    }
+
+    /* Heading: 25px Medium, lh 1.1, max 330px wide (Figma 286:4560). */
+    .exp-discuss .section6__heading {
+        top: auto;
+        max-width: 330px;
+        font-size: 25px;
+        line-height: 1.1;
+        margin: 0;
+    }
+
+    /* CTA: dark pill 332×43 with 14px white label (Figma 286:4565). */
+    .exp-discuss .section6__cta {
+        position: relative;
+        left: auto;
+        top: auto;
+        transform: none;
+        width: 100%;
+        max-width: 332px;
+        height: 43px;
+        margin: 0 auto;
+        font-size: 14px;
+        line-height: 41px;
+        border-radius: 22px;
+    }
+
+    /* Ring composition: fill the canvas (inset:0, width/height 100%) and keep
+       the scroll-driven 360° rotation with scale(1.6) — same as the base
+       .section6__phase7 mobile rings. !important defeats the desktop
+       exp-discuss !important overrides. */
+    .exp-discuss.section6.section6__phase7 .section6__rings {
+        width: 100% !important;
+        height: 100% !important;
+        max-width: none !important;
+        inset: 0 !important;
+        left: auto !important;
+        top: auto !important;
+        transform: rotate(calc(360deg * var(--section6-progress, 0))) scale(1.6) !important;
+    }
+
     .exp-backstage__overlay {
         width: 90%;
         top: 16px;
         font-size: 16px;
+    }
+
+    /* Mobile: drop the backstage photo + quote and let the regular dark
+       footer render on its own #272727 background */
+    .exp-backstage {
+        min-height: 0;
+        padding-top: 0;
+        background: transparent;
+    }
+
+    .exp-backstage__photo,
+    .exp-backstage__overlay {
+        display: none;
+    }
+
+    .exp-backstage__footer-wrap {
+        background: #272727 !important;
     }
 }
 
@@ -12199,11 +12831,13 @@ a.fs-f11__cta-pdf:focus-visible,
 }
 
 .exp-backstage__arrow {
-    display: inline-block;
+    /* Figma 286:3062: arrow at y=134 sits ≈24px below the quote's last
+       line (text bottom ≈ y=109). Drop the arrow onto its own line and
+       center it inside the quote paragraph. */
+    display: block;
     width: 52px;
     height: 24px;
-    vertical-align: middle;
-    margin-left: 6px;
+    margin: 24px auto 0;
 }
 
 /* XL card duotone overlay (Figma 286:3253: image 546 + image 547 with
@@ -12424,27 +13058,549 @@ a.fs-f11__cta-pdf:focus-visible,
     color: #FFFFFF;
 }
 
-/* Remove all rounded corners on the experience page (tags keep pill shape) */
-.exp-page,
-.exp-page *,
-.exp-page *::before,
-.exp-page *::after {
-    border-radius: 0 !important;
-}
-
-.exp-page .exp-tag {
-    border-radius: 100px !important;
-}
-
-/* Footer subscribe button on experience page is white (not lime), per Figma */
-.exp-page footer .footer-btn {
-    background: #FFFFFF !important;
-    color: #2F2F2F !important;
-    border-color: #FFFFFF !important;
-    border-radius: 999px !important;
-}
-
 /* Footer on experience page is transparent — photo bg shows through */
 .exp-page footer {
     background: transparent !important;
 }
+
+
+/* ============================================================================
+   ABOUT PAGE  (Figma 276:449 desktop / 276:574 mobile)
+   ============================================================================
+   Page-specific layout for /about.html — "Об организаторах". Follows the
+   same canvas/zoom pattern as the rest of the site: desktop laid out at a
+   fixed 1440 px canvas with absolute positioning per Figma; zoom-ladder
+   for 771–1439; dedicated mobile rules ≤ 770.
+   ============================================================================ */
+
+.about-page {
+    background: #272727;
+}
+
+.about-page main.about {
+    position: relative;
+    width: 1440px;
+    max-width: 1440px;
+    margin: 0 auto;
+    min-height: 1960px;
+    background: #272727;
+    color: #FFFFFF;
+    font-family: 'Golos Text', 'Golos', sans-serif;
+    overflow: hidden;
+}
+
+/* Mobile-only mini brand mark — hidden on desktop */
+.about-page .about__brand-mini {
+    display: none;
+}
+
+/* ---- 1. HERO  (title + two-column intro with lime callout frame) ---- */
+.about-hero {
+    position: relative;
+    height: 0;
+}
+
+.about-hero__title {
+    position: absolute;
+    left: 63px;
+    top: 176.29px;
+    margin: 0;
+    width: 609px;
+    font-family: 'Golos Text', sans-serif;
+    font-weight: 400;
+    font-size: 35px;
+    line-height: 1.1;
+    letter-spacing: -0.7px;
+    color: #FFFFFF;
+}
+
+.about-hero__lead {
+    position: absolute;
+    left: 63px;
+    top: 272.58px;
+    margin: 0;
+    width: 870px;
+    font-family: 'Golos Text', sans-serif;
+    font-weight: 500;
+    font-size: 35px;
+    line-height: 1.1;
+    letter-spacing: -0.7px;
+    color: #FFFFFF;
+}
+
+.about-hero__aside {
+    position: absolute;
+    left: 961px;
+    top: 257.58px;
+    width: 410.719px;
+    margin: 0;
+    padding: 0;
+}
+
+.about-hero__callout {
+    margin: 0;
+    font-family: 'Golos Text', sans-serif;
+    font-weight: 500;
+    font-size: 20px;
+    line-height: 1.2;
+    color: #FFFFFF;
+}
+
+.about-hero__callout-frame {
+    display: inline-block;
+    border: 1px solid #D9FF66;
+    padding: 1px 8px 2px;
+    margin-right: 2px;
+    mix-blend-mode: plus-lighter;
+    line-height: 1.1;
+}
+
+/* ---- 2. CTA  (decorative chromatic shapes + email) ---- */
+.about-cta {
+    position: relative;
+    height: 0;
+}
+
+.about-cta__decor {
+    position: absolute;
+    left: 0;
+    top: 408px;
+    width: 1440px;
+    height: 620px;
+    pointer-events: none;
+}
+
+/* Single composite SVG with all 8 triangles (6 blurred chromatic + 2 crisp
+   orange/purple outlines). Replaces the previous swirl + polygon stack
+   — fidelity now comes from the SVG's own paths and filters. */
+.about-cta__triangles {
+    position: absolute;
+    left: 422px;
+    top: 0;
+    width: 1205.794px;
+    height: 973.734px;
+    pointer-events: none;
+}
+
+/* Mobile-only decoration elements — hidden on desktop */
+.about-cta__mob-swirl,
+.about-cta__mob-poly {
+    display: none;
+}
+
+/* Lime striped curve (Figma "Subtract") */
+.about-cta__curve {
+    position: absolute;
+    left: -253px;
+    top: 60px;
+    width: 666.436px;
+    height: 283.834px;
+    transform: rotate(16.11deg);
+    transform-origin: center center;
+    pointer-events: none;
+}
+
+/* CTA text */
+.about-cta__lead {
+    position: absolute;
+    left: 50%;
+    transform: translateX(-50%);
+    top: 762.07px;
+    margin: 0;
+    width: 534px;
+    text-align: center;
+    font-family: 'Golos Text', sans-serif;
+    font-weight: 500;
+    font-size: 28.571px;
+    line-height: 1.1;
+    color: #FFFFFF;
+}
+
+.about-cta__email {
+    position: absolute;
+    left: 50%;
+    transform: translateX(-50%);
+    top: 880.31px;
+    font-family: 'Golos Text', sans-serif;
+    font-weight: 500;
+    font-size: 44.893px;
+    line-height: 1.1;
+    color: #FFFFFF;
+    text-decoration: none;
+    text-align: center;
+    white-space: nowrap;
+}
+
+.about-cta__email:hover {
+    text-decoration: underline;
+    text-decoration-thickness: 1px;
+    text-underline-offset: 6px;
+}
+
+/* ---- 3. Founders / Organizer ---- */
+.about-orgs {
+    position: relative;
+    height: 0;
+}
+
+.about-orgs__col {
+    position: absolute;
+}
+
+.about-orgs__col--founders {
+    left: 64px;
+    top: 1254px;
+    width: 480px;
+}
+
+.about-orgs__col--organizer {
+    left: 618px;
+    top: 1254px;
+    width: 780px;
+}
+
+.about-orgs__heading {
+    margin: 0 0 51px;
+    font-family: 'Golos Text', sans-serif;
+    font-weight: 400;
+    font-size: 20px;
+    line-height: 1.1;
+    color: #FFFFFF;
+    white-space: nowrap;
+}
+
+.about-orgs__col--organizer .about-orgs__heading {
+    white-space: nowrap;
+}
+
+.about-orgs__logos {
+    display: flex;
+    align-items: center;
+    gap: 20px;
+    margin-bottom: 47px;
+}
+
+.about-orgs__logo {
+    display: block;
+}
+
+.about-orgs__logo--kosimp {
+    width: 189.03px;
+    height: 55.979px;
+}
+
+.about-orgs__logo--mdoo {
+    width: 100px;
+    height: auto;
+}
+
+.about-orgs__col--organizer .about-orgs__logo--sreda {
+    width: 121.5px;
+    height: auto;
+    margin: 0 0 48px;
+}
+
+.about-orgs__text {
+    margin: 0 0 16px;
+    width: 423px;
+    font-family: 'Golos Text', sans-serif;
+    font-weight: 500;
+    font-size: 16px;
+    line-height: 1.2;
+    letter-spacing: -0.32px;
+    color: #FFFFFF;
+}
+
+.about-orgs__col--organizer .about-orgs__text--lead {
+    width: 424px;
+    letter-spacing: 0;
+    margin-bottom: 124px;
+}
+
+.about-orgs__col--organizer .about-orgs__text--sub {
+    width: 758px;
+    margin-bottom: 24px;
+}
+
+.about-orgs__list {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+}
+
+.about-orgs__item {
+    position: relative;
+    padding-left: 22px;
+    width: 290px;
+    margin: 0 0 21px;
+    font-family: 'Golos Text', sans-serif;
+    font-weight: 500;
+    font-size: 16px;
+    line-height: 1.2;
+    color: #FFFFFF;
+}
+
+.about-orgs__dot {
+    position: absolute;
+    left: 0;
+    top: 7px;
+    width: 6.25px;
+    height: 6.25px;
+    background: #C2F04F;
+    mix-blend-mode: plus-lighter;
+}
+
+
+/* ---- Zoom ladder for intermediate viewports (771–1439) ---- */
+@media (min-width: 1381px) and (max-width: 1439px) {
+    .about-page { zoom: 0.94; }
+}
+@media (min-width: 1281px) and (max-width: 1380px) {
+    .about-page { zoom: 0.87; }
+}
+@media (min-width: 1181px) and (max-width: 1280px) {
+    .about-page { zoom: 0.80; }
+}
+@media (min-width: 1081px) and (max-width: 1180px) {
+    .about-page { zoom: 0.73; }
+}
+@media (min-width: 971px) and (max-width: 1080px) {
+    .about-page { zoom: 0.66; }
+}
+@media (min-width: 871px) and (max-width: 970px) {
+    .about-page { zoom: 0.59; }
+}
+@media (min-width: 771px) and (max-width: 870px) {
+    .about-page { zoom: 0.52; }
+}
+
+
+/* ---- Mobile (≤ 770) ---- */
+@media (max-width: 770px) {
+
+    .about-page main.about {
+        position: relative;
+        width: 100%;
+        max-width: 100%;
+        min-height: auto;
+        padding: 0;
+        overflow: hidden;
+    }
+
+    /* Mini brand mark from Figma overlaps the existing burger button — keep
+       hidden since the burger handles navigation on mobile. */
+    .about-page .about__brand-mini {
+        display: none;
+    }
+
+    /* Hero — restack flow */
+    .about-hero {
+        position: relative;
+        height: auto;
+        padding: 100px 20px 0;
+    }
+
+    .about-page .about-hero__title {
+        position: static;
+        width: auto;
+        font-size: 25px;
+        line-height: 1.1;
+        letter-spacing: -0.5px;
+        margin: 0 0 30px;
+    }
+
+    .about-page .about-hero__lead {
+        position: static;
+        width: auto;
+        max-width: 336px;
+        font-size: 22px;
+        line-height: 1.2;
+        letter-spacing: -0.44px;
+        margin: 0 0 32px;
+    }
+
+    .about-page .about-hero__aside {
+        position: static;
+        width: auto;
+        max-width: 336px;
+        margin: 0;
+    }
+
+    .about-page .about-hero__callout {
+        font-size: 14px;
+        line-height: 1.35;
+    }
+
+    .about-page .about-hero__callout-frame {
+        padding: 1px 5px 1px;
+        font-size: 14px;
+        line-height: 1.2;
+    }
+
+    /* CTA */
+    .about-cta {
+        position: relative;
+        height: auto;
+        padding: 120px 20px 80px;
+        text-align: center;
+    }
+
+    .about-page .about-cta__decor {
+        position: absolute;
+        inset: 0;
+        width: 100%;
+        height: 100%;
+        top: 0;
+        left: 0;
+    }
+
+    /* Mobile: hide desktop composite, use separate mobile assets with
+       Figma-accurate rotations (276:686 orange 124.08deg, 276:687 lime
+       118.44deg, swirl cluster baked into about_mob_swirl.png). */
+    .about-page .about-cta__triangles {
+        display: none;
+    }
+
+    .about-page .about-cta__mob-swirl,
+    .about-page .about-cta__mob-poly {
+        display: block;
+        position: absolute;
+        pointer-events: none;
+    }
+
+    /* Chromatic ellipse cluster — pre-composited PNG from Figma (375×766) */
+    .about-page .about-cta__mob-swirl {
+        left: 0;
+        top: -120px;
+        width: 100%;
+        height: auto;
+        mix-blend-mode: plus-lighter;
+    }
+
+    /* Orange triangle outline — Figma left -241.11px top 727.89px size 800
+       rotated 124.08deg; relative to .about-cta (which starts after hero
+       ~457px) we shift the local top by ~270px. */
+    .about-page .about-cta__mob-poly--orange {
+        left: -241px;
+        top: 90px;
+        width: 576px;
+        height: 576px;
+        transform: rotate(124.08deg);
+        mix-blend-mode: plus-lighter;
+    }
+
+    /* Lime triangle outline — Figma left -343.94 top 792.21 size 718
+       rotated 118.44deg, inner content 530.382px square. */
+    .about-page .about-cta__mob-poly--lime {
+        left: -250px;
+        top: 150px;
+        width: 530px;
+        height: 530px;
+        transform: rotate(118.44deg);
+        mix-blend-mode: plus-lighter;
+    }
+
+    .about-page .about-cta__curve {
+        left: 22px;
+        top: 130px;
+        width: 333px;
+        height: 142px;
+        transform: rotate(20.85deg);
+    }
+
+    .about-page .about-cta__lead {
+        position: relative;
+        left: auto;
+        top: auto;
+        transform: none;
+        width: auto;
+        max-width: 312px;
+        margin: 0 auto 24px;
+        font-size: 16px;
+        text-align: center;
+    }
+
+    .about-page .about-cta__email {
+        position: relative;
+        left: auto;
+        top: auto;
+        transform: none;
+        display: inline-block;
+        font-size: 25px;
+        text-align: center;
+        margin: 0 auto;
+    }
+
+    /* Orgs */
+    .about-orgs {
+        position: relative;
+        height: auto;
+        padding: 40px 20px 60px;
+    }
+
+    .about-page .about-orgs__col {
+        position: static;
+        width: auto;
+        max-width: 100%;
+    }
+
+    .about-page .about-orgs__col--founders {
+        margin-bottom: 60px;
+    }
+
+    .about-page .about-orgs__heading {
+        font-size: 20px;
+        margin-bottom: 36px;
+        white-space: normal;
+    }
+
+    .about-page .about-orgs__logos {
+        gap: 28px;
+        margin-bottom: 28px;
+    }
+
+    .about-page .about-orgs__logo--kosimp {
+        width: 143.534px;
+        height: 42.506px;
+    }
+
+    .about-page .about-orgs__logo--mdoo {
+        width: 80px;
+        height: auto;
+    }
+
+    .about-page .about-orgs__col--organizer .about-orgs__logo--sreda {
+        width: 120px;
+        margin: 0 0 36px;
+    }
+
+    .about-page .about-orgs__text {
+        width: auto;
+        max-width: 100%;
+        font-size: 14px;
+        line-height: 1.35;
+        letter-spacing: -0.28px;
+    }
+
+    .about-page .about-orgs__col--organizer .about-orgs__text--lead {
+        width: auto;
+        margin-bottom: 40px;
+    }
+
+    .about-page .about-orgs__col--organizer .about-orgs__text--sub {
+        width: auto;
+        margin-bottom: 24px;
+    }
+
+    .about-page .about-orgs__item {
+        width: auto;
+        max-width: 100%;
+        font-size: 14px;
+        line-height: 1.2;
+        padding-left: 22px;
+        margin-bottom: 18px;
+    }
+}
+
+
+

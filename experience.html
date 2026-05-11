@@ -29,98 +29,7 @@
     <link rel="stylesheet" href="./css/styles.css" />
   </head>
   <body class="exp-page">
-    <button type="button" class="header-burger__icon" aria-label="Открыть меню">
-      <svg
-        width="20"
-        height="17"
-        viewBox="0 0 20 17"
-        fill="none"
-        xmlns="http://www.w3.org/2000/svg"
-        aria-hidden="true"
-      >
-        <path
-          d="M0 1.24765C0 1.93671 0.558592 2.4953 1.24765 2.4953H18.7523C19.4414 2.4953 20 1.93671 20 1.24765C20 0.558592 19.4414 0 18.7523 0H1.24765C0.558592 0 0 0.558592 0 1.24765Z"
-          fill="white"
-        />
-        <path
-          d="M0 15.2242C0 15.9133 0.558592 16.4719 1.24765 16.4719H18.7523C19.4414 16.4719 20 15.9133 20 15.2242C20 14.5352 19.4414 13.9766 18.7523 13.9766H1.24765C0.558592 13.9766 0 14.5352 0 15.2242Z"
-          fill="white"
-        />
-        <path
-          d="M0 8.23202C0 8.92108 0.558592 9.47967 1.24765 9.47967H18.7523C19.4414 9.47967 20 8.92108 20 8.23202C20 7.54297 19.4414 6.98438 18.7523 6.98438H1.24765C0.558592 6.98438 0 7.54297 0 8.23202Z"
-          fill="white"
-        />
-      </svg>
-    </button>
-
-    <header>
-      <div class="container">
-        <nav class="topnav header_inside">
-          <a
-            href="index.html"
-            class="topnav__link topnav__link--tema header_inside-item"
-            >Тема</a
-          >
-          <a
-            href="fullstudy.html"
-            class="topnav__link topnav__link--issledovanie header_inside-item"
-            >Исследование</a
-          >
-          <a
-            href="experience.html"
-            class="topnav__link topnav__link--opyt topnav__link--active header_inside-item"
-            >Опыт</a
-          >
-          <a
-            href="javascript:void(0);"
-            class="topnav__link topnav__link--sobytiya header_inside-item"
-            aria-haspopup="true"
-            aria-expanded="false"
-            aria-controls="topnav-events-popup"
-          >
-            <span class="topnav__label">События</span>
-            <svg
-              class="topnav__plus"
-              width="9.92"
-              height="9.92"
-              viewBox="0 0 9.92 9.92"
-              fill="none"
-              xmlns="http://www.w3.org/2000/svg"
-              aria-hidden="true"
-            >
-              <line
-                class="topnav__plus-v"
-                x1="4.96"
-                y1="0"
-                x2="4.96"
-                y2="9.92"
-                stroke="currentColor"
-                stroke-width="0.816"
-              />
-              <line
-                x1="0"
-                y1="4.96"
-                x2="9.92"
-                y2="4.96"
-                stroke="currentColor"
-                stroke-width="0.816"
-              />
-            </svg>
-          </a>
-          <a
-            href="https://fundr.sredasvoih.com/about/"
-            class="topnav__link topnav__link--about header_inside-item"
-            >Об организаторах</a
-          >
-          <div
-            class="topnav__events-popup"
-            id="topnav-events-popup"
-            role="menu"
-            aria-hidden="true"
-          ></div>
-        </nav>
-      </div>
-    </header>
+    <div id="site-header"></div>
 
     <main class="exp">
       <!-- Hero (Figma 286:2970 + 286:2991 + 286:3098) -->
@@ -146,6 +55,13 @@
         <img
           src="./img/figma/exp_lines_sm.svg"
           class="exp-hero__shape exp-hero__shape--lines-sm"
+          alt=""
+          aria-hidden="true"
+        />
+        <!-- Mobile-only full-bleed portrait (Figma 286:5425 image 575) -->
+        <img
+          src="./img/figma/exp_card_b_image546.png"
+          class="exp-hero__photo"
           alt=""
           aria-hidden="true"
         />
@@ -220,6 +136,23 @@
       <!-- Card grid: 13 материалов (Figma 286:3111..3225).
            Cards rendered from data/exp-cards.json by js/experience.js -->
       <section class="exp-grid" aria-label="Материалы"></section>
+
+      <!-- Mobile-only load-more toggle: collapsed to 3 cards by default,
+           clicking expands to show all matching cards (per filter). -->
+      <button
+        type="button"
+        class="exp-loadmore"
+        data-state="collapsed"
+        hidden
+      >
+        <img
+          src="./img/figma/exp_loadmore_arrow.svg"
+          class="exp-loadmore__icon"
+          alt=""
+          aria-hidden="true"
+        />
+        <span class="exp-loadmore__label">Это&nbsp;не&nbsp;всё.<br>Загрузить ещё</span>
+      </button>
 
       <!-- Partners (Figma 286:3014..3061) — copied from section9 layout -->
       <section
@@ -344,6 +277,14 @@
                 </svg>
               </button>
             </div>
+
+            <!-- Mobile-only carousel pagination dots (JS populates one per
+                 .s9__col on load; hidden on desktop). -->
+            <div
+              class="s9__dots"
+              role="tablist"
+              aria-label="Перелистать партнёров"
+            ></div>
           </div>
         </div>
       </section>
@@ -395,177 +336,14 @@
 
         <div class="container-wrapper__solid exp-backstage__footer-wrap">
           <div class="container">
-            <footer>
-          <div class="footer-block footer-block__1">
-            <div class="footer-wrap1">
-              <a href="https://sredasvoih.com/" target="_blank">
-                <img src="./img/icons/logo_footer.svg" class="footer-logo" />
-              </a>
-              <p class="footer-text1">
-                Пространство в&nbsp;CITYе<br />
-                для благотворительных проектов и&nbsp;тех, кто их&nbsp;создаёт.
-              </p>
-            </div>
-            <p class="footer-text2">
-              Участвуйте в&nbsp;программе и&nbsp;используйте студии, помещения,
-              образовательные модули и&nbsp;другие ресурсы для ваших социальных
-              проектов.
-            </p>
-            <div class="footer-wrap2">
-              <div class="footer-wrap3">
-                <a
-                  href="https://fundr.sredasvoih.com/about/"
-                  class="footer-link1"
-                  >Об&nbsp;организаторах</a
-                >
-                <div class="footer-wrap4">
-                  <a href="https://t.me/sredasvoih" target="_blank">
-                    <img src="./img/icons/tg.svg" class="footer-social"
-                  /></a>
-                  <a href="https://vk.com/sredasvoih" target="_blank">
-                    <img src="./img/icons/vk.svg" class="footer-social"
-                  /></a>
-                </div>
-              </div>
-              <p class="footer-text3">2026</p>
-            </div>
-          </div>
-          <div class="footer-block footer-block__2">
-            <p class="footer-text4">
-              Подпишитесь на&nbsp;анонсы Среды, чтобы не&nbsp;пропускать события
-              в&nbsp;рамках этого и&nbsp;других проектов
-            </p>
-            <form
-              action="https://api.sendsay.com/general/api/v100/json/mdoo"
-              method="POST"
-              class="subscribe"
-            >
-              <input
-                type="email"
-                name="email"
-                class="footer-input footer-input__email"
-                autocomplete="email"
-                placeholder="Электронная почта*"
-                required=""
-              />
-              <input
-                type="text"
-                name="name"
-                class="footer-input footer-input__name"
-                minlength="2"
-                placeholder="Имя*"
-                required=""
-              />
-
-              <div class="footer-checkbox__wrap">
-                <label class="footer-checkbox__label">
-                  <input
-                    type="checkbox"
-                    name="footer-checkbox__agreement"
-                    required=""
-                    class="footer-checkbox__input"
-                  />
-                  <span class="footer-checkbox__span"
-                    >Я&nbsp;принимаю
-                    <a
-                      href="https://rubitime.com/agreements/user-agreement"
-                      target="_blank"
-                      class="footer-checkbox__link"
-                      >условия пользовательского соглашения</a
-                    ></span
-                  >
-                </label>
-                <label class="footer-checkbox__label">
-                  <input
-                    type="checkbox"
-                    name="footer-checkbox__agreement"
-                    required=""
-                    class="footer-checkbox__input"
-                  />
-                  <span class="footer-checkbox__span"
-                    ><a
-                      href="https://sredasvoih.com/terms/"
-                      target="_blank"
-                      class="footer-checkbox__link"
-                      >Согласие на&nbsp;обработку персональных данных</a
-                    ></span
-                  >
-                </label>
-              </div>
-              <button type="submit" class="footer-btn">Подписаться</button>
-            </form>
-          </div>
-        </footer>
+            <footer id="site-footer"></footer>
           </div>
         </div>
       </section>
     </main>
 
-    <div class="burger-menu__bg"></div>
-    <div class="burger-menu">
-      <div class="burger-menu__wrap">
-        <div>
-          <img
-            src="./img/icons/burger_menu__close.svg"
-            class="burger-menu__close"
-          />
-          <div class="header_inside">
-            <div class="header_inside-wrap">
-              <a href="index.html" class="header_inside-item">Тема</a>
-              <a
-                href="fullstudy.html"
-                class="header_inside-item header_inside-item_custom"
-              >
-                Исследование
-                <div class="header_inside-hr"></div>
-                Опыт
-              </a>
-            </div>
-            <div class="header_inside-wrap">
-              <a
-                href="javascript:void(0);"
-                class="header_inside-item header_inside-item_custom2 burger-menu__events-toggle"
-                aria-haspopup="true"
-                aria-expanded="false"
-                aria-controls="burger-events-popup"
-              >
-                События
-                <img src="./img/icons/plus.svg" />
-              </a>
-              <div
-                class="burger-menu__events-popup"
-                id="burger-events-popup"
-                role="menu"
-                aria-hidden="true"
-              ></div>
-              <a
-                href="https://fundr.sredasvoih.com/about/"
-                class="header_inside-item"
-                >Об&nbsp;организаторах</a
-              >
-            </div>
-          </div>
-        </div>
-        <div>
-          <p class="burger-menu__text1">спецпроект</p>
-          <a href="https://sredasvoih.com/" target="_blank">
-            <img
-              src="./img/figma/logo_specproject.svg"
-              class="burger-menu__logo"
-            />
-          </a>
-          <div class="footer-wrap4">
-            <a href="https://t.me/sredasvoih" target="_blank">
-              <img src="./img/icons/tg.svg" class="footer-social"
-            /></a>
-            <a href="https://vk.com/sredasvoih" target="_blank">
-              <img src="./img/icons/vk.svg" class="footer-social"
-            /></a>
-          </div>
-        </div>
-      </div>
-    </div>
-
+    <script defer src="./js/header.js"></script>
+    <script defer src="./js/footer.js"></script>
     <script defer src="./js/common.js"></script>
     <script defer src="./js/main.js"></script>
     <script defer src="./js/experience.js"></script>
