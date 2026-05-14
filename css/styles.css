@@ -106,6 +106,23 @@ button {
     mix-blend-mode: plus-lighter;
 }
 
+/* Explicit roster for orange/purple text elements whose class names don't
+   follow the `--orange` / `--purple` modifier convention (kept here so the
+   chromatic blend policy stays in one place instead of leaking into each
+   component rule). When renaming any of these, drop the entry below. */
+.s3p5__minicopy-orange,
+.s3p5__minicopy-purple,
+.fs-f3__label,
+.fs-f3__callout,
+.fs-f3__stat-percent,
+.fs-f5__gen-body,
+.fs-f6__stat-num,
+.fs-f6__stat-text,
+.fs-f10__body--right,
+.fs-f10__body-hl {
+    mix-blend-mode: plus-lighter;
+}
+
 
 /* ============================================================================
    LIME UNDERLINE RULE  ·  DO NOT REMOVE
@@ -825,21 +842,18 @@ header {
     text-decoration: none;
     white-space: nowrap;
     padding: 0;
-    color: var(--text-muted-50);
-    /* default muted */
+    color: var(--text-white);
 }
 
-/* Defeat main.css's `.header_inside-item { color:#fff !important }` and
-   the `-disabled` rule so per-link Figma colors win.                     */
-.topnav .topnav__link.header_inside-item,
+/* Launch state: every nav item is fully active (no 50% dim). The
+   `--active` modifier adds a lime underline via ::after below. */
+.topnav .topnav__link.header_inside-item {
+    color: var(--text-white) !important;
+}
+
+/* Keep the disabled hook available for any future placeholders. */
 .topnav .topnav__link.header_inside-item-disabled {
     color: var(--text-muted-50) !important;
-}
-
-.topnav .topnav__link--tema.header_inside-item,
-.topnav .topnav__link--about.header_inside-item {
-    color: var(--text-white) !important;
-    /* #FFFFFF */
 }
 
 /* Exact x-positions from Figma layout dump.                              */
@@ -856,6 +870,17 @@ header {
 .topnav .topnav__link--opyt {
     left: 429.99px;
     width: 42px;
+}
+
+/* Short HR between "Исследование" and "Опыт" — matches maket from Figma. */
+.topnav .topnav__hr {
+    position: absolute;
+    left: 360px;
+    top: 28.5px;
+    width: 57px;
+    height: 1px;
+    background: #FFFFFF;
+    opacity: 0.5;
 }
 
 .topnav .topnav__link--sobytiya {
@@ -904,7 +929,7 @@ header {
     /* 27.27 - 21.19 */
     width: 9.92px;
     height: 9.92px;
-    color: var(--text-muted-50);
+    color: var(--text-white);
     /* stroke=currentColor */
     display: block;
 }
@@ -1915,7 +1940,7 @@ body>.header-burger__icon {
     margin: 0;
     padding: 0;
     font-family: 'Golos', 'Golos Text', sans-serif;
-    font-weight: 500;
+    font-weight: 400;
     font-size: 30px;
     line-height: 1.2;
     /* 120% */
@@ -1959,8 +1984,7 @@ body>.header-burger__icon {
     font-family: 'Golos Text', 'Golos', sans-serif;
     font-weight: 400;
     font-size: 16px;
-    line-height: 1.1;
-    /* 110% */
+    line-height: 1.2;
     color: var(--text-white);
     /* #FBFBFB */
 }
@@ -1978,7 +2002,7 @@ body>.header-burger__icon {
     margin: 0;
     padding: 0;
     font-family: 'Golos', 'Golos Text', sans-serif;
-    font-weight: 500;
+    font-weight: 400;
     font-size: 30px;
     line-height: 1.2;
     letter-spacing: -0.02em;
@@ -2570,6 +2594,9 @@ body>.header-burger__icon {
     letter-spacing: -0.02em;
     isolation: isolate;
     /* contain plus-lighter blend to the 2 numbers */
+    background: var(--bg-primary);
+    /* dark backdrop inside the isolated context so plus-lighter lifts
+       orange/purple against #272727 (matches section3 parent) */
 }
 
 .section3__phase5 .s3p5__mega-num {
@@ -3027,7 +3054,9 @@ body>.header-burger__icon {
     height: 180px;
     display: block;
     isolation: isolate;
-    /* contain plus-lighter blend to the 2 words */
+    background: var(--bg-primary);
+    /* contain plus-lighter blend to the 2 words AND give them a dark
+       backdrop inside the isolated context for the chromatic lift */
 }
 
 .section3__phase5 .s3p5__outline-word {
@@ -4009,18 +4038,19 @@ body>.header-burger__icon {
     /* minmax(0, auto) lets long pill labels shrink and the connector keep at
        least 20px so the divider line always renders between the two pills. */
     grid-template-columns: minmax(0, auto) minmax(20px, 1fr) auto;
-    grid-template-rows: auto auto auto;
+    grid-template-rows: auto auto auto auto;
     grid-template-areas:
         "media    media     media"
         "pillL    connector pillR"
-        "heading  heading   heading";
+        "heading  heading   heading"
+        "caption  caption   caption";
     align-items: center;
     column-gap: 8px;
     row-gap: 14px;
 }
 
-/* All cards share the same height now that bylines were removed — keeps the
-   row visually uniform and the media boxes line up bottom-to-bottom. */
+/* All cards share the same min-height — keeps the row visually uniform and
+   the media boxes line up bottom-to-bottom. Stories grow with caption row. */
 .section8__phase8 .s8__card,
 .section8__phase8 .s8__card--event,
 .section8__phase8 .s8__card--story,
@@ -4028,7 +4058,8 @@ body>.header-burger__icon {
 .section8__phase8 .s8__card--pos2,
 .section8__phase8 .s8__card--pos3,
 .section8__phase8 .s8__card--pos4 {
-    height: 395px;
+    min-height: 395px;
+    align-content: start;
 }
 
 /* --- Child placement inside the grid card (desktop). Mobile re-applies the
@@ -4076,6 +4107,21 @@ body>.header-burger__icon {
     grid-area: heading;
 }
 
+.section8__phase8 .s8__caption {
+    position: relative;
+    grid-area: caption;
+    align-self: start;
+    width: 100%;
+    margin: 0;
+    padding: 0;
+    font-family: 'Golos Text', 'Golos', sans-serif;
+    font-weight: 500;
+    font-size: 14px;
+    line-height: 1.2;
+    letter-spacing: -0.28px;
+    color: #FFFFFF;
+}
+
 /* --- Thumbnail wrapper (sits in the `media` grid area; aspect 1:1 at card
        width). The variant-specific children stack inside via absolute pos. */
 .section8__phase8 .s8__media {
@@ -4084,6 +4130,39 @@ body>.header-burger__icon {
     border: 0;
     background: #2F2F2F;
     overflow: hidden;
+}
+
+/* --- story-duotone (Figma 317:1257): white bg + base portrait full-bleed +
+       purple-tinted overlay portrait via mix-blend-mode: darken at 50% opacity. */
+.section8__phase8 .s8__media--story-duotone {
+    position: relative;
+    background: #FFFFFF;
+}
+
+.section8__phase8 .s8__media--story-duotone .s8__media-base {
+    position: absolute;
+    /* Figma frame 294.988 — base img at left:-33, top:-25, w:328.324, h:529.239 */
+    left: -11.19%;
+    top: -8.47%;
+    width: 111.3%;
+    height: auto;
+    object-fit: contain;
+    z-index: 0;
+    pointer-events: none;
+}
+
+.section8__phase8 .s8__media--story-duotone .s8__media-overlay {
+    position: absolute;
+    /* overlay at left:61.95, top:26.28, w:379.54, h:506.054 — partial bleed */
+    left: 21%;
+    top: 8.9%;
+    width: 128.7%;
+    height: auto;
+    object-fit: contain;
+    mix-blend-mode: darken;
+    opacity: 0.5;
+    z-index: 1;
+    pointer-events: none;
 }
 
 /* --- duotone (Card B-style): full-bleed photo + duotone overlay (mix-blend). */
@@ -4151,7 +4230,6 @@ body>.header-burger__icon {
 .section8__phase8 .s8__media--polygons {
     position: relative;
     background: #272727;
-    border: 3px solid #C2F04F;
 }
 
 .section8__phase8 .s8__media--polygons .s8__media-svg {
@@ -4318,16 +4396,16 @@ body>.header-burger__icon {
     width: 100%;
 }
 
-/* --- Heading (Golos Medium 20 / 120% / -2%) — placed via grid (heading
-       area); typography + box only here. --- */
+/* --- Heading (Golos Medium 16 / 100% / -0.32px tracking) per Figma 317:1267.
+       Placed via grid (heading area); typography + box only here. --- */
 .section8__phase8 .s8__heading {
     width: 100%;
     margin: 0;
     font-family: 'Golos', 'Golos Text', sans-serif;
-    font-weight: 500;
-    font-size: 20px;
-    line-height: 120%;
-    letter-spacing: -0.02em;
+    font-weight: 400;
+    font-size: 16px;
+    line-height: 1;
+    letter-spacing: -0.32px;
     color: #FFFFFF;
 }
 
@@ -4536,7 +4614,7 @@ body>.header-burger__icon {
             "media    media     media"
             "pillL    connector pillR"
             "heading  heading   heading"
-            "byline   byline    byline";
+            "caption  caption   caption";
         align-items: center;
         column-gap: 8px;
         row-gap: 14px;
@@ -4584,20 +4662,12 @@ body>.header-burger__icon {
         grid-area: heading;
     }
 
-    .section8__phase8 .s8__byline {
+    .section8__phase8 .s8__caption {
         position: relative;
         left: auto;
         top: auto;
         width: 100%;
-        grid-area: byline;
-    }
-
-    /* event cards have no byline — keep grid template valid by hiding the row */
-    .section8__phase8 .s8__card--event {
-        grid-template-areas:
-            "media    media     media"
-            "pillL    connector pillR"
-            "heading  heading   heading";
+        grid-area: caption;
     }
 
     /* --- Carousel pagination dots --------------------------------------- */
@@ -5508,6 +5578,9 @@ footer .footer-btn:focus-visible {
     width: 1452px;
     height: 390.63px;
     z-index: 4;
+    background: var(--bg-primary);
+    /* dark backdrop so plus-lighter blend on the highlights below can
+       lift the orange/purple against #272727 within this stacking context */
 }
 
 /* Body type: Golos 20 / 120% / -2% / weight 500 (style_10VK6G). */
@@ -5523,6 +5596,10 @@ footer .footer-btn:focus-visible {
     letter-spacing: -0.02em;
 }
 
+.fs-hero__intro-highlight {
+    mix-blend-mode: plus-lighter;
+}
+
 /* Top half of 282:527 (white). The Figma layer is one tall paragraph with
    internal line-breaks, but the visible flow has two highlight inserts in
    the middle — so we split it into two CSS paragraphs (--1 above, --2 below
@@ -5533,6 +5610,7 @@ footer .footer-btn:focus-visible {
     top: 0;
     width: 1020px;
     color: var(--text-white);
+    text-align: center;
 }
 
 /* Continuation paragraph — sits below the two highlight lines. Spec doesn't
@@ -5543,11 +5621,12 @@ footer .footer-btn:focus-visible {
     top: 145px;
     width: 1020px;
     color: var(--text-white);
+    text-align: center;
 }
 
 /* Highlight (282:526 orange — at parent-rel 0,81; full-bleed left). */
 .fs-hero__intro-highlight--orange {
-    left: 0;
+    left: 70px;
     top: 81px;
     width: 1020px;
     color: var(--color-orange);
@@ -5611,22 +5690,22 @@ footer .footer-btn:focus-visible {
 .fs-hero__sreda-text {
     width: 684.33px;
     flex-shrink: 0;
-    display: flex;
-    flex-direction: column;
-    gap: 2px;
 }
 
 .fs-hero__sreda-label {
-    margin: 0;
+    display: inline;
+    margin: 0 20px 0 0;
     font-family: 'Golos', 'Golos Text', sans-serif;
     font-weight: 400;
     font-size: 16px;
-    line-height: 110%;
+    line-height: 120%;
     color: #939393;
+    white-space: nowrap;
     /* spec fill_UDZ6VF */
 }
 
 .fs-hero__sreda-body {
+    display: inline;
     margin: 0;
     font-family: 'Golos', 'Golos Text', sans-serif;
     font-weight: 400;
@@ -5820,7 +5899,7 @@ footer .footer-btn:focus-visible {
     top: 137px;
     width: 1441px;
     height: 643px;
-    background: linear-gradient(180deg, #C2F04F 0%, rgba(47, 47, 47, 0) 95%);
+    background: linear-gradient(180deg, #C2F04F -11.86%, rgba(47, 47, 47, 0) 94.97%);
     pointer-events: none;
     z-index: 0;
 }
@@ -5922,40 +6001,54 @@ footer .footer-btn:focus-visible {
 }
 
 .fs-f2__row--y397 {
-    top: 397px;
+    top: 388px;
+    left: 225px
 }
 
 .fs-f2__row--y445 {
-    top: 445px;
+    top: 435px;
+    left: 225px
 }
 
 .fs-f2__row--y494 {
-    top: 494px;
+    top: 484px;
+    left: 225px
 }
 
 .fs-f2__row--y542 {
-    top: 542px;
+    top: 532px;
+    left: 225px
 }
 
 .fs-f2__row--y590 {
-    top: 590px;
+    top: 580px;
+    left: 225px
 }
 
 /* Lime 9×9 bullet rendered as ::before, sized + positioned to land at
-   frame x=192 (39 px to the left of the row's text origin). The dot's
-   spec-y is the same as the row's text-y so vertical-align: middle works. */
+   frame x=192 (39 px to the left of the row's text origin). Top is set
+   per row-type so the dot is centered on the first line of text — the
+   line-height differs between label (120%) and stat (90%) rows. */
 .fs-f2__row::before {
     content: "";
     position: absolute;
     left: -39px;
     /* 192 - 231 */
-    top: 0.45em;
-    /* roughly text mid-line */
     width: 9px;
     height: 9px;
     border-radius: 50%;
     background: #C2F04F;
     /* fill_FHZNGA */
+}
+
+.fs-f2__row--label::before {
+    top: calc(0.6em - 4.5px);
+    /* center on 24px first line (line-height 120%) */
+}
+
+.fs-f2__row--stat::before {
+    top: calc(0.45em - 4.5px);
+    /* center on 18px first line (line-height 90%) */
 }
 
 /* ============================================================
@@ -6096,11 +6189,12 @@ footer .footer-btn:focus-visible {
    extends downward toward the hint.                                   */
 .fs-f2__cta-divider {
     position: absolute;
-    left: calc(160px + 433px);
+    left: 50%;
     top: calc(677px + 552px);
     width: 1px;
     height: calc(107px + 173px * var(--fs-f2-divider-progress, 0));
     background: rgba(255, 255, 255, 0.8);
+    transform: translateX(-50%);
     z-index: 4;
     will-change: height;
 }
@@ -6277,14 +6371,21 @@ footer .footer-btn:focus-visible {
         box-sizing: border-box;
         font-size: 16px;
         font-weight: 500;
-        line-height: 130%;
+        line-height: 24px;
+        /* match the 24px grid-cell height so each text line sits inside one cell */
     }
 
     .fs-f2__row::before {
         left: 56px;
-        top: 0.5em;
         width: 6px;
         height: 6px;
+        transform: none;
+    }
+
+    .fs-f2__row--label::before,
+    .fs-f2__row--stat::before {
+        top: 9px;
+        /* center on the first 24px grid cell: 12 (cell mid) - 3 (half dot) */
     }
 
     /* CTA art — wider/flatter ellipse per Figma; spans nearly the full
@@ -6961,6 +7062,9 @@ footer .footer-btn:focus-visible {
     /* spec ellipse bbox */
     isolation: isolate;
     /* contain plus-lighter blend to this graph */
+    background: var(--bg-primary);
+    /* dark backdrop inside the isolated context so plus-lighter on the
+       caps/crescents has #272727 to lift against (matches .fs-f4 parent) */
 }
 
 /* --- Crescent pie shapes (the "C" / horseshoe shapes Figma actually
@@ -7068,11 +7172,8 @@ footer .footer-btn:focus-visible {
 }
 
 /* Captions (282:724 purple + 282:725 orange). Spec puts both at sub (0, 562)
-   — they overlap chromatically using the same outline-stack pattern as
-   .s3p5__outline-top: transparent fill + coloured -webkit-text-stroke, with
-   mix-blend-mode: plus-lighter so the two paragraphs additively blend
-   (purple + orange → near-white at overlap). The parent .fs-f4__graph has
-   isolation: isolate to contain the blend.                                  */
+   — solid-fill brand text with mix-blend-mode: plus-lighter so the two
+   colours additively blend against the dark canvas. */
 .fs-f4__graph-cap {
     position: absolute;
     left: 0;
@@ -7085,20 +7186,19 @@ footer .footer-btn:focus-visible {
     font-size: 20px;
     line-height: 130%;
     letter-spacing: -0.02em;
-    color: transparent;
-    -webkit-text-fill-color: transparent;
-    -webkit-text-stroke-width: 1px;
-    paint-order: stroke fill;
+    -webkit-text-stroke-width: 0;
     mix-blend-mode: plus-lighter;
     transition: opacity 0.3s ease;
 }
 
 .fs-f4__graph-cap--purple {
-    -webkit-text-stroke-color: var(--color-purple);
+    color: var(--color-purple);
+    mix-blend-mode: plus-lighter;
 }
 
 .fs-f4__graph-cap--orange {
-    -webkit-text-stroke-color: var(--color-orange);
+    color: var(--color-orange);
+    mix-blend-mode: plus-lighter;
 }
 
 /* Single-side toggle states fade out the other caption (mirrors
@@ -7294,6 +7394,8 @@ footer .footer-btn:focus-visible {
         aspect-ratio: 1;
         margin: calc(8 / 430 * 100vw) auto 0;
         isolation: isolate;
+        background: var(--bg-primary);
+        /* dark backdrop for plus-lighter blend (mirrors desktop) */
     }
 
     .fs-f4__graph-pac {
@@ -7624,7 +7726,13 @@ footer .footer-btn:focus-visible {
     border: 1px solid;
     border-radius: 60.51px;
     box-sizing: border-box;
-    transition: left 0.4s ease, width 0.4s ease, border-color 0.3s ease;
+    transition: left 0.4s ease, width 0.4s ease, border-color 0.3s ease, border-radius 0.3s ease;
+}
+
+@media (min-width: 771px) {
+    .fs-f5[data-state="technical"] .fs-f5__chart-cell {
+        border-radius: 0;
+    }
 }
 
 .fs-f5[data-state="humanitarian"] .fs-f5__chart-cell--purple {
@@ -7671,8 +7779,16 @@ footer .footer-btn:focus-visible {
 }
 
 .fs-f5__chart-num--purple {
-    left: 176px;
+    left: 240px;
     color: var(--color-purple);
+    transition: left 0.4s ease;
+}
+
+@media (min-width: 771px) {
+    .fs-f5[data-state="technical"] .fs-f5__chart-num--purple {
+        left: 201px;
+        /* centred inside the narrower 402.98 px technical-state cell */
+    }
 }
 
 .fs-f5__chart-num--orange {
@@ -7694,16 +7810,27 @@ footer .footer-btn:focus-visible {
     font-size: 20px;
     line-height: 130%;
     letter-spacing: -0.02em;
+    text-align: center;
+    transform: translateX(-50%);
 }
 
 .fs-f5__chart-text--purple {
-    left: 40px;
+    left: 240px;
     width: 371px;
     color: var(--color-purple);
+    transition: left 0.4s ease, width 0.4s ease;
+}
+
+@media (min-width: 771px) {
+    .fs-f5[data-state="technical"] .fs-f5__chart-text--purple {
+        left: 201px;
+        width: 320px;
+        /* centred under the number in the narrower technical cell */
+    }
 }
 
 .fs-f5__chart-text--orange {
-    left: 889px;
+    left: 1039px;
     width: 300px;
     color: var(--color-orange);
 }
@@ -7883,12 +8010,12 @@ footer .footer-btn:focus-visible {
 
 .fs-f5[data-state-gen="older"] .fs-f5__gen-body {
     color: var(--color-orange);
-    text-align: left;
+    text-align: center;
 }
 
 .fs-f5[data-state-gen="younger"] .fs-f5__gen-body {
     color: var(--color-purple);
-    text-align: right;
+    text-align: center;
 }
 
 
@@ -7997,6 +8124,10 @@ footer .footer-btn:focus-visible {
         height: calc(60vw + 60px);
     }
 
+    .fs-f5[data-state="technical"] .fs-f5__chart-cell {
+        border-radius: 0;
+    }
+
     .fs-f5__chart-num {
         position: relative;
         left: auto !important;
@@ -8032,6 +8163,8 @@ footer .footer-btn:focus-visible {
         line-height: 125%;
         font-weight: 600;
         align-self: start;
+        transform: none;
+        text-align: left;
     }
 
     .fs-f5__chart-text--purple {
@@ -8133,12 +8266,15 @@ footer .footer-btn:focus-visible {
         line-height: 130%;
         font-weight: 500;
         text-align: center !important;
-        color: var(--text-white) !important;
     }
 
-    .fs-f5[data-state-gen="older"] .fs-f5__gen-body,
+    .fs-f5[data-state-gen="older"] .fs-f5__gen-body {
+        color: var(--color-orange);
+        text-align: center !important;
+    }
+
     .fs-f5[data-state-gen="younger"] .fs-f5__gen-body {
-        color: var(--text-white) !important;
+        color: var(--color-purple);
         text-align: center !important;
     }
 }
@@ -8199,6 +8335,22 @@ footer .footer-btn:focus-visible {
     height: 460px;
     pointer-events: none;
     isolation: isolate;
+}
+
+/* Dark backdrop INSIDE the isolated context (top:66 to skip the heading
+   area at top 0-66) so plus-lighter on the eq-words and ellipses inside
+   has #272727 to lift against. z-index:-1 keeps the rectangle below the
+   eq elements while staying within the isolated stacking context. */
+.fs-f6__equation::before {
+    content: "";
+    position: absolute;
+    left: 0;
+    top: 66px;
+    right: 0;
+    bottom: 0;
+    background: var(--bg-primary);
+    z-index: -1;
+    pointer-events: none;
 }
 
 /* Each ellipse SVG canvas is the full 1243 × 234 with the ellipse drawn
@@ -8481,6 +8633,8 @@ footer .footer-btn:focus-visible {
         height: 220px;
         display: block;
         isolation: isolate;
+        background: var(--bg-primary);
+        /* dark backdrop for plus-lighter blend inside isolation */
     }
 
     .fs-f6__eq-ellipse {
@@ -8799,6 +8953,7 @@ footer .footer-btn:focus-visible {
     left: 1025px;
     width: 315px;
     color: var(--color-purple);
+    text-align: right;
 }
 
 .fs-f7__bridge {
@@ -8814,6 +8969,7 @@ footer .footer-btn:focus-visible {
     line-height: 100%;
     letter-spacing: -0.02em;
     color: var(--text-white);
+    text-align: center;
 }
 
 @media (max-width: 770px) {
@@ -9209,6 +9365,8 @@ footer .footer-btn:focus-visible {
     line-height: 1;
     letter-spacing: -0.02em;
     isolation: isolate;
+    background: var(--bg-primary);
+    /* dark backdrop inside isolation so plus-lighter lifts orange/purple */
 }
 
 .fs-f8 .s3p5__mega-num {
@@ -9225,6 +9383,10 @@ footer .footer-btn:focus-visible {
     white-space: nowrap;
     paint-order: stroke fill;
     mix-blend-mode: plus-lighter;
+    /* tabular-nums keeps every digit the same width so "30,2" and "58,8"
+       render identical widths — both white "%" glyphs then land on the
+       exact same x and read as one (no doubled/gapped percent sign). */
+    font-variant-numeric: tabular-nums;
 }
 
 .fs-f8 .s3p5__mega-num--orange {
@@ -9252,6 +9414,18 @@ footer .footer-btn:focus-visible {
     -webkit-text-stroke-color: #FFFFFF;
 }
 
+/* Both mega numbers ("30,2%" + "58,8%") overlap at the same left, but the
+   digit clusters render at different widths — so the two white "%" glyphs
+   land at slightly different x and the percent reads as a doubled outline.
+   Pin "%" to a fixed x inside each (already absolutely-positioned)
+   .s3p5__mega-num so both percent glyphs coincide exactly → one clean
+   single-line "%". `left` is tuned to sit just after the digit cluster. */
+.fs-f8__mega-1 .s3p5__mega-percent {
+    position: absolute;
+    left: 2.1em;
+    top: 0;
+}
+
 .fs-f8__minicopy-1 {
     position: absolute;
     left: 817px;
@@ -9259,6 +9433,8 @@ footer .footer-btn:focus-visible {
     width: 494px;
     height: 120px;
     isolation: isolate;
+    background: var(--bg-primary);
+    /* dark backdrop inside isolation so plus-lighter lifts orange/purple */
 }
 
 /* Typography + overlap pattern mirror .section3__phase5 .s3p5__minicopy p:
@@ -10060,6 +10236,7 @@ footer .footer-btn:focus-visible {
     left: 767px;
     width: 564px;
     color: var(--color-orange);
+    text-align: right;
 }
 
 .fs-f9__row--y111 {
@@ -10644,6 +10821,7 @@ footer .footer-btn:focus-visible {
     left: 817px;
     width: 523px;
     color: var(--color-purple);
+    text-align: right;
 }
 
 .fs-f10__body-hl {
@@ -10972,6 +11150,7 @@ footer .footer-btn:focus-visible {
         grid-row: 4;
         color: var(--color-purple);
         mix-blend-mode: plus-lighter;
+        text-align: left;
     }
 
     .fs-f10__body-hl {
@@ -11008,6 +11187,16 @@ footer .footer-btn:focus-visible {
     display: flex;
     justify-content: center;
     overflow-x: clip;
+}
+
+/* fs-f11 uses its own lime → transparent gradient (distinct from the
+   index sections 6-9 recipe). Scoped via :has() to the wrap instance
+   that contains .fs-f11 so the shared .phase-gradient-wrap rule and the
+   index pages stay untouched. */
+.phase-gradient-wrap:has(.fs-f11) {
+    background-image: linear-gradient(0deg,
+            #C2F04F -3.84%,
+            rgba(47, 47, 47, 0) 48.58%);
 }
 
 .fs-f11__canvas {
@@ -11200,6 +11389,7 @@ a.fs-f11__cta-pdf:focus-visible,
     line-height: 130%;
     letter-spacing: -0.02em;
     color: var(--text-white);
+    text-align: center;
 }
 
 
@@ -12226,6 +12416,7 @@ a.fs-f11__cta-pdf:focus-visible,
    proportionally to fit narrower viewports — same recipe as the
    fullstudy / index pages. Zoom values match (max_width − 16) / 1440. */
 @media (min-width: 771px) and (max-width: 870px) {
+
     .exp-hero,
     .exp-grid,
     .exp-loadmore,
@@ -12237,6 +12428,7 @@ a.fs-f11__cta-pdf:focus-visible,
 }
 
 @media (min-width: 871px) and (max-width: 970px) {
+
     .exp-hero,
     .exp-grid,
     .exp-loadmore,
@@ -12248,6 +12440,7 @@ a.fs-f11__cta-pdf:focus-visible,
 }
 
 @media (min-width: 971px) and (max-width: 1080px) {
+
     .exp-hero,
     .exp-grid,
     .exp-loadmore,
@@ -12259,6 +12452,7 @@ a.fs-f11__cta-pdf:focus-visible,
 }
 
 @media (min-width: 1081px) and (max-width: 1180px) {
+
     .exp-hero,
     .exp-grid,
     .exp-loadmore,
@@ -12270,6 +12464,7 @@ a.fs-f11__cta-pdf:focus-visible,
 }
 
 @media (min-width: 1181px) and (max-width: 1280px) {
+
     .exp-hero,
     .exp-grid,
     .exp-loadmore,
@@ -12281,6 +12476,7 @@ a.fs-f11__cta-pdf:focus-visible,
 }
 
 @media (min-width: 1281px) and (max-width: 1380px) {
+
     .exp-hero,
     .exp-grid,
     .exp-loadmore,
@@ -12292,6 +12488,7 @@ a.fs-f11__cta-pdf:focus-visible,
 }
 
 @media (min-width: 1381px) and (max-width: 1439px) {
+
     .exp-hero,
     .exp-grid,
     .exp-loadmore,
@@ -12517,7 +12714,7 @@ a.fs-f11__cta-pdf:focus-visible,
 
     /* Media block: square at card width (was 400px fixed on desktop) */
     .exp-card__media,
-    .exp-card--photo > .exp-card__photo {
+    .exp-card--photo>.exp-card__photo {
         height: auto;
         aspect-ratio: 1 / 1;
     }
@@ -13016,7 +13213,6 @@ a.fs-f11__cta-pdf:focus-visible,
 }
 
 .exp-card--polygons .exp-card__media {
-    border: 3px solid #C2F04F;
     box-sizing: border-box;
 }
 
@@ -13353,25 +13549,45 @@ a.fs-f11__cta-pdf:focus-visible,
 
 /* ---- Zoom ladder for intermediate viewports (771–1439) ---- */
 @media (min-width: 1381px) and (max-width: 1439px) {
-    .about-page { zoom: 0.94; }
+    .about-page {
+        zoom: 0.94;
+    }
 }
+
 @media (min-width: 1281px) and (max-width: 1380px) {
-    .about-page { zoom: 0.87; }
+    .about-page {
+        zoom: 0.87;
+    }
 }
+
 @media (min-width: 1181px) and (max-width: 1280px) {
-    .about-page { zoom: 0.80; }
+    .about-page {
+        zoom: 0.80;
+    }
 }
+
 @media (min-width: 1081px) and (max-width: 1180px) {
-    .about-page { zoom: 0.73; }
+    .about-page {
+        zoom: 0.73;
+    }
 }
+
 @media (min-width: 971px) and (max-width: 1080px) {
-    .about-page { zoom: 0.66; }
+    .about-page {
+        zoom: 0.66;
+    }
 }
+
 @media (min-width: 871px) and (max-width: 970px) {
-    .about-page { zoom: 0.59; }
+    .about-page {
+        zoom: 0.59;
+    }
 }
+
 @media (min-width: 771px) and (max-width: 870px) {
-    .about-page { zoom: 0.52; }
+    .about-page {
+        zoom: 0.52;
+    }
 }
 
 
@@ -13628,9 +13844,9 @@ a.fs-f11__cta-pdf:focus-visible,
 .pdf-modal__backdrop {
     position: absolute;
     inset: 0;
-    background: rgba(0, 0, 0, 0.55);
-    backdrop-filter: blur(6px);
-    -webkit-backdrop-filter: blur(6px);
+    background: rgba(0, 0, 0, 0.45);
+    backdrop-filter: blur(20px);
+    -webkit-backdrop-filter: blur(20px);
     cursor: pointer;
 }
 
@@ -13639,9 +13855,9 @@ a.fs-f11__cta-pdf:focus-visible,
     width: 838px;
     max-width: 100%;
     min-height: 594px;
-    background: rgba(255, 255, 255, 0.06);
-    backdrop-filter: blur(14px);
-    -webkit-backdrop-filter: blur(14px);
+    background: rgba(255, 255, 255, 0.08);
+    backdrop-filter: blur(30px);
+    -webkit-backdrop-filter: blur(30px);
     border: 1px solid #C2F04F;
     border-radius: 100px;
     overflow: hidden;
@@ -13719,10 +13935,10 @@ a.fs-f11__cta-pdf:focus-visible,
 
 .pdf-modal__input {
     height: 56px;
-    padding: 0 22px;
+    padding: 0 28px;
     background: transparent;
     border: 0.5px solid #C2F04F;
-    border-radius: 28px;
+    border-radius: 999px;
     color: #FFFFFF;
     font-family: 'Golos Text', sans-serif;
     font-weight: 400;
@@ -13796,8 +14012,8 @@ a.fs-f11__cta-pdf:focus-visible,
 }
 
 .pdf-modal__submit {
-    margin-top: 14px;
-    height: 60px;
+    margin-top: 22px;
+    height: 56px;
     padding: 0;
     background: #FFFFFF;
     border: 1px solid #FFFFFF;
@@ -13805,8 +14021,9 @@ a.fs-f11__cta-pdf:focus-visible,
     color: #272727;
     font-family: 'Golos Text', sans-serif;
     font-weight: 400;
-    font-size: 18px;
+    font-size: 17.7px;
     line-height: 1.1;
+    letter-spacing: -0.34px;
     cursor: pointer;
     transition: background-color 0.2s ease, border-color 0.2s ease, opacity 0.2s ease;
 }
@@ -13868,6 +14085,31 @@ a.fs-f11__cta-pdf:focus-visible,
     }
 }
 
+/* ============================================================
+   Copy-link toast — global element appended once by main.js when
+   share buttons exist. Dark pill, fades in/out via opacity.
+   ============================================================ */
+.copy-toast {
+    position: fixed;
+    left: 0;
+    top: 0;
+    transform: translateX(-50%);
+    padding: 8px 16px;
+    background: #404040;
+    color: #FFFFFF;
+    font-family: 'Golos', 'Golos Text', sans-serif;
+    font-weight: 400;
+    font-size: 14px;
+    line-height: 1.2;
+    letter-spacing: -0.02em;
+    border-radius: 10px;
+    white-space: nowrap;
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity 0.28s ease;
+    z-index: 9999;
+}
 
-
-
+.copy-toast.is-visible {
+    opacity: 1;
+}

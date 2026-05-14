@@ -622,15 +622,12 @@ renderEventsInto(document.querySelector('.burger-menu__events-popup'), 'burger-m
         ticking = false;
         var rect = eq.getBoundingClientRect();
         var vh = window.innerHeight || document.documentElement.clientHeight;
-        /* Animation starts when the equation block becomes fully
-           visible and ENDS while it is still on screen — at ~25 %
-           from viewport top — so the user actually sees the final
-           merged state before scrolling past it. Eased in-out cubic
-           for smoothness.                                             */
-        var startTop = vh - rect.height;
-        var endTop = vh * 0.25;
-        if (startTop < 0) startTop = 0;
-        if (endTop < 0) endTop = 0;
+        /* Animation starts later (equation already centred-ish in the
+           viewport) and runs longer (continues until the equation has
+           scrolled noticeably above the viewport top) so the connection
+           feels paced rather than snappy. Eased in-out cubic. */
+        var startTop = vh * 0.4;
+        var endTop = -vh * 0.15;
         if (endTop > startTop) endTop = startTop * 0.3;
         var range = startTop - endTop;
         var raw = 0;
@@ -812,6 +809,10 @@ renderEventsInto(document.querySelector('.burger-menu__events-popup'), 'burger-m
             ? ''
             : '<p class="s8__heading">' + escapeHtml(c.title || c.mediaTitle || '') + '</p>';
 
+        var caption = c.caption
+            ? '<p class="s8__caption">' + escapeHtml(c.caption).replace(/\n/g, '<br>') + '</p>'
+            : '';
+
         return ''
             + '<article class="s8__card ' + typeClass + ' ' + posClass + '"' + active + '>'
             +   renderMedia(c)
@@ -819,6 +820,7 @@ renderEventsInto(document.querySelector('.burger-menu__events-popup'), 'burger-m
             +   '<span class="s8__connector ' + connector + '" aria-hidden="true"></span>'
             +   '<span class="s8__pill ' + rightPill + '"><span class="s8__pill-text">' + escapeHtml(tag2.label) + '</span></span>'
             +   heading
+            +   caption
             + '</article>';
     }
 
@@ -1106,5 +1108,68 @@ renderEventsInto(document.querySelector('.burger-menu__events-popup'), 'burger-m
         popup.classList.toggle('is-open', open);
         toggle.setAttribute('aria-expanded', open ? 'true' : 'false');
         popup.setAttribute('aria-hidden', open ? 'false' : 'true');
+    });
+})();
+
+/* ============================================================
+   Share buttons — copy current page URL on click and surface a
+   transient "Ссылка скопирована" toast (fade in → hold → fade out).
+   Covers fullstudy's two share affordances; safe no-op if the
+   page has none of them.
+   ============================================================ */
+(function () {
+    var shareButtons = document.querySelectorAll('.fs-f2__cta-share, .fs-f11__cta-share');
+    if (!shareButtons.length) return;
+
+    var toast = document.createElement('div');
+    toast.className = 'copy-toast';
+    toast.textContent = 'Ссылка скопирована';
+    toast.setAttribute('role', 'status');
+    toast.setAttribute('aria-live', 'polite');
+    document.body.appendChild(toast);
+
+    var hideTimer;
+
+    function positionToast(btn) {
+        var rect = btn.getBoundingClientRect();
+        toast.style.left = (rect.left + rect.width / 2) + 'px';
+        toast.style.top = (rect.bottom + 12) + 'px';
+    }
+
+    function showToast(btn) {
+        clearTimeout(hideTimer);
+        positionToast(btn);
+        toast.classList.add('is-visible');
+        hideTimer = setTimeout(function () {
+            toast.classList.remove('is-visible');
+        }, 1600);
+    }
+
+    function fallbackCopy(text) {
+        var ta = document.createElement('textarea');
+        ta.value = text;
+        ta.setAttribute('readonly', '');
+        ta.style.position = 'fixed';
+        ta.style.left = '-9999px';
+        document.body.appendChild(ta);
+        ta.select();
+        try { document.execCommand('copy'); } catch (e) {}
+        document.body.removeChild(ta);
+    }
+
+    function copyAndNotify(btn) {
+        var url = window.location.href;
+        if (navigator.clipboard && navigator.clipboard.writeText) {
+            navigator.clipboard.writeText(url)
+                .then(function () { showToast(btn); })
+                .catch(function () { fallbackCopy(url); showToast(btn); });
+        } else {
+            fallbackCopy(url);
+            showToast(btn);
+        }
+    }
+
+    shareButtons.forEach(function (btn) {
+        btn.addEventListener('click', function () { copyAndNotify(btn); });
     });
 })();

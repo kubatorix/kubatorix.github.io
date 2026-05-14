@@ -32,6 +32,7 @@
         +     '<nav class="topnav header_inside">'
         +       '<a href="index.html" class="topnav__link topnav__link--tema' + topnavActive('index.html') + ' header_inside-item">Тема</a>'
         +       '<a href="fullstudy.html" class="topnav__link topnav__link--issledovanie' + topnavActive('fullstudy.html') + ' header_inside-item">Исследование</a>'
+        +       '<div class="topnav__hr" aria-hidden="true"></div>'
         +       '<a href="experience.html" class="topnav__link topnav__link--opyt' + topnavActive('experience.html') + ' header_inside-item">Опыт</a>'
         +       '<a href="javascript:void(0);" class="topnav__link topnav__link--sobytiya header_inside-item" aria-haspopup="true" aria-expanded="false" aria-controls="topnav-events-popup">'
         +         '<span class="topnav__label">События</span>'

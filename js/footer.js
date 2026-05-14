@@ -9,7 +9,7 @@
         +     '<a href="https://sredasvoih.com/?utm_source=site&amp;utm_medium=email&amp;utm_campaign=spec&amp;utm_term=fundraising" target="_blank">'
         +       '<img src="./img/icons/logo_footer.svg" class="footer-logo" alt="" />'
         +     '</a>'
-        +     '<p class="footer-text1">Пространство в&nbsp;CITYе<br />для благотворительных проектов и&nbsp;тех, кто их&nbsp;создаёт.</p>'
+        +     '<p class="footer-text1">Пространство в&nbsp;Москве<br />для благотворительных проектов и&nbsp;тех, кто их&nbsp;создаёт.</p>'
         +   '</div>'
         +   '<p class="footer-text2">Участвуйте в&nbsp;программе и&nbsp;используйте студии, помещения, образовательные модули и&nbsp;другие ресурсы для ваших социальных проектов.</p>'
         +   '<div class="footer-wrap2">'
