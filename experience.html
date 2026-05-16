@@ -66,14 +66,19 @@
           aria-hidden="true"
         />
         <div class="exp-hero__canvas">
-          <div class="exp-hero__brand">
+          <a
+            href="https://sredasvoih.ru/?utm_source=site&amp;utm_medium=email&amp;utm_campaign=spec&amp;utm_term=fundraising"
+            target="_blank"
+            rel="noopener"
+            class="exp-hero__brand"
+          >
             <span class="exp-hero__brand-word">Спецпроект</span>
             <img
               src="./img/figma/logo_specproject.svg"
               alt="СРЕДА_СВОИХ"
               class="exp-hero__brand-logo"
             />
-          </div>
+          </a>
 
           <h1 class="exp-hero__title">
             <span class="exp-hero__title-line">Опыт</span>
@@ -85,9 +90,12 @@
         <!-- Green gradient panel (Figma 286:3872): intro + toggle + sub -->
         <div class="exp-hero__panel">
           <p class="exp-hero__intro">
-            Исследование показало источники вдохновения и&nbsp;напряжения
-            в&nbsp;ежедневной работе фандрайзеров и&nbsp;тех, кто ими руководит.
-            Чтобы не&nbsp;оставлять эти разговоры только словами, мы&nbsp;начали
+            <a href="fullstudy.html" class="exp-hero__intro-link"
+              >Исследование</a
+            >
+            показало источники вдохновения и&nbsp;напряжения в&nbsp;ежедневной
+            работе фандрайзеров и&nbsp;тех, кто ими руководит. Чтобы
+            не&nbsp;оставлять эти разговоры только словами, мы&nbsp;начали
             переводить их&nbsp;в&nbsp;плоскость практики и&nbsp;реальных дел.
             Для&nbsp;этого мы&nbsp;подготовили для&nbsp;вас
           </p>
@@ -139,19 +147,16 @@
 
       <!-- Mobile-only load-more toggle: collapsed to 3 cards by default,
            clicking expands to show all matching cards (per filter). -->
-      <button
-        type="button"
-        class="exp-loadmore"
-        data-state="collapsed"
-        hidden
-      >
+      <button type="button" class="exp-loadmore" data-state="collapsed" hidden>
         <img
           src="./img/figma/exp_loadmore_arrow.svg"
           class="exp-loadmore__icon"
           alt=""
           aria-hidden="true"
         />
-        <span class="exp-loadmore__label">Это&nbsp;не&nbsp;всё.<br>Загрузить ещё</span>
+        <span class="exp-loadmore__label"
+          >Это&nbsp;не&nbsp;всё.<br />Загрузить ещё</span
+        >
       </button>
 
       <!-- Partners (Figma 286:3014..3061) — copied from section9 layout -->
@@ -290,21 +295,29 @@
       </section>
 
       <!-- Discussion + circular CTA (Figma 286:3070..3095) — same layout as section6 -->
-      <section class="exp-discuss section6 section6__phase7" aria-label="Базой для дискуссий">
+      <section
+        class="exp-discuss section6 section6__phase7"
+        aria-label="Базой для дискуссий"
+      >
         <div class="section6__viewport">
           <div class="section6__canvas">
             <span class="exp-discuss__divider" aria-hidden="true"></span>
             <img
               src="./img/figma/exp_discuss_rings.svg"
-              class="section6__rings"
+              class="section6__rings section6__rings--white"
+              alt=""
+              aria-hidden="true"
+            />
+            <img
+              src="./img/figma/exp_discuss_rings_color.svg"
+              class="section6__rings section6__rings--color"
               alt=""
               aria-hidden="true"
             />
 
             <h2 class="section6__heading">
               Базой для&nbsp;дискуссий и&nbsp;интервью стало большое
-              <span class="section6__heading-underline">исследование</span>
-              фандрайзеров и&nbsp;их&nbsp;нанимателей
+              исследование фандрайзеров и&nbsp;их&nbsp;нанимателей
             </h2>
             <a href="fullstudy.html" class="section6__cta"
               >Посмотрите исследование</a

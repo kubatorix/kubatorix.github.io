@@ -421,7 +421,7 @@ button {
 @font-face {
     font-family: 'Golos Text';
     src: local('Golos Text Regular'), local('GolosText-Regular'),
-        url('../fonts/Golos_Text/static/GolosText-Regular.ttf') format('truetype');
+        url('../fonts/Golos_Text/static/Golos-Text_Regular.ttf') format('truetype');
     font-weight: 400;
     font-style: normal;
     font-display: swap;
@@ -430,7 +430,7 @@ button {
 @font-face {
     font-family: 'Golos Text';
     src: local('Golos Text Medium'), local('GolosText-Medium'),
-        url('../fonts/Golos_Text/static/GolosText-Medium.ttf') format('truetype');
+        url('../fonts/Golos_Text/static/Golos-Text_Medium.ttf') format('truetype');
     font-weight: 500;
     font-style: normal;
     font-display: swap;
@@ -439,7 +439,7 @@ button {
 @font-face {
     font-family: 'Golos Text';
     src: local('Golos Text SemiBold'), local('GolosText-SemiBold'),
-        url('../fonts/Golos_Text/static/GolosText-SemiBold.ttf') format('truetype');
+        url('../fonts/Golos_Text/static/Golos-Text_DemiBold.ttf') format('truetype');
     font-weight: 600;
     font-style: normal;
     font-display: swap;
@@ -448,7 +448,7 @@ button {
 @font-face {
     font-family: 'Golos Text';
     src: local('Golos Text Bold'), local('GolosText-Bold'),
-        url('../fonts/Golos_Text/static/GolosText-Bold.ttf') format('truetype');
+        url('../fonts/Golos_Text/static/Golos-Text_Bold.ttf') format('truetype');
     font-weight: 700;
     font-style: normal;
     font-display: swap;
@@ -457,7 +457,7 @@ button {
 @font-face {
     font-family: 'Golos Text';
     src: local('Golos Text ExtraBold'), local('GolosText-ExtraBold'),
-        url('../fonts/Golos_Text/static/GolosText-ExtraBold.ttf') format('truetype');
+        url('../fonts/Golos_Text/static/Golos-Text_Black.ttf') format('truetype');
     font-weight: 800;
     font-style: normal;
     font-display: swap;
@@ -467,7 +467,7 @@ button {
 @font-face {
     font-family: 'Golos';
     src: local('Golos Text Regular'), local('GolosText-Regular'),
-        url('../fonts/Golos_Text/static/GolosText-Regular.ttf') format('truetype');
+        url('../fonts/Golos_Text/static/Golos-Text_Regular.ttf') format('truetype');
     font-weight: 400;
     font-style: normal;
     font-display: swap;
@@ -476,7 +476,7 @@ button {
 @font-face {
     font-family: 'Golos';
     src: local('Golos Text Medium'), local('GolosText-Medium'),
-        url('../fonts/Golos_Text/static/GolosText-Medium.ttf') format('truetype');
+        url('../fonts/Golos_Text/static/Golos-Text_Medium.ttf') format('truetype');
     font-weight: 500;
     font-style: normal;
     font-display: swap;
@@ -485,7 +485,7 @@ button {
 @font-face {
     font-family: 'Golos';
     src: local('Golos Text SemiBold'), local('GolosText-SemiBold'),
-        url('../fonts/Golos_Text/static/GolosText-SemiBold.ttf') format('truetype');
+        url('../fonts/Golos_Text/static/Golos-Text_DemiBold.ttf') format('truetype');
     font-weight: 600;
     font-style: normal;
     font-display: swap;
@@ -494,7 +494,7 @@ button {
 @font-face {
     font-family: 'Golos';
     src: local('Golos Text Bold'), local('GolosText-Bold'),
-        url('../fonts/Golos_Text/static/GolosText-Bold.ttf') format('truetype');
+        url('../fonts/Golos_Text/static/Golos-Text_Bold.ttf') format('truetype');
     font-weight: 700;
     font-style: normal;
     font-display: swap;
@@ -503,7 +503,7 @@ button {
 @font-face {
     font-family: 'Golos';
     src: local('Golos Text ExtraBold'), local('GolosText-ExtraBold'),
-        url('../fonts/Golos_Text/static/GolosText-ExtraBold.ttf') format('truetype');
+        url('../fonts/Golos_Text/static/Golos-Text_Black.ttf') format('truetype');
     font-weight: 800;
     font-style: normal;
     font-display: swap;
@@ -513,7 +513,7 @@ button {
 @font-face {
     font-family: 'Golos UI';
     src: local('Golos Text Regular'), local('GolosText-Regular'),
-        url('../fonts/Golos_Text/static/GolosText-Regular.ttf') format('truetype');
+        url('../fonts/Golos_Text/static/Golos-Text_Regular.ttf') format('truetype');
     font-weight: 400;
     font-style: normal;
     font-display: swap;
@@ -522,7 +522,7 @@ button {
 @font-face {
     font-family: 'Golos UI';
     src: local('Golos Text Medium'), local('GolosText-Medium'),
-        url('../fonts/Golos_Text/static/GolosText-Medium.ttf') format('truetype');
+        url('../fonts/Golos_Text/static/Golos-Text_Medium.ttf') format('truetype');
     font-weight: 500;
     font-style: normal;
     font-display: swap;
@@ -531,7 +531,7 @@ button {
 @font-face {
     font-family: 'Golos UI';
     src: local('Golos Text SemiBold'), local('GolosText-SemiBold'),
-        url('../fonts/Golos_Text/static/GolosText-SemiBold.ttf') format('truetype');
+        url('../fonts/Golos_Text/static/Golos-Text_DemiBold.ttf') format('truetype');
     font-weight: 600;
     font-style: normal;
     font-display: swap;
@@ -540,7 +540,7 @@ button {
 @font-face {
     font-family: 'Golos UI';
     src: local('Golos Text Bold'), local('GolosText-Bold'),
-        url('../fonts/Golos_Text/static/GolosText-Bold.ttf') format('truetype');
+        url('../fonts/Golos_Text/static/Golos-Text_Bold.ttf') format('truetype');
     font-weight: 700;
     font-style: normal;
     font-display: swap;
@@ -549,7 +549,7 @@ button {
 @font-face {
     font-family: 'Golos UI';
     src: local('Golos Text ExtraBold'), local('GolosText-ExtraBold'),
-        url('../fonts/Golos_Text/static/GolosText-ExtraBold.ttf') format('truetype');
+        url('../fonts/Golos_Text/static/Golos-Text_Black.ttf') format('truetype');
     font-weight: 800;
     font-style: normal;
     font-display: swap;
@@ -559,7 +559,7 @@ button {
 @font-face {
     font-family: 'Golos Text VF';
     src: local('Golos Text Regular'), local('GolosText-Regular'),
-        url('../fonts/Golos_Text/static/GolosText-Regular.ttf') format('truetype');
+        url('../fonts/Golos_Text/static/Golos-Text_Regular.ttf') format('truetype');
     font-weight: 400;
     font-style: normal;
     font-display: swap;
@@ -568,7 +568,7 @@ button {
 @font-face {
     font-family: 'Golos Text VF';
     src: local('Golos Text Medium'), local('GolosText-Medium'),
-        url('../fonts/Golos_Text/static/GolosText-Medium.ttf') format('truetype');
+        url('../fonts/Golos_Text/static/Golos-Text_Medium.ttf') format('truetype');
     font-weight: 500;
     font-style: normal;
     font-display: swap;
@@ -577,7 +577,7 @@ button {
 @font-face {
     font-family: 'Golos Text VF';
     src: local('Golos Text SemiBold'), local('GolosText-SemiBold'),
-        url('../fonts/Golos_Text/static/GolosText-SemiBold.ttf') format('truetype');
+        url('../fonts/Golos_Text/static/Golos-Text_DemiBold.ttf') format('truetype');
     font-weight: 600;
     font-style: normal;
     font-display: swap;
@@ -586,7 +586,7 @@ button {
 @font-face {
     font-family: 'Golos Text VF';
     src: local('Golos Text Bold'), local('GolosText-Bold'),
-        url('../fonts/Golos_Text/static/GolosText-Bold.ttf') format('truetype');
+        url('../fonts/Golos_Text/static/Golos-Text_Bold.ttf') format('truetype');
     font-weight: 700;
     font-style: normal;
     font-display: swap;
@@ -595,7 +595,7 @@ button {
 @font-face {
     font-family: 'Golos Text VF';
     src: local('Golos Text ExtraBold'), local('GolosText-ExtraBold'),
-        url('../fonts/Golos_Text/static/GolosText-ExtraBold.ttf') format('truetype');
+        url('../fonts/Golos_Text/static/Golos-Text_Black.ttf') format('truetype');
     font-weight: 800;
     font-style: normal;
     font-display: swap;
@@ -826,7 +826,6 @@ header {
     height: 58px;
     background: var(--bg-secondary);
     /* #2F2F2F */
-    box-shadow: 0 1px 6px 0 var(--overlay-black-25);
 }
 
 /* Each link is absolutely positioned at its exact Figma x.
@@ -1964,15 +1963,14 @@ body>.header-burger__icon {
 }
 
 /* --- Sreda compact logo (219:294) --------------------------------------- */
+/* Uniform gap around the floated logo so the text wraps with the same
+   inset on the right of and below the logo (16px on both sides). */
 .section1__logo {
     float: left;
     width: 124.3px;
     height: 45.94px;
-    margin: 0 45.7px 0 0;
-    /* gap to text on lines 1–2 */
+    margin: 0 16px 0;
     display: block;
-    shape-outside: inset(0 -45.7px 0 0);
-    /* keep wrap rect tight    */
 }
 
 /* --- Sreda Russian description (219:307) -------------------------------- */
@@ -2066,7 +2064,7 @@ body>.header-burger__icon {
     margin: 0;
     padding: 0;
     font-family: 'Inter', sans-serif;
-    font-weight: 600;
+    font-weight: 500;
     font-size: 25px;
     line-height: 1.1;
     /* 110% */
@@ -2307,6 +2305,10 @@ body>.header-burger__icon {
    ============================================================================ */
 .section2 #canvas {
     margin-top: 60px;
+    max-width: 100%;
+    height: auto;
+    /* canvas pixel grid stays 1100×400 but display scales to fit
+       smaller viewports — no horizontal overflow between 770–1100 */
     background-color: transparent;
     background-image:
         /* vertical center divider */
@@ -2315,12 +2317,12 @@ body>.header-burger__icon {
             rgba(255, 255, 255, 0.45) calc(50% - 0.5px),
             rgba(255, 255, 255, 0.45) calc(50% + 0.5px),
             transparent calc(50% + 0.5px)),
-        /* horizontal lined-paper rules — wider spacing per design */
+        /* horizontal lined-paper rules — Figma 219:325..358 pitch = ~11.57 px */
         repeating-linear-gradient(to bottom,
             rgba(255, 255, 255, 0.32) 0px,
             rgba(255, 255, 255, 0.32) 1px,
             transparent 1px,
-            transparent 32px);
+            transparent 12px);
     background-repeat: no-repeat, repeat;
     background-size: 100% 100%, 100% auto;
 }
@@ -2328,7 +2330,7 @@ body>.header-burger__icon {
 @media (max-width: 770px) {
     .section2 #canvas {
         margin-top: 32px;
-        /* Mobile: horizontal hairlines only, 24 px spacing, no center
+        /* Mobile: horizontal hairlines only, ~12 px pitch (Figma), no center
            divider. Columns stack top/bottom; the divider line is dropped
            per the mobile mock. */
         background-image:
@@ -2336,7 +2338,7 @@ body>.header-burger__icon {
                 rgba(255, 255, 255, 0.28) 0px,
                 rgba(255, 255, 255, 0.28) 1px,
                 transparent 1px,
-                transparent 24px);
+                transparent 12px);
         background-size: 100% 100%;
         background-repeat: repeat;
     }
@@ -2737,8 +2739,12 @@ body>.header-burger__icon {
     position: relative;
     width: 100%;
     height: 100%;
-    border: 1px solid var(--text-white);
-    /* fill_NZ0D8G stroke */
+    /* fill_NZ0D8G stroke — painted via inset box-shadow rather than
+       `border:` so the 1px stroke doesn't shift the absolutely-positioned
+       segments inside (border-box + `top: 11.07px` resolved relative to
+       the padding edge, leaving the active pill 2px taller above than
+       below the toggle outline). */
+    box-shadow: inset 0 0 0 1px var(--text-white);
     border-radius: 62.81px;
     background: transparent;
     box-sizing: border-box;
@@ -2834,7 +2840,10 @@ body>.header-burger__icon {
 .fs-f4 .s3p5__seg::before {
     content: '';
     position: absolute;
-    inset: -7px -16px;
+    /* em-based inset so the pill scales together with the segment label
+       at any browser zoom / text-zoom level (was -7px -16px at 17.33 px
+       font, which broke when font scaled but inset stayed in px). */
+    inset: -0.4em -0.92em;
     border-radius: 887.98px;
     background: transparent;
     z-index: 0;
@@ -3176,11 +3185,15 @@ body>.header-burger__icon {
 }
 
 
-/* --- 5.8 Mobile fallback ---------------------------------------------- */
-/* Keep desktop pixel layout above 1080px, collapse to a vertical flow
-   on smaller screens so phones aren't broken. The Figma frame is desktop-
-   only; the mobile design isn't part of this phase. */
-@media (max-width: 1080px) {
+/* --- 5.8 Mobile fallback (≤770 only) ---------------------------------
+   At 771-1439 the desktop Figma master layout is preserved and scaled by
+   the stepped `zoom:` rules above — the site must look IDENTICAL to the
+   1440 desktop frame at every intermediate width (body minicopy stays
+   to the right of the mega, toggle stays at canvas x=0, etc.). The
+   vertical-flow reset below collapses everything to a stacked column
+   and therefore applies ONLY at true mobile (≤770), where the dedicated
+   mobile rules further down layer on top. */
+@media (max-width: 770px) {
     .section3__canvas {
         width: 100%;
         height: auto;
@@ -3191,7 +3204,6 @@ body>.header-burger__icon {
     .section3__phase5 .s3p5__heading,
     .section3__phase5 .s3p5__mega,
     .section3__phase5 .s3p5__minicopy,
-    .section3__phase5 .s3p5__toggle,
     .section3__phase5 .s3p5__outline,
     .section3__phase5 .s3p5__bodywrap {
         position: relative;
@@ -3203,23 +3215,44 @@ body>.header-burger__icon {
         margin-bottom: 32px;
     }
 
+    /* Toggle: keep desktop absolute geometry (508.93 × 54.14) but reflow
+       inline so it stacks with the other vertical-flow blocks above. */
+    .section3__phase5 .s3p5__toggle {
+        position: relative;
+        left: auto;
+        top: auto;
+        margin: 0 auto 32px;
+    }
+
     .section3__phase5 .s3p5__heading {
         font-size: 28px;
     }
 
     .section3__phase5 .s3p5__mega {
-        font-size: 96px;
-        height: auto;
+        /* Inherit the desktop 205.596px font (≤770 rules override to 76px).
+           At 771-1439 the stepped `zoom:` on .section3 scales it down to
+           fit. Height must be explicit because the children below are
+           absolutely positioned and don't contribute to parent height. */
+        height: 1.2em;
     }
 
+    /* Chromatic overlap: purple sits 0.2em to the right of orange, matching
+       the desktop master's 41/205 ≈ 0.2 ratio, so the "46,7%" / "71,7%"
+       glyphs overlap (plus-lighter blend on the parent produces the
+       orange+purple → white intersection look) regardless of font size. */
     .section3__phase5 .s3p5__mega-num {
-        position: relative;
-        display: inline-block;
-        left: auto;
+        position: absolute;
+        top: 0;
+        display: block;
+    }
+
+    .section3__phase5 .s3p5__mega-num--orange {
+        left: 0;
     }
 
     .section3__phase5 .s3p5__mega-num--purple {
-        margin-left: -0.18em;
+        left: 0.2em;
+        margin-left: 0;
     }
 
     .section3__phase5 .s3p5__bodywrap {
@@ -3332,8 +3365,11 @@ body>.header-burger__icon {
     /* Toggle — restore the bar height (tablet's `height: auto` collapses to 0
        because all children inside .s3p5__toggle-inner are absolute), shrink
        segments + pill via %, drop label font to 12. Bar 40 px per spec, so
-       seg/pill vertical positions also scaled down from the desktop 54-px bar. */
+       seg/pill vertical positions also scaled down from the desktop 54-px bar.
+       Width: 100% so the %-positioned segments below track the bar's width
+       (the tablet fallback no longer resets width on .s3p5__toggle). */
     .section3__phase5 .s3p5__toggle {
+        width: 100%;
         height: 40px;
     }
 
@@ -4038,7 +4074,10 @@ body>.header-burger__icon {
     /* minmax(0, auto) lets long pill labels shrink and the connector keep at
        least 20px so the divider line always renders between the two pills. */
     grid-template-columns: minmax(0, auto) minmax(20px, 1fr) auto;
-    grid-template-rows: auto auto auto auto;
+    /* Heading row is 1fr so it absorbs any leftover space — that pins
+       the caption row to the bottom of the card even when content is
+       shorter than the 418px min-height. */
+    grid-template-rows: auto auto 1fr auto;
     grid-template-areas:
         "media    media     media"
         "pillL    connector pillR"
@@ -4049,8 +4088,11 @@ body>.header-burger__icon {
     row-gap: 14px;
 }
 
-/* All cards share the same min-height — keeps the row visually uniform and
-   the media boxes line up bottom-to-bottom. Stories grow with caption row. */
+/* Uniform card height across all variants — set to the tallest natural
+   height we observe (captions wrap to 3 lines in the widest variant ≈
+   427px). 1-line / 2-line caption cards (which would otherwise sit at
+   418 / 426) get the leftover space absorbed by the heading row's 1fr,
+   so the bottom edges of every card in the row line up to the pixel. */
 .section8__phase8 .s8__card,
 .section8__phase8 .s8__card--event,
 .section8__phase8 .s8__card--story,
@@ -4058,7 +4100,7 @@ body>.header-burger__icon {
 .section8__phase8 .s8__card--pos2,
 .section8__phase8 .s8__card--pos3,
 .section8__phase8 .s8__card--pos4 {
-    min-height: 395px;
+    min-height: 427px;
     align-content: start;
 }
 
@@ -4110,7 +4152,7 @@ body>.header-burger__icon {
 .section8__phase8 .s8__caption {
     position: relative;
     grid-area: caption;
-    align-self: start;
+    align-self: end;
     width: 100%;
     margin: 0;
     padding: 0;
@@ -4290,35 +4332,106 @@ body>.header-burger__icon {
     pointer-events: none;
 }
 
-/* --- bordered (Cards A/L): thin outline + large title text + tiny inset
-       photo at bottom-left, mirroring the experience-page bordered card. */
-.section8__phase8 .s8__media--bordered {
-    position: relative;
-    background: transparent;
-    border: 1px solid #FFFFFF;
+/* --- bordered (Cards A/L): flipped layout — pills on top, large heading
+       in the middle, small portrait + caption at bottom-left. Different
+       grid + sizing than the standard 295×295 media card. Card-wide 1px
+       white outline per Figma 317:1251 (`border border-solid border-white`
+       on the whole frame); painted via inset box-shadow + padding so the
+       stroke sits inside the card's 295px width without shifting child
+       grid columns. */
+.section8__phase8 .s8__card--bordered {
+    grid-template-columns: auto 1fr;
+    grid-template-rows: auto 1fr auto;
+    grid-template-areas:
+        "pillL    pillR"
+        "heading  heading"
+        "media    caption";
+    column-gap: 16px;
+    row-gap: 16px;
+    align-items: start;
+    box-shadow: inset 0 0 0 1px #FFFFFF;
+    padding: 20px;
+    box-sizing: border-box;
+    transition: box-shadow 0.2s ease;
 }
 
-.section8__phase8 .s8__media--bordered .s8__media-bordered-title {
+/* Hover states: every card gets a pointer cursor; the --bordered variant
+   swaps its white frame for lime, while every other variant gets a lime
+   ring around its media only. */
+.section8__phase8 .s8__track .s8__card {
+    cursor: pointer;
+}
+
+.section8__phase8 .s8__card--bordered:hover {
+    box-shadow: inset 0 0 0 1px var(--accent-lime);
+}
+
+.section8__phase8 .s8__card:not(.s8__card--bordered) .s8__media::after {
+    content: '';
     position: absolute;
-    top: 16px;
-    left: 16px;
-    right: 16px;
-    margin: 0;
-    color: #FFFFFF;
+    inset: 0;
+    border: 1px solid transparent;
+    pointer-events: none;
+    transition: border-color 0.2s ease;
+    z-index: 1;
+}
+
+.section8__phase8 .s8__card:not(.s8__card--bordered):hover .s8__media::after {
+    border-color: var(--accent-lime);
+}
+
+/* No connector between the two pills in this layout. */
+.section8__phase8 .s8__card--bordered .s8__connector {
+    display: none;
+}
+
+/* Push the right pill to the card's right edge instead of sitting next
+   to the left pill (the connector that used to fill the gap is hidden). */
+.section8__phase8 .s8__card--bordered .s8__pill--story-right,
+.section8__phase8 .s8__card--bordered .s8__pill--event-right {
+    justify-self: end;
+}
+
+/* Heading takes most of the card vertically — bigger type, no max-height. */
+.section8__phase8 .s8__card--bordered .s8__heading {
+    grid-area: heading;
+    align-self: start;
     font-family: 'Golos', 'Golos Text', sans-serif;
     font-weight: 500;
-    font-size: 18px;
+    font-size: 26px;
     line-height: 1.1;
     letter-spacing: -0.02em;
+    color: #FFFFFF;
+    margin: 0;
 }
 
-.section8__phase8 .s8__media--bordered .s8__media-inset {
+/* Media shrinks to a small portrait at bottom-left (defeat the global
+   padding-top:100% aspect trick by setting padding-top:0 + explicit
+   dimensions). No outline either. */
+.section8__phase8 .s8__card--bordered .s8__media {
+    grid-area: media;
+    align-self: end;
+    width: 80px;
+    height: 108px;
+    padding-top: 0;
+    box-shadow: none;
+    background: transparent;
+}
+
+.section8__phase8 .s8__card--bordered .s8__media .s8__media-inset {
     position: absolute;
-    left: 8%;
-    bottom: 8%;
-    width: 18%;
-    aspect-ratio: 2 / 3;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    aspect-ratio: auto;
     object-fit: cover;
+}
+
+/* Caption sits next to the portrait, bottom-aligned with it. */
+.section8__phase8 .s8__card--bordered .s8__caption {
+    grid-area: caption;
+    align-self: end;
+    justify-self: start;
 }
 
 /* --- generic / fallback: full-bleed photo. */
@@ -6089,7 +6202,7 @@ footer .footer-btn:focus-visible {
        through a full revolution. 180° was tried first but left the
        chromatic strokes mirrored at the end — not horizontally
        identical to the start. */
-    transform: rotate(calc(360deg * var(--fs-f2-progress, 0)));
+    transform: rotate(calc(360deg * var(--fs-f2-progress, 0))) scale(0.9);
     transform-origin: 50% 50%;
     will-change: transform;
 }
@@ -8452,6 +8565,7 @@ footer .footer-btn:focus-visible {
     line-height: 130%;
     letter-spacing: -0.02em;
     color: var(--text-white);
+    text-align: center;
 }
 
 .fs-f6__hl--purple {
@@ -9158,7 +9272,9 @@ footer .footer-btn:focus-visible {
     position: relative;
     width: 100%;
     height: 100%;
-    border: 1px solid var(--text-white);
+    /* Stroke via inset box-shadow — see comment on .section3__phase5
+       .s3p5__toggle-inner for why we avoid `border:` here. */
+    box-shadow: inset 0 0 0 1px var(--text-white);
     border-radius: 62.81px;
     background: transparent;
     box-sizing: border-box;
@@ -9199,7 +9315,9 @@ footer .footer-btn:focus-visible {
 .fs-f8 .s3p5__seg::before {
     content: '';
     position: absolute;
-    inset: -7px -16px;
+    /* em-based inset so the pill scales with the segment label at any
+       browser/text zoom level. */
+    inset: -0.4em -0.92em;
     border-radius: 887.98px;
     background: transparent;
     z-index: 0;
@@ -9581,6 +9699,7 @@ footer .footer-btn:focus-visible {
     font-size: 40px;
     line-height: 110%;
     letter-spacing: -0.02em;
+    text-align: center;
     transition: opacity 0.2s ease;
 }
 
@@ -9608,7 +9727,8 @@ footer .footer-btn:focus-visible {
 .fs-f8[data-state="fundraisers"] .fs-f8__body--orange,
 .fs-f8[data-state="fundraisers"] .fs-f8__word--orange,
 .fs-f8[data-state="fundraisers"] .fs-f8__lead--orange,
-.fs-f8[data-state="fundraisers"] .fs-f8__deco-line--orange {
+.fs-f8[data-state="fundraisers"] .fs-f8__deco-line--orange,
+.fs-f8[data-state="fundraisers"] .fs-f8__deco-poly--orange {
     opacity: 0.1;
     pointer-events: none;
 }
@@ -9618,7 +9738,8 @@ footer .footer-btn:focus-visible {
 .fs-f8[data-state="employers"] .fs-f8__body--purple,
 .fs-f8[data-state="employers"] .fs-f8__word--purple,
 .fs-f8[data-state="employers"] .fs-f8__lead--purple,
-.fs-f8[data-state="employers"] .fs-f8__deco-line--purple {
+.fs-f8[data-state="employers"] .fs-f8__deco-line--purple,
+.fs-f8[data-state="employers"] .fs-f8__deco-poly--purple {
     opacity: 0.1;
     pointer-events: none;
 }
@@ -10485,7 +10606,7 @@ footer .footer-btn:focus-visible {
         position: relative;
         width: 100%;
         height: 16px;
-        margin: 16px 0 0;
+        margin: 12px 0 0;
         pointer-events: none;
     }
 
@@ -10506,7 +10627,7 @@ footer .footer-btn:focus-visible {
         left: 14px;
         width: calc(50% - 14px);
         background: rgba(255, 255, 255, 0.7);
-        transition: left 0.3s ease;
+        transition: left 0.3s ease, transform 0.3s ease;
     }
 
     .fs-f9__swipe-track[data-step="1"] .fs-f9__swipe-fill {
@@ -10601,9 +10722,10 @@ footer .footer-btn:focus-visible {
         top: auto;
         width: 100%;
         max-width: 100%;
-        margin: 32px 20px 0;
-        padding: 0;
+        margin: 32px 0 0;
+        padding: 0 20px;
         box-sizing: border-box;
+        text-align: left;
         font-family: 'Golos', 'Golos Text', sans-serif;
         font-weight: 500;
         font-size: 40px;
@@ -11365,6 +11487,14 @@ a.fs-f11__cta-pdf:focus-visible,
     color: var(--text-white);
 }
 
+.fs-f11__final-heading-link {
+    color: inherit;
+    text-decoration: underline;
+    /* Figma 282:845 — white line at opacity 0.8 under "Опыт". */
+    text-decoration-color: rgba(255, 255, 255, 0.8);
+    text-underline-offset: 0.12em;
+}
+
 .fs-f11__final-heading-underline {
     /* spec 282:845 line at sub (12.41, 43), 88.23 wide, opacity 0.8 */
     position: absolute;
@@ -11652,13 +11782,6 @@ a.fs-f11__cta-pdf:focus-visible,
     color: #2F2F2F;
 }
 
-/* Header sits on the dark canvas globally — keep its colors as-is, just
-   ensure it can read against light below it (header itself stays dark). */
-.exp-page header {
-    background: #272727;
-    color: #FFFFFF;
-}
-
 .exp {
     max-width: 1440px;
     margin: 0 auto;
@@ -11820,6 +11943,7 @@ a.fs-f11__cta-pdf:focus-visible,
     justify-content: center;
     padding: 32px 0 80px;
     color: #2F2F2F;
+    text-decoration: none;
 }
 
 .exp-hero__brand-word {
@@ -11845,10 +11969,24 @@ a.fs-f11__cta-pdf:focus-visible,
     line-height: 1;
     letter-spacing: -0.04em;
     color: #2F2F2F;
+    text-align: center;
 }
 
+/* Per-line stagger: Figma node 286:2970 positions each text frame
+   independently — "Опыт" left of parent centre by ≈111 px, the third
+   line right by ≈116 px (frame x-coords 376.77 / 265 / 296.7 inside a
+   parent at x=265, width=909.7). Match that asymmetric stair-step
+   instead of leaving all three lines centred under each other. */
 .exp-hero__title-line {
     display: block;
+}
+
+.exp-hero__title-line:nth-child(1) {
+    transform: translateX(-111px);
+}
+
+.exp-hero__title-line:nth-child(3) {
+    transform: translateX(116px);
 }
 
 /* Green gradient panel (Figma 286:3872) — wraps intro + toggle + sub */
@@ -11870,6 +12008,16 @@ a.fs-f11__cta-pdf:focus-visible,
     letter-spacing: -0.02em;
     color: #2F2F2F;
     text-align: left;
+}
+
+.exp-hero__intro-link {
+    color: inherit;
+    text-decoration: underline;
+    text-underline-offset: 0.15em;
+}
+
+.exp-hero__intro-link:hover {
+    text-decoration-thickness: 2px;
 }
 
 
@@ -11977,7 +12125,8 @@ a.fs-f11__cta-pdf:focus-visible,
     display: grid;
     grid-template-columns: repeat(3, 400px);
     grid-auto-rows: minmax(560px, auto);
-    gap: 20px;
+    column-gap: 20px;
+    row-gap: 49px;
     justify-content: center;
     margin: 0 auto 80px;
     align-items: start;
@@ -12025,12 +12174,16 @@ a.fs-f11__cta-pdf:focus-visible,
     display: none;
 }
 
-/* XL card spans 2 cols × 2 rows (818×1166 in Figma → ~820×1166 here) */
+/* XL card spans 2 cols × 2 rows (Figma 286:3253 → 818 × 1166).
+   Width is fixed; height stretches to fill the 2-row track so the bottom
+   edge always aligns with the right-column cards (which may grow past the
+   560 min-height based on content). Figma height becomes a floor only. */
 .exp-card--xl {
     grid-column: span 2;
     grid-row: span 2;
-    width: 820px;
-    height: 1166px;
+    align-self: stretch;
+    width: 818px;
+    min-height: 1166px;
     padding: 0;
     overflow: hidden;
 }
@@ -12097,6 +12250,12 @@ a.fs-f11__cta-pdf:focus-visible,
     border-color: #2F2F2F;
     background: #2F2F2F;
     color: #E4E5EF;
+}
+
+/* Event cards use square-cornered tags (Figma 286:3186 etc.) instead of
+   the pill shape used by text cards. */
+[data-kind="event"] .exp-tag {
+    border-radius: 0;
 }
 
 .exp-tag-divider {
@@ -12245,16 +12404,40 @@ a.fs-f11__cta-pdf:focus-visible,
     width: 100%;
 }
 
-/* Rings: invert SVG (white → dark), size explicitly, center in canvas + keep
-   scroll-driven 360° rotation from section6 (--section6-progress JS variable). */
+/* Rings: keep the SVG's white stroke and apply Figma's plus-lighter blend
+   (286:3072 et al. — `mix-blend-plus-lighter`) so the rings render as a
+   faint, ethereal white glow over the light page background instead of
+   solid lines. Size explicitly, center in canvas + keep scroll-driven 360°
+   rotation from section6 (--section6-progress JS variable).
+
+   Two stacked SVGs: --white is the default ghost-white state, --color is
+   the iridescent orange/blue/purple variant (Figma 286:3921). Hovering
+   the section cross-fades to the colored layer. */
 .exp-discuss.section6.section6__phase7 .section6__rings {
-    filter: invert(1);
+    mix-blend-mode: plus-lighter;
     width: 1000px !important;
     height: auto !important;
     inset: auto !important;
     left: 50% !important;
     top: 50% !important;
     transform: translate(-50%, -50%) rotate(calc(360deg * var(--section6-progress, 0))) !important;
+    transition: opacity 0.4s ease;
+}
+
+.exp-discuss .section6__rings--color {
+    opacity: 0;
+    /* Re-enable hover on the colored layer (base .section6__phase7 .section6__rings
+       sets pointer-events: none). The white layer stays inert so the colored
+       layer always wins the hit-test. */
+    pointer-events: auto;
+}
+
+.exp-discuss .section6__rings--color:hover {
+    opacity: 1;
+}
+
+.exp-discuss:has(.section6__rings--color:hover) .section6__rings--white {
+    opacity: 0;
 }
 
 .exp-discuss .section6__cta {
@@ -12410,6 +12593,13 @@ a.fs-f11__cta-pdf:focus-visible,
     color: #2F2F2F;
 }
 
+/* Partner logos on the light experience page must render black (Figma 286:3038
+   et al. — `fill="var(--fill-0, black)"`). The shared SVG files hardcode
+   `fill="white"` for the dark index page, so we invert them here. */
+.exp-page .s9__logo {
+    filter: invert(1);
+}
+
 
 /* ---- Tablet / intermediate (771–1439px) -------------------------------
    Stepped `zoom:` scaling so the fixed-pixel 1440-canvas layout shrinks
@@ -12523,13 +12713,20 @@ a.fs-f11__cta-pdf:focus-visible,
 
     /* Full-bleed portrait. Cropped to the Figma frame ratio 391:525 (instead
        of the photo's native 399:599) so the visible image matches the design;
-       object-position: top keeps the face in view. */
+       object-position: top keeps the face in view.
+
+       Starts blurred; the --exp-hero-blur custom property is driven by
+       js/experience.js as the user scrolls — 0 when the photo is centred
+       in the viewport, full when it's off-screen above or below (so
+       scrolling past and back re-blurs cyclically). */
     .exp-hero__photo {
         display: block;
         width: 100%;
         aspect-ratio: 391 / 525;
         object-fit: cover;
         object-position: top;
+        filter: blur(var(--exp-hero-blur, 11.973182678222656px));
+        will-change: filter;
     }
 
     /* Canvas overlays the photo so brand + title sit at Figma coordinates.
@@ -12569,6 +12766,13 @@ a.fs-f11__cta-pdf:focus-visible,
     /* "Опыт" is indented in the Figma (left=59 vs 28-29 for the rest) */
     .exp-hero__title-line:first-child {
         padding-left: 31px;
+    }
+
+    /* Reset the desktop stair-step (translateX -111 / +116) so lines stay
+       inside the 28–28 mobile gutters instead of overflowing the viewport. */
+    .exp-hero__title-line:nth-child(1),
+    .exp-hero__title-line:nth-child(3) {
+        transform: none;
     }
 
     /* Brand "Спецпроект СРЕДА_СВОИХ" pinned at y=396 (over photo bottom) */
