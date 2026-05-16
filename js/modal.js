@@ -1,6 +1,6 @@
 /* PDF modal — appears on click of "Получить исследование в PDF" CTAs
    (Figma 282:1092). Injects markup at end of <body>, wires open/close
-   handlers, and lets the form submit normally (Sendsay-style). */
+   handlers; form submit is handled by sendsay.js. */
 (function () {
     'use strict';
 

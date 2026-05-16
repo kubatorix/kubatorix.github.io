@@ -2,8 +2,10 @@ document.addEventListener("DOMContentLoaded", function() {
 
 
     const canvas = document.getElementById('canvas');
-    const ctx = canvas.getContext('2d');
     const slider = document.getElementById('slider');
+
+    if (canvas && slider) {
+    const ctx = canvas.getContext('2d');
 
     // Both columns target positions stay strictly inside their half of the
     // 1100-px canvas (split at x=550): purple фандрайзер in 80..480 (left),
@@ -130,6 +132,7 @@ document.addEventListener("DOMContentLoaded", function() {
 
     init();
     draw();
+    }
 
 
 
@@ -235,119 +238,35 @@ document.addEventListener("DOMContentLoaded", function() {
     const popupBg = document.querySelector('.popup-bg');
     const closeButton = document.querySelector('.popup-research__close');
 
-    const closePopup = () => {
-        popup.style.display = 'none';
-        popupBg.style.display = 'none';
-    };
-
-    if (closeButton) {
-        closeButton.addEventListener('click', closePopup);
-    }
-
-    if (popupBg) {
-        popupBg.addEventListener('click', (e) => {
-
-        if (e.target === popupBg) {
-            closePopup();
-        }
-        });
-    }
-
-
-    const openButtons = document.querySelectorAll('.section7-btn, .welcome-btn');
-    openButtons.forEach(btn => {
-        btn.addEventListener('click', () => {
-            popupBg.style.display = 'block';
-            popup.style.display = 'block';
-        });
-    });
-    popupBg.addEventListener('click', () => {
-        popupBg.style.display = 'none';
-        popup.style.display = 'none';
-    });
-
-
-
-
-
-    const popupResearchForm = document.querySelector('.popup-research--form');
-
-    if (!popupResearchForm) {
-        console.error('Form with class "popup-research--form" not found.');
-        return;
-    }
-
-    const successElement = document.querySelector('.popup-research__success');
-    if (!successElement) {
-        console.error('Success element ".popup-research__success" not found.');
-        return;
-    }
-
-    popupResearchForm.addEventListener('submit', async function(event) {
-        event.preventDefault();
-
-        const formData = new FormData(popupResearchForm);
-        const email = formData.get('email');
-        const name = formData.get('name');
-
-        if (!email || !name) {
-            console.error('Email or Name is missing in popup form.');
-            alert('Пожалуйста, заполните все обязательные поля.');
-            return;
-        }
-
-        const checkboxAgreement = popupResearchForm.querySelector('input[name="footer-checkbox__agreement"]');
-        const checkboxPersonal = popupResearchForm.querySelector('input[name="footer-checkbox__personal"]');
-
-        if (!checkboxAgreement || !checkboxAgreement.checked) {
-            alert('Пожалуйста, примите условия пользовательского соглашения.');
-            return;
-        }
-        if (!checkboxPersonal || !checkboxPersonal.checked) {
-            alert('Пожалуйста, дайте согласие на обработку персональных данных.');
-            return;
-        }
-
-        const requestData = {
-            apikey: "19GX7ORKgYbHjCVsIdpgip6xdgO9S1kj8wE8Hx3PSacTpw9_MwLDcu92POg",
-            action: "member.set",
-            email: email,
-            addr_type: email,
-            "newbie.confirm": "0",
-            datakey: [
-                ["-group.pl99047", "set", "1"],
-                ["base.firstName", "set", name], 
-                ["custom.q123", "set", "Получить исследование"]
-            ]
+    if (popup && popupBg) {
+        const closePopup = () => {
+            popup.style.display = 'none';
+            popupBg.style.display = 'none';
         };
 
-        try {
-            const response = await fetch("https://api.sendsay.ru/general/api/v100/json/mdoo", {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json'
-                },
-                body: JSON.stringify(requestData)
-            });
-
-            if (response.ok) {
-                const result = await response.json();
-                console.log('Popup form Success:', result);
-
-                popupResearchForm.style.display = 'none';
-                successElement.style.display = 'block';
-
-            } else {
-                console.error('Popup form API request failed:', response.status, response.statusText);
-                const errorText = await response.text();
-                console.error('Popup form Error details:', errorText);
-                alert(`Произошла ошибка при отправке запроса. Код ошибки: ${response.status}`);
-            }
-        } catch (error) {
-            console.error('Popup form Network error:', error);
-            alert('Произошла сетевая ошибка. Пожалуйста, попробуйте позже.');
+        if (closeButton) {
+            closeButton.addEventListener('click', closePopup);
         }
-    });
+
+        popupBg.addEventListener('click', (e) => {
+            if (e.target === popupBg) {
+                closePopup();
+            }
+        });
+
+        const openButtons = document.querySelectorAll('.section7-btn, .welcome-btn');
+        openButtons.forEach(btn => {
+            btn.addEventListener('click', () => {
+                popupBg.style.display = 'block';
+                popup.style.display = 'block';
+            });
+        });
+    }
+
+
+
+
+
 
     
     // const form = document.querySelector('.popup-research--form');
@@ -438,11 +357,16 @@ function updateTimer() {
         }
     }
     
-    document.querySelector('.popup-research__success-days').textContent = `${days} ${getDayWord(days)}`;
-    document.querySelector('.welcome-timer__days').textContent = `${days} ${getDayWord(days)}`;
-    document.querySelector('.welcome-timer__hours').textContent = `${hours} час`;
-    document.querySelector('.welcome-timer__minutes').textContent = `${minutes} мин`;
-    document.querySelector('.welcome-timer__seconds').textContent = `${seconds} сек`;
+    var popupDays = document.querySelector('.popup-research__success-days');
+    if (popupDays) popupDays.textContent = `${days} ${getDayWord(days)}`;
+    var welcomeDays = document.querySelector('.welcome-timer__days');
+    if (welcomeDays) welcomeDays.textContent = `${days} ${getDayWord(days)}`;
+    var welcomeHours = document.querySelector('.welcome-timer__hours');
+    if (welcomeHours) welcomeHours.textContent = `${hours} час`;
+    var welcomeMinutes = document.querySelector('.welcome-timer__minutes');
+    if (welcomeMinutes) welcomeMinutes.textContent = `${minutes} мин`;
+    var welcomeSeconds = document.querySelector('.welcome-timer__seconds');
+    if (welcomeSeconds) welcomeSeconds.textContent = `${seconds} сек`;
 
     setTimeout(updateTimer, 1000);
 }

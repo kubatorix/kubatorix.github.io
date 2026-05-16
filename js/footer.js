@@ -1,7 +1,7 @@
 /* Site footer component.
    Mounts the shared footer markup into <footer id="site-footer"></footer>.
-   Loaded with `defer` BEFORE common.js so the .subscribe form exists when
-   common.js attaches its DOMContentLoaded handler. */
+   Loaded with `defer` BEFORE sendsay.js so the .subscribe form exists when
+   sendsay.js wires the Sendsay handler. */
 (function () {
     var FOOTER_HTML = ''
         + '<div class="footer-block footer-block__1">'
