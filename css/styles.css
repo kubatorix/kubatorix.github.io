@@ -15291,3 +15291,638 @@ a.s8__card-link:focus-visible .s8__card {
         text-align: center;
     }
 }
+
+/* ============================================================
+   Article 2 — KPI (dark theme)
+   ============================================================ */
+.art-page--2 {
+    background: rgba(47, 47, 47, 1);
+    color: #FFFFFF;
+}
+
+.art-page--2 .art {
+    background: rgba(47, 47, 47, 1);
+}
+
+.art-page--2 .art__content {
+    max-width: 857px;
+    width: 100%;
+}
+
+.art-page--2 .art-hero {
+    padding-top: 195px;
+    padding-bottom: 0;
+}
+
+.art-page--2 .art-hero__title {
+    box-sizing: border-box;
+    width: 100%;
+    max-width: 857px;
+    min-height: 188px;
+    margin: 0 auto;
+}
+
+.art-page--2 .art-hero__title {
+    font-family: 'SangBleu Sunrise', 'Times New Roman', serif;
+    font-weight: 500;
+    font-size: 70px;
+    line-height: 0.9;
+    letter-spacing: -0.03em;
+    text-align: center;
+    color: #FFFFFF;
+}
+
+.art-page--2 .art-hero .art-lead {
+    box-sizing: border-box;
+    width: 100%;
+    max-width: 820px;
+    min-height: 352px;
+    margin: 143px auto 176px;
+    font-family: 'Golos', 'Golos Text', sans-serif;
+    font-weight: 500;
+    font-size: 25px;
+    line-height: 1.3;
+    letter-spacing: -0.02em;
+    text-align: center;
+    color: #FFFFFF;
+}
+
+/* Article 2 — tip blocks */
+.art-page--2 .art2-tip {
+    box-sizing: border-box;
+    width: 100%;
+    max-width: 820px;
+    margin: 0 auto 66px;
+}
+
+.art-page--2 .art2-tip + .art2-tip {
+    margin-top: 114px;
+}
+
+.art-page--2 .art2-tip--3 {
+    margin-bottom: 52px;
+}
+
+.art-page--2 .art2-kpi-graphic {
+    box-sizing: border-box;
+    width: 100%;
+    max-width: 820px;
+    margin: 0 auto 48px;
+}
+
+.art-page--2 .art2-kpi-graphic img {
+    display: block;
+    width: 100%;
+    max-width: 797px;
+    height: auto;
+    margin: 0 auto;
+}
+
+.art-page--2 .art2-tip__head {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) auto;
+    column-gap: 122px;
+    align-items: start;
+}
+
+.art-page--2 .art2-tip--4 .art2-tip__head {
+    column-gap: 52px;
+}
+
+.art-page--2 .art2-tip__intro {
+    min-width: 0;
+}
+
+.art-page--2 .art2-tip__label {
+    display: block;
+    margin: 0;
+    padding: 0;
+    border: 0;
+    font-family: 'Golos', 'Golos Text', sans-serif;
+    font-weight: 600;
+    font-size: 35px;
+    line-height: 1.3;
+    letter-spacing: -0.01em;
+    color: transparent;
+    -webkit-text-stroke: 1px rgba(255, 255, 255, 1);
+    paint-order: stroke fill;
+}
+
+.art-page--2 .art2-tip__title {
+    margin: 0;
+    font-family: 'Golos', 'Golos Text', sans-serif;
+    font-weight: 600;
+    font-size: 35px;
+    line-height: 1.2;
+    letter-spacing: -0.02em;
+    color: #FFFFFF;
+}
+
+.art-page--2 .art2-tip__author {
+    margin: 0;
+}
+
+.art-page--2 .art2-tip--1 .art2-tip__author,
+.art-page--2 .art2-tip--2 .art2-tip__author {
+    margin-top: 39px;
+}
+
+.art-page--2 .art2-tip--3 .art2-tip__author {
+    margin-top: 11px;
+}
+
+.art-page--2 .art2-tip--4 .art2-tip__author {
+    margin-top: 24px;
+}
+
+.art-page--2 .art2-tip__author {
+    font-family: 'SangBleu Sunrise', 'Times New Roman', serif;
+    font-weight: 700;
+    font-size: 16px;
+    line-height: 1.3;
+    letter-spacing: -0.02em;
+    color: rgba(255, 140, 50, 1);
+}
+
+.art-page--2 .art2-tip__portrait {
+    --art-portrait-o1: 1;
+    --art-portrait-o2: 0;
+    margin: 0;
+    flex-shrink: 0;
+    width: 298px;
+    max-width: 100%;
+}
+
+.art-page--2 .art2-tip__portrait:not(.art2-tip__portrait--scroll) img {
+    display: block;
+    width: 298px;
+    max-width: 100%;
+    height: auto;
+    object-fit: cover;
+}
+
+.art-page--2 .art2-tip__portrait-frame {
+    position: relative;
+    overflow: hidden;
+    width: 298px;
+    max-width: 100%;
+    aspect-ratio: 298 / 401;
+    background: rgba(47, 47, 47, 1);
+}
+
+.art-page--2 .art2-tip__portrait-photo {
+    position: absolute;
+    inset: 0;
+    display: block;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    object-position: center top;
+}
+
+.art-page--2 .art2-tip__portrait-photo--1 {
+    opacity: var(--art-portrait-o1);
+}
+
+.art-page--2 .art2-tip__portrait-photo--2 {
+    opacity: var(--art-portrait-o2);
+}
+
+/* Совет 2: оранжевый дубликат пока не в репозитории — аппроксимация фильтром */
+.art-page--2 .art2-tip--2 .art2-tip__portrait-photo--2 {
+    filter: sepia(0.45) saturate(2.4) hue-rotate(350deg) brightness(1.02);
+}
+
+@media (prefers-reduced-motion: reduce) {
+    .art-page--2 .art2-tip__portrait-photo--1 {
+        opacity: 1;
+    }
+
+    .art-page--2 .art2-tip__portrait-photo--2 {
+        display: none;
+    }
+}
+
+.art-page--2 .art2-tip__body {
+    display: flex;
+    flex-direction: column;
+    gap: 26px;
+    margin-top: 0;
+    font-size: 20px;
+    line-height: 1.3;
+}
+
+.art-page--2 .art2-tip--1 .art2-tip__body,
+.art-page--2 .art2-tip--3 .art2-tip__body,
+.art-page--2 .art2-tip--4 .art2-tip__body {
+    margin-top: 37px;
+}
+
+.art-page--2 .art2-tip--2 .art2-tip__body {
+    margin-top: 21px;
+}
+
+.art-page--2 .art2-tip__body p {
+    margin: 0;
+    font-family: 'Golos', 'Golos Text', sans-serif;
+    font-weight: 500;
+    font-size: inherit;
+    line-height: inherit;
+    letter-spacing: -0.02em;
+    text-indent: 25px;
+    color: #FFFFFF;
+}
+
+.art-page--2 .art2-tip__list {
+    margin: 0;
+    padding: 0 0 0 1.35em;
+    list-style: decimal;
+    list-style-position: outside;
+}
+
+.art-page--2 .art2-tip__list li {
+    margin: 0;
+    font-family: 'Golos', 'Golos Text', sans-serif;
+    font-weight: 500;
+    font-size: inherit;
+    line-height: inherit;
+    letter-spacing: -0.02em;
+    color: #FFFFFF;
+    text-indent: 0;
+}
+
+.art-page--2 .art2-tip__list li + li {
+    margin-top: 26px;
+}
+
+/* Stepped orange dividers between tips (Figma strokes −90° → horizontal spans). */
+.art-page--2 .art2-lines {
+    box-sizing: border-box;
+    width: 100%;
+    max-width: 820px;
+    margin: 0 auto 76px;
+    padding: 0;
+}
+
+.art-page--2 .art2-lines__line {
+    display: block;
+    box-sizing: border-box;
+    height: 0;
+    border: 0;
+    border-top: 1.5px solid rgba(255, 140, 50, 1);
+}
+
+.art-page--2 .art2-lines__line--1 {
+    width: 247.92px;
+    margin: 0 0 115px auto;
+}
+
+.art-page--2 .art2-lines__line--2 {
+    width: 219.48px;
+    margin: 0 auto 120px;
+}
+
+.art-page--2 .art2-lines__line--3 {
+    width: 219.48px;
+    margin: 0 auto 0 0;
+}
+
+.art-page--2 .art2-tip--4 {
+    margin-bottom: 32px;
+}
+
+.art-page--2 .art-cta {
+    margin-bottom: 120px;
+}
+
+.art-page--2 .art-cta__vline {
+    display: block;
+    flex-shrink: 0;
+    width: 1px;
+    height: 159px;
+    margin: 0 auto 10px;
+    background: rgba(255, 255, 255, 1);
+    pointer-events: none;
+}
+
+.art-page--2 .art-cta__text {
+    margin-bottom: 58px;
+    color: rgba(255, 255, 255, 1);
+}
+
+.art-page--2 .art-cta__btn {
+    background-color: #FFFFFF;
+    color: #272727;
+    border: 1px solid #272727;
+    transition: background-color 0.18s ease, color 0.18s ease, border-color 0.18s ease;
+}
+
+.art-page--2 .art-cta__btn:visited {
+    color: #272727;
+}
+
+.art-page--2 .art-cta__btn:hover,
+.art-page--2 .art-cta__btn:visited:hover,
+.art-page--2 .art-cta__btn:focus-visible {
+    background-color: #272727;
+    color: #FFFFFF;
+    border-color: rgba(255, 255, 255, 1);
+}
+
+@media (max-width: 900px) {
+    .art-page--2 .art-cta__vline {
+        height: 30.31px;
+    }
+
+    .art-page--2 .art-cta {
+        margin-bottom: 100px;
+    }
+}
+
+@media (max-width: 770px) {
+    .art-page--2 .art-hero {
+        padding-top: 154px;
+        padding-bottom: 0;
+    }
+
+    .art-page--2 .art-hero .art__content {
+        padding: 0 39px;
+        box-sizing: border-box;
+    }
+
+    .art-page--2 .art-hero__title {
+        min-height: 0;
+        font-family: 'SangBleu Sunrise', 'Times New Roman', serif;
+        font-weight: 500;
+        font-size: 35px;
+        line-height: 0.9;
+        letter-spacing: -0.03em;
+        text-align: center;
+    }
+
+    .art-page--2 .art-hero .art-lead {
+        min-height: 0;
+        margin: 52px 0 103px;
+        max-width: none;
+        font-family: 'Golos', 'Golos Text', sans-serif;
+        font-weight: 500;
+        font-size: 16px;
+        line-height: 1.3;
+        letter-spacing: -0.02em;
+        text-align: center;
+    }
+
+    /* Tips — mobile (template from Совет 1) */
+    .art-page--2 .art2-tip {
+        box-sizing: border-box;
+        max-width: none;
+        margin-bottom: 0;
+        padding: 0 39px;
+    }
+
+    .art-page--2 .art2-tip + .art2-tip {
+        margin-top: 90px;
+    }
+
+    .art-page--2 .art2-tip__head {
+        display: flex;
+        flex-direction: column;
+        align-items: flex-start;
+        column-gap: 0;
+    }
+
+    .art-page--2 .art2-tip__intro {
+        display: contents;
+    }
+
+    .art-page--2 .art2-tip__label {
+        order: 1;
+        margin: 0;
+        font-family: 'Golos', 'Golos Text', sans-serif;
+        font-weight: 600;
+        font-size: 20px;
+        line-height: 1.3;
+        letter-spacing: -0.01em;
+        color: transparent;
+        -webkit-text-stroke: 0.7px rgba(255, 255, 255, 1);
+        paint-order: stroke fill;
+    }
+
+    .art-page--2 .art2-tip__title {
+        order: 2;
+        margin: 0 0 68px;
+        font-size: 20px;
+        line-height: 1.2;
+        letter-spacing: -0.02em;
+        text-align: left;
+    }
+
+    .art-page--2 .art2-tip__portrait {
+        order: 3;
+        align-self: center;
+        width: 217.140625px;
+        max-width: 100%;
+        margin: 0 auto 38px;
+    }
+
+    .art-page--2 .art2-tip__portrait-frame {
+        width: 217.140625px;
+        max-width: 100%;
+        height: 294.779px;
+        aspect-ratio: auto;
+    }
+
+    .art-page--2 .art2-tip__portrait:not(.art2-tip__portrait--scroll) img {
+        display: block;
+        width: 217.140625px;
+        max-width: 100%;
+        height: 294.779px;
+        object-fit: cover;
+        object-position: center top;
+    }
+
+    .art-page--2 .art2-tip__author {
+        order: 4;
+        align-self: center;
+        box-sizing: border-box;
+        width: 217.140625px;
+        max-width: 100%;
+        margin: 0 auto 74px;
+        font-family: 'SangBleu Sunrise', 'Times New Roman', serif;
+        font-weight: 700;
+        font-size: 14px;
+        line-height: 1.3;
+        letter-spacing: -0.02em;
+        text-align: center;
+    }
+
+    .art-page--2 .art2-tip--1 .art2-tip__author,
+    .art-page--2 .art2-tip--2 .art2-tip__author,
+    .art-page--2 .art2-tip--3 .art2-tip__author,
+    .art-page--2 .art2-tip--4 .art2-tip__author {
+        margin-top: 0;
+    }
+
+    .art-page--2 .art2-tip--1 .art2-tip__body,
+    .art-page--2 .art2-tip--2 .art2-tip__body,
+    .art-page--2 .art2-tip--3 .art2-tip__body,
+    .art-page--2 .art2-tip--4 .art2-tip__body {
+        margin-top: 0;
+    }
+
+    .art-page--2 .art2-tip--3 {
+        margin-bottom: 0;
+    }
+
+    .art-page--2 .art2-kpi-graphic {
+        margin-top: 90px;
+        margin-bottom: 90px;
+        margin-left: auto;
+        margin-right: auto;
+        padding: 0 39px;
+    }
+
+    .art-page--2 .art2-kpi-graphic + .art2-tip {
+        margin-top: 0;
+    }
+
+    .art-page--2 .art2-tip--4 {
+        margin-bottom: 12px;
+    }
+
+    .art-page--2 .art-cta {
+        margin: 0 0 100px;
+        padding: 0 20px;
+        overflow-x: clip;
+    }
+
+    .art-page--2 .art-cta__vline {
+        height: 109px;
+        margin: 0 auto 10px;
+    }
+
+    .art-page--2 .art-cta__stage {
+        box-sizing: border-box;
+        width: calc(100% + 40px);
+        max-width: none;
+        margin-left: -20px;
+        margin-right: -20px;
+        height: auto;
+        aspect-ratio: 452 / 467;
+        min-height: 0;
+        padding: 0;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        overflow: hidden;
+    }
+
+    .art-page--2 .art-cta__divider--bottom {
+        display: block;
+        flex-shrink: 0;
+        width: 1px;
+        height: 14.26px;
+        margin: 0 auto;
+        padding: 0;
+        border: 0;
+        background-color: rgba(47, 47, 47, 1);
+    }
+
+    .art-page--2 .art-cta__decor {
+        position: absolute;
+        left: 50%;
+        top: 50%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        width: 100%;
+        max-width: 100%;
+        height: auto;
+        aspect-ratio: 452 / 467;
+        overflow: hidden;
+        transform: translate(-50%, -50%) rotate(calc(360deg * var(--art-cta-progress, 0)));
+        transform-origin: 50% 50%;
+    }
+
+    .art-page--2 .art-cta__ellipse {
+        display: block;
+        width: 140%;
+        height: 140%;
+        object-fit: cover;
+        pointer-events: none;
+    }
+
+    .art-page--2 .art-cta__text {
+        margin: 0 auto 17px;
+        max-width: none;
+        font-size: 16px;
+        line-height: 1.2;
+        letter-spacing: 0;
+        text-align: center;
+        color: rgba(255, 255, 255, 1);
+    }
+
+    .art-page--2 .art-cta__btn {
+        width: 303.88787841796875px;
+        max-width: 100%;
+        height: 37.21px;
+        padding: 0 12px;
+        border-radius: 18.61px;
+        font-size: 14.88px;
+        line-height: 30.12px;
+        letter-spacing: -0.02em;
+    }
+
+    .art-page--2 .art2-tip__body {
+        box-sizing: border-box;
+        width: 100%;
+        font-size: 16px;
+        line-height: 1.3;
+    }
+
+    .art-page--2 .art2-tip__body p,
+    .art-page--2 .art2-tip__list li {
+        font-family: 'Golos', 'Golos Text', sans-serif;
+        font-weight: 500;
+        font-size: 16px;
+        line-height: 1.3;
+        letter-spacing: -0.02em;
+        text-indent: 25px;
+    }
+
+    .art-page--2 .art2-tip__list li {
+        text-indent: 0;
+    }
+
+    .art-page--2 .art2-lines {
+        display: flex;
+        flex-direction: column;
+        gap: 80px;
+        box-sizing: border-box;
+        width: 100%;
+        max-width: none;
+        margin: 90px auto;
+        padding: 0 39px;
+    }
+
+    .art-page--2 .art2-lines__line {
+        box-sizing: border-box;
+        width: 90px;
+        height: 0;
+        border: 0;
+        border-top: 1.5px solid rgba(255, 140, 50, 1);
+        margin: 0;
+    }
+
+    .art-page--2 .art2-lines__line--1 {
+        align-self: flex-end;
+    }
+
+    .art-page--2 .art2-lines__line--2 {
+        align-self: center;
+    }
+
+    .art-page--2 .art2-lines__line--3 {
+        align-self: flex-start;
+    }
+}

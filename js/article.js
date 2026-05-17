@@ -1,38 +1,60 @@
 /* Article page — portrait crossfade driven by viewport position
    (same progress formula as .section6 / --section6-progress). */
 (function () {
-    var portrait = document.querySelector('.art-portrait');
-    if (!portrait) return;
+    var portraits = document.querySelectorAll(
+        '.art-portrait, .art2-tip__portrait--scroll'
+    );
+    if (!portraits.length) return;
 
     var ticking = false;
 
-    function compute() {
-        ticking = false;
-        var rect = portrait.getBoundingClientRect();
-        var vh = window.innerHeight || document.documentElement.clientHeight;
-        var progress = Math.max(0, Math.min(1, (vh - rect.top) / (vh + rect.height)));
-
-        var o1 = 0;
-        var o2 = 0;
-        var o3 = 0;
-
-        if (progress < 0.25) {
-            o1 = 1 - progress * 4;
-            o2 = progress * 4;
-        } else if (progress < 0.5) {
-            o2 = 1 - (progress - 0.25) * 4;
-            o3 = (progress - 0.25) * 4;
-        } else if (progress < 0.75) {
-            o3 = 1 - (progress - 0.5) * 4;
-            o1 = (progress - 0.5) * 4;
-        } else {
-            o1 = 1;
-        }
-
-        portrait.style.setProperty('--art-portrait-progress', progress.toFixed(4));
+    function setOpacity(portrait, o1, o2, o3) {
         portrait.style.setProperty('--art-portrait-o1', o1.toFixed(4));
         portrait.style.setProperty('--art-portrait-o2', o2.toFixed(4));
-        portrait.style.setProperty('--art-portrait-o3', o3.toFixed(4));
+        if (o3 !== undefined) {
+            portrait.style.setProperty('--art-portrait-o3', o3.toFixed(4));
+        }
+    }
+
+    function compute() {
+        ticking = false;
+        var vh = window.innerHeight || document.documentElement.clientHeight;
+
+        portraits.forEach(function (portrait) {
+            var block = portrait.closest('.art2-tip') || portrait;
+            var rect = block.getBoundingClientRect();
+            var progress = Math.max(
+                0,
+                Math.min(1, (vh - rect.top) / (vh + rect.height))
+            );
+            var layers = portrait.dataset.portraitLayers === '2' ? 2 : 3;
+            var o1 = 0;
+            var o2 = 0;
+            var o3 = 0;
+
+            if (layers === 2) {
+                o1 = 1 - progress;
+                o2 = progress;
+                setOpacity(portrait, o1, o2);
+            } else if (progress < 0.25) {
+                o1 = 1 - progress * 4;
+                o2 = progress * 4;
+                setOpacity(portrait, o1, o2, o3);
+            } else if (progress < 0.5) {
+                o2 = 1 - (progress - 0.25) * 4;
+                o3 = (progress - 0.25) * 4;
+                setOpacity(portrait, o1, o2, o3);
+            } else if (progress < 0.75) {
+                o3 = 1 - (progress - 0.5) * 4;
+                o1 = (progress - 0.5) * 4;
+                setOpacity(portrait, o1, o2, o3);
+            } else {
+                o1 = 1;
+                setOpacity(portrait, o1, o2, o3);
+            }
+
+            portrait.style.setProperty('--art-portrait-progress', progress.toFixed(4));
+        });
     }
 
     function onScroll() {

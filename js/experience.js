@@ -75,13 +75,16 @@
         },
 
         'dark-polygons': function (c) {
-            return ''
+            var inner = ''
                 + '<article class="exp-card exp-card--polygons" data-kind="' + c.kind + '">'
                 + '<div class="exp-card__media">'
                 +   '<img src="./img/figma/exp_card_polygons.svg" class="exp-card__polygons" alt="" aria-hidden="true" />'
                 + '</div>'
                 + overlayHtml(c)
                 + '</article>';
+            return c.href
+                ? '<a href="' + c.href + '" class="exp-card__link">' + inner + '</a>'
+                : inner;
         },
 
         'dark-blurred': function (c) {
