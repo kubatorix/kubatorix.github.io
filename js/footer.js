@@ -1,26 +1,37 @@
 /* Site footer component.
    Mounts the shared footer markup into <footer id="site-footer"></footer>.
-   Loaded with `defer` BEFORE common.js so the .subscribe form exists when
-   common.js attaches its DOMContentLoaded handler. */
+   Loaded with `defer` BEFORE sendsay.js so the .subscribe form exists when
+   sendsay.js wires the Sendsay handler. */
 (function () {
+    function siteRoot() {
+        var segments = location.pathname.split('/').filter(Boolean);
+        if (segments.length && /\.html?$/i.test(segments[segments.length - 1])) {
+            segments.pop();
+        }
+        if (!segments.length) return '';
+        return Array(segments.length + 1).join('../');
+    }
+
+    var root = siteRoot();
+
     var FOOTER_HTML = ''
         + '<div class="footer-block footer-block__1">'
         +   '<div class="footer-wrap1">'
         +     '<a href="https://sredasvoih.com/?utm_source=site&amp;utm_medium=email&amp;utm_campaign=spec&amp;utm_term=fundraising" target="_blank">'
-        +       '<img src="./img/icons/logo_footer.svg" class="footer-logo" alt="" />'
+        +       '<img src="' + root + 'img/icons/logo_footer.svg" class="footer-logo" alt="" />'
         +     '</a>'
         +     '<p class="footer-text1">Пространство в&nbsp;Москве<br />для благотворительных проектов и&nbsp;тех, кто их&nbsp;создаёт.</p>'
         +   '</div>'
         +   '<p class="footer-text2">Участвуйте в&nbsp;программе и&nbsp;используйте студии, помещения, образовательные модули и&nbsp;другие ресурсы для ваших социальных проектов.</p>'
         +   '<div class="footer-wrap2">'
         +     '<div class="footer-wrap3">'
-        +       '<a href="./about.html" class="footer-link1">Об&nbsp;организаторах</a>'
+        +       '<a href="' + root + 'about.html" class="footer-link1">Об&nbsp;организаторах</a>'
         +       '<div class="footer-wrap4">'
         +         '<a href="https://t.me/sredasvoih?utm_source=site&amp;utm_medium=email&amp;utm_campaign=spec&amp;utm_term=fundraising" target="_blank">'
-        +           '<img src="./img/icons/tg.svg" class="footer-social" alt="" />'
+        +           '<img src="' + root + 'img/icons/tg.svg" class="footer-social" alt="" />'
         +         '</a>'
         +         '<a href="https://vk.com/sredasvoih?utm_source=site&amp;utm_medium=email&amp;utm_campaign=spec&amp;utm_term=fundraising" target="_blank">'
-        +           '<img src="./img/icons/vk.svg" class="footer-social" alt="" />'
+        +           '<img src="' + root + 'img/icons/vk.svg" class="footer-social" alt="" />'
         +         '</a>'
         +       '</div>'
         +     '</div>'

@@ -811,13 +811,18 @@ renderEventsInto(document.querySelector('.burger-menu__events-popup'), 'burger-m
                                 : 's8__pill--white s8__pill--story-right';
         var connector = isEvent ? 's8__connector--event' : 's8__connector--story';
 
-        var heading = '<p class="s8__heading">' + escapeHtml(c.title || c.mediaTitle || '') + '</p>';
+        // Bordered cards put the title inside the framed media (mirroring
+        // the experience-page design) so skip the heading row below to
+        // avoid duplicating the same text.
+        var heading = c.variant === 'bordered'
+            ? ''
+            : '<p class="s8__heading">' + escapeHtml(c.title || c.mediaTitle || '') + '</p>';
 
         var caption = c.caption
             ? '<p class="s8__caption">' + escapeHtml(c.caption).replace(/\n/g, '<br>') + '</p>'
             : '';
 
-        return ''
+        var cardHtml = ''
             + '<article class="s8__card ' + typeClass + ' ' + posClass + variantClass + '"' + active + '>'
             +   renderMedia(c)
             +   '<span class="s8__pill s8__pill--outline ' + leftPill + '"><span class="s8__pill-text">' + escapeHtml(tag1.label) + '</span></span>'
@@ -826,6 +831,9 @@ renderEventsInto(document.querySelector('.burger-menu__events-popup'), 'burger-m
             +   heading
             +   caption
             + '</article>';
+        return c.href
+            ? '<a href="' + escapeHtml(c.href) + '" class="s8__card-link">' + cardHtml + '</a>'
+            : cardHtml;
     }
 
     function renderTrack(cards) {

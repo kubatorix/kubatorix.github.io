@@ -3,6 +3,7 @@
     "id": "A",
     "variant": "bordered",
     "kind": "text",
+    "href": "./articles/1/",
     "figma": "286:3111",
     "tags": [
       { "label": "О карьере" },
@@ -30,6 +31,7 @@
     "id": "C",
     "variant": "photo-only-547",
     "kind": "text",
+    "href": "./articles/4/",
     "figma": "286:3214",
     "tags": [
       { "label": "О деньгах" },
@@ -63,6 +65,7 @@
     "id": "F",
     "variant": "dark-polygons",
     "kind": "text",
+    "href": "./articles/2/",
     "figma": "286:3194",
     "tags": [
       { "label": "О показателях эффективности" },
@@ -102,6 +105,7 @@
     "id": "I",
     "variant": "photo-only-547",
     "kind": "text",
+    "href": "./articles/5/",
     "figma": "286:3160",
     "tags": [
       { "label": "Путь фандрайзера" },
@@ -123,7 +127,8 @@
       { "label": "Текст", "type": "ghost" }
     ],
     "title": "Почему так сложно найти фандрайзера — и что с этим делать",
-    "caption": "Учимся у владелицы компании по поиску и подбору персонала"
+    "caption": "Учимся у владелицы компании по поиску и подбору персонала",
+    "href": "./articles/3/"
   },
   {
     "id": "K",

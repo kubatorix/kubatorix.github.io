@@ -9,7 +9,7 @@
     /* Per-variant template registry. Each template returns an HTML string. */
     var TEMPLATES = {
         bordered: function (c) {
-            return ''
+            var inner = ''
                 + '<article class="exp-card exp-card--bordered" data-kind="' + c.kind + '">'
                 + tagsHtml(c.tags)
                 + '<h3 class="exp-card__title">' + c.title + '</h3>'
@@ -20,6 +20,9 @@
                     ? '<p class="exp-card__sub exp-card__sub--inset">' + c.caption + '</p>'
                     : '')
                 + '</article>';
+            return c.href
+                ? '<a href="' + c.href + '" class="exp-card__link">' + inner + '</a>'
+                : inner;
         },
 
         duotone: function (c) {
@@ -34,13 +37,16 @@
         },
 
         'photo-only-547': function (c) {
-            return ''
+            var inner = ''
                 + '<article class="exp-card exp-card--photo exp-card--photo-only-547" data-kind="' + c.kind + '">'
                 + '<div class="exp-card__media">'
                 +   '<img src="' + c.photo + '" class="exp-card__photo--duotone" alt="" aria-hidden="true" />'
                 + '</div>'
                 + overlayHtml(c)
                 + '</article>';
+            return c.href
+                ? '<a href="' + c.href + '" class="exp-card__link">' + inner + '</a>'
+                : inner;
         },
 
         'photo-orange': function (c) {
@@ -72,17 +78,20 @@
         },
 
         'dark-polygons': function (c) {
-            return ''
+            var inner = ''
                 + '<article class="exp-card exp-card--polygons" data-kind="' + c.kind + '">'
                 + '<div class="exp-card__media">'
                 +   '<img src="./img/figma/exp_card_polygons.svg" class="exp-card__polygons" alt="" aria-hidden="true" />'
                 + '</div>'
                 + overlayHtml(c)
                 + '</article>';
+            return c.href
+                ? '<a href="' + c.href + '" class="exp-card__link">' + inner + '</a>'
+                : inner;
         },
 
         'dark-blurred': function (c) {
-            return ''
+            var inner = ''
                 + '<article class="exp-card exp-card--blurred" data-kind="' + c.kind + '">'
                 + '<div class="exp-card__media">'
                 +   '<img src="' + c.mediaPhoto + '" class="exp-card__photo--blurred" alt="" aria-hidden="true" />'
@@ -90,6 +99,9 @@
                 + '</div>'
                 + overlayHtml(c)
                 + '</article>';
+            return c.href
+                ? '<a href="' + c.href + '" class="exp-card__link">' + inner + '</a>'
+                : inner;
         }
     };
 
