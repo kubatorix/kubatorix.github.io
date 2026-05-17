@@ -10,11 +10,30 @@
     var path = (location.pathname.split('/').pop() || 'index.html').toLowerCase();
     if (path === '' || path === '/') path = 'index.html';
 
+    var isArticlePage = /\/articles\/\d+/.test(location.pathname.toLowerCase());
+
+    function siteRoot() {
+        var segments = location.pathname.split('/').filter(Boolean);
+        if (segments.length && /\.html?$/i.test(segments[segments.length - 1])) {
+            segments.pop();
+        }
+        if (!segments.length) return '';
+        return Array(segments.length + 1).join('../');
+    }
+
+    var root = siteRoot();
+
     function topnavActive(slug) {
         return path === slug ? ' topnav__link--active' : '';
     }
+    function opytActive() {
+        return path === 'experience.html' || isArticlePage ? ' topnav__link--active' : '';
+    }
     function burgerActive(slug) {
         return path === slug ? ' active' : '';
+    }
+    function burgerOpytActive() {
+        return path === 'experience.html' || isArticlePage ? ' active' : '';
     }
 
     var BURGER_ICON_HTML = ''
@@ -30,10 +49,10 @@
         + '<header>'
         +   '<div class="container">'
         +     '<nav class="topnav header_inside">'
-        +       '<a href="index.html" class="topnav__link topnav__link--tema' + topnavActive('index.html') + ' header_inside-item">Тема</a>'
-        +       '<a href="fullstudy.html" class="topnav__link topnav__link--issledovanie' + topnavActive('fullstudy.html') + ' header_inside-item">Исследование</a>'
+        +       '<a href="' + root + 'index.html" class="topnav__link topnav__link--tema' + topnavActive('index.html') + ' header_inside-item">Тема</a>'
+        +       '<a href="' + root + 'fullstudy.html" class="topnav__link topnav__link--issledovanie' + topnavActive('fullstudy.html') + ' header_inside-item">Исследование</a>'
         +       '<div class="topnav__hr" aria-hidden="true"></div>'
-        +       '<a href="experience.html" class="topnav__link topnav__link--opyt' + topnavActive('experience.html') + ' header_inside-item">Опыт</a>'
+        +       '<a href="' + root + 'experience.html" class="topnav__link topnav__link--opyt' + opytActive() + ' header_inside-item">Опыт</a>'
         +       '<a href="javascript:void(0);" class="topnav__link topnav__link--sobytiya header_inside-item" aria-haspopup="true" aria-expanded="false" aria-controls="topnav-events-popup">'
         +         '<span class="topnav__label">События</span>'
         +         '<svg class="topnav__plus" width="9.92" height="9.92" viewBox="0 0 9.92 9.92" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">'
@@ -41,7 +60,7 @@
         +           '<line x1="0" y1="4.96" x2="9.92" y2="4.96" stroke="currentColor" stroke-width="0.816"/>'
         +         '</svg>'
         +       '</a>'
-        +       '<a href="about.html" class="topnav__link topnav__link--about' + topnavActive('about.html') + ' header_inside-item">Об организаторах</a>'
+        +       '<a href="' + root + 'about.html" class="topnav__link topnav__link--about' + topnavActive('about.html') + ' header_inside-item">Об организаторах</a>'
         +       '<div class="topnav__events-popup" id="topnav-events-popup" role="menu" aria-hidden="true"></div>'
         +     '</nav>'
         +   '</div>'
@@ -52,30 +71,30 @@
         + '<div class="burger-menu">'
         +   '<div class="burger-menu__wrap">'
         +     '<div>'
-        +       '<img src="./img/icons/burger_menu__close.svg" class="burger-menu__close" />'
+        +       '<img src="' + root + 'img/icons/burger_menu__close.svg" class="burger-menu__close" />'
         +       '<div class="header_inside">'
         +         '<div class="header_inside-wrap">'
-        +           '<a href="index.html" class="header_inside-item' + burgerActive('index.html') + '">Тема</a>'
-        +           '<a href="fullstudy.html" class="header_inside-item' + burgerActive('fullstudy.html') + '">Исследование</a>'
-        +           '<a href="experience.html" class="header_inside-item' + burgerActive('experience.html') + '">Опыт</a>'
+        +           '<a href="' + root + 'index.html" class="header_inside-item' + burgerActive('index.html') + '">Тема</a>'
+        +           '<a href="' + root + 'fullstudy.html" class="header_inside-item' + burgerActive('fullstudy.html') + '">Исследование</a>'
+        +           '<a href="' + root + 'experience.html" class="header_inside-item' + burgerOpytActive() + '">Опыт</a>'
         +         '</div>'
         +         '<div class="header_inside-wrap">'
         +           '<a href="javascript:void(0);" class="header_inside-item header_inside-item_custom2 burger-menu__events-toggle" aria-haspopup="true" aria-expanded="false" aria-controls="burger-events-popup">'
-        +             'События<img src="./img/icons/plus.svg" />'
+        +             'События<img src="' + root + 'img/icons/plus.svg" />'
         +           '</a>'
         +           '<div class="burger-menu__events-popup" id="burger-events-popup" role="menu" aria-hidden="true"></div>'
-        +           '<a href="about.html" class="header_inside-item' + burgerActive('about.html') + '">Об&nbsp;организаторах</a>'
+        +           '<a href="' + root + 'about.html" class="header_inside-item' + burgerActive('about.html') + '">Об&nbsp;организаторах</a>'
         +         '</div>'
         +       '</div>'
         +     '</div>'
         +     '<div>'
         +       '<p class="burger-menu__text1">спецпроект</p>'
         +       '<a href="https://sredasvoih.com/" target="_blank">'
-        +         '<img src="./img/figma/logo_specproject.svg" class="burger-menu__logo" />'
+        +         '<img src="' + root + 'img/figma/logo_specproject.svg" class="burger-menu__logo" />'
         +       '</a>'
         +       '<div class="footer-wrap4">'
-        +         '<a href="https://t.me/sredasvoih" target="_blank"><img src="./img/icons/tg.svg" class="footer-social" /></a>'
-        +         '<a href="https://vk.com/sredasvoih" target="_blank"><img src="./img/icons/vk.svg" class="footer-social" /></a>'
+        +         '<a href="https://t.me/sredasvoih" target="_blank"><img src="' + root + 'img/icons/tg.svg" class="footer-social" /></a>'
+        +         '<a href="https://vk.com/sredasvoih" target="_blank"><img src="' + root + 'img/icons/vk.svg" class="footer-social" /></a>'
         +       '</div>'
         +     '</div>'
         +   '</div>'

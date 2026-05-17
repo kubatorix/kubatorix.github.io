@@ -3,6 +3,7 @@
     "id": "A",
     "variant": "bordered",
     "kind": "text",
+    "href": "./articles/1/",
     "figma": "286:3111",
     "tags": [
       { "label": "О карьере" },

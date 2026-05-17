@@ -99,8 +99,8 @@ button {
    When introducing a new coloured element, prefer naming it
    `…--orange` / `…--purple` so it picks up this rule automatically.
    ============================================================================ */
-[class*="--orange"]:not(button):not(.s3p5__seg):not(.s3p5__seg-pill):not(.fs-f10__strip),
-[class*="--purple"]:not(button):not(.s3p5__seg):not(.s3p5__seg-pill):not(.fs-f10__strip),
+[class*="--orange"]:not(button):not(.s3p5__seg):not(.s3p5__seg-pill):not(.fs-f10__strip):not(.art-block--orange),
+[class*="--purple"]:not(button):not(.s3p5__seg):not(.s3p5__seg-pill):not(.fs-f10__strip):not(.art-block--purple),
 [class*="-mark"],
 [class*="__heading-underline"]:not(.fs-f4 *) {
     mix-blend-mode: plus-lighter;
@@ -14112,4 +14112,1182 @@ a.fs-f11__cta-pdf:focus-visible,
 
 .copy-toast.is-visible {
     opacity: 1;
+}
+
+/* ============================================================
+   Article page (/articles/1) — long-form interview layout.
+   Flow-based (no absolute canvas); max text width 820px.
+   ============================================================ */
+.art-page {
+    background: #D2D2D2;
+    color: #2F2F2F;
+}
+
+.art-page header {
+    background: #272727;
+    color: #FFFFFF;
+}
+
+.art {
+    max-width: 1440px;
+    margin: 0 auto;
+    padding: 0 100px;
+    position: relative;
+    background: #D2D2D2;
+}
+
+.art-hero {
+    padding-top: 120px;
+    padding-bottom: 80px;
+    text-align: center;
+}
+
+.art__content {
+    display: flex;
+    flex-direction: column;
+    max-width: 820px;
+    margin: 0 auto;
+    box-sizing: border-box;
+}
+
+.art-hero__title {
+    margin: 0;
+    font-weight: 500;
+    font-size: 70px;
+    line-height: 0.9;
+    letter-spacing: -0.03em;
+    text-align: center;
+    color: #2F2F2F;
+}
+
+.art-hero__title-serif,
+.art-hero__title-sans {
+    display: block;
+    font-weight: 500;
+    font-size: inherit;
+    line-height: inherit;
+    letter-spacing: inherit;
+    text-align: center;
+    color: inherit;
+}
+
+.art-hero__title-serif {
+    font-family: 'SangBleu Sunrise', 'Times New Roman', serif;
+}
+
+.art-hero__title-sans {
+    font-family: 'Golos', 'Golos Text', sans-serif;
+}
+
+/* Outlined «организаций/личный + бренд» — crossfade between two label PNGs. */
+.art-labels {
+    position: relative;
+    width: 100%;
+    max-width: 812px;
+    margin: 40px auto 0;
+    aspect-ratio: 812 / 272;
+    pointer-events: none;
+}
+
+.art-labels__frame {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+    object-position: left center;
+    animation-fill-mode: both;
+}
+
+.art-labels__frame--1 {
+    opacity: 1;
+    animation: art-labels-state-1 6s ease-in-out infinite;
+}
+
+.art-labels__frame--2 {
+    opacity: 0;
+    animation: art-labels-state-2 6s ease-in-out infinite;
+}
+
+@keyframes art-labels-state-1 {
+    0%,
+    42% {
+        opacity: 1;
+    }
+
+    50%,
+    92% {
+        opacity: 0;
+    }
+
+    100% {
+        opacity: 1;
+    }
+}
+
+@keyframes art-labels-state-2 {
+    0%,
+    42% {
+        opacity: 0;
+    }
+
+    50%,
+    92% {
+        opacity: 1;
+    }
+
+    100% {
+        opacity: 0;
+    }
+}
+
+@media (prefers-reduced-motion: reduce) {
+    .art-labels__frame--1,
+    .art-labels__frame--2 {
+        animation: none;
+    }
+
+    .art-labels__frame--2 {
+        display: none;
+    }
+}
+
+.art-words {
+    position: relative;
+    max-width: 820px;
+    height: 160px;
+    margin: 0 auto 40px;
+    pointer-events: none;
+}
+
+.art-words__layer {
+    position: absolute;
+    left: 50%;
+    transform: translateX(-50%);
+    width: min(812px, 100%);
+    height: auto;
+    object-fit: contain;
+}
+
+.art-words__layer--org {
+    top: 0;
+    z-index: 1;
+}
+
+.art-words__layer--brand {
+    top: 48px;
+    z-index: 2;
+}
+
+.art-lead {
+    max-width: 820px;
+    margin: 0 auto 64px;
+    font-family: 'Golos', 'Golos Text', sans-serif;
+    font-weight: 500;
+    font-size: clamp(18px, 2vw, 25px);
+    line-height: 1.3;
+    letter-spacing: -0.02em;
+    text-align: center;
+    color: #2F2F2F;
+}
+
+.art-hero .art-lead {
+    margin: 122px 0 0;
+    font-size: 25px;
+}
+
+.art-hero .art-lead strong {
+    font-weight: 700;
+}
+
+/* Portrait — scroll crossfade (--art-portrait-progress, same sweep as section6). */
+@property --art-portrait-progress {
+    syntax: '<number>';
+    inherits: true;
+    initial-value: 0;
+}
+
+.art-portrait {
+    --art-portrait-progress: 0;
+    --art-portrait-o1: 1;
+    --art-portrait-o2: 0;
+    --art-portrait-o3: 0;
+    width: 298px;
+    max-width: 100%;
+    margin: 0 auto 96px;
+}
+
+.art-hero .art-portrait {
+    margin-top: 84px;
+}
+
+.art-portrait__frame {
+    position: relative;
+    overflow: hidden;
+    background: #EAEAEA;
+    aspect-ratio: 298 / 401;
+}
+
+.art-portrait__photo {
+    position: absolute;
+    inset: 0;
+    display: block;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    object-position: center top;
+}
+
+.art-portrait__photo--1 {
+    opacity: var(--art-portrait-o1);
+}
+
+.art-portrait__photo--2 {
+    opacity: var(--art-portrait-o2);
+}
+
+.art-portrait__photo--3 {
+    opacity: var(--art-portrait-o3);
+}
+
+@media (prefers-reduced-motion: reduce) {
+    .art-portrait__photo--1 {
+        opacity: 1;
+    }
+
+    .art-portrait__photo--2,
+    .art-portrait__photo--3 {
+        display: none;
+    }
+}
+
+.art-block {
+    max-width: 1032px;
+    margin: 0 auto 48px;
+    padding: 48px 40px;
+    box-sizing: border-box;
+    color: #2F2F2F;
+}
+
+.art-block--purple {
+    margin-bottom: 107px;
+    padding: 55px 105px 78px;
+    mix-blend-mode: normal;
+    color: rgba(47, 47, 47, 1);
+    background: linear-gradient(180deg, #AA6EFF -4.17%, rgba(228, 229, 239, 0) 90.51%);
+}
+
+.art-block--purple .art-block__title {
+    color: #2F2F2F;
+}
+
+.art-block--purple .art-block__body p {
+    color: #2F2F2F;
+    font-family: 'Golos', 'Golos Text', sans-serif;
+    font-weight: 500;
+    font-size: 20px;
+    line-height: 1.3;
+    letter-spacing: -0.02em;
+    text-indent: 25px;
+}
+
+.art-block--purple .art-block__body p + p {
+    margin-top: 1.3em;
+}
+
+.art-block--purple .art-quote p {
+    color: #2F2F2F;
+}
+
+.art-block--orange {
+    margin-bottom: 0;
+    padding: 67px 96px 88px 112px;
+    mix-blend-mode: normal;
+    color: #2F2F2F;
+    background: linear-gradient(180deg, #FF8C32 0%, rgba(228, 229, 239, 0) 90.51%);
+}
+
+.art-block--orange .art-block__title {
+    margin: 0 0 25px;
+}
+
+.art-block--orange .art-block__title,
+.art-block--orange .art-block__intro,
+.art-block--orange .art-block__note,
+.art-block--orange .art-block__closing,
+.art-block--orange .art-step__pill,
+.art-block--orange .art-step__text,
+.art-block--orange .art-quote p {
+    color: #2F2F2F;
+}
+
+.art-block--orange .art-block__intro {
+    max-width: 825px;
+    margin: 0 auto 62px;
+}
+
+.art-block--orange .art-block__intro p {
+    margin: 0;
+    font-family: 'Golos', 'Golos Text', sans-serif;
+    font-weight: 500;
+    font-size: 20px;
+    line-height: 1.3;
+    letter-spacing: -0.02em;
+    text-indent: 25px;
+    color: #2F2F2F;
+}
+
+.art-block--orange .art-block__intro p + p {
+    margin-top: 1.3em;
+}
+
+.art-block--orange .art-steps {
+    max-width: 820px;
+    margin: 0 auto 45px;
+    gap: 0;
+}
+
+.art-block--orange .art-step {
+    grid-template-columns: 400px minmax(0, 1fr);
+    gap: 20px;
+    align-items: center;
+    max-width: 820px;
+}
+
+.art-block--orange .art-step:nth-child(1) {
+    margin-bottom: 8px;
+}
+
+.art-block--orange .art-step:nth-child(2) {
+    margin-bottom: 23px;
+}
+
+.art-block--orange .art-step__pill {
+    box-sizing: border-box;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+    width: 400px;
+    max-width: 100%;
+    margin: 0;
+    padding: 5px 15px 7px;
+    flex-shrink: 0;
+    border: 1px solid #000000;
+    border-radius: 100px;
+    opacity: 1;
+    font-family: 'Golos', 'Golos Text', sans-serif;
+    font-weight: 500;
+    font-size: 26px;
+    line-height: 1.2;
+    letter-spacing: -0.02em;
+    text-align: center;
+    color: #2F2F2F;
+}
+
+@media (min-width: 901px) {
+    .art-block--orange .art-step:nth-child(1) .art-step__pill {
+        height: 185px;
+    }
+
+    .art-block--orange .art-step:nth-child(2) .art-step__pill {
+        height: 289px;
+    }
+
+    .art-block--orange .art-step:nth-child(3) .art-step__pill {
+        height: 156px;
+    }
+}
+
+.art-block--orange .art-block__note {
+    max-width: 825px;
+    margin: 0 auto;
+    margin-top: 0;
+}
+
+.art-block--orange .art-quote {
+    width: 100%;
+    max-width: 810px;
+    margin: 77px auto 0;
+    padding: 0;
+}
+
+.art-block--orange .art-quote p {
+    font-family: 'SangBleu Sunrise', 'Times New Roman', serif;
+    font-weight: 500;
+    font-size: 30px;
+    line-height: 1.3;
+    letter-spacing: -0.02em;
+    text-indent: 25px;
+    text-align: center;
+}
+
+.art-block--orange .art-block__closing {
+    max-width: 825px;
+    margin: 77px auto 0;
+}
+
+.art-block__title {
+    max-width: 820px;
+    margin: 0 0 25px;
+    font-family: 'Golos', 'Golos Text', sans-serif;
+    font-weight: 600;
+    font-size: 30px;
+    line-height: 1.3;
+    letter-spacing: -0.02em;
+}
+
+.art-block__body p,
+.art-block__intro,
+.art-block__note,
+.art-note {
+    max-width: 820px;
+    margin: 0;
+    font-family: 'Golos', 'Golos Text', sans-serif;
+    font-weight: 500;
+    font-size: 20px;
+    line-height: 1.3;
+    letter-spacing: -0.02em;
+    text-indent: 25px;
+}
+
+.art-block--purple .art-quote {
+    width: 100%;
+    max-width: 825px;
+    margin: 60px auto 0;
+    padding: 0;
+}
+
+.art-block--purple .art-quote p {
+    font-family: 'SangBleu Sunrise', 'Times New Roman', serif;
+    font-weight: 500;
+    font-size: 30px;
+    line-height: 1.3;
+    letter-spacing: -0.02em;
+    text-indent: 25px;
+    text-align: center;
+}
+
+.art-block__intro {
+    margin-bottom: 40px;
+}
+
+.art-block__note {
+    margin-top: 40px;
+}
+
+.art-quote {
+    max-width: 825px;
+    margin: 0 auto 48px;
+    padding: 0;
+    border: 0;
+    text-align: center;
+}
+
+.art-quote p {
+    margin: 0;
+    font-family: 'SangBleu Sunrise', 'Times New Roman', serif;
+    font-weight: 500;
+    font-size: clamp(22px, 2.2vw, 30px);
+    line-height: 1.3;
+    letter-spacing: -0.02em;
+    text-indent: 25px;
+    color: #2F2F2F;
+}
+
+.art-note {
+    max-width: 820px;
+    margin: 0 auto 64px;
+}
+
+.art-steps {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    flex-direction: column;
+    gap: 24px;
+}
+
+.art-step {
+    display: grid;
+    grid-template-columns: minmax(280px, 400px) 1fr;
+    gap: 24px;
+    align-items: center;
+    max-width: 820px;
+    margin: 0 auto;
+}
+
+.art-step__pill {
+    margin: 0;
+    min-height: 120px;
+    padding: 8px 16px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    border: 1px solid #000000;
+    border-radius: 100px;
+    font-family: 'Golos', 'Golos Text', sans-serif;
+    font-weight: 500;
+    font-size: clamp(20px, 2vw, 26px);
+    line-height: 1.2;
+    letter-spacing: -0.02em;
+    color: #2F2F2F;
+    box-sizing: border-box;
+}
+
+.art-step__text {
+    margin: 0;
+    font-family: 'Golos', 'Golos Text', sans-serif;
+    font-weight: 500;
+    font-size: 20px;
+    line-height: 1.3;
+    letter-spacing: -0.02em;
+    text-indent: 25px;
+    color: #2F2F2F;
+}
+
+.art-outro {
+    width: 100%;
+    max-width: 826.76px;
+    min-height: 256px;
+    margin: 130px auto 0;
+    padding: 0;
+    box-sizing: border-box;
+    text-align: center;
+}
+
+.art-outro__label {
+    margin: 0 0 10px;
+    font-family: 'SangBleu Sunrise', 'Times New Roman', serif;
+    font-weight: 700;
+    font-size: 25px;
+    line-height: 1.3;
+    letter-spacing: -0.02em;
+    text-align: center;
+    color: rgba(39, 39, 39, 1);
+}
+
+.art-outro__line {
+    width: 87.84px;
+    height: 0;
+    margin: 0 auto 23px;
+    border: 0;
+    border-top: 1px solid rgba(39, 39, 39, 1);
+}
+
+.art-outro__text {
+    margin: 0 0 110px;
+    font-family: 'Golos', 'Golos Text', sans-serif;
+    font-weight: 500;
+    font-size: 25px;
+    line-height: 1.3;
+    letter-spacing: -0.02em;
+    text-align: center;
+    color: rgba(39, 39, 39, 1);
+}
+
+/* CTA — white ellipse + study link. */
+@property --art-cta-progress {
+    syntax: '<number>';
+    inherits: true;
+    initial-value: 0;
+}
+
+.art-cta {
+    position: relative;
+    width: 100%;
+    max-width: none;
+    margin: 0 0 30px;
+    padding: 0 24px 0;
+    box-sizing: border-box;
+    overflow: visible;
+    --art-cta-progress: 0;
+}
+
+.art-cta__stack {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 100%;
+}
+
+.art-cta__line-img {
+    display: block;
+    flex-shrink: 0;
+    width: 1px;
+    height: 68px;
+    margin-left: auto;
+    margin-right: auto;
+    pointer-events: none;
+}
+
+.art-cta__line-img--top {
+    margin-bottom: 10px;
+}
+
+.art-cta__divider--bottom {
+    display: block;
+    flex-shrink: 0;
+    width: 1px;
+    height: 32px;
+    margin: 0 auto;
+    background-color: #272727;
+    pointer-events: none;
+}
+
+.art-cta__stage {
+    position: relative;
+    box-sizing: border-box;
+    width: 100%;
+    max-width: 826px;
+    height: 858px;
+    margin: 0 auto;
+    padding: 0 24px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    overflow: visible;
+}
+
+/* white_ellipse.png — scroll-driven 360° rotation (mirrors .fs-f2__cta-art). */
+.art-cta__decor {
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    width: min(1000px, 100%);
+    height: auto;
+    aspect-ratio: 1000 / 1176;
+    transform: translate(-50%, -50%) rotate(calc(360deg * var(--art-cta-progress, 0)));
+    transform-origin: 50% 50%;
+    will-change: transform;
+    pointer-events: none;
+    z-index: 0;
+}
+
+.art-cta__ellipse {
+    display: block;
+    width: 100%;
+    height: 100%;
+    object-fit: none;
+    pointer-events: none;
+}
+
+.art-cta__content {
+    position: relative;
+    z-index: 1;
+    width: 100%;
+    max-width: 571px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+}
+
+.art-cta__text {
+    margin: 0 auto 58px;
+    max-width: 571px;
+    font-family: 'Golos', 'Golos Text', sans-serif;
+    font-weight: 500;
+    font-size: 35px;
+    line-height: 1.1;
+    letter-spacing: 0;
+    text-align: center;
+    color: rgba(39, 39, 39, 1);
+}
+
+.art-cta__btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+    box-sizing: border-box;
+    width: 490px;
+    max-width: 100%;
+    height: 60px;
+    margin: 0;
+    padding: 0 24px;
+    border: 1px solid #272727;
+    border-radius: 30px;
+    background-color: #272727;
+    color: rgba(255, 255, 255, 1);
+    font-family: 'Golos', 'Golos Text', sans-serif;
+    font-weight: 500;
+    font-size: 24px;
+    line-height: 48.57px;
+    letter-spacing: -0.02em;
+    text-align: center;
+    text-decoration: none;
+    mix-blend-mode: normal;
+    transition: background-color 0.18s ease, color 0.18s ease;
+}
+
+.art-cta__btn:visited {
+    color: rgba(255, 255, 255, 1);
+}
+
+.art-cta__btn:hover,
+.art-cta__btn:visited:hover,
+.art-cta__btn:focus-visible {
+    background-color: #FFFFFF;
+    color: #2F2F2F;
+}
+
+.art-page footer {
+    color: #FFFFFF;
+}
+
+/* Experience card link wrapper */
+a.exp-card__link {
+    display: block;
+    color: inherit;
+    text-decoration: none;
+}
+
+a.exp-card__link:focus-visible .exp-card {
+    outline: 2px solid #C2F04F;
+    outline-offset: 4px;
+}
+
+a.s8__card-link {
+    display: block;
+    color: inherit;
+    text-decoration: none;
+}
+
+a.s8__card-link:focus-visible .s8__card {
+    outline: 2px solid #C2F04F;
+    outline-offset: 4px;
+}
+
+@media (max-width: 770px) {
+    .art {
+        padding: 0;
+    }
+
+    .art-hero .art__content {
+        padding: 0 20px;
+        box-sizing: border-box;
+    }
+
+    .art-hero {
+        padding-top: 179px;
+        padding-bottom: 48px;
+    }
+
+    .art-hero__title,
+    .art-hero__title-serif,
+    .art-hero__title-sans {
+        font-size: 35px;
+        line-height: 0.9;
+        letter-spacing: -0.03em;
+        text-align: center;
+    }
+
+    .art-hero__title {
+        order: 1;
+    }
+
+    .art-hero .art-lead {
+        order: 2;
+        margin: 35px 0 0;
+        font-family: 'Golos', 'Golos Text', sans-serif;
+        font-weight: 500;
+        font-size: 16px;
+        line-height: 1.3;
+        letter-spacing: -0.02em;
+        text-align: center;
+    }
+
+    .art-labels {
+        order: 3;
+        margin: 66px auto 0;
+        max-width: 100%;
+    }
+
+    .art-labels__frame {
+        object-position: center;
+    }
+
+    .art-hero .art-portrait {
+        order: 4;
+        width: 251.532px;
+        max-width: 100%;
+        margin: 40px auto 83px;
+    }
+
+    .art-portrait__frame {
+        width: 251.532px;
+        max-width: 100%;
+        height: 338.386px;
+        aspect-ratio: auto;
+    }
+}
+
+@media (max-width: 900px) {
+    .art {
+        padding: 0;
+    }
+
+    .art-hero .art__content {
+        padding: 0 20px;
+        box-sizing: border-box;
+    }
+
+    .art__article {
+        padding: 32px 20px 64px;
+    }
+
+    .art-words {
+        height: 120px;
+        margin-bottom: 32px;
+    }
+
+    .art-words__layer--brand {
+        top: 32px;
+    }
+
+    .art-lead {
+        margin-bottom: 48px;
+    }
+
+    .art-block {
+        padding: 32px 20px;
+    }
+
+    .art-block--purple {
+        margin-bottom: 133px;
+        padding: 31px 20px 0;
+    }
+
+    .art-block--purple .art-block__title {
+        font-family: 'Golos', 'Golos Text', sans-serif;
+        font-weight: 600;
+        font-size: 20px;
+        line-height: 1.3;
+        letter-spacing: -0.02em;
+        color: #2F2F2F;
+    }
+
+    .art-block--purple .art-quote {
+        margin-top: 45px;
+    }
+
+    .art-block--orange {
+        margin-bottom: 87px;
+        padding: 19px 20px;
+        box-sizing: border-box;
+    }
+
+    .art-block--orange .art-block__title {
+        font-family: 'Golos', 'Golos Text', sans-serif;
+        font-weight: 500;
+        font-size: 20px;
+        line-height: 1.3;
+        letter-spacing: -0.02em;
+        margin: 0 0 41px;
+        color: #2F2F2F;
+    }
+
+    .art-block--orange .art-block__intro {
+        margin: 0 0 31px;
+        max-width: none;
+    }
+
+    .art-block--orange .art-block__intro p {
+        font-family: 'Golos', 'Golos Text', sans-serif;
+        font-weight: 500;
+        font-size: 16px;
+        line-height: 1.3;
+        letter-spacing: -0.02em;
+        text-indent: 25px;
+        color: #2F2F2F;
+    }
+
+    .art-outro {
+        min-height: 0;
+        margin-top: 0;
+        padding: 0 20px;
+        text-align: center;
+    }
+
+    .art-outro__label {
+        margin: 0 0 5px;
+        font-family: 'SangBleu Sunrise', 'Times New Roman', serif;
+        font-weight: 700;
+        font-size: 20px;
+        line-height: 1.3;
+        letter-spacing: -0.02em;
+        text-align: center;
+        color: rgba(39, 39, 39, 1);
+    }
+
+    .art-outro__line {
+        width: 64.13px;
+        height: 0;
+        margin: 0 auto 20px;
+        border: 0;
+        border-top: 1px solid rgba(0, 0, 0, 1);
+    }
+
+    .art-outro__text {
+        margin: 0 0 92px;
+        font-family: 'Golos', 'Golos Text', sans-serif;
+        font-weight: 500;
+        font-size: 20px;
+        line-height: 1.3;
+        letter-spacing: -0.02em;
+        text-align: center;
+        color: rgba(39, 39, 39, 1);
+    }
+
+    .art-block--orange .art-steps {
+        margin: 0;
+        max-width: none;
+        gap: 0;
+    }
+
+    .art-block--orange .art-step {
+        display: flex;
+        flex-direction: column;
+        align-items: stretch;
+        gap: 0;
+        margin: 0;
+        max-width: none;
+    }
+
+    .art-block--orange .art-step:nth-child(1) {
+        margin-bottom: 83px;
+    }
+
+    .art-block--orange .art-step:nth-child(2) {
+        margin-bottom: 71px;
+    }
+
+    .art-block--orange .art-step:nth-child(3) {
+        margin-bottom: 96px;
+    }
+
+    .art-block--orange .art-step__pill,
+    .art-block--orange .art-step:nth-child(1) .art-step__pill,
+    .art-block--orange .art-step:nth-child(2) .art-step__pill,
+    .art-block--orange .art-step:nth-child(3) .art-step__pill {
+        box-sizing: border-box;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        gap: 10px;
+        width: 100%;
+        max-width: none;
+        height: 101px;
+        min-height: 101px;
+        margin: 0;
+        padding: 5px 15px 7px;
+        border: 1px solid #000000;
+        border-radius: 100px;
+        opacity: 1;
+        font-family: 'Golos', 'Golos Text', sans-serif;
+        font-weight: 500;
+        font-size: 20px;
+        line-height: 1.2;
+        letter-spacing: -0.02em;
+        text-align: center;
+        color: #2F2F2F;
+    }
+
+    .art-block--orange .art-step__text {
+        margin: 15px 0 0;
+        font-family: 'Golos', 'Golos Text', sans-serif;
+        font-weight: 500;
+        font-size: 16px;
+        line-height: 1.3;
+        letter-spacing: -0.02em;
+        text-indent: 25px;
+        color: #2F2F2F;
+    }
+
+    .art-block--orange .art-block__note {
+        margin: 0;
+        font-family: 'Golos', 'Golos Text', sans-serif;
+        font-weight: 500;
+        font-size: 16px;
+        line-height: 1.3;
+        letter-spacing: -0.02em;
+        text-indent: 25px;
+        color: #2F2F2F;
+    }
+
+    .art-block--orange .art-block__note strong {
+        font-weight: 600;
+    }
+
+    .art-block--orange .art-quote {
+        margin: 45px 0 0;
+        padding: 0;
+        max-width: none;
+    }
+
+    .art-block--orange .art-quote p {
+        margin: 0;
+        font-family: 'SangBleu Sunrise', 'Times New Roman', serif;
+        font-weight: 500;
+        font-size: 20px;
+        line-height: 1.3;
+        letter-spacing: -0.02em;
+        text-align: center;
+        text-indent: 0;
+        color: #2F2F2F;
+    }
+
+    .art-block--orange .art-block__closing {
+        margin: 45px 0 0;
+        max-width: none;
+        font-family: 'Golos', 'Golos Text', sans-serif;
+        font-weight: 500;
+        font-size: 16px;
+        line-height: 1.3;
+        letter-spacing: -0.02em;
+        text-indent: 25px;
+        color: #2F2F2F;
+    }
+
+    .art-step {
+        grid-template-columns: 1fr;
+        gap: 16px;
+    }
+
+    .art-step__pill {
+        min-height: 80px;
+    }
+
+    .art-block__body p,
+    .art-block__intro,
+    .art-block__note,
+    .art-note,
+    .art-step__text {
+        font-size: 18px;
+        text-indent: 0;
+    }
+
+    .art-block--purple .art-block__body p {
+        font-family: 'Golos', 'Golos Text', sans-serif;
+        font-weight: 500;
+        font-size: 16px;
+        line-height: 1.3;
+        letter-spacing: -0.02em;
+        text-indent: 25px;
+        color: #2F2F2F;
+    }
+
+    .art-block--purple .art-quote p {
+        font-family: 'SangBleu Sunrise', 'Times New Roman', serif;
+        font-weight: 500;
+        font-size: 16px;
+        line-height: 1.3;
+        letter-spacing: -0.02em;
+        text-align: center;
+        text-indent: 0;
+        color: #2F2F2F;
+    }
+
+    .art-quote p {
+        text-indent: 0;
+    }
+
+    .art-cta {
+        margin: 0 0 100px;
+        padding: 0 20px 0;
+        overflow-x: clip;
+    }
+
+    .art-cta__line-img--top {
+        display: block;
+        flex-shrink: 0;
+        width: 1px;
+        height: 30.31px;
+        margin: 0 auto 10px;
+        padding: 0;
+        border: 0;
+        object-fit: fill;
+    }
+
+    /* CTA ellipse — full bleed within .art (no 100vw/120vw: those cause
+       horizontal scroll). Stage breaks out of the 20px side padding. */
+    .art-cta__stage {
+        box-sizing: border-box;
+        width: calc(100% + 40px);
+        max-width: none;
+        margin-left: -20px;
+        margin-right: -20px;
+        height: auto;
+        aspect-ratio: 452 / 467;
+        min-height: 0;
+        padding: 0;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        overflow: hidden;
+    }
+
+    .art-cta__divider--bottom {
+        display: block;
+        flex-shrink: 0;
+        width: 1px;
+        height: 14.26px;
+        margin: 0 auto;
+        padding: 0;
+        border: 0;
+        background-color: #272727;
+    }
+
+    .art-cta__decor {
+        position: absolute;
+        left: 50%;
+        top: 50%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        width: 100%;
+        max-width: 100%;
+        height: auto;
+        aspect-ratio: 452 / 467;
+        overflow: hidden;
+        transform: translate(-50%, -50%) rotate(calc(360deg * var(--art-cta-progress, 0)));
+        transform-origin: 50% 50%;
+    }
+
+    .art-cta__ellipse {
+        display: block;
+        width: 140%;
+        height: 140%;
+        object-fit: cover;
+        pointer-events: none;
+    }
+
+    .art-cta__text {
+        margin: 0 auto 20px;
+        max-width: none;
+        font-family: 'Golos', 'Golos Text', sans-serif;
+        font-weight: 500;
+        font-size: 16px;
+        line-height: 1.2;
+        letter-spacing: 0;
+        text-align: center;
+        color: rgba(39, 39, 39, 1);
+    }
+
+    .art-cta__btn {
+        width: 303.89px;
+        max-width: 100%;
+        height: 37.21px;
+        padding: 0 12px;
+        border-radius: 18.61px;
+        font-family: 'Golos', 'Golos Text', sans-serif;
+        font-weight: 500;
+        font-size: 14.88px;
+        line-height: 30.12px;
+        letter-spacing: -0.02em;
+        text-align: center;
+    }
 }

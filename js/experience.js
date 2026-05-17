@@ -9,7 +9,7 @@
     /* Per-variant template registry. Each template returns an HTML string. */
     var TEMPLATES = {
         bordered: function (c) {
-            return ''
+            var inner = ''
                 + '<article class="exp-card exp-card--bordered" data-kind="' + c.kind + '">'
                 + tagsHtml(c.tags)
                 + '<h3 class="exp-card__title">' + c.title + '</h3>'
@@ -20,6 +20,9 @@
                     ? '<p class="exp-card__sub exp-card__sub--inset">' + c.caption + '</p>'
                     : '')
                 + '</article>';
+            return c.href
+                ? '<a href="' + c.href + '" class="exp-card__link">' + inner + '</a>'
+                : inner;
         },
 
         duotone: function (c) {
