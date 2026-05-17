@@ -237,12 +237,15 @@
             30&nbsp;интервью и&nbsp;анализа рынка мы&nbsp;собрали портреты
           </p>
 
-          <!-- Lined-paper backdrop + center vertical divider (Figma 219:325..358):
-                       repeating horizontal hairlines every 12 px and a single
-                       vertical hairline at 50% width are painted via canvas
-                       CSS background. The canvas itself stays transparent so
-                       the pattern reads through between particles. -->
-          <canvas id="canvas" width="1100" height="400"></canvas>
+          <!-- 3 SVG slider states (Figma Group 2136137217 / 2136137218 / 2136137217(1)).
+               Slider position picks 1 of 3 states; legacy canvas is hidden but kept
+               so existing main-backup.js initialization doesn't break. -->
+          <div class="section2__stage">
+            <canvas id="canvas" width="1100" height="400" hidden></canvas>
+            <img class="section2__state section2__state--1" src="./img/figma/section2_slider_1.svg" alt="" aria-hidden="true" />
+            <img class="section2__state section2__state--2" src="./img/figma/section2_slider_2.svg" alt="" aria-hidden="true" />
+            <img class="section2__state section2__state--3" src="./img/figma/section2_slider_3.svg" alt="" aria-hidden="true" />
+          </div>
 
           <div class="controls">
             <input
