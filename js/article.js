@@ -2,7 +2,7 @@
    (same progress formula as .section6 / --section6-progress). */
 (function () {
     var portraits = document.querySelectorAll(
-        '.art-portrait, .art2-tip__portrait--scroll, .art3-hero__portrait--scroll'
+        '.art-portrait, .art2-tip__portrait--scroll, .art3-hero__portrait--scroll, .art4-hero__portrait--scroll'
     );
     if (!portraits.length) return;
 
@@ -21,21 +21,33 @@
         var vh = window.innerHeight || document.documentElement.clientHeight;
 
         portraits.forEach(function (portrait) {
-            var block = portrait.closest('.art2-tip') || portrait;
+            var block = portrait.closest('.art2-tip, .art4-tip') || portrait;
             var rect = block.getBoundingClientRect();
             var progress = Math.max(
                 0,
                 Math.min(1, (vh - rect.top) / (vh + rect.height))
             );
-            var layers = portrait.dataset.portraitLayers === '2' ? 2 : 3;
+
+            portrait.style.setProperty('--art-portrait-progress', progress.toFixed(4));
+
+            var layers = portrait.dataset.portraitLayers;
             var o1 = 0;
             var o2 = 0;
             var o3 = 0;
 
-            if (layers === 2) {
+            if (layers === '2') {
                 o1 = 1 - progress;
                 o2 = progress;
                 setOpacity(portrait, o1, o2);
+            } else if (layers === '3-swap' || layers === '3-linear') {
+                if (progress < 0.3) {
+                    o1 = 1;
+                } else if (progress < 0.6) {
+                    o2 = 1;
+                } else {
+                    o3 = 1;
+                }
+                setOpacity(portrait, o1, o2, o3);
             } else if (progress < 0.25) {
                 o1 = 1 - progress * 4;
                 o2 = progress * 4;
@@ -52,8 +64,6 @@
                 o1 = 1;
                 setOpacity(portrait, o1, o2, o3);
             }
-
-            portrait.style.setProperty('--art-portrait-progress', progress.toFixed(4));
         });
     }
 

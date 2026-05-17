@@ -7,6 +7,7 @@
     var MODAL_HTML = ''
         + '<div class="pdf-modal" id="pdf-modal" aria-hidden="true" role="dialog" aria-modal="true" aria-labelledby="pdf-modal-title">'
         +   '<div class="pdf-modal__backdrop" data-pdf-close></div>'
+        +   '<div class="pdf-modal__shell">'
         +   '<div class="pdf-modal__card">'
         +     '<img src="./img/figma/pdf_modal_swirl.png" class="pdf-modal__decor" alt="" aria-hidden="true" />'
         +     '<div class="pdf-modal__body">'
@@ -31,6 +32,7 @@
         +   '<button type="button" class="pdf-modal__close" aria-label="Закрыть" data-pdf-close>'
         +     '<img src="./img/figma/pdf_modal_close.png" alt="" aria-hidden="true" />'
         +   '</button>'
+        +   '</div>'
         + '</div>';
 
     document.body.insertAdjacentHTML('beforeend', MODAL_HTML);

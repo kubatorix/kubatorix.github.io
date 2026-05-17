@@ -37,13 +37,16 @@
         },
 
         'photo-only-547': function (c) {
-            return ''
+            var inner = ''
                 + '<article class="exp-card exp-card--photo exp-card--photo-only-547" data-kind="' + c.kind + '">'
                 + '<div class="exp-card__media">'
                 +   '<img src="' + c.photo + '" class="exp-card__photo--duotone" alt="" aria-hidden="true" />'
                 + '</div>'
                 + overlayHtml(c)
                 + '</article>';
+            return c.href
+                ? '<a href="' + c.href + '" class="exp-card__link">' + inner + '</a>'
+                : inner;
         },
 
         'photo-orange': function (c) {
