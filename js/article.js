@@ -2,7 +2,7 @@
    (same progress formula as .section6 / --section6-progress). */
 (function () {
     var portraits = document.querySelectorAll(
-        '.art-portrait, .art2-tip__portrait--scroll'
+        '.art-portrait, .art2-tip__portrait--scroll, .art3-hero__portrait--scroll'
     );
     if (!portraits.length) return;
 

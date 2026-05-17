@@ -15926,3 +15926,771 @@ a.s8__card-link:focus-visible .s8__card {
         align-self: flex-start;
     }
 }
+
+/* ============================================================
+   Article 3 — hiring a fundraiser (orange gradient hero)
+   ============================================================ */
+.art-page--3 {
+    background: #E4E5EF;
+    color: #2F2F2F;
+}
+
+.art-page--3 .art {
+    position: static;
+    max-width: none;
+    width: 100%;
+    padding: 0;
+    background: transparent;
+}
+
+.art-page--3 .art3-hero .art__content {
+    box-sizing: border-box;
+    width: 100%;
+    max-width: 820px;
+    margin: 0 auto;
+    padding: 0;
+}
+
+.art-page--3 :where([class*='art3']) {
+    position: static;
+    top: auto;
+    right: auto;
+    bottom: auto;
+    left: auto;
+    inset: auto;
+}
+
+.art-page--3 .art-hero.art3-hero {
+    box-sizing: border-box;
+    width: 100%;
+    padding-top: 0;
+    padding-bottom: 0;
+    background: linear-gradient(
+        180deg,
+        #FF8C32 9.6%,
+        rgba(228, 229, 239, 0) 95.95%
+    ),
+    #E4E5EF;
+}
+
+.art-page--3 .art3-hero__title {
+    box-sizing: border-box;
+    width: 100%;
+    max-width: 754px;
+    margin: 195px auto 120px;
+    font-family: 'Golos', 'Golos Text', sans-serif;
+    font-weight: 500;
+    font-size: 70px;
+    line-height: 0.9;
+    letter-spacing: -0.03em;
+    text-align: center;
+    color: #2F2F2F;
+}
+
+.art-page--3 .art3-hero__title-accent {
+    font-family: 'SangBleu Sunrise', 'Times New Roman', serif;
+    font-weight: 500;
+    font-size: inherit;
+    line-height: inherit;
+    letter-spacing: inherit;
+    text-align: center;
+    color: inherit;
+}
+
+.art-page--3 .art3-hero__lead {
+    box-sizing: border-box;
+    width: 100%;
+    max-width: 820px;
+    margin: 0 auto 40px;
+    font-family: 'Golos', 'Golos Text', sans-serif;
+    font-weight: 500;
+    font-size: 25px;
+    line-height: 1.3;
+    letter-spacing: -0.02em;
+    text-align: center;
+    color: #2F2F2F;
+}
+
+.art-page--3 .art3-hero__portrait {
+    --art-portrait-o1: 1;
+    --art-portrait-o2: 0;
+    display: grid;
+    width: 297.82px;
+    max-width: 100%;
+    margin: 0 auto 55px;
+}
+
+.art-page--3 .art3-hero__portrait-photo {
+    grid-area: 1 / 1;
+    display: block;
+    width: 100%;
+    height: auto;
+    object-fit: cover;
+    object-position: center top;
+}
+
+.art-page--3 .art3-hero__portrait-photo--1 {
+    opacity: var(--art-portrait-o1);
+}
+
+.art-page--3 .art3-hero__portrait-photo--2 {
+    opacity: var(--art-portrait-o2);
+}
+
+@media (prefers-reduced-motion: reduce) {
+    .art-page--3 .art3-hero__portrait-photo--1 {
+        opacity: 1;
+    }
+
+    .art-page--3 .art3-hero__portrait-photo--2 {
+        display: none;
+    }
+}
+
+.art-page--3 .art3-hero__intro {
+    box-sizing: border-box;
+    width: 100%;
+    max-width: 820px;
+    margin: 0 auto 82px;
+}
+
+.art-page--3 .art3-hero__intro-text {
+    margin: 0;
+    font-family: 'Golos', 'Golos Text', sans-serif;
+    font-weight: 500;
+    font-size: 25px;
+    line-height: 1.3;
+    letter-spacing: -0.02em;
+    text-align: center;
+    color: #2F2F2F;
+}
+
+.art-page--3 .art3-hero__intro-text + .art3-hero__intro-text {
+    margin-top: 1.3em;
+}
+
+.art-page--3 .art3-hero__intro-bio {
+    font-weight: 600;
+}
+
+/* Article 3 — tip rows (pill + body, inline flow) */
+.art-page--3 .art3-tips {
+    width: 100%;
+    padding: 0;
+}
+
+.art-page--3 .art3-tip {
+    display: grid;
+    grid-template-columns: 400px 399.9765625px;
+    column-gap: 20px;
+    align-items: center;
+    box-sizing: border-box;
+    width: 819.9765625px;
+    max-width: 100%;
+    margin: 0 auto;
+}
+
+.art-page--3 .art3-tip + .art3-tip {
+    margin-top: 100px;
+}
+
+.art-page--3 .art3-tip--4 + .art3-tip {
+    margin-top: 90px;
+}
+
+.art-page--3 .art3-tip--5 {
+    grid-template-columns: 400px 421px;
+    align-items: start;
+    width: 841px;
+    margin-bottom: 55px;
+}
+
+.art-page--3 .art3-tip--5 .art3-tip__body {
+    width: 421px;
+}
+
+.art-page--3 .art3-tip--5 .art3-tip__pill {
+    height: 567px;
+}
+
+.art-page--3 .art3-vline {
+    display: block;
+    box-sizing: border-box;
+    width: 1px;
+    height: 199.64845614447086px;
+    margin: 0 auto;
+    border-left: 1px solid rgba(0, 0, 0, 1);
+    pointer-events: none;
+}
+
+.art-page--3 .art-cta {
+    margin: 0 auto 70px;
+}
+
+.art-page--3 .art3-tip--2 {
+    align-items: start;
+}
+
+.art-page--3 .art3-tip__aside {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 400px;
+    max-width: 100%;
+}
+
+.art-page--3 .art3-tip--2 .art3-tip__pill {
+    height: 370px;
+}
+
+.art-page--3 .art3-tip--3 {
+    grid-template-columns: 399.9765625px 400px;
+    align-items: start;
+    margin-bottom: 0;
+}
+
+.art-page--3 .art3-pullquote {
+    box-sizing: border-box;
+    width: 100%;
+    max-width: 825.0985717773438px;
+    margin: 67px auto 100px;
+    padding: 0;
+    font-family: 'SangBleu Sunrise', 'Times New Roman', serif;
+    font-weight: 500;
+    font-size: 30px;
+    line-height: 1.3;
+    letter-spacing: -0.02em;
+    text-align: center;
+    text-indent: 0;
+    color: #2F2F2F;
+}
+
+.art-page--3 .art3-pullquote__line {
+    display: inline;
+}
+
+@media (min-width: 771px) {
+    .art-page--3 .art3-tips > .art3-pullquote .art3-pullquote__line {
+        display: block;
+    }
+
+    .art-page--3 .art3-tips > .art3-pullquote .art3-pullquote__line:first-child {
+        text-indent: 25px;
+    }
+
+    .art-page--3 .art3-tips > .art3-pullquote .art3-pullquote__line:first-child::before {
+        content: '\00AB';
+    }
+
+    .art-page--3 .art3-tips > .art3-pullquote .art3-pullquote__line:last-child::after {
+        content: '\00BB';
+    }
+}
+
+.art-page--3 .art3-pullquote--mobile {
+    display: none;
+}
+
+.art-page--3 .art3-tip--4 {
+    grid-template-columns: 399.9765625px 400px;
+    align-items: start;
+}
+
+.art-page--3 .art3-tip--4 .art3-tip__aside {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 400px;
+    max-width: 100%;
+}
+
+.art-page--3 .art3-tip--4 .art3-tip__pill {
+    height: 333px;
+}
+
+.art-page--3 .art3-tip__vector {
+    display: block;
+    width: 370.2347717285156px;
+    max-width: 100%;
+    height: auto;
+    aspect-ratio: 370.2347717285156 / 344.3809509277344;
+    margin: 0;
+}
+
+.art-page--3 .art3-tip--3 .art3-tip__pill {
+    height: 598px;
+}
+
+.art-page--3 .art3-tip__list {
+    margin: 0;
+    padding: 0 0 0 1.1em;
+    list-style: disc;
+}
+
+.art-page--3 .art3-tip__list li {
+    margin: 0;
+    font-family: 'Golos', 'Golos Text', sans-serif;
+    font-weight: 500;
+    font-size: 20px;
+    line-height: 1.3;
+    letter-spacing: -0.02em;
+    color: #2F2F2F;
+}
+
+.art-page--3 .art3-tip__chunk {
+    display: flex;
+    flex-direction: column;
+    gap: 0;
+}
+
+.art-page--3 .art3-tip__chunk > p {
+    margin: 0;
+}
+
+.art-page--3 .art3-tip__decor {
+    display: block;
+    width: 412px;
+    max-width: 100%;
+    height: auto;
+    margin-top: 0;
+    pointer-events: none;
+}
+
+.art-page--3 .art3-tip__pill {
+    box-sizing: border-box;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 400px;
+    height: 442px;
+    margin: 0;
+    padding: 5px 15px 7px;
+    border: 1px solid rgba(255, 110, 50, 1);
+    border-radius: 100px;
+    background: transparent;
+}
+
+.art-page--3 .art3-tip__pill-text {
+    margin: 0;
+    font-family: 'Golos', 'Golos Text', sans-serif;
+    font-weight: 500;
+    font-size: 26px;
+    line-height: 1.2;
+    letter-spacing: -0.02em;
+    text-align: center;
+    color: rgba(255, 110, 50, 1);
+}
+
+.art-page--3 .art3-tip__body {
+    box-sizing: border-box;
+    display: flex;
+    flex-direction: column;
+    gap: 26px;
+    width: 399.9765625px;
+    max-width: 100%;
+    min-width: 0;
+}
+
+.art-page--3 .art3-tip__body p {
+    margin: 0;
+    font-family: 'Golos', 'Golos Text', sans-serif;
+    font-weight: 500;
+    font-size: 20px;
+    line-height: 1.3;
+    letter-spacing: -0.02em;
+    color: #2F2F2F;
+}
+
+@media (max-width: 770px) {
+    .art-page--3 .art-hero.art3-hero {
+        padding-top: 0;
+        padding-bottom: 0;
+    }
+
+    .art-page--3 .art3-hero .art__content {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        padding: 181px 39px 0;
+        box-sizing: border-box;
+    }
+
+    .art-page--3 .art3-hero__title {
+        order: 1;
+        max-width: none;
+        margin: 0 0 52px;
+        padding: 0;
+        font-family: 'Golos', 'Golos Text', sans-serif;
+        font-weight: 500;
+        font-size: 37.36px;
+        line-height: 0.9;
+        letter-spacing: -0.03em;
+        text-align: center;
+        color: #2F2F2F;
+    }
+
+    .art-page--3 .art3-hero__lead {
+        order: 2;
+        width: 100%;
+        max-width: none;
+        margin: 0;
+        padding: 0;
+        font-family: 'Golos', 'Golos Text', sans-serif;
+        font-weight: 500;
+        font-size: 16px;
+        line-height: 1.3;
+        letter-spacing: -0.02em;
+        text-align: center;
+        color: #2F2F2F;
+    }
+
+    .art-page--3 .art3-hero__intro {
+        order: 3;
+        width: 100%;
+        max-width: none;
+        margin: 0 0 43px;
+        padding-top: 1.3em;
+    }
+
+    .art-page--3 .art3-hero__intro-text {
+        margin: 0;
+        font-family: 'Golos', 'Golos Text', sans-serif;
+        font-weight: 500;
+        font-size: 16px;
+        line-height: 1.3;
+        letter-spacing: -0.02em;
+        text-align: center;
+        text-indent: 0;
+        color: #2F2F2F;
+    }
+
+    .art-page--3 .art3-hero__intro-text + .art3-hero__intro-text {
+        margin-top: 0;
+        padding-top: 1.3em;
+    }
+
+    .art-page--3 .art3-hero__intro-bio {
+        display: block;
+        font-family: 'Golos', 'Golos Text', sans-serif;
+        font-weight: 600;
+        font-size: 16px;
+        line-height: 1.3;
+        letter-spacing: -0.02em;
+        text-align: center;
+        text-indent: 0;
+        color: #2F2F2F;
+    }
+
+    .art-page--3 .art3-hero__portrait {
+        order: 4;
+        width: 244.94772338867188px;
+        height: 329.5274658203125px;
+        max-width: 100%;
+        margin: 0 auto 124px;
+    }
+
+    .art-page--3 .art3-hero__portrait-photo {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        object-position: center top;
+    }
+
+    .art-page--3 .art3-tips {
+        padding: 0 39px;
+        box-sizing: border-box;
+    }
+
+    .art-page--3 .art3-tip {
+        grid-template-columns: 1fr;
+        row-gap: 32px;
+        width: 100%;
+        max-width: none;
+    }
+
+    .art-page--3 .art3-tip__body {
+        width: 100%;
+    }
+
+    .art-page--3 .art3-tip__aside {
+        width: 100%;
+    }
+
+    .art-page--3 .art3-tip__pill {
+        width: 100%;
+        max-width: 400px;
+        height: auto;
+        min-height: 280px;
+        margin: 0 auto;
+    }
+
+    .art-page--3 .art3-tip--1 {
+        row-gap: 0;
+    }
+
+    .art-page--3 .art3-tip--1 .art3-tip__pill {
+        box-sizing: border-box;
+        width: 335px;
+        max-width: 100%;
+        height: 63px;
+        min-height: 63px;
+        margin: 0 auto 40px;
+        padding: 5px 15px 7px;
+        border: 1px solid rgba(255, 110, 50, 1);
+    }
+
+    .art-page--3 .art3-tip--1 .art3-tip__body {
+        gap: 0;
+    }
+
+    .art-page--3 .art3-tip--1 .art3-tip__body p + p {
+        margin-top: 0;
+        padding-top: 1.3em;
+    }
+
+    .art-page--3 .art3-tip--2 {
+        row-gap: 0;
+    }
+
+    .art-page--3 .art3-tip--2 .art3-tip__aside {
+        align-items: flex-start;
+        width: 100%;
+        margin-bottom: 0;
+    }
+
+    .art-page--3 .art3-tip--2 .art3-tip__pill {
+        box-sizing: border-box;
+        width: 335px;
+        max-width: 100%;
+        height: 79px;
+        min-height: 79px;
+        margin: 0;
+        padding: 5px 15px 7px;
+        border: 1px solid rgba(255, 110, 50, 1);
+    }
+
+    .art-page--3 .art3-tip--2 .art3-tip__decor {
+        display: block;
+        width: 217.56617736816406px;
+        height: 160.43629455566406px;
+        max-width: none;
+        margin: 0;
+        object-fit: contain;
+        object-position: left center;
+    }
+
+    .art-page--3 .art3-tip--2 .art3-tip__body {
+        gap: 0;
+        margin-top: 7px;
+    }
+
+    .art-page--3 .art3-tip--2 .art3-tip__body p + p {
+        margin-top: 0;
+        padding-top: 1.3em;
+    }
+
+    .art-page--3 .art3-tip:not(.art3-tip--2) .art3-tip__decor {
+        width: min(100%, 412px);
+        margin-top: 0;
+    }
+
+    .art-page--3 .art3-tip__pill-text {
+        font-size: 22px;
+    }
+
+    .art-page--3 .art3-tip__body p,
+    .art-page--3 .art3-tip__list li {
+        font-size: 16px;
+        text-indent: 25px;
+    }
+
+    .art-page--3 .art3-tip__list {
+        padding-left: calc(25px + 1.1em);
+    }
+
+    .art-page--3 .art3-tip__list li {
+        text-indent: 0;
+    }
+
+    .art-page--3 .art3-tips > .art3-pullquote {
+        display: none;
+    }
+
+    .art-page--3 .art3-pullquote--mobile {
+        display: block;
+        margin: 40px 0 0;
+        padding: 0;
+        width: 100%;
+        max-width: none;
+        font-family: 'Golos', 'Golos Text', sans-serif;
+        font-weight: 500;
+        font-size: 16px;
+        line-height: 1.3;
+        letter-spacing: -0.02em;
+        text-align: left;
+        text-indent: 25px;
+        color: #2F2F2F;
+    }
+
+    .art-page--3 .art3-pullquote--mobile .art3-pullquote__line {
+        display: inline;
+    }
+
+    .art-page--3 .art3-pullquote--mobile .art3-pullquote__line:first-child::before,
+    .art-page--3 .art3-pullquote--mobile .art3-pullquote__line:last-child::after {
+        content: none;
+    }
+
+    .art-page--3 .art3-pullquote--mobile .art3-pullquote__line + .art3-pullquote__line::before {
+        content: '\00a0';
+    }
+
+    .art-page--3 .art3-pullquote--mobile .art3-pullquote__line:first-child {
+        text-indent: 0;
+    }
+
+    .art-page--3 .art3-tip--2 + .art3-tip--3 {
+        margin-top: 45px;
+    }
+
+    .art-page--3 .art3-tip--3 {
+        row-gap: 0;
+    }
+
+    .art-page--3 .art3-tip--3 .art3-tip__pill {
+        order: 1;
+        box-sizing: border-box;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        gap: 10px;
+        width: 337px;
+        max-width: 100%;
+        height: 79px;
+        min-height: 79px;
+        margin: 0 auto 40px;
+        padding: 5px 15px 7px;
+        border: 1px solid rgba(255, 110, 50, 1);
+        border-radius: 100px;
+    }
+
+    .art-page--3 .art3-tip--3 .art3-tip__body {
+        order: 2;
+        gap: 0;
+    }
+
+    .art-page--3 .art3-tip--3 .art3-tip__body > p,
+    .art-page--3 .art3-tip--3 .art3-tip__chunk > p {
+        text-align: left;
+        text-indent: 25px;
+    }
+
+    .art-page--3 .art3-tip--3 .art3-tip__body > p + .art3-tip__chunk,
+    .art-page--3 .art3-tip--3 .art3-tip__chunk + p {
+        margin-top: 0;
+        padding-top: 1.3em;
+    }
+
+    .art-page--3 .art3-tip--3 .art3-tip__chunk > p + .art3-tip__list {
+        margin-top: 0;
+        padding-left: 10px;
+    }
+
+    .art-page--3 .art3-tip--3 .art3-tip__list li {
+        text-indent: 0;
+        text-align: left;
+    }
+
+    .art-page--3 .art3-tip--3 + .art3-tip--4,
+    .art-page--3 .art3-tip.art3-tip--4 {
+        margin-top: 45px;
+    }
+
+    .art-page--3 .art3-tip--4 {
+        display: flex;
+        flex-direction: column;
+        row-gap: 0;
+    }
+
+    .art-page--3 .art3-tip--4 .art3-tip__aside {
+        order: 1;
+        display: flex;
+        flex-direction: column;
+        align-items: flex-start;
+        width: 100%;
+        margin-bottom: 40px;
+    }
+
+    .art-page--3 .art3-tip--4 .art3-tip__vector {
+        display: block;
+        width: 100%;
+        max-width: 335px;
+        height: auto;
+        margin: 0 0 7px;
+        object-fit: contain;
+        object-position: left center;
+    }
+
+    .art-page--3 .art3-tip--4 .art3-tip__pill {
+        box-sizing: border-box;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        gap: 10px;
+        width: 337px;
+        max-width: 100%;
+        height: auto;
+        min-height: 79px;
+        margin: 0;
+        padding: 5px 15px 7px;
+        border: 1px solid rgba(255, 110, 50, 1);
+        border-radius: 100px;
+    }
+
+    .art-page--3 .art3-tip--4 .art3-tip__body {
+        order: 2;
+        gap: 0;
+        width: 100%;
+    }
+
+    .art-page--3 .art3-tip--4 .art3-tip__body p + p {
+        margin-top: 0;
+        padding-top: 1.3em;
+    }
+
+    .art-page--3 .art3-tip--5 {
+        row-gap: 0;
+        width: 100%;
+        margin-bottom: 56px;
+    }
+
+    .art-page--3 .art3-tip--5 .art3-tip__pill {
+        box-sizing: border-box;
+        width: 335px;
+        max-width: 100%;
+        height: 63px;
+        min-height: 63px;
+        margin: 0 auto 40px;
+        padding: 5px 15px 7px;
+        border: 1px solid rgba(255, 110, 50, 1);
+        border-radius: 100px;
+    }
+
+    .art-page--3 .art3-tip--5 .art3-tip__body {
+        width: 100%;
+        gap: 0;
+    }
+
+    .art-page--3 .art3-tip--5 .art3-tip__body p + p {
+        margin-top: 0;
+        padding-top: 1.3em;
+    }
+
+    .art-page--3 .art3-vline {
+        height: 66.0503918919189px;
+    }
+
+    .art-page--3 .art-cta {
+        margin-bottom: 70px;
+    }
+}

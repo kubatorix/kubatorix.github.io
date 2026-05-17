@@ -88,7 +88,7 @@
         },
 
         'dark-blurred': function (c) {
-            return ''
+            var inner = ''
                 + '<article class="exp-card exp-card--blurred" data-kind="' + c.kind + '">'
                 + '<div class="exp-card__media">'
                 +   '<img src="' + c.mediaPhoto + '" class="exp-card__photo--blurred" alt="" aria-hidden="true" />'
@@ -96,6 +96,9 @@
                 + '</div>'
                 + overlayHtml(c)
                 + '</article>';
+            return c.href
+                ? '<a href="' + c.href + '" class="exp-card__link">' + inner + '</a>'
+                : inner;
         }
     };
 
