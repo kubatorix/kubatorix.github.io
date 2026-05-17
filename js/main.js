@@ -426,8 +426,16 @@ renderEventsInto(document.querySelector('.burger-menu__events-popup'), 'burger-m
            rect is still at baseline so this measures the baseline
            bottom; once growing, bottom moves down, but the gating
            condition has already been crossed.                          */
-        var startTop = vh - r.height;   /* rect just became fully visible */
-        var endTop = 0;                 /* rect's top reaches viewport top */
+        /* Start later than "just fully visible" so the user has actually
+           settled the rect into their field of view before it starts
+           animating. Pick the lower of "rect fully visible" and "rect.top
+           at 65% of viewport" — for short rects the 65% gate kicks in
+           later; for tall rects the fully-visible gate stays. */
+        var startTop = Math.min(vh - r.height, vh * 0.65);
+        var endTop = vh / 2;            /* rect's top reaches viewport middle —
+                                           animation finishes by the time the
+                                           user has scrolled the rect halfway
+                                           up the screen */
         var range = startTop - endTop;
         var progress = range > 0
             ? Math.max(0, Math.min(1, (startTop - r.top) / range))
@@ -773,11 +781,11 @@ renderEventsInto(document.querySelector('.burger-menu__events-popup'), 'burger-m
                 + '</div>';
         }
         if (variant === 'bordered') {
-            // The bordered exp-card shows its title large inside the frame
-            // (no main photo). Mirror that in the s8 thumbnail so the box
-            // isn't mostly empty space above the inset photo.
+            // Bordered cards use a flipped layout (pills on top → big
+            // heading → tiny portrait + caption at bottom-left). The title
+            // is rendered via the card-level .s8__heading (see renderCard),
+            // so the media here only carries the inset portrait.
             return '<div class="s8__media s8__media--bordered">'
-                + (c.title ? '<span class="s8__media-bordered-title">' + escapeHtml(c.title) + '</span>' : '')
                 + (c.insetPhoto ? '<img src="' + escapeHtml(c.insetPhoto) + '" class="s8__media-inset" alt="" />' : '')
                 + '</div>';
         }
@@ -796,6 +804,7 @@ renderEventsInto(document.querySelector('.burger-menu__events-popup'), 'burger-m
         // the first 4 the track scrolls so pos5+ just keeps a unique class.
         var posClass = 's8__card--pos' + pos;
         var typeClass = isEvent ? 's8__card--event' : 's8__card--story';
+        var variantClass = c.variant === 'bordered' ? ' s8__card--bordered' : '';
         var active = pos === 1 ? ' data-active="true"' : '';
         var leftPill  = isEvent ? 's8__pill--event-left'  : 's8__pill--story-left';
         var rightPill = isEvent ? 's8__pill--lime s8__pill--event-right'
@@ -814,7 +823,7 @@ renderEventsInto(document.querySelector('.burger-menu__events-popup'), 'burger-m
             : '';
 
         var cardHtml = ''
-            + '<article class="s8__card ' + typeClass + ' ' + posClass + '"' + active + '>'
+            + '<article class="s8__card ' + typeClass + ' ' + posClass + variantClass + '"' + active + '>'
             +   renderMedia(c)
             +   '<span class="s8__pill s8__pill--outline ' + leftPill + '"><span class="s8__pill-text">' + escapeHtml(tag1.label) + '</span></span>'
             +   '<span class="s8__connector ' + connector + '" aria-hidden="true"></span>'

@@ -28,8 +28,30 @@ document.addEventListener("DOMContentLoaded", function() {
 
     let particles = [];
 
+    // Deterministic PRNG (mulberry32) — used only for the startAngle so the
+    // rotation of letters during the assembly tween is stable across loads.
+    function makeRng(seed) {
+        let s = seed >>> 0;
+        return function () {
+            s = (s + 0x6D2B79F5) >>> 0;
+            let t = s;
+            t = Math.imul(t ^ (t >>> 15), t | 1);
+            t ^= t + Math.imul(t ^ (t >>> 7), t | 61);
+            return ((t ^ (t >>> 14)) >>> 0) / 4294967296;
+        };
+    }
+
+    /* Scattered start positions extracted from Figma 219:322 (portraits
+       frame, 1518.94 × 331.93). Each column was independently normalised
+       to its half of the 1100 × 400 canvas: purple → x 0..550, orange →
+       x 550..1100. Letters cycle through the pool when the rendered text
+       has more particles than positions in the macet. */
+    const PURPLE_POS = [[234.7,171.1],[442.4,171.6],[476.7,299.7],[238.6,240.0],[335.3,240.3],[265.0,269.8],[199.4,225.7],[10.0,210.2],[147.1,195.3],[105.1,151.8],[105.1,132.4],[123.3,180.9],[416.6,204.2],[502.6,240.7],[413.4,254.4],[205.3,93.7],[308.4,171.6],[425.5,180.6],[321.5,210.2],[197.1,60.8],[210.4,75.7],[215.8,31.6],[384.2,146.9],[520.0,195.7],[353.2,94.1],[372.2,93.7],[287.5,10.0],[356.7,31.8],[277.3,55.0],[83.4,309.0],[340.0,13.7],[498.4,60.8],[429.8,60.8],[283.5,93.5],[396.1,92.5],[415.0,121.2],[537.3,60.8],[540.0,120.5],[463.5,31.8],[151.4,93.7],[220.1,121.5],[105.1,93.7],[149.4,123.4],[242.7,132.4],[323.2,135.4],[396.5,121.2],[316.8,105.5],[335.7,269.8],[530.4,269.8],[279.8,300.4],[312.0,358.2],[21.9,269.8],[226.7,209.5],[370.1,194.9],[296.2,240.7],[384.2,238.3],[137.0,262.0],[215.3,300.4],[107.1,390.0],[146.1,61.9],[152.4,32.9],[138.2,32.5],[60.3,45.8],[123.3,11.2]];
+    const ORANGE_POS = [[1072.2,340.1],[1090.0,389.2],[992.3,390.0],[816.0,26.1],[836.6,91.8],[916.4,26.1],[669.4,74.5],[643.8,109.0],[688.7,10.0],[1063.6,238.9],[926.6,357.0],[838.6,338.4],[864.8,306.7],[865.1,386.3],[875.6,357.0],[823.1,390.0],[669.5,338.4],[620.2,306.7],[608.6,356.6],[766.8,338.4],[711.7,373.5],[955.4,296.0],[985.3,321.2],[1047.1,288.3],[940.3,295.6],[735.7,292.3],[560.0,316.6],[947.9,388.3],[977.8,357.0],[1079.6,12.8],[813.6,292.4],[751.3,388.3],[761.0,372.7],[813.1,390.0],[803.5,356.2],[597.1,356.6],[561.7,388.3],[1037.7,109.4],[993.1,217.8],[1018.4,273.7],[975.9,174.7],[1022.4,308.2],[852.5,250.5],[916.9,305.8],[883.2,207.7],[859.6,191.1],[816.2,240.7],[643.5,247.1],[746.7,292.3],[745.0,217.8],[700.5,224.9],[691.7,292.3],[798.2,241.5],[938.4,210.0],[958.0,158.1],[911.9,241.5],[1031.0,203.3],[688.8,191.9],[750.0,158.3],[772.0,225.0],[666.3,225.0],[837.7,160.3],[917.9,106.5],[1015.6,109.4],[816.4,210.0],[885.5,291.0],[773.5,95.3],[824.5,92.9],[1076.3,151.5],[1015.6,205.0],[666.1,141.8],[700.5,141.4],[705.5,108.6],[772.6,141.4],[950.7,75.0],[962.1,110.7],[986.7,26.1],[886.0,69.3]];
+
     function init() {
         const isMobile = window.innerWidth < 770;
+        const rand = makeRng(0xC0FFEE);
 
         if (isMobile) {
             canvas.width = window.innerWidth - 20; 
@@ -68,6 +90,13 @@ document.addEventListener("DOMContentLoaded", function() {
             const halfW = canvas.width / 2;
             const halfH = canvas.height / 2;
             const isFirst = index === 0;
+            // On desktop: use the Figma-extracted scatter positions for each
+            // column. On mobile we keep random-style scatter inside each
+            // stacked half because the макет positions don't fit the narrow
+            // single-column layout.
+            const isPurple = isFirst;
+            const pool = isPurple ? PURPLE_POS : ORANGE_POS;
+            let poolI = 0;
             let xMin, xMax, yMin, yMax;
             if (isMobile) {
                 xMin = 0;
@@ -80,6 +109,17 @@ document.addEventListener("DOMContentLoaded", function() {
                 yMin = 0;
                 yMax = canvas.height;
             }
+            // Mobile pool scaling: stretch the Figma half (550x400) into
+            // the mobile column zone so positions still look like the макет.
+            function mobilePos(figmaXY) {
+                const halfW_src = 550;
+                const halfH_src = 400;
+                // map figma x (0..1100) within column to mobile x (0..canvas.width)
+                const fx = isPurple ? figmaXY[0] : (figmaXY[0] - halfW_src);
+                const nx = fx / halfW_src * canvas.width;
+                const ny = yMin + figmaXY[1] / halfH_src * (yMax - yMin);
+                return [nx, ny];
+            }
 
             words.forEach(word => {
                 const wordWidth = ctx.measureText(word + ' ').width;
@@ -90,6 +130,9 @@ document.addEventListener("DOMContentLoaded", function() {
 
                 for (let char of (word + ' ')) {
                     const charWidth = ctx.measureText(char).width;
+                    const figmaXY = pool[poolI % pool.length];
+                    poolI++;
+                    const start = isMobile ? mobilePos(figmaXY) : figmaXY;
                     particles.push({
                         char: char,
                         color: t.color,
@@ -97,10 +140,10 @@ document.addEventListener("DOMContentLoaded", function() {
                         targetX: currentX,
                         targetY: currentY,
 
-                        startX: xMin + Math.random() * (xMax - xMin),
-                        startY: yMin + Math.random() * (yMax - yMin),
+                        startX: start[0],
+                        startY: start[1],
 
-                        startAngle: (Math.random() - 0.5) * Math.PI
+                        startAngle: (rand() - 0.5) * Math.PI
                     });
                     currentX += charWidth;
                 }
@@ -110,7 +153,9 @@ document.addEventListener("DOMContentLoaded", function() {
 
     function draw() {
         ctx.clearRect(0, 0, canvas.width, canvas.height);
-        const progress = parseFloat(slider.value);
+        // Text fully assembles by 80 % of the slider travel — the last 20 %
+        // keeps the letters locked at their target positions.
+        const progress = Math.min(1, parseFloat(slider.value) / 0.8);
 
         particles.forEach(p => {
             const x = p.startX + (p.targetX - p.startX) * progress;
@@ -119,7 +164,6 @@ document.addEventListener("DOMContentLoaded", function() {
             ctx.save();
             ctx.translate(x, y);
             ctx.fillStyle = p.color;
-            ctx.globalAlpha = 0.3 + (progress * 0.7);
             ctx.fillText(p.char, 0, 0);
             ctx.restore();
         });
