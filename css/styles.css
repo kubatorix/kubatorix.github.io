@@ -18960,3 +18960,715 @@ a.s8__card-link:focus-visible .s8__card {
         text-align: center;
     }
 }
+
+/* ============================================================
+   Article 6 — placeholder
+   ============================================================ */
+.art-page--6 {
+    background: #E4E5EF;
+    color: #2F2F2F;
+}
+
+.art-page--6 .art {
+    position: static;
+    max-width: none;
+    width: 100%;
+    margin: 0 auto;
+    padding: 0;
+    background: transparent;
+}
+
+.art-page--6 :where([class*='art6']) {
+    position: static;
+    top: auto;
+    right: auto;
+    bottom: auto;
+    left: auto;
+    inset: auto;
+}
+
+.art-page--6 .art-hero.art6-hero {
+    box-sizing: border-box;
+    width: 100%;
+    padding: 0;
+    background: #E4E5EF;
+}
+
+.art-page--6 .art6-hero__cover {
+    box-sizing: border-box;
+    width: 100%;
+    margin: 0;
+    padding: 0;
+}
+
+.art-page--6 .art6-hero__cover img {
+    display: block;
+    width: 100%;
+    height: auto;
+    object-fit: cover;
+    object-position: center;
+}
+
+.art-page--6 .art6-hero .art__content {
+    box-sizing: border-box;
+    width: 100%;
+    max-width: 820px;
+    margin: 0 auto;
+    padding: 0;
+}
+
+.art-page--6 .art6-hero__lead {
+    box-sizing: border-box;
+    width: 100%;
+    max-width: 820px;
+    margin: 145px auto 0;
+    padding: 0;
+}
+
+.art-page--6 .art6-hero__lead p {
+    margin: 0;
+    font-family: 'Golos', 'Golos Text', sans-serif;
+    font-weight: 500;
+    font-size: 25px;
+    line-height: 1.3;
+    letter-spacing: -0.02em;
+    text-align: center;
+    color: #2F2F2F;
+}
+
+.art-page--6 .art6-hero__lead p + p {
+    margin-top: 110px;
+}
+
+.art-page--6 .art6-hero__quote {
+    box-sizing: border-box;
+    width: 100%;
+    max-width: 820px;
+    margin: 132px auto 0;
+    padding: 0;
+    border: 0;
+}
+
+.art-page--6 .art6-hero__quote p {
+    margin: 0;
+    font-family: 'Golos', 'Golos Text', sans-serif;
+    font-weight: 500;
+    font-size: 70px;
+    line-height: 0.9;
+    letter-spacing: -0.02em;
+    text-align: center;
+    color: #2F2F2F;
+}
+
+.art-page--6 .art6-hero__author {
+    box-sizing: border-box;
+    width: 100%;
+    max-width: 820px;
+    margin: 20px auto 0;
+    padding: 0;
+    font-family: 'SangBleu Sunrise', 'Times New Roman', serif;
+    font-weight: 500;
+    font-size: 25px;
+    line-height: 1.3;
+    letter-spacing: -0.02em;
+    text-align: center;
+    color: #2F2F2F;
+}
+
+.art-page--6 .art6-line-wrap {
+    box-sizing: border-box;
+    width: 100%;
+    max-width: 820px;
+    margin: 80px auto 0;
+    padding: 0;
+}
+
+.art-page--6 .art6-line {
+    display: block;
+    box-sizing: border-box;
+    width: 424px;
+    max-width: 100%;
+    height: 0;
+    margin: 0 0 0 auto;
+    border: 0;
+    border-top: 1.5px solid rgba(0, 0, 0, 1);
+}
+
+.art-page--6 .art6-story {
+    box-sizing: border-box;
+    width: 100%;
+    max-width: 820px;
+    margin: 22px auto 0;
+    padding: 0;
+}
+
+.art-page--6 .art6-story__p {
+    margin: 0;
+    font-family: 'SangBleu Sunrise', 'Times New Roman', serif;
+    font-weight: 500;
+    font-size: 30px;
+    line-height: 1.3;
+    letter-spacing: -0.02em;
+    text-align: center;
+    text-indent: 0;
+    color: #2F2F2F;
+}
+
+.art-page--6 .art6-rule {
+    display: block;
+    box-sizing: border-box;
+    width: 826px;
+    max-width: 100%;
+    height: 0;
+    margin: 22px auto 0;
+    padding: 0;
+    border: 0;
+    border-top: 1.5px solid rgba(0, 0, 0, 1);
+}
+
+.art-page--6 .art6-body {
+    box-sizing: border-box;
+    width: 100%;
+    max-width: 820px;
+    margin: 80px auto 0;
+    padding: 0;
+}
+
+.art-page--6 .art6-body p {
+    margin: 0;
+    font-family: 'Golos', 'Golos Text', sans-serif;
+    font-weight: 500;
+    font-size: 20px;
+    line-height: 1.3;
+    letter-spacing: -0.02em;
+    text-indent: 25px;
+    text-align: left;
+    color: #2F2F2F;
+}
+
+.art-page--6 .art6-body p + p {
+    margin-top: 1.3em;
+}
+
+.art-page--6 .art6-body__figure {
+    box-sizing: border-box;
+    width: 100%;
+    max-width: 820px;
+    margin: 45px auto 105px;
+    padding: 0;
+}
+
+.art-page--6 .art6-body__figure img {
+    display: block;
+    width: 820px;
+    max-width: 100%;
+    height: auto;
+    margin: 0 auto;
+    object-fit: cover;
+    object-position: center;
+}
+
+.art-page--6 .art6-body--after-figure {
+    margin-top: 0;
+    margin-bottom: 63px;
+}
+
+.art-page--6 .art6-body--insight {
+    margin-top: 0;
+    margin-bottom: 0;
+}
+
+.art-page--6 .art6-body__setup {
+    margin: 0;
+    font-family: 'Golos', 'Golos Text', sans-serif;
+    font-weight: 500;
+    font-size: 20px;
+    line-height: 1.3;
+    letter-spacing: -0.02em;
+    text-indent: 25px;
+    text-align: left;
+    color: #2F2F2F;
+}
+
+.art-page--6 .art6-body--insight p + p {
+    margin-top: 45px;
+}
+
+.art-page--6 .art6-body__highlight {
+    margin: 0;
+    font-family: 'Golos', 'Golos Text', sans-serif;
+    font-weight: 500;
+    font-size: 30px;
+    line-height: 1.3;
+    letter-spacing: -0.02em;
+    text-indent: 25px;
+    text-align: left;
+    color: #2F2F2F;
+}
+
+.art-page--6 .art6-body--continued {
+    margin-top: 45px;
+}
+
+.art-page--6 .art6-body__figure--222 {
+    display: flex;
+    justify-content: center;
+    box-sizing: border-box;
+    width: 100%;
+    max-width: 820px;
+    margin: 45px auto 105px;
+    padding: 0;
+}
+
+.art-page--6 .art6-body__figure--222 img {
+    display: block;
+    width: 671.54736328125px;
+    max-width: 100%;
+    height: auto;
+    margin: 0 auto;
+    aspect-ratio: 672 / 450;
+    object-fit: cover;
+    object-position: center;
+}
+
+.art-page--6 .art6-body--after-222 {
+    margin-top: 0;
+}
+
+.art-page--6 .art6-outro {
+    box-sizing: border-box;
+    width: 100%;
+    max-width: 820px;
+    margin: 108px auto 32px;
+    padding: 0;
+}
+
+.art-page--6 .art6-outro__closing {
+    box-sizing: border-box;
+    width: 100%;
+    max-width: 510px;
+    margin: 0 auto;
+    padding: 0;
+    font-family: 'SangBleu Sunrise', 'Times New Roman', serif;
+    font-weight: 500;
+    font-size: 20px;
+    line-height: 1.3;
+    letter-spacing: -0.02em;
+    text-align: center;
+    color: #2F2F2F;
+}
+
+.art-page--6 .art6-outro__line {
+    display: block;
+    box-sizing: border-box;
+    width: 472px;
+    max-width: 100%;
+    height: 0;
+    margin: 5px auto 0;
+    padding: 0;
+    border: 0;
+    border-top: 1.5px solid rgba(0, 0, 0, 1);
+}
+
+.art-page--6 .art6-body--tips {
+    margin-top: 27px;
+}
+
+.art-page--6 .art6-vline {
+    display: block;
+    box-sizing: border-box;
+    width: 0;
+    height: 141.79101084292796px;
+    margin: 35px auto 0;
+    padding: 0;
+    border: 0;
+    border-left: 1px solid rgba(0, 0, 0, 1);
+    pointer-events: none;
+}
+
+.art-page--6 .art-cta {
+    margin: 0 auto 214px;
+}
+
+.art-page--6 .art-cta__text {
+    margin: 0 auto 58px;
+    max-width: 571px;
+    font-family: 'Golos', 'Golos Text', sans-serif;
+    font-weight: 500;
+    font-size: 35px;
+    line-height: 1.1;
+    letter-spacing: 0;
+    text-align: center;
+    color: rgba(39, 39, 39, 1);
+}
+
+@media (max-width: 770px) {
+    body.art-page--6 > header {
+        display: none;
+    }
+
+    body.art-page--6 > .header-burger__icon {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+    }
+
+    body.art-page--6 > .header-burger__icon svg path {
+        fill: #2F2F2F;
+    }
+
+    .art-page--6 .art-hero.art6-hero {
+        padding-top: 0;
+        padding-bottom: 0;
+    }
+
+    .art-page--6 .art6-hero__cover {
+        width: 100vw;
+        max-width: 100vw;
+        margin: 0 calc(50% - 50vw);
+    }
+
+    .art-page--6 .art6-hero__cover img {
+        width: 100%;
+        height: auto;
+    }
+
+    .art-page--6 .art {
+        padding: 0 20px;
+    }
+
+    .art-page--6 .art-hero.art6-hero {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+    }
+
+    .art-page--6 .art6-hero .art__content {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        width: 100%;
+        max-width: none;
+        margin: 0;
+    }
+
+    .art-page--6 .art6-hero__lead {
+        width: 100%;
+        max-width: none;
+        margin-top: 145px;
+    }
+
+    .art-page--6 .art6-hero__lead p {
+        font-size: 16px;
+        line-height: 1.3;
+        letter-spacing: -0.02em;
+    }
+
+    .art-page--6 .art6-hero__lead p + p {
+        margin-top: 110px;
+    }
+
+    .art-page--6 .art6-hero__lead {
+        order: 1;
+    }
+
+    .art-page--6 .art6-hero__quote {
+        order: 2;
+        width: 100%;
+        max-width: none;
+        margin-top: 132px;
+    }
+
+    .art-page--6 .art6-hero__quote p {
+        font-family: 'Golos', 'Golos Text', sans-serif;
+        font-weight: 500;
+        font-size: 25px;
+        line-height: 1.1;
+        letter-spacing: -0.02em;
+        text-align: center;
+        color: #2F2F2F;
+    }
+
+    .art-page--6 .art6-hero__author {
+        order: 3;
+        width: 100%;
+        max-width: none;
+        margin-top: 20px;
+        font-family: 'SangBleu Sunrise', 'Times New Roman', serif;
+        font-weight: 500;
+        font-size: 16px;
+        line-height: 1.3;
+        letter-spacing: -0.02em;
+        text-align: center;
+        color: #2F2F2F;
+    }
+
+    .art-page--6 .art6-line-wrap {
+        order: 4;
+        width: 100%;
+        max-width: none;
+        margin-top: 80px;
+    }
+
+    .art-page--6 .art6-line {
+        width: 172.15629577637117px;
+        max-width: 100%;
+        margin-left: auto;
+        margin-right: 0;
+    }
+
+    .art-page--6 .art6-story {
+        order: 5;
+        width: 100%;
+        max-width: none;
+        margin-top: 22px;
+    }
+
+    .art-page--6 .art6-story__p {
+        font-family: 'SangBleu Sunrise', 'Times New Roman', serif;
+        font-weight: 500;
+        font-size: 20px;
+        line-height: 1.3;
+        letter-spacing: -0.02em;
+        text-align: center;
+        text-indent: 0;
+        color: #2F2F2F;
+    }
+
+    .art-page--6 .art6-rule {
+        order: 6;
+        width: 100%;
+        max-width: none;
+        margin-top: 22px;
+    }
+
+    .art-page--6 .art6-body {
+        order: 7;
+        width: 100%;
+        max-width: none;
+        margin-top: 80px;
+    }
+
+    .art-page--6 .art6-body p {
+        font-family: 'Golos', 'Golos Text', sans-serif;
+        font-weight: 500;
+        font-size: 16px;
+        line-height: 1.3;
+        letter-spacing: -0.02em;
+        text-indent: 20px;
+        text-align: left;
+        color: #2F2F2F;
+    }
+
+    .art-page--6 .art6-body p + p {
+        margin-top: 1.3em;
+    }
+
+    .art-page--6 .art6-body {
+        margin-bottom: 0;
+    }
+
+    .art-page--6 .art6-body__figure:not(.art6-body__figure--222) {
+        order: 8;
+        width: 100%;
+        max-width: none;
+        margin: 45px 0 105px;
+    }
+
+    .art-page--6 .art6-body__figure img {
+        width: 100%;
+        max-width: 100%;
+        height: auto;
+    }
+
+    .art-page--6 .art6-body--after-figure {
+        order: 9;
+        width: 100%;
+        max-width: none;
+        margin-top: 0;
+        margin-bottom: 63px;
+    }
+
+    .art-page--6 .art6-body--insight {
+        order: 10;
+        width: 100%;
+        max-width: none;
+    }
+
+    .art-page--6 .art6-body__setup {
+        font-size: 16px;
+        line-height: 1.3;
+        letter-spacing: -0.02em;
+        text-indent: 20px;
+    }
+
+    .art-page--6 .art6-body--insight p + p {
+        margin-top: 45px;
+    }
+
+    .art-page--6 .art6-body__highlight {
+        font-size: 20px;
+        line-height: 1.3;
+        letter-spacing: -0.02em;
+        text-indent: 20px;
+    }
+
+    .art-page--6 .art6-body--continued {
+        order: 11;
+        width: 100%;
+        max-width: none;
+        margin-top: 45px;
+    }
+
+    .art-page--6 .art6-body__figure--222 {
+        order: 12;
+        display: flex;
+        justify-content: center;
+        width: 100%;
+        max-width: none;
+        margin: 45px 0 105px;
+        padding: 0;
+    }
+
+    .art-page--6 .art6-body__figure--222 img {
+        width: 100%;
+        max-width: 100%;
+        height: auto;
+        aspect-ratio: 672 / 450;
+    }
+
+    .art-page--6 .art6-body--after-222 {
+        order: 13;
+        width: 100%;
+        max-width: none;
+        margin-top: 0;
+    }
+
+    .art-page--6 .art6-outro {
+        order: 14;
+        width: 100%;
+        max-width: none;
+        margin-top: 108px;
+        margin-bottom: 32px;
+    }
+
+    .art-page--6 .art6-outro__closing {
+        max-width: none;
+        font-size: 16px;
+        line-height: 1.3;
+        letter-spacing: -0.02em;
+    }
+
+    .art-page--6 .art6-outro__line {
+        width: 100%;
+        max-width: 100%;
+        margin-top: 5px;
+    }
+
+    .art-page--6 .art6-body--tips {
+        order: 15;
+        width: 100%;
+        max-width: none;
+        margin-top: 27px;
+    }
+
+    .art-page--6 .art6-vline {
+        display: block;
+        box-sizing: border-box;
+        width: 0;
+        height: 61.00315237606442px;
+        margin: 35px auto 0;
+        border-left: 0.45px solid rgba(0, 0, 0, 1);
+        pointer-events: none;
+    }
+
+    .art-page--6 .art-cta {
+        box-sizing: border-box;
+        width: 100vw;
+        max-width: 100vw;
+        margin: 0 calc(50% - 50vw) 214px;
+        padding: 0;
+        overflow-x: clip;
+    }
+
+    .art-page--6 .art-cta__stack {
+        width: 100%;
+    }
+
+    .art-page--6 .art-cta__stage {
+        box-sizing: border-box;
+        width: 100%;
+        max-width: none;
+        margin: 0;
+        height: auto;
+        aspect-ratio: 452 / 467;
+        min-height: 0;
+        padding: 0;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        overflow: hidden;
+    }
+
+    .art-page--6 .art-cta__content {
+        box-sizing: border-box;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        gap: 20px;
+        width: 100%;
+        max-width: none;
+        padding: 0 20px;
+    }
+
+    .art-page--6 .art-cta__decor {
+        position: absolute;
+        left: 50%;
+        top: 50%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        width: 100%;
+        max-width: 100%;
+        height: auto;
+        aspect-ratio: 452 / 467;
+        overflow: hidden;
+        transform: translate(-50%, -50%) rotate(calc(360deg * var(--art-cta-progress, 0)));
+        transform-origin: 50% 50%;
+    }
+
+    .art-page--6 .art-cta__ellipse {
+        display: block;
+        width: 170%;
+        height: 170%;
+        object-fit: cover;
+        pointer-events: none;
+    }
+
+    .art-page--6 .art-cta__text {
+        margin: 0;
+        max-width: none;
+        font-family: 'Golos', 'Golos Text', sans-serif;
+        font-weight: 500;
+        font-size: 16px;
+        line-height: 1.2;
+        letter-spacing: 0;
+        text-align: center;
+        color: rgba(39, 39, 39, 1);
+    }
+
+    .art-page--6 .art-cta__btn {
+        box-sizing: border-box;
+        width: 303px;
+        max-width: 100%;
+        height: 37.21px;
+        padding: 0 12px;
+        border-radius: 18.61px;
+        font-family: 'Golos', 'Golos Text', sans-serif;
+        font-weight: 500;
+        font-size: 14.88px;
+        line-height: 37.21px;
+        letter-spacing: 0;
+        text-align: center;
+    }
+}
