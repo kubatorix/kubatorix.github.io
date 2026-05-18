@@ -377,6 +377,7 @@ renderEventsInto(document.querySelector('.burger-menu__events-popup'), 'burger-m
    Scroll-driven blur clear — shared for:
      • .article-6-midphoto __img (article 6 mid-page photo)
      • .art-page--4 .art4-tip--6 .art4-tip__portrait (article 4 portrait)
+     • .art-page--5 .art5-body__figure--ghost (article 5 body portrait)
    Blur 40px → 0px as the block moves from first-visible to
    vertical center of viewport ("cover 0%..cover 50%").
    ============================================================ */
@@ -409,6 +410,7 @@ renderEventsInto(document.querySelector('.burger-menu__events-popup'), 'burger-m
     }
     bind('.article-6-midphoto', '.article-6-midphoto__img');
     bind('.art-page--4 .art4-tip--6 .art4-tip__portrait', '.art4-tip__portrait-photo');
+    bind('.art-page--5 .art5-body__figure--ghost', '.art5-body__figure-photo');
 })();
 
 /* ============================================================
