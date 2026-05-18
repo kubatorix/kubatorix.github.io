@@ -2303,6 +2303,36 @@ body>.header-burger__icon {
    as a CSS background on the transparent <canvas> element — particles draw
    on top, the pattern reads through clear regions.
    ============================================================================ */
+/* === Section 2 — 3 SVG state stage (Figma Group 2136137217 / 218 / 217(1)).
+   The .section2__stage holds 3 stacked img layers; the active one is opacity:1,
+   others 0. JS in main.js drives the active state from the slider value. === */
+.section2 .section2__stage {
+    position: relative;
+    width: 100%;
+    margin-top: 60px;
+    aspect-ratio: 1100 / 400;
+}
+
+.section2 .section2__state {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+    opacity: 0;
+    pointer-events: none;
+}
+
+.section2 .section2__state--1 {
+    opacity: 1;
+}
+
+.section2 #canvas[hidden] {
+    display: none !important;
+    margin: 0;
+    background: none;
+}
+
 .section2 #canvas {
     margin-top: 60px;
     max-width: 100%;
@@ -2328,6 +2358,10 @@ body>.header-burger__icon {
 }
 
 @media (max-width: 770px) {
+    .section2 .section2__stage {
+        margin-top: 32px;
+    }
+
     .section2 #canvas {
         margin-top: 32px;
         /* Mobile: horizontal hairlines only, ~12 px pitch (Figma), no center

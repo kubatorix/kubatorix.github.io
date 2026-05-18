@@ -3,8 +3,9 @@ document.addEventListener("DOMContentLoaded", function() {
 
     const canvas = document.getElementById('canvas');
     const slider = document.getElementById('slider');
+    const section2SvgStates = document.querySelectorAll('.section2__state');
 
-    if (canvas && slider) {
+    if (canvas && slider && section2SvgStates.length === 0) {
     const ctx = canvas.getContext('2d');
 
     // Both columns target positions stay strictly inside their half of the
