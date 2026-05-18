@@ -11816,6 +11816,13 @@ a.fs-f11__cta-pdf:focus-visible,
     color: #2F2F2F;
 }
 
+/* Header sits on the dark canvas globally — keep its colors as-is, just
+   ensure it can read against light below it (header itself stays dark). */
+.exp-page header {
+    background: #272727;
+    color: #FFFFFF;
+}
+
 .exp {
     max-width: 1440px;
     margin: 0 auto;
@@ -11977,7 +11984,6 @@ a.fs-f11__cta-pdf:focus-visible,
     justify-content: center;
     padding: 32px 0 80px;
     color: #2F2F2F;
-    text-decoration: none;
 }
 
 .exp-hero__brand-word {
@@ -12003,24 +12009,10 @@ a.fs-f11__cta-pdf:focus-visible,
     line-height: 1;
     letter-spacing: -0.04em;
     color: #2F2F2F;
-    text-align: center;
 }
 
-/* Per-line stagger: Figma node 286:2970 positions each text frame
-   independently — "Опыт" left of parent centre by ≈111 px, the third
-   line right by ≈116 px (frame x-coords 376.77 / 265 / 296.7 inside a
-   parent at x=265, width=909.7). Match that asymmetric stair-step
-   instead of leaving all three lines centred under each other. */
 .exp-hero__title-line {
     display: block;
-}
-
-.exp-hero__title-line:nth-child(1) {
-    transform: translateX(-111px);
-}
-
-.exp-hero__title-line:nth-child(3) {
-    transform: translateX(116px);
 }
 
 /* Green gradient panel (Figma 286:3872) — wraps intro + toggle + sub */
@@ -12042,16 +12034,6 @@ a.fs-f11__cta-pdf:focus-visible,
     letter-spacing: -0.02em;
     color: #2F2F2F;
     text-align: left;
-}
-
-.exp-hero__intro-link {
-    color: inherit;
-    text-decoration: underline;
-    text-underline-offset: 0.15em;
-}
-
-.exp-hero__intro-link:hover {
-    text-decoration-thickness: 2px;
 }
 
 
@@ -12159,8 +12141,7 @@ a.fs-f11__cta-pdf:focus-visible,
     display: grid;
     grid-template-columns: repeat(3, 400px);
     grid-auto-rows: minmax(560px, auto);
-    column-gap: 20px;
-    row-gap: 49px;
+    gap: 20px;
     justify-content: center;
     margin: 0 auto 80px;
     align-items: start;
@@ -12175,7 +12156,6 @@ a.fs-f11__cta-pdf:focus-visible,
     padding: 24px 28px 28px;
     display: flex;
     flex-direction: column;
-    gap: 12px;
     position: relative;
     overflow: hidden;
     transition: border-color 0.18s ease, opacity 0.22s ease;
@@ -12208,16 +12188,12 @@ a.fs-f11__cta-pdf:focus-visible,
     display: none;
 }
 
-/* XL card spans 2 cols × 2 rows (Figma 286:3253 → 818 × 1166).
-   Width is fixed; height stretches to fill the 2-row track so the bottom
-   edge always aligns with the right-column cards (which may grow past the
-   560 min-height based on content). Figma height becomes a floor only. */
+/* XL card spans 2 cols × 2 rows (818×1166 in Figma → ~820×1166 here) */
 .exp-card--xl {
     grid-column: span 2;
     grid-row: span 2;
-    align-self: stretch;
-    width: 818px;
-    min-height: 1166px;
+    width: 820px;
+    height: 1166px;
     padding: 0;
     overflow: hidden;
 }
@@ -12284,12 +12260,6 @@ a.fs-f11__cta-pdf:focus-visible,
     border-color: #2F2F2F;
     background: #2F2F2F;
     color: #E4E5EF;
-}
-
-/* Event cards use square-cornered tags (Figma 286:3186 etc.) instead of
-   the pill shape used by text cards. */
-[data-kind="event"] .exp-tag {
-    border-radius: 0;
 }
 
 .exp-tag-divider {
@@ -12438,40 +12408,16 @@ a.fs-f11__cta-pdf:focus-visible,
     width: 100%;
 }
 
-/* Rings: keep the SVG's white stroke and apply Figma's plus-lighter blend
-   (286:3072 et al. — `mix-blend-plus-lighter`) so the rings render as a
-   faint, ethereal white glow over the light page background instead of
-   solid lines. Size explicitly, center in canvas + keep scroll-driven 360°
-   rotation from section6 (--section6-progress JS variable).
-
-   Two stacked SVGs: --white is the default ghost-white state, --color is
-   the iridescent orange/blue/purple variant (Figma 286:3921). Hovering
-   the section cross-fades to the colored layer. */
+/* Rings: invert SVG (white → dark), size explicitly, center in canvas + keep
+   scroll-driven 360° rotation from section6 (--section6-progress JS variable). */
 .exp-discuss.section6.section6__phase7 .section6__rings {
-    mix-blend-mode: plus-lighter;
+    filter: invert(1);
     width: 1000px !important;
     height: auto !important;
     inset: auto !important;
     left: 50% !important;
     top: 50% !important;
     transform: translate(-50%, -50%) rotate(calc(360deg * var(--section6-progress, 0))) !important;
-    transition: opacity 0.4s ease;
-}
-
-.exp-discuss .section6__rings--color {
-    opacity: 0;
-    /* Re-enable hover on the colored layer (base .section6__phase7 .section6__rings
-       sets pointer-events: none). The white layer stays inert so the colored
-       layer always wins the hit-test. */
-    pointer-events: auto;
-}
-
-.exp-discuss .section6__rings--color:hover {
-    opacity: 1;
-}
-
-.exp-discuss:has(.section6__rings--color:hover) .section6__rings--white {
-    opacity: 0;
 }
 
 .exp-discuss .section6__cta {
@@ -12627,13 +12573,6 @@ a.fs-f11__cta-pdf:focus-visible,
     color: #2F2F2F;
 }
 
-/* Partner logos on the light experience page must render black (Figma 286:3038
-   et al. — `fill="var(--fill-0, black)"`). The shared SVG files hardcode
-   `fill="white"` for the dark index page, so we invert them here. */
-.exp-page .s9__logo {
-    filter: invert(1);
-}
-
 
 /* ---- Tablet / intermediate (771–1439px) -------------------------------
    Stepped `zoom:` scaling so the fixed-pixel 1440-canvas layout shrinks
@@ -12747,20 +12686,13 @@ a.fs-f11__cta-pdf:focus-visible,
 
     /* Full-bleed portrait. Cropped to the Figma frame ratio 391:525 (instead
        of the photo's native 399:599) so the visible image matches the design;
-       object-position: top keeps the face in view.
-
-       Starts blurred; the --exp-hero-blur custom property is driven by
-       js/experience.js as the user scrolls — 0 when the photo is centred
-       in the viewport, full when it's off-screen above or below (so
-       scrolling past and back re-blurs cyclically). */
+       object-position: top keeps the face in view. */
     .exp-hero__photo {
         display: block;
         width: 100%;
         aspect-ratio: 391 / 525;
         object-fit: cover;
         object-position: top;
-        filter: blur(var(--exp-hero-blur, 11.973182678222656px));
-        will-change: filter;
     }
 
     /* Canvas overlays the photo so brand + title sit at Figma coordinates.
@@ -12800,13 +12732,6 @@ a.fs-f11__cta-pdf:focus-visible,
     /* "Опыт" is indented in the Figma (left=59 vs 28-29 for the rest) */
     .exp-hero__title-line:first-child {
         padding-left: 31px;
-    }
-
-    /* Reset the desktop stair-step (translateX -111 / +116) so lines stay
-       inside the 28–28 mobile gutters instead of overflowing the viewport. */
-    .exp-hero__title-line:nth-child(1),
-    .exp-hero__title-line:nth-child(3) {
-        transform: none;
     }
 
     /* Brand "Спецпроект СРЕДА_СВОИХ" pinned at y=396 (over photo bottom) */
@@ -13009,7 +12934,6 @@ a.fs-f11__cta-pdf:focus-visible,
     .exp-card--blurred .exp-card__overlay,
     .exp-card--polygons .exp-card__overlay {
         padding: 17px 18px 20px;
-        gap: 12px;
     }
 
     /* Card G's centered media title scales with the smaller mobile media block */
@@ -13408,7 +13332,7 @@ a.fs-f11__cta-pdf:focus-visible,
 }
 
 .exp-card--blurred .exp-card__media {
-    background: #272727;
+    /* background: #272727; */
 }
 
 .exp-card__photo--blurred {
@@ -13496,6 +13420,8 @@ a.fs-f11__cta-pdf:focus-visible,
 .exp-page footer {
     background: transparent !important;
 }
+
+
 
 
 /* ============================================================================
@@ -15079,18 +15005,6 @@ a.fs-f11__cta-pdf:focus-visible,
 
 .art-page footer {
     color: #FFFFFF;
-}
-
-/* Experience card link wrapper */
-a.exp-card__link {
-    display: block;
-    color: inherit;
-    text-decoration: none;
-}
-
-a.exp-card__link:focus-visible .exp-card {
-    outline: 2px solid #C2F04F;
-    outline-offset: 4px;
 }
 
 a.s8__card-link {

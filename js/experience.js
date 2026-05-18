@@ -6,11 +6,23 @@
     var grid = document.querySelector('.exp-grid');
     if (!grid) return;
 
+    function hrefAttr(c) {
+        return c.href ? ' data-href="' + c.href + '"' : '';
+    }
+
+    function initCardLinks() {
+        grid.querySelectorAll('.exp-card[data-href]').forEach(function (card) {
+            card.onclick = function () {
+                window.location.href = card.getAttribute('data-href');
+            };
+        });
+    }
+
     /* Per-variant template registry. Each template returns an HTML string. */
     var TEMPLATES = {
         bordered: function (c) {
-            var inner = ''
-                + '<article class="exp-card exp-card--bordered" data-kind="' + c.kind + '">'
+            return ''
+                + '<article class="exp-card exp-card--bordered" data-kind="' + c.kind + '"' + hrefAttr(c) + '>'
                 + tagsHtml(c.tags)
                 + '<h3 class="exp-card__title">' + c.title + '</h3>'
                 + (c.insetPhoto
@@ -20,14 +32,11 @@
                     ? '<p class="exp-card__sub exp-card__sub--inset">' + c.caption + '</p>'
                     : '')
                 + '</article>';
-            return c.href
-                ? '<a href="' + c.href + '" class="exp-card__link">' + inner + '</a>'
-                : inner;
         },
 
         duotone: function (c) {
             return ''
-                + '<article class="exp-card exp-card--photo" data-kind="' + c.kind + '">'
+                + '<article class="exp-card exp-card--photo" data-kind="' + c.kind + '"' + hrefAttr(c) + '>'
                 + '<div class="exp-card__media">'
                 +   '<img src="' + c.photo + '" class="exp-card__photo" alt="" aria-hidden="true" />'
                 +   '<img src="' + c.photoOverlay + '" class="exp-card__photo--duotone" alt="" aria-hidden="true" />'
@@ -37,21 +46,18 @@
         },
 
         'photo-only-547': function (c) {
-            var inner = ''
-                + '<article class="exp-card exp-card--photo exp-card--photo-only-547" data-kind="' + c.kind + '">'
+            return ''
+                + '<article class="exp-card exp-card--photo exp-card--photo-only-547" data-kind="' + c.kind + '"' + hrefAttr(c) + '>'
                 + '<div class="exp-card__media">'
                 +   '<img src="' + c.photo + '" class="exp-card__photo--duotone" alt="" aria-hidden="true" />'
                 + '</div>'
                 + overlayHtml(c)
                 + '</article>';
-            return c.href
-                ? '<a href="' + c.href + '" class="exp-card__link">' + inner + '</a>'
-                : inner;
         },
 
         'photo-orange': function (c) {
             return ''
-                + '<article class="exp-card exp-card--photo exp-card--photo-orange" data-kind="' + c.kind + '">'
+                + '<article class="exp-card exp-card--photo exp-card--photo-orange" data-kind="' + c.kind + '"' + hrefAttr(c) + '>'
                 + '<div class="exp-card__media">'
                 +   '<img src="' + c.photo + '" class="exp-card__photo--duotone" alt="" aria-hidden="true" />'
                 + '</div>'
@@ -78,30 +84,24 @@
         },
 
         'dark-polygons': function (c) {
-            var inner = ''
-                + '<article class="exp-card exp-card--polygons" data-kind="' + c.kind + '">'
+            return ''
+                + '<article class="exp-card exp-card--polygons" data-kind="' + c.kind + '"' + hrefAttr(c) + '>'
                 + '<div class="exp-card__media">'
                 +   '<img src="./img/figma/exp_card_polygons.svg" class="exp-card__polygons" alt="" aria-hidden="true" />'
                 + '</div>'
                 + overlayHtml(c)
                 + '</article>';
-            return c.href
-                ? '<a href="' + c.href + '" class="exp-card__link">' + inner + '</a>'
-                : inner;
         },
 
         'dark-blurred': function (c) {
-            var inner = ''
-                + '<article class="exp-card exp-card--blurred" data-kind="' + c.kind + '">'
+            return ''
+                + '<article class="exp-card exp-card--blurred" data-kind="' + c.kind + '"' + hrefAttr(c) + '>'
                 + '<div class="exp-card__media">'
                 +   '<img src="' + c.mediaPhoto + '" class="exp-card__photo--blurred" alt="" aria-hidden="true" />'
                 +   '<h3 class="exp-card__media-title">' + (c.mediaTitle || '') + '</h3>'
                 + '</div>'
                 + overlayHtml(c)
                 + '</article>';
-            return c.href
-                ? '<a href="' + c.href + '" class="exp-card__link">' + inner + '</a>'
-                : inner;
         }
     };
 
@@ -147,6 +147,7 @@
             var tpl = TEMPLATES[c.variant];
             return tpl ? tpl(c) : '';
         }).join('');
+        initCardLinks();
         initToggle();
     }
 
