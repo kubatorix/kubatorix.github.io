@@ -18785,8 +18785,7 @@ a.s8__card-link:focus-visible .s8__card {
         display: block;
         width: 100%;
         max-width: 100%;
-        height: auto;
-        aspect-ratio: 352 / 459;
+        height: 492.171875px;
         object-fit: cover;
         object-position: center;
     }
