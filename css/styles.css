@@ -9539,7 +9539,7 @@ footer .footer-btn:focus-visible {
     white-space: nowrap;
     paint-order: stroke fill;
     mix-blend-mode: plus-lighter;
-    /* tabular-nums keeps every digit the same width so "30,2" and "58,8"
+    /* tabular-nums keeps every digit the same width so "36,7" and "63,3"
        render identical widths — both white "%" glyphs then land on the
        exact same x and read as one (no doubled/gapped percent sign). */
     font-variant-numeric: tabular-nums;
@@ -9570,7 +9570,7 @@ footer .footer-btn:focus-visible {
     -webkit-text-stroke-color: #FFFFFF;
 }
 
-/* Both mega numbers ("30,2%" + "58,8%") overlap at the same left, but the
+/* Both mega numbers ("36,7%" + "63,3%") overlap at the same left, but the
    digit clusters render at different widths — so the two white "%" glyphs
    land at slightly different x and the percent reads as a doubled outline.
    Pin "%" to a fixed x inside each (already absolutely-positioned)
@@ -11878,28 +11878,45 @@ a.fs-f11__cta-pdf:focus-visible,
     filter: none;
 }
 
-/* Правый клин: apex наверху-справа (натуральная ориентация SVG) */
-.exp-hero__shape--lines-lg {
+/* Треугольники: z-index на обёртке, progressive blur остаётся в inline SVG */
+.exp-hero__lines-wrap {
+    position: absolute;
+    pointer-events: none;
+    user-select: none;
+    z-index: 2;
+    overflow: visible;
+}
+
+.exp-hero__lines-wrap--lg {
     top: -200px;
     right: -120px;
     width: 900px;
-    max-width: none;
 }
 
-/* Левый треугольник — 4-ступенчатый progressive blur в SVG */
-.exp-hero__shape--lines-sm {
+.exp-hero__lines-wrap--sm {
     top: 60px;
     left: -200px;
     width: 720px;
+}
+
+.exp-hero__lines-wrap .exp-hero__shape--lines-lg,
+.exp-hero__lines-wrap .exp-hero__shape--lines-sm {
+    position: relative;
+    top: auto;
+    right: auto;
+    left: auto;
+    bottom: auto;
+    width: 100%;
     max-width: none;
-    z-index: 2;
+    z-index: auto;
+    overflow: visible;
 }
 
 .exp-hero__shape--lines-sm .exp-lines-sm-prog,
 .exp-hero__shape--lines-lg .exp-lines-lg-prog,
 .exp-hero__shape--orbit-sm .exp-orbit-sm-prog,
 .exp-hero__shape--orbit-lg .exp-orbit-lg-prog {
-    mix-blend-mode: lighten;
+    mix-blend-mode: plus-lighter;
 }
 
 /* Большой эллипс — справа сверху, частично за кромку */
@@ -11920,12 +11937,12 @@ a.fs-f11__cta-pdf:focus-visible,
 }
 
 @media (max-width: 1280px) {
-    .exp-hero__shape--lines-lg {
+    .exp-hero__lines-wrap--lg {
         width: 760px;
         right: -100px;
     }
 
-    .exp-hero__shape--lines-sm {
+    .exp-hero__lines-wrap--sm {
         width: 600px;
         left: -80px;
     }
@@ -11944,13 +11961,13 @@ a.fs-f11__cta-pdf:focus-visible,
 }
 
 @media (max-width: 768px) {
-    .exp-hero__shape--lines-lg {
+    .exp-hero__lines-wrap--lg {
         width: 540px;
         right: -80px;
         top: 0;
     }
 
-    .exp-hero__shape--lines-sm {
+    .exp-hero__lines-wrap--sm {
         width: 460px;
         left: -60px;
         top: 60px;
@@ -11970,12 +11987,12 @@ a.fs-f11__cta-pdf:focus-visible,
 }
 
 @media (max-width: 480px) {
-    .exp-hero__shape--lines-lg {
+    .exp-hero__lines-wrap--lg {
         width: 380px;
         right: -60px;
     }
 
-    .exp-hero__shape--lines-sm {
+    .exp-hero__lines-wrap--sm {
         width: 320px;
         left: -40px;
     }
@@ -12035,7 +12052,7 @@ a.fs-f11__cta-pdf:focus-visible,
 /* Green gradient panel (Figma 286:3872) — wraps intro + toggle + sub */
 .exp-hero__panel {
     position: relative;
-    z-index: 1;
+    z-index: 3;
     margin-top: 140px;
     padding: 80px 100px 120px;
     background: linear-gradient(to bottom, #C2F04F 0%, #C2F04F 36.114%, rgba(228, 229, 239, 0) 81.807%);
@@ -12701,7 +12718,8 @@ a.fs-f11__cta-pdf:focus-visible,
     }
 
     /* Desktop's decorative orbits/lines are not part of the mobile design */
-    .exp-hero__shape {
+    .exp-hero__shape,
+    .exp-hero__lines-wrap {
         display: none;
     }
 

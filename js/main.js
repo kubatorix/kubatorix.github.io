@@ -191,7 +191,7 @@ renderEventsInto(document.querySelector('.burger-menu__events-popup'), 'burger-m
     });
 
     // FullStudy F8 — has TWO synced toggles + a chromatic mega number pair
-    // (30,2% / 58,8%) that animate count-up on toggle. Reuses the s3p5__mega
+    // (36,7% / 63,3%) that animate count-up on toggle. Reuses the s3p5__mega
     // class structure so animateMega works as-is.
     wireToggle({
         section:      '.fs-f8',
