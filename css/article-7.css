@@ -1,14 +1,11 @@
 /* article-7.css — absolute positioning at exact Figma coordinates.
+   Restored from 611c71e (Huziahmetov-Artur, article-6.css).
    Figma: 2kv2pHDkzX3kDAEamsMgUA web=4389:1306 (1440x7992). */
 
-body.article-7-page {
-  background: #D2D2D2;
-  margin: 0;
-  color: #272727;
-}
+body.article-7-page { background: #D2D2D2; margin: 0; }
 
 /* Burger icon is white by default (designed for dark-hero pages like index/experience).
-   Article 6 has a light hero, so the burger needs to be dark. Same pattern as .art-page--4. */
+   Article 7 has a light hero, so the burger needs to be dark. Same pattern as .art-page--4. */
 body.article-7-page > .header-burger__icon svg path { fill: #2F2F2F; }
 
 .article-7-frame {
@@ -337,44 +334,38 @@ body.article-7-page > .header-burger__icon svg path { fill: #2F2F2F; }
   text-align: center;
   z-index: 2;
 }
-/* Beat global a:visited { color: inherit } from main.css (body text is #FBFBFB). */
-body.article-7-page .article-7-cta__btn,
-body.article-7-page .article-7-cta__btn:visited {
+.article-7-cta__btn {
   position: absolute;
-  left: 502px;
-  top: 749px;
+  left: 502px; top: 749px;
   width: 490px;
   height: 60px;
+  background: #272727;
+  border: 1px solid #272727;
+  border-radius: 30px;
   display: flex;
   align-items: center;
   justify-content: center;
-  box-sizing: border-box;
-  border: 1px solid #272727;
-  border-radius: 30px;
-  background-color: #272727;
-  color: #ffffff;
-  font-family: 'Golos', 'Golos Text', sans-serif;
+  color: #FFF;
+  text-decoration: none;
+  font-family: 'Golos', sans-serif;
   font-weight: 500;
   font-size: 20px;
-  line-height: 1.2;
   letter-spacing: -0.02em;
-  text-decoration: none;
   cursor: pointer;
-  transition: background-color 0.18s ease, color 0.18s ease, border-color 0.18s ease;
-  z-index: 3; /* above rings so the button stays clickable */
+  transition: background 0.18s ease, color 0.18s ease;
+  z-index: 3; /* above .article-7-cta__rings (z-index:0) so hover hits the button, not the rings */
+  box-sizing: border-box;
 }
-body.article-7-page .article-7-cta__btn:hover,
-body.article-7-page .article-7-cta__btn:visited:hover,
-body.article-7-page .article-7-cta__btn:focus-visible {
-  background-color: #ffffff;
-  border-color: #272727;
-  color: #272727;
+.article-7-cta__btn:hover,
+.article-7-cta__btn:focus-visible {
+  background: #FFFFFF;
+  color: #000000;
 }
 
 /* === MOBILE (375 viewport) — Figma file 7RsWg2vKpqbcDHMZqi8w2f node 613:1682 ===
    Single-column layout with smaller typography. Frame 375x7688 (subscribe footer at 7157
    is rendered by footer.js, not inside the frame). All absolute coords below are page-relative. */
-@media (max-width: 770px) {
+@media (max-width: 768px) {
   /* Hero / mid-photo / bottom-portrait / CTA all bleed beyond the 375 viewport per Figma.
      Clip the body horizontally so the bleed is hidden without creating a horizontal scrollbar.
      Frame is designed at 375px and scales to fit the actual viewport width (414, 428, etc.)
@@ -491,15 +482,24 @@ body.article-7-page .article-7-cta__btn:focus-visible {
     top: 263px; width: 303px;
     font-size: 22px; line-height: 110%;
   }
-  body.article-7-page .article-7-cta__btn,
-  body.article-7-page .article-7-cta__btn:visited {
-    left: 50%;
-    top: 341px;
-    width: 261px;
-    height: 57px;
+  .article-7-cta__btn {
+    left: 50%; transform: translateX(-50%);
+    top: 341px; width: 261px; height: 57px;
     font-size: 16px;
-    line-height: 1.2;
-    border-radius: 28.5px;
-    transform: translateX(-50%);
   }
+}
+
+/* Site stack (styles.css + main.css): prevent global link/body colors from overriding Arthur CTA. */
+body.article-7-page { color: #272727; }
+body.article-7-page a.article-7-cta__btn,
+body.article-7-page a.article-7-cta__btn:visited {
+  color: #ffffff;
+  background-color: #272727;
+  border-color: #272727;
+}
+body.article-7-page a.article-7-cta__btn:hover,
+body.article-7-page a.article-7-cta__btn:visited:hover,
+body.article-7-page a.article-7-cta__btn:focus-visible {
+  color: #000000;
+  background-color: #ffffff;
 }
