@@ -11875,7 +11875,7 @@ a.fs-f11__cta-pdf:focus-visible,
     user-select: none;
     z-index: 0;
     height: auto;
-    filter: blur(3px);
+    filter: none;
 }
 
 /* Правый клин: apex наверху-справа (натуральная ориентация SVG) */
@@ -11886,12 +11886,20 @@ a.fs-f11__cta-pdf:focus-visible,
     max-width: none;
 }
 
-/* Левый клин: натуральная ориентация (apex смотрит вверх-вправо, арм уходит влево) */
+/* Левый треугольник — 4-ступенчатый progressive blur в SVG */
 .exp-hero__shape--lines-sm {
     top: 60px;
     left: -200px;
     width: 720px;
     max-width: none;
+    z-index: 2;
+}
+
+.exp-hero__shape--lines-sm .exp-lines-sm-prog,
+.exp-hero__shape--lines-lg .exp-lines-lg-prog,
+.exp-hero__shape--orbit-sm .exp-orbit-sm-prog,
+.exp-hero__shape--orbit-lg .exp-orbit-lg-prog {
+    mix-blend-mode: lighten;
 }
 
 /* Большой эллипс — справа сверху, частично за кромку */
@@ -11902,12 +11910,13 @@ a.fs-f11__cta-pdf:focus-visible,
     max-width: none;
 }
 
-/* Меньший эллипс — слева снизу, частично за кромку */
+/* Меньший эллипс — слева снизу, progressive blur только в SVG */
 .exp-hero__shape--orbit-sm {
     bottom: -74px;
     left: -109px;
     width: 1000px;
     max-width: none;
+    filter: none;
 }
 
 @media (max-width: 1280px) {
@@ -12006,13 +12015,17 @@ a.fs-f11__cta-pdf:focus-visible,
 
 .exp-hero__title {
     margin: 0 auto;
-    max-width: 920px;
-    font-family: 'Golos', 'Golos Text', sans-serif;
-    font-weight: 500;
-    font-size: 96px;
-    line-height: 1;
-    letter-spacing: -0.04em;
-    color: #2F2F2F;
+    max-width: 910px;
+}
+
+.exp-hero__title-art {
+    display: block;
+    width: 100%;
+    height: auto;
+}
+
+.exp-hero__title-fallback {
+    display: none;
 }
 
 .exp-hero__title-line {
@@ -12735,6 +12748,22 @@ a.fs-f11__cta-pdf:focus-visible,
         color: #FFFFFF;
         mix-blend-mode: difference;
         pointer-events: none;
+    }
+
+    .exp-hero__title-art {
+        display: none;
+    }
+
+    .exp-hero__title-fallback {
+        display: block;
+        text-align: left;
+        font-family: 'Golos Text VF', 'Golos Text', sans-serif;
+        font-weight: 500;
+        font-size: 40px;
+        line-height: 0.85;
+        letter-spacing: -0.04em;
+        color: #FFFFFF;
+        mix-blend-mode: difference;
     }
 
     /* "Опыт" is indented in the Figma (left=59 vs 28-29 for the rest) */
