@@ -17,6 +17,7 @@
     "id": "B",
     "variant": "duotone",
     "kind": "text",
+    "href": "./articles/6/",
     "figma": "286:3120",
     "tags": [
       { "label": "Путь фандрайзера" },
@@ -92,6 +93,7 @@
     "id": "H",
     "variant": "photo-orange",
     "kind": "text",
+    "href": "./articles/7/",
     "figma": "286:3145",
     "tags": [
       { "label": "Путь фандрайзера" },

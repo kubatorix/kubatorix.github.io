@@ -353,29 +353,34 @@ renderEventsInto(document.querySelector('.burger-menu__events-popup'), 'burger-m
 })();
 
 /* ============================================================
-   Article 6 mobile — fluid frame scaling.
+   Articles 6/7 mobile — fluid frame scaling (absolute Figma layout).
    Frame is designed at 375px; scale to actual viewport width so
    the design fills the screen on any phone (414, 428, 600, etc.).
    ============================================================ */
 (function () {
-    var frame = document.querySelector('.article-6-frame');
-    if (!frame) return;
     var MOBILE_MAX = 768;
     var DESIGN_W = 375;
-    function setScale() {
+    function setScaleFor(frame) {
+        var prefix = frame.className.match(/article-\d+-frame/);
+        if (!prefix) return;
+        var varName = '--' + prefix[0].replace('-frame', '-mob-scale');
         if (window.innerWidth <= MOBILE_MAX) {
-            document.documentElement.style.setProperty('--article-6-mob-scale', (window.innerWidth / DESIGN_W).toFixed(4));
+            document.documentElement.style.setProperty(varName, (window.innerWidth / DESIGN_W).toFixed(4));
         } else {
-            document.documentElement.style.removeProperty('--article-6-mob-scale');
+            document.documentElement.style.removeProperty(varName);
         }
     }
+    function setScale() {
+        document.querySelectorAll('.article-6-frame, .article-7-frame').forEach(setScaleFor);
+    }
+    if (!document.querySelector('.article-6-frame, .article-7-frame')) return;
     setScale();
     window.addEventListener('resize', setScale);
 })();
 
 /* ============================================================
    Scroll-driven blur clear — shared for:
-     • .article-6-midphoto __img (article 6 mid-page photo)
+     • .article-6-midphoto / .article-7-midphoto __img
      • .art-page--4 .art4-tip--6 .art4-tip__portrait (article 4 portrait)
      • .art-page--5 .art5-body__figure--ghost (article 5 body portrait)
    Blur 40px → 0px as the block moves from first-visible to
@@ -409,26 +414,30 @@ renderEventsInto(document.querySelector('.burger-menu__events-popup'), 'burger-m
         window.addEventListener('resize', onScroll);
     }
     bind('.article-6-midphoto', '.article-6-midphoto__img');
+    bind('.article-7-midphoto', '.article-7-midphoto__img');
     bind('.art-page--4 .art4-tip--6 .art4-tip__portrait', '.art4-tip__portrait-photo');
     bind('.art-page--5 .art5-body__figure--ghost', '.art5-body__figure-photo');
 })();
 
 /* ============================================================
-   Article 6 CTA — scroll-driven 360° rotation of the orbit
-   rings, same pattern as section6__phase7 above.
-   Sets --article-6-cta-progress 0..1 on the CTA element as the
-   user sweeps it through the viewport.
+   Articles 6/7 CTA — scroll-driven 360° rotation of the orbit
+   rings. Sets --article-N-cta-progress on the CTA element.
    ============================================================ */
 (function () {
-    var cta = document.querySelector('.article-6-cta');
-    if (!cta) return;
+    var ctas = document.querySelectorAll('.article-6-cta, .article-7-cta');
+    if (!ctas.length) return;
     var ticking = false;
     function compute() {
         ticking = false;
-        var rect = cta.getBoundingClientRect();
         var vh = window.innerHeight || document.documentElement.clientHeight;
-        var progress = Math.max(0, Math.min(1, (vh - rect.top) / (vh + rect.height)));
-        cta.style.setProperty('--article-6-cta-progress', progress.toFixed(4));
+        ctas.forEach(function (cta) {
+            var rect = cta.getBoundingClientRect();
+            var progress = Math.max(0, Math.min(1, (vh - rect.top) / (vh + rect.height)));
+            var match = cta.className.match(/article-\d+-cta/);
+            if (match) {
+                cta.style.setProperty('--' + match[0] + '-progress', progress.toFixed(4));
+            }
+        });
     }
     function onScroll() {
         if (ticking) return;
