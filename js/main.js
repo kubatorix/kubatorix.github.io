@@ -358,7 +358,7 @@ renderEventsInto(document.querySelector('.burger-menu__events-popup'), 'burger-m
    the design fills the screen on any phone (414, 428, 600, etc.).
    ============================================================ */
 (function () {
-    var MOBILE_MAX = 768;
+    var MOBILE_MAX = 770;
     var DESIGN_W = 375;
     function setScaleFor(frame) {
         var prefix = frame.className.match(/article-\d+-frame/);
