@@ -18434,6 +18434,38 @@ a.s8__card-link:focus-visible .s8__card {
     object-position: center;
 }
 
+/* Ghost portrait overlay — base photo + masked purple tint (article 6 hero pattern). */
+.art-page--5 .art5-body__figure--ghost {
+    position: relative;
+}
+
+.art-page--5 .art5-body__figure--ghost .art5-body__figure-ghost {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+    object-position: center;
+    opacity: 0.2;
+    pointer-events: none;
+}
+
+.art-page--5 .art5-body__figure--ghost .art5-body__figure-tint {
+    position: absolute;
+    inset: 0;
+    background: rgba(170, 110, 255, 0.7);
+    mix-blend-mode: lighten;
+    -webkit-mask-image: url(../img/figma/article5/r6vb0584.png);
+    mask-image: url(../img/figma/article5/r6vb0584.png);
+    -webkit-mask-size: contain;
+    mask-size: contain;
+    -webkit-mask-position: center;
+    mask-position: center;
+    -webkit-mask-repeat: no-repeat;
+    mask-repeat: no-repeat;
+    pointer-events: none;
+}
+
 .art-page--5 .art5-body__p--after-figure {
     box-sizing: border-box;
     width: 100%;
@@ -18807,7 +18839,7 @@ a.s8__card-link:focus-visible .s8__card {
         margin-top: 1.3em;
     }
 
-    .art-page--5 .art5-body__figure:not(.art5-body__figure--444) {
+    .art-page--5 .art5-body__figure--ghost {
         box-sizing: border-box;
         width: 100%;
         max-width: 100%;
@@ -18815,11 +18847,12 @@ a.s8__card-link:focus-visible .s8__card {
         padding: 0;
     }
 
-    .art-page--5 .art5-body__figure:not(.art5-body__figure--444) img {
+    .art-page--5 .art5-body__figure--ghost .art5-body__figure-photo {
         display: block;
         width: 100%;
         max-width: 100%;
         height: 492.171875px;
+        aspect-ratio: auto;
         object-fit: cover;
         object-position: center;
     }
