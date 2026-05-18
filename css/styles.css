@@ -18376,6 +18376,8 @@ a.fs-f11__cta-pdf:focus-visible,
 
 /* Ghost portrait — stacked grid layers (base photo + ghost + masked tint). */
 .art-page--5 .art5-body__figure--ghost {
+    /* Scroll-driven fade-in for the ghost+tint overlay; js/main.js sets the value 0→1. */
+    --ghost-progress: 0;
     display: grid;
     position: relative;
     isolation: isolate;
@@ -18404,7 +18406,7 @@ a.fs-f11__cta-pdf:focus-visible,
     min-height: 100%;
     object-fit: cover;
     object-position: center;
-    opacity: 0.2;
+    opacity: calc(0.2 * var(--ghost-progress, 0));
     pointer-events: none;
     z-index: 1;
 }
@@ -18416,6 +18418,7 @@ a.fs-f11__cta-pdf:focus-visible,
     min-height: 100%;
     background: rgba(170, 110, 255, 0.7);
     mix-blend-mode: lighten;
+    opacity: var(--ghost-progress, 0);
     -webkit-mask-image: url(../img/figma/article5/r6vb0584.png);
     mask-image: url(../img/figma/article5/r6vb0584.png);
     -webkit-mask-size: cover;
@@ -18444,9 +18447,8 @@ a.fs-f11__cta-pdf:focus-visible,
     color: #2F2F2F;
 }
 
-.art-page--5 .art5-body__figure--444.art5-body__figure--scroll {
-    --art-portrait-o1: 1;
-    --art-portrait-o2: 0;
+.art-page--5 .art5-body__figure--444 {
+    position: relative;
     display: grid;
     justify-items: center;
     width: 100%;
@@ -18466,21 +18468,29 @@ a.fs-f11__cta-pdf:focus-visible,
 }
 
 .art-page--5 .art5-body__figure--444 .art5-body__figure-photo--1 {
-    opacity: var(--art-portrait-o1);
+    /* filter:blur(20px) is the initial state; js/main.js clears it on scroll. */
+    filter: blur(20px);
 }
 
-.art-page--5 .art5-body__figure--444 .art5-body__figure-photo--2 {
-    opacity: var(--art-portrait-o2);
-}
-
-@media (prefers-reduced-motion: reduce) {
-    .art-page--5 .art5-body__figure--444 .art5-body__figure-photo--1 {
-        opacity: 1;
-    }
-
-    .art-page--5 .art5-body__figure--444 .art5-body__figure-photo--2 {
-        display: none;
-    }
+.art-page--5 .art5-body__figure--444 .art5-body__figure-text {
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%);
+    width: 820px;
+    max-width: calc(100vw - 32px);
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'SangBleu Sunrise', 'SangBleu', serif;
+    font-weight: 500;
+    font-size: 30px;
+    line-height: 1.3;
+    letter-spacing: -0.02em;
+    text-indent: 20px;
+    color: #FFFFFF;
+    mix-blend-mode: difference;
+    text-align: center;
 }
 
 .art-page--5 .art5-body__p--after-444 {
@@ -18852,7 +18862,7 @@ a.fs-f11__cta-pdf:focus-visible,
     }
 
     .art-page--5 .art5-body__figure--ghost .art5-body__figure-ghost {
-        opacity: 0.2;
+        opacity: calc(0.2 * var(--ghost-progress, 0));
         pointer-events: none;
         z-index: 1;
     }
@@ -18880,7 +18890,8 @@ a.fs-f11__cta-pdf:focus-visible,
         color: #2F2F2F;
     }
 
-    .art-page--5 .art5-body__figure--444.art5-body__figure--scroll {
+    .art-page--5 .art5-body__figure--444 {
+        position: relative;
         display: grid;
         justify-items: center;
         box-sizing: border-box;
@@ -18898,6 +18909,12 @@ a.fs-f11__cta-pdf:focus-visible,
         max-width: none;
         object-fit: cover;
         object-position: center;
+    }
+
+    .art-page--5 .art5-body__figure--444 .art5-body__figure-text {
+        width: 100%;
+        padding: 0 14px;
+        font-size: 20px;
     }
 
     .art-page--5 .art5-body__p--after-444 {
@@ -19068,6 +19085,7 @@ a.fs-f11__cta-pdf:focus-visible,
 
 .art-page--6 .art6-hero__cover {
     box-sizing: border-box;
+    position: relative;
     width: 100%;
     margin: 0;
     padding: 0;
@@ -19084,6 +19102,33 @@ a.fs-f11__cta-pdf:focus-visible,
     height: auto;
     object-fit: cover;
     object-position: center;
+}
+
+/* Title on hero cover — white + mix-blend-mode: difference. */
+.art-page--6 .art6-hero__title {
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%);
+    box-sizing: border-box;
+    width: 820px;
+    max-width: 90%;
+    margin: 0;
+    padding: 0;
+    font-family: 'Golos', 'Golos Text', sans-serif;
+    font-weight: 500;
+    font-size: 70px;
+    line-height: 0.9;
+    letter-spacing: -0.03em;
+    text-align: center;
+    color: #FFFFFF;
+    mix-blend-mode: difference;
+    pointer-events: none;
+}
+
+.art-page--6 .art6-hero__title .sb {
+    font-family: 'SangBleu Sunrise', 'SangBleu', 'Times New Roman', serif;
+    font-weight: 500;
 }
 
 .art-page--6 .art6-hero .art__content {
@@ -19293,6 +19338,7 @@ a.fs-f11__cta-pdf:focus-visible,
 }
 
 .art-page--6 .art6-body__figure--222 {
+    position: relative;
     display: flex;
     justify-content: center;
     box-sizing: border-box;
@@ -19311,6 +19357,29 @@ a.fs-f11__cta-pdf:focus-visible,
     aspect-ratio: 672 / 450;
     object-fit: cover;
     object-position: center;
+    /* filter:blur(20px) is the initial state; js/main.js clears it on scroll. */
+    filter: blur(20px);
+}
+
+.art-page--6 .art6-body__figure--222 .art6-body__figure-text {
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%);
+    box-sizing: border-box;
+    width: 960px;
+    max-width: calc(100vw - 32px);
+    margin: 0;
+    padding: 0 30px;
+    font-family: 'SangBleu Sunrise', 'SangBleu', serif;
+    font-weight: 500;
+    font-size: 30px;
+    line-height: 1.3;
+    letter-spacing: -0.02em;
+    color: #FFFFFF;
+    mix-blend-mode: difference;
+    text-align: center;
+    pointer-events: none;
 }
 
 .art-page--6 .art6-body--after-222 {
@@ -19417,6 +19486,13 @@ a.fs-f11__cta-pdf:focus-visible,
         aspect-ratio: auto;
         object-fit: cover;
         object-position: center top;
+    }
+
+    .art-page--6 .art6-hero__title {
+        top: 72%;
+        width: 335px;
+        max-width: 90%;
+        font-size: 35px;
     }
 
     .art-page--6 .art {
@@ -19681,6 +19757,12 @@ a.fs-f11__cta-pdf:focus-visible,
         aspect-ratio: 672 / 450;
         object-fit: cover;
         object-position: center;
+    }
+
+    .art-page--6 .art6-body__figure--222 .art6-body__figure-text {
+        width: 100%;
+        padding: 0 14px;
+        font-size: 18px;
     }
 
     .art-page--6 .art6-body--after-222 {

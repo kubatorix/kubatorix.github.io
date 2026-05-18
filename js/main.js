@@ -382,11 +382,19 @@ renderEventsInto(document.querySelector('.burger-menu__events-popup'), 'burger-m
    vertical center of viewport ("cover 0%..cover 50%").
    ============================================================ */
 (function () {
-    function bind(blockSel, imgSel) {
+    /* bind(blockSel, imgSel, maxBlur, textSel)
+       Progress 1.0 == figure center hits viewport center (animation
+       finishes by the middle of the screen).
+       If textSel is provided → two-phase animation:
+         Phase 1 (progress 0..0.5): text visible, blur at max.
+         Phase 2 (progress 0.5..1): text opacity 1→0 AND blur max→0.
+       Otherwise → simple linear blur max→0 across 0..1. */
+    function bind(blockSel, imgSel, maxBlur, textSel) {
         var block = document.querySelector(blockSel);
         var img = block && block.querySelector(imgSel);
         if (!img) return;
-        var MAX_BLUR = 40;
+        var text = textSel ? block.querySelector(textSel) : null;
+        var MAX_BLUR = (typeof maxBlur === 'number') ? maxBlur : 40;
         var ticking = false;
         function compute() {
             ticking = false;
@@ -394,10 +402,22 @@ renderEventsInto(document.querySelector('.burger-menu__events-popup'), 'burger-m
             var vh = window.innerHeight || document.documentElement.clientHeight;
             var scrolled = vh - rect.top;
             var totalScroll = vh + rect.height;
-            var coverProgress = scrolled / totalScroll;
-            var progress = Math.max(0, Math.min(1, coverProgress / 0.5));
-            var blur = MAX_BLUR * (1 - progress);
-            img.style.filter = 'blur(' + blur.toFixed(2) + 'px)';
+            var progress = Math.max(0, Math.min(1, (scrolled / totalScroll) / 0.5));
+            var blurAmount, textOpacity;
+            if (text) {
+                if (progress < 0.5) {
+                    textOpacity = 1;
+                    blurAmount = MAX_BLUR;
+                } else {
+                    var p = (progress - 0.5) / 0.5;
+                    textOpacity = 1 - p;
+                    blurAmount = MAX_BLUR * (1 - p);
+                }
+                text.style.opacity = textOpacity.toFixed(4);
+            } else {
+                blurAmount = MAX_BLUR * (1 - progress);
+            }
+            img.style.filter = 'blur(' + blurAmount.toFixed(2) + 'px)';
         }
         function onScroll() {
             if (ticking) return;
@@ -408,9 +428,39 @@ renderEventsInto(document.querySelector('.burger-menu__events-popup'), 'burger-m
         window.addEventListener('scroll', onScroll, { passive: true });
         window.addEventListener('resize', onScroll);
     }
-    bind('.article-7-midphoto', '.article-7-midphoto__img');
-    bind('.art-page--4 .art4-tip--6 .art4-tip__portrait', '.art4-tip__portrait-photo');
-    bind('.art-page--5 .art5-body__figure--ghost', '.art5-body__figure-photo');
+    bind('.article-7-midphoto', '.article-7-midphoto__img', 40, '.article-7-midphoto__text');
+    bind('.art-page--4 .art4-tip--6 .art4-tip__portrait', '.art4-tip__portrait-photo', 40, '.art4-tip__portrait-caption');
+    bind('.art-page--5 .art5-body__figure--444', '.art5-body__figure-photo--1', 20, '.art5-body__figure-text');
+    bind('.art-page--6 .art6-body__figure--222', 'img', 20, '.art6-body__figure-text');
+})();
+
+/* ============================================================
+   Scroll-driven fade-in for the ghost+tint overlay inside
+   .art-page--5 .art5-body__figure--ghost. Sets --ghost-progress
+   0→1; CSS uses it for both .art5-body__figure-ghost (opacity)
+   and .art5-body__figure-tint (opacity).
+   ============================================================ */
+(function () {
+    var block = document.querySelector('.art-page--5 .art5-body__figure--ghost');
+    if (!block) return;
+    var ticking = false;
+    function compute() {
+        ticking = false;
+        var rect = block.getBoundingClientRect();
+        var vh = window.innerHeight || document.documentElement.clientHeight;
+        var scrolled = vh - rect.top;
+        var totalScroll = vh + rect.height;
+        var progress = Math.max(0, Math.min(1, (scrolled / totalScroll) / 0.5));
+        block.style.setProperty('--ghost-progress', progress.toFixed(4));
+    }
+    function onScroll() {
+        if (ticking) return;
+        ticking = true;
+        window.requestAnimationFrame(compute);
+    }
+    compute();
+    window.addEventListener('scroll', onScroll, { passive: true });
+    window.addEventListener('resize', onScroll);
 })();
 
 /* ============================================================
