@@ -6,23 +6,16 @@
     var grid = document.querySelector('.exp-grid');
     if (!grid) return;
 
-    function hrefAttr(c) {
-        return c.href ? ' data-href="' + c.href + '"' : '';
-    }
-
-    function initCardLinks() {
-        grid.querySelectorAll('.exp-card[data-href]').forEach(function (card) {
-            card.onclick = function () {
-                window.location.href = card.getAttribute('data-href');
-            };
-        });
+    function linkAttrs(c) {
+        if (!c.href) return '';
+        return ' data-href="' + c.href + '" onclick="window.location.href=this.getAttribute(\'data-href\')"';
     }
 
     /* Per-variant template registry. Each template returns an HTML string. */
     var TEMPLATES = {
         bordered: function (c) {
             return ''
-                + '<article class="exp-card exp-card--bordered" data-kind="' + c.kind + '"' + hrefAttr(c) + '>'
+                + '<article class="exp-card exp-card--bordered" data-kind="' + c.kind + '"' + linkAttrs(c) + '>'
                 + tagsHtml(c.tags)
                 + '<h3 class="exp-card__title">' + c.title + '</h3>'
                 + (c.insetPhoto
@@ -36,7 +29,7 @@
 
         duotone: function (c) {
             return ''
-                + '<article class="exp-card exp-card--photo" data-kind="' + c.kind + '"' + hrefAttr(c) + '>'
+                + '<article class="exp-card exp-card--photo" data-kind="' + c.kind + '"' + linkAttrs(c) + '>'
                 + '<div class="exp-card__media">'
                 +   '<img src="' + c.photo + '" class="exp-card__photo" alt="" aria-hidden="true" />'
                 +   '<img src="' + c.photoOverlay + '" class="exp-card__photo--duotone" alt="" aria-hidden="true" />'
@@ -47,7 +40,7 @@
 
         'photo-only-547': function (c) {
             return ''
-                + '<article class="exp-card exp-card--photo exp-card--photo-only-547" data-kind="' + c.kind + '"' + hrefAttr(c) + '>'
+                + '<article class="exp-card exp-card--photo exp-card--photo-only-547" data-kind="' + c.kind + '"' + linkAttrs(c) + '>'
                 + '<div class="exp-card__media">'
                 +   '<img src="' + c.photo + '" class="exp-card__photo--duotone" alt="" aria-hidden="true" />'
                 + '</div>'
@@ -57,7 +50,7 @@
 
         'photo-orange': function (c) {
             return ''
-                + '<article class="exp-card exp-card--photo exp-card--photo-orange" data-kind="' + c.kind + '"' + hrefAttr(c) + '>'
+                + '<article class="exp-card exp-card--photo exp-card--photo-orange" data-kind="' + c.kind + '"' + linkAttrs(c) + '>'
                 + '<div class="exp-card__media">'
                 +   '<img src="' + c.photo + '" class="exp-card__photo--duotone" alt="" aria-hidden="true" />'
                 + '</div>'
@@ -85,7 +78,7 @@
 
         'dark-polygons': function (c) {
             return ''
-                + '<article class="exp-card exp-card--polygons" data-kind="' + c.kind + '"' + hrefAttr(c) + '>'
+                + '<article class="exp-card exp-card--polygons" data-kind="' + c.kind + '"' + linkAttrs(c) + '>'
                 + '<div class="exp-card__media">'
                 +   '<img src="./img/figma/exp_card_polygons.svg" class="exp-card__polygons" alt="" aria-hidden="true" />'
                 + '</div>'
@@ -95,7 +88,7 @@
 
         'dark-blurred': function (c) {
             return ''
-                + '<article class="exp-card exp-card--blurred" data-kind="' + c.kind + '"' + hrefAttr(c) + '>'
+                + '<article class="exp-card exp-card--blurred" data-kind="' + c.kind + '"' + linkAttrs(c) + '>'
                 + '<div class="exp-card__media">'
                 +   '<img src="' + c.mediaPhoto + '" class="exp-card__photo--blurred" alt="" aria-hidden="true" />'
                 +   '<h3 class="exp-card__media-title">' + (c.mediaTitle || '') + '</h3>'
@@ -147,7 +140,6 @@
             var tpl = TEMPLATES[c.variant];
             return tpl ? tpl(c) : '';
         }).join('');
-        initCardLinks();
         initToggle();
     }
 

@@ -843,6 +843,11 @@ renderEventsInto(document.querySelector('.burger-menu__events-popup'), 'burger-m
             .replace(/"/g, '&quot;');
     }
 
+    function linkAttrs(c) {
+        if (!c.href) return '';
+        return ' data-href="' + escapeHtml(c.href) + '" onclick="window.location.href=this.getAttribute(\'data-href\')"';
+    }
+
     /* Build the media box for a card based on its exp-card variant — same
        art treatment as on the experience page (mix-blend overlays, dark
        polygons / diagonals, blurred photo + title), just scaled to the
@@ -932,8 +937,8 @@ renderEventsInto(document.querySelector('.burger-menu__events-popup'), 'burger-m
             ? '<p class="s8__caption">' + escapeHtml(c.caption).replace(/\n/g, '<br>') + '</p>'
             : '';
 
-        var cardHtml = ''
-            + '<article class="s8__card ' + typeClass + ' ' + posClass + variantClass + '"' + active + '>'
+        return ''
+            + '<article class="s8__card ' + typeClass + ' ' + posClass + variantClass + '"' + active + linkAttrs(c) + '>'
             +   renderMedia(c)
             +   '<span class="s8__pill s8__pill--outline ' + leftPill + '"><span class="s8__pill-text">' + escapeHtml(tag1.label) + '</span></span>'
             +   '<span class="s8__connector ' + connector + '" aria-hidden="true"></span>'
@@ -941,9 +946,6 @@ renderEventsInto(document.querySelector('.burger-menu__events-popup'), 'burger-m
             +   heading
             +   caption
             + '</article>';
-        return c.href
-            ? '<a href="' + escapeHtml(c.href) + '" class="s8__card-link">' + cardHtml + '</a>'
-            : cardHtml;
     }
 
     function renderTrack(cards) {
