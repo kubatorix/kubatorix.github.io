@@ -115,8 +115,23 @@ body.article-7-page > .header-burger__icon svg path { fill: #2F2F2F; }
   font-weight: 500;
 }
 
-/* Vertical divider — mobile-only; hidden by default on desktop. */
-.article-7-quote-divider { display: none; }
+/* Vertical divider between lead and pull-quote (183px / 75px; 98px / 50px gap above). */
+.article-7-quote-divider {
+  display: block;
+  position: absolute;
+  left: 715px;
+  top: 1379px; /* ends at quote (1562); 98px gap above ⇒ lead ends ~1281 */
+  box-sizing: border-box;
+  width: 0;
+  height: 183px;
+  margin: 0;
+  padding: 0;
+  border: 0;
+  border-left: 1px solid #000;
+  background: none;
+  pointer-events: none;
+  z-index: 2;
+}
 
 /* === Big pull-quote with byline below === */
 .article-7-quote-block {
@@ -284,47 +299,40 @@ body.article-7-page > .header-burger__icon svg path { fill: #2F2F2F; }
   object-fit: cover;
 }
 
-/* === CTA === */
+/* === CTA (white_ellipse — mirrors .art-cta on articles 1–6) === */
 .article-7-cta {
   position: absolute;
-  left: -28px; top: 6311px;
-  width: 1492px;
-  height: 1414px;
+  left: 220px;
+  top: 6549px;
+  width: 1000px;
+  height: 1176px;
   z-index: 1;
+  overflow: hidden;
 }
-/* Rings wrapper: scroll-driven 360° rotation tied to --article-7-cta-progress (set by JS).
-   transform-box: fill-box and will-change keep the GPU layer stable. */
-.article-7-cta__rings {
+.article-7-cta__decor {
   position: absolute;
-  left: 0; top: 0;
-  width: 1492px; height: 1414px;
-  z-index: 0;
-  pointer-events: none;
-  transform-box: fill-box;
+  left: 50%;
+  top: 50%;
+  width: 100%;
+  height: auto;
+  aspect-ratio: 1000 / 1176;
+  transform: translate(-50%, -50%) rotate(calc(360deg * var(--article-7-cta-progress, 0)));
+  transform-origin: 50% 50%;
   will-change: transform;
-  transform: rotate(calc(360deg * var(--article-7-cta-progress, 0)));
+  pointer-events: none;
+  z-index: 0;
 }
-.article-7-cta__bg {
-  position: absolute;
-  inset: 0;
-  width: 100%; height: 100%;
-  object-fit: cover;
-  transition: opacity 0.4s ease;
-}
-/* Color layer hidden by default, pointer-events:auto so hover triggers cross-fade. */
-.article-7-cta__rings--color {
-  opacity: 0;
-  pointer-events: auto;
-}
-.article-7-cta__rings--color:hover {
-  opacity: 1;
-}
-.article-7-cta:has(.article-7-cta__rings--color:hover) .article-7-cta__rings--white {
-  opacity: 0;
+.article-7-cta__ellipse {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: none;
+  pointer-events: none;
 }
 .article-7-cta__heading {
   position: absolute;
-  left: 461px; top: 574px;
+  left: 215px;
+  top: 478px;
   width: 571px;
   margin: 0;
   font-weight: 500;
@@ -336,7 +344,8 @@ body.article-7-page > .header-burger__icon svg path { fill: #2F2F2F; }
 }
 .article-7-cta__btn {
   position: absolute;
-  left: 502px; top: 749px;
+  left: 255px;
+  top: 623px;
   width: 490px;
   height: 60px;
   background: #272727;
@@ -353,7 +362,7 @@ body.article-7-page > .header-burger__icon svg path { fill: #2F2F2F; }
   letter-spacing: -0.02em;
   cursor: pointer;
   transition: background 0.18s ease, color 0.18s ease;
-  z-index: 3; /* above .article-7-cta__rings (z-index:0) so hover hits the button, not the rings */
+  z-index: 3; /* above .article-7-cta__decor so the button stays clickable */
   box-sizing: border-box;
 }
 .article-7-cta__btn:hover,
@@ -414,14 +423,12 @@ body.article-7-page > .header-burger__icon svg path { fill: #2F2F2F; }
     font-size: 16px; line-height: 130%;
   }
 
-  /* Vertical divider line 1x110 at page y=1393 (Figma 614:3128 mobile-only) */
+  /* Vertical divider — 75px tall, 50px gap above (before quote at 1505) */
   .article-7-quote-divider {
-    display: block;
-    position: absolute;
-    left: 187px; top: 1393px;
-    width: 1px; height: 110px;
-    background: #000;
-    z-index: 2;
+    left: 187px;
+    top: 1430px; /* ends at quote (1505); 50px gap above ⇒ lead ends ~1380 */
+    height: 75px;
+    border-left-width: 0.45px;
   }
   /* Big pull-quote + byline. Block height extended so byline doesn't overlap the quote
      when text wraps to 4 lines on mobile. */
@@ -473,18 +480,47 @@ body.article-7-page > .header-burger__icon svg path { fill: #2F2F2F; }
   .article-7-photo2 { left: -52px; top: 5053px; width: 474px; height: 542px; }
   .article-7-photo2__img { left: 15px; top: -19px; width: 411px; height: 617px; }
 
-  /* CTA — orbit block bleeds wider than viewport; heading + button centered horizontally
-     within the CTA so they sit at viewport center regardless of mobile viewport width. */
-  .article-7-cta { left: -151px; top: 6532px; width: 677px; height: 642px; }
-  .article-7-cta__rings { left: 0; top: 0; width: 677px; height: 642px; }
+  /* CTA — ellipse stage (452/467, mirrors .art-page--6 mobile .art-cta) */
+  .article-7-cta {
+    left: 0;
+    top: 6787px;
+    width: 375px;
+    height: auto;
+    aspect-ratio: 452 / 467;
+  }
+  .article-7-cta__decor {
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    aspect-ratio: 452 / 467;
+    overflow: hidden;
+    transform: translate(-50%, -50%) rotate(calc(360deg * var(--article-7-cta-progress, 0)));
+    transform-origin: 50% 50%;
+    will-change: transform;
+  }
+  .article-7-cta__ellipse {
+    width: 170%;
+    height: 170%;
+    object-fit: cover;
+  }
   .article-7-cta__heading {
-    left: 50%; transform: translateX(-50%);
-    top: 263px; width: 303px;
-    font-size: 22px; line-height: 110%;
+    left: 50%;
+    transform: translateX(-50%);
+    top: 159px;
+    width: 303px;
+    font-size: 22px;
+    line-height: 110%;
   }
   .article-7-cta__btn {
-    left: 50%; transform: translateX(-50%);
-    top: 341px; width: 261px; height: 57px;
+    left: 50%;
+    transform: translateX(-50%);
+    top: 205px;
+    width: 261px;
+    height: 57px;
     font-size: 16px;
   }
 }
