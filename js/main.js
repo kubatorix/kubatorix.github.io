@@ -329,6 +329,116 @@ renderEventsInto(document.querySelector('.burger-menu__events-popup'), 'burger-m
 })();
 
 /* ============================================================
+   Section 2 — 3 SVG slider states, smooth crossfade.
+   Slider value 0..1 maps onto position 0..2 across the three
+   stacked layers; each layer's opacity = max(0, 1 - |pos - idx|),
+   so neighbours fade through each other continuously instead of
+   snapping at thirds.
+   ============================================================ */
+(function () {
+    var slider = document.getElementById('slider');
+    var states = document.querySelectorAll('.section2__state');
+    if (!slider || states.length === 0) return;
+    var last = states.length - 1;
+    function update() {
+        var v = parseFloat(slider.value) || 0;
+        var pos = v * last; // 0..last across the layers
+        for (var k = 0; k < states.length; k++) {
+            var op = Math.max(0, 1 - Math.abs(pos - k));
+            states[k].style.opacity = op.toFixed(3);
+        }
+    }
+    slider.addEventListener('input', update);
+    update();
+})();
+
+/* ============================================================
+   Article 6 mobile — fluid frame scaling.
+   Frame is designed at 375px; scale to actual viewport width so
+   the design fills the screen on any phone (414, 428, 600, etc.).
+   ============================================================ */
+(function () {
+    var frame = document.querySelector('.article-6-frame');
+    if (!frame) return;
+    var MOBILE_MAX = 768;
+    var DESIGN_W = 375;
+    function setScale() {
+        if (window.innerWidth <= MOBILE_MAX) {
+            document.documentElement.style.setProperty('--article-6-mob-scale', (window.innerWidth / DESIGN_W).toFixed(4));
+        } else {
+            document.documentElement.style.removeProperty('--article-6-mob-scale');
+        }
+    }
+    setScale();
+    window.addEventListener('resize', setScale);
+})();
+
+/* ============================================================
+   Scroll-driven blur clear — shared for:
+     • .article-6-midphoto __img (article 6 mid-page photo)
+     • .art-page--4 .art4-tip--6 .art4-tip__portrait (article 4 portrait)
+   Blur 40px → 0px as the block moves from first-visible to
+   vertical center of viewport ("cover 0%..cover 50%").
+   ============================================================ */
+(function () {
+    function bind(blockSel, imgSel) {
+        var block = document.querySelector(blockSel);
+        var img = block && block.querySelector(imgSel);
+        if (!img) return;
+        var MAX_BLUR = 40;
+        var ticking = false;
+        function compute() {
+            ticking = false;
+            var rect = block.getBoundingClientRect();
+            var vh = window.innerHeight || document.documentElement.clientHeight;
+            var scrolled = vh - rect.top;
+            var totalScroll = vh + rect.height;
+            var coverProgress = scrolled / totalScroll;
+            var progress = Math.max(0, Math.min(1, coverProgress / 0.5));
+            var blur = MAX_BLUR * (1 - progress);
+            img.style.filter = 'blur(' + blur.toFixed(2) + 'px)';
+        }
+        function onScroll() {
+            if (ticking) return;
+            ticking = true;
+            window.requestAnimationFrame(compute);
+        }
+        compute();
+        window.addEventListener('scroll', onScroll, { passive: true });
+        window.addEventListener('resize', onScroll);
+    }
+    bind('.article-6-midphoto', '.article-6-midphoto__img');
+    bind('.art-page--4 .art4-tip--6 .art4-tip__portrait', '.art4-tip__portrait-photo');
+})();
+
+/* ============================================================
+   Article 6 CTA — scroll-driven 360° rotation of the orbit
+   rings, same pattern as section6__phase7 above.
+   Sets --article-6-cta-progress 0..1 on the CTA element as the
+   user sweeps it through the viewport.
+   ============================================================ */
+(function () {
+    var cta = document.querySelector('.article-6-cta');
+    if (!cta) return;
+    var ticking = false;
+    function compute() {
+        ticking = false;
+        var rect = cta.getBoundingClientRect();
+        var vh = window.innerHeight || document.documentElement.clientHeight;
+        var progress = Math.max(0, Math.min(1, (vh - rect.top) / (vh + rect.height)));
+        cta.style.setProperty('--article-6-cta-progress', progress.toFixed(4));
+    }
+    function onScroll() {
+        if (ticking) return;
+        ticking = true;
+        window.requestAnimationFrame(compute);
+    }
+    compute();
+    window.addEventListener('scroll', onScroll, { passive: true });
+    window.addEventListener('resize', onScroll);
+})();
+
+/* ============================================================
    FullStudy F2 — scroll-driven 360° rotation of the orbital
    rings (.fs-f2__cta-art). Exact mirror of the section6/phase7
    IIFE above; progress 0..1 is set on the host section as
