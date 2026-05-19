@@ -30,19 +30,19 @@ body.article-7-page > .header-burger__icon svg path { fill: #2F2F2F; }
   width: 1446px; height: 888px;
   overflow: hidden;
   z-index: 0;
-  background: #D9D9D9;
+  background: #FFFFFF;
 }
 .article-7-hero__main {
   /* Main photo (R6VB5381) — fills hero; person ends up on right portion. */
   position: absolute;
-  left: -8px; top: -191px;
+  left: 32px; top: -191px;
   width: 1590px; height: 1689px;
   object-fit: cover;
 }
 .article-7-hero__mask {
   /* Mask group from Figma: 1217x888 at x=89, y=0, 60% group opacity. */
   position: absolute;
-  left: 89px; top: 0;
+  left: 129px; top: 0;
   width: 1217px; height: 888px;
   opacity: 0.6;
   overflow: hidden;
@@ -50,19 +50,20 @@ body.article-7-page > .header-burger__icon svg path { fill: #2F2F2F; }
 .article-7-hero__ghost {
   /* Alt photo (R6VB5592) — 1217x1823 within mask. */
   position: absolute;
-  left: 0; top: -91px;
+  left: -120px; top: -91px;
   width: 1217px; height: 1823px;
   object-fit: cover;
 }
 .article-7-hero__tint {
-  /* Purple with mix-blend-mode: lighten — tints only the darker pixels of the ghost photo.
+  /* Purple with mix-blend-mode: multiply — darkens the photo with a purple cast.
      Also uses the ghost image as an alpha mask so the tint is clipped to the non-transparent
-     pixels of hero_ghost.png (no purple bleeds onto the photo's transparent background). */
+     pixels of hero_ghost.png (no purple bleeds onto the photo's transparent background).
+     Position must match .article-7-hero__ghost so the mask aligns with the photo. */
   position: absolute;
-  left: 0; top: -91px;
+  left: -120px; top: -91px;
   width: 1217px; height: 1823px;
-  background: rgba(170, 110, 255, 0.70);
-  mix-blend-mode: lighten;
+  background: rgba(105, 0, 255, 0.50);
+  mix-blend-mode: multiply;
   -webkit-mask-image: url(../img/figma/articles/article-6/hero_ghost.png);
           mask-image: url(../img/figma/articles/article-6/hero_ghost.png);
   -webkit-mask-size: cover;
@@ -397,17 +398,17 @@ body.article-7-page > .header-burger__icon svg path { fill: #2F2F2F; }
   .article-7-hero { left: -79px; top: -26px; width: 465px; height: 839px; }
   .article-7-hero__main { left: -244px; top: 14px; width: 927px; height: 984px; }
   .article-7-hero__main {
-    left: -11px; top: 14px; width: 927px; height: 984px;
+    left: 29px; top: 14px; width: 927px; height: 984px;
   }
   .article-7-hero__mask {
-    left: 0; top: 0; width: 725px; height: 1087px;
+    left: 40px; top: 0; width: 725px; height: 1087px;
     opacity: 0.7;
   }
   .article-7-hero__ghost {
-    left: -41px; top: 50px; width: 725px; height: 1087px;
+    left: -161px; top: 50px; width: 725px; height: 1087px;
   }
   .article-7-hero__tint {
-    left: -41px; top: 50px; width: 725px; height: 1087px;
+    left: -161px; top: 50px; width: 725px; height: 1087px;
     -webkit-mask-position: center; mask-position: center;
   }
 
