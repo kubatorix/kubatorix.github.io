@@ -149,6 +149,7 @@
   },
   {
     "id": "L",
+    "hidden": true,
     "variant": "bordered",
     "kind": "text",
     "figma": "286:3205",
