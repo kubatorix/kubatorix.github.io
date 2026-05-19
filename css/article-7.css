@@ -2,11 +2,16 @@
    Restored from 611c71e (Huziahmetov-Artur, article-6.css).
    Figma: 2kv2pHDkzX3kDAEamsMgUA web=4389:1306 (1440x7992). */
 
-body.article-7-page { background: #D2D2D2; margin: 0; }
+body.article-7-page {
+  background: #D2D2D2;
+  margin: 0;
+}
 
 /* Burger icon is white by default (designed for dark-hero pages like index/experience).
    Article 7 has a light hero, so the burger needs to be dark. Same pattern as .art-page--4. */
-body.article-7-page > .header-burger__icon svg path { fill: #2F2F2F; }
+body.article-7-page>.header-burger__icon svg path {
+  fill: #2F2F2F;
+}
 
 .article-7-frame {
   position: relative;
@@ -26,52 +31,66 @@ body.article-7-page > .header-burger__icon svg path { fill: #2F2F2F; }
 */
 .article-7-hero {
   position: absolute;
-  left: -5px; top: 3px;
-  width: 1446px; height: 888px;
+  left: -5px;
+  top: 3px;
+  width: 1446px;
+  height: 888px;
   overflow: hidden;
   z-index: 0;
   background: #F0F0F1;
 }
+
 .article-7-hero__main {
   /* Main photo (R6VB5381) — fills hero; person ends up on right portion. */
   position: absolute;
-  left: 32px; top: -191px;
-  width: 1590px; height: 1689px;
+  left: 32px;
+  top: -191px;
+  width: 1590px;
+  height: 1689px;
   object-fit: cover;
 }
+
 .article-7-hero__mask {
   /* Mask group from Figma: 1217x888 at x=89, y=0, 60% group opacity. */
   position: absolute;
-  left: 129px; top: 0;
-  width: 1217px; height: 888px;
+  left: 129px;
+  top: 0;
+  width: 1217px;
+  height: 888px;
   opacity: 0.6;
   overflow: hidden;
 }
+
 .article-7-hero__ghost {
   /* Alt photo (R6VB5592) — 1217x1823 within mask. */
   position: absolute;
-  left: -120px; top: -91px;
-  width: 1217px; height: 1823px;
+  left: -120px;
+  top: -91px;
+  width: 1217px;
+  height: 1823px;
   object-fit: cover;
 }
+
 .article-7-hero__tint {
   /* Purple with mix-blend-mode: multiply — darkens the photo with a purple cast.
      Also uses the ghost image as an alpha mask so the tint is clipped to the non-transparent
      pixels of hero_ghost.png (no purple bleeds onto the photo's transparent background).
      Position must match .article-7-hero__ghost so the mask aligns with the photo. */
   position: absolute;
-  left: -120px; top: -91px;
-  width: 1217px; height: 1823px;
+  left: -120px;
+  top: -91px;
+  width: 1217px;
+  height: 1823px;
   background: rgba(105, 0, 255, 0.50);
   mix-blend-mode: multiply;
   -webkit-mask-image: url(../img/figma/articles/article-6/hero_ghost.png);
-          mask-image: url(../img/figma/articles/article-6/hero_ghost.png);
+  mask-image: url(../img/figma/articles/article-6/hero_ghost.png);
   -webkit-mask-size: cover;
-          mask-size: cover;
+  mask-size: cover;
   -webkit-mask-position: center;
-          mask-position: center;
+  mask-position: center;
   -webkit-mask-repeat: no-repeat;
-          mask-repeat: no-repeat;
+  mask-repeat: no-repeat;
 }
 
 /* === Title — Figma data says fill #FFFFFF but actual render in Figma shows a dark sage/olive
@@ -80,7 +99,8 @@ body.article-7-page > .header-burger__icon svg path { fill: #2F2F2F; }
    sage/olive cast against the purple-tinted photo background. */
 .article-7-title {
   position: absolute;
-  left: 308px; top: 487px;
+  left: 308px;
+  top: 487px;
   width: 820px;
   margin: 0;
   font-weight: 500;
@@ -92,6 +112,7 @@ body.article-7-page > .header-burger__icon svg path { fill: #2F2F2F; }
   mix-blend-mode: difference;
   z-index: 2;
 }
+
 .article-7-title .sb {
   font-family: 'SangBleu Sunrise', 'SangBleu', serif;
   font-weight: 500;
@@ -100,7 +121,8 @@ body.article-7-page > .header-burger__icon svg path { fill: #2F2F2F; }
 /* === Lead paragraph === */
 .article-7-lead {
   position: absolute;
-  left: 308px; top: 940px;
+  left: 308px;
+  top: 940px;
   width: 815px;
   margin: 0;
   font-weight: 500;
@@ -111,6 +133,7 @@ body.article-7-page > .header-burger__icon svg path { fill: #2F2F2F; }
   text-align: center;
   z-index: 2;
 }
+
 .article-7-lead .sb {
   font-family: 'SangBleu Sunrise', 'SangBleu', serif;
   font-weight: 500;
@@ -121,7 +144,8 @@ body.article-7-page > .header-burger__icon svg path { fill: #2F2F2F; }
   display: block;
   position: absolute;
   left: 715px;
-  top: 1379px; /* ends at quote (1562); 98px gap above ⇒ lead ends ~1281 */
+  top: 1379px;
+  /* ends at quote (1562); 98px gap above ⇒ lead ends ~1281 */
   box-sizing: border-box;
   width: 0;
   height: 183px;
@@ -137,14 +161,17 @@ body.article-7-page > .header-burger__icon svg path { fill: #2F2F2F; }
 /* === Big pull-quote with byline below === */
 .article-7-quote-block {
   position: absolute;
-  left: 308px; top: 1562px;
+  left: 308px;
+  top: 1562px;
   width: 818px;
   height: 326px;
   z-index: 2;
 }
+
 .article-7-quote {
   position: absolute;
-  left: 0; top: 0;
+  left: 0;
+  top: 0;
   width: 818px;
   margin: 0;
   font-weight: 500;
@@ -154,9 +181,11 @@ body.article-7-page > .header-burger__icon svg path { fill: #2F2F2F; }
   color: #272727;
   text-align: center;
 }
+
 .article-7-byline {
   position: absolute;
-  left: 288px; top: 300px;
+  left: 288px;
+  top: 300px;
   width: 244px;
   margin: 0;
   font-family: 'SangBleu Sunrise', 'SangBleu', serif;
@@ -180,46 +209,87 @@ body.article-7-page > .header-burger__icon svg path { fill: #2F2F2F; }
   text-indent: 25px;
   z-index: 2;
 }
-.article-7-body strong { font-weight: 600; }
 
-.article-7-body--1 { left: 308px; top: 1933px; width: 820px; }
-.article-7-body--2 { left: 308px; top: 2602px; width: 820px; }
-.article-7-body--3 { left: 308px; top: 3340px; width: 820px; }
-.article-7-body--4 { left: 308px; top: 3809px; width: 817px; }
-.article-7-body--5 { left: 308px; top: 5640px; width: 817px; }
-.article-7-body--6 { left: 308px; top: 6259px; width: 817px; }
+.article-7-body strong {
+  font-weight: 600;
+}
+
+.article-7-body--1 {
+  left: 308px;
+  top: 1933px;
+  width: 820px;
+}
+
+.article-7-body--2 {
+  left: 308px;
+  top: 2602px;
+  width: 820px;
+}
+
+.article-7-body--3 {
+  left: 308px;
+  top: 3340px;
+  width: 820px;
+}
+
+.article-7-body--4 {
+  left: 308px;
+  top: 3809px;
+  width: 817px;
+}
+
+.article-7-body--5 {
+  left: 308px;
+  top: 5640px;
+  width: 817px;
+}
+
+.article-7-body--6 {
+  left: 308px;
+  top: 6259px;
+  width: 817px;
+}
 
 /* === Mid-page photo block (Figma 4389:1366) ===
    Photo stays in place (absolute). Scroll-driven animation clears the image blur as the
    block scrolls through the viewport. Text remains static. */
 .article-7-midphoto {
   position: absolute;
-  left: 308px; top: 2881px;
+  left: 308px;
+  top: 2881px;
   width: 820px;
   height: 414px;
   background: #D2D2D2;
   z-index: 2;
 }
+
 .article-7-midphoto__mask {
   position: absolute;
-  left: 65px; top: 0;
-  width: 689px; height: 414px;
+  left: 65px;
+  top: 0;
+  width: 689px;
+  height: 414px;
   overflow: hidden;
   background: #F4F4F4;
 }
+
 .article-7-midphoto__img {
   position: absolute;
-  left: -63px; top: -374px;
-  width: 794px; height: 1191px;
+  left: -63px;
+  top: -374px;
+  width: 794px;
+  height: 1191px;
   object-fit: cover;
   /* filter:blur(40px) is the initial state; main.js drives it down to blur(0) on scroll.
      CSS view-timeline was unreliable on mobile because transform:scale on .article-7-frame
      creates a transformed ancestor that confuses the timeline calc. */
   filter: blur(40px);
 }
+
 .article-7-midphoto__text {
   position: absolute;
-  left: 0; top: 90px;
+  left: 0;
+  top: 90px;
   width: 820px;
   margin: 0;
   padding: 0 30px;
@@ -237,14 +307,17 @@ body.article-7-page > .header-burger__icon svg path { fill: #2F2F2F; }
 /* === Rule-bound text block (Figma 4389:1358) === */
 .article-7-photo1 {
   position: absolute;
-  left: 308px; top: 3463px;
+  left: 308px;
+  top: 3463px;
   width: 828px;
   height: 301px;
   z-index: 2;
 }
+
 .article-7-photo1__text {
   position: absolute;
-  left: 0; top: 14px;
+  left: 0;
+  top: 14px;
   width: 820px;
   margin: 0;
   font-family: 'SangBleu Sunrise', 'SangBleu', serif;
@@ -255,15 +328,26 @@ body.article-7-page > .header-burger__icon svg path { fill: #2F2F2F; }
   color: #272727;
   text-align: center;
 }
+
 .article-7-photo1__rule {
   position: absolute;
   height: 0;
   border-top: 1.5px solid #000;
 }
+
 /* Top rule: right half (424px wide starting at x=404.55) at y=0. */
-.article-7-photo1__rule--top { left: 404.55px; top: 0; width: 424px; }
+.article-7-photo1__rule--top {
+  left: 404.55px;
+  top: 0;
+  width: 424px;
+}
+
 /* Bottom rule: nearly full width (826.29px from x=0.59) at y=301 (block bottom). */
-.article-7-photo1__rule--bot { left: 0.59px; top: 301px; width: 826.29px; }
+.article-7-photo1__rule--bot {
+  left: 0.59px;
+  top: 301px;
+  width: 826.29px;
+}
 
 /* === Big pull-quotes in body (SangBleu 30 left-aligned) === */
 .article-7-bigquote {
@@ -280,24 +364,61 @@ body.article-7-page > .header-burger__icon svg path { fill: #2F2F2F; }
   text-indent: 25px;
   z-index: 2;
 }
-.article-7-bigquote:not(.article-7-bigquote--2) { top: 4426px; }
-.article-7-bigquote--2 { top: 6127px; }
+
+.article-7-bigquote:not(.article-7-bigquote--2) {
+  top: 4426px;
+}
+
+.article-7-bigquote--2 {
+  top: 6127px;
+}
 
 /* === Big bottom portrait === */
 .article-7-photo2 {
   position: absolute;
-  left: 308px; top: 4595px;
+  left: 308px;
+  top: 4595px;
   width: 820px;
   height: 999px;
   overflow: hidden;
   z-index: 2;
   background: #F4F4F4;
+  /* Scroll-driven 0→1; drives the violet backdrop + multiply tint below.
+     js/main.js sets this on scroll. */
+  --photo2-progress: 0;
+  isolation: isolate;
 }
+
+/* Violet backdrop fades in (shows around subject if photo has alpha). */
+.article-7-photo2::before {
+  content: '';
+  position: absolute;
+  background: #aa6eff;
+  opacity: var(--photo2-progress);
+  pointer-events: none;
+  z-index: 0;
+}
+
 .article-7-photo2__img {
   position: absolute;
-  left: -12px; top: -91px;
-  width: 843px; height: 1264px;
+  left: -12px;
+  top: -91px;
+  width: 843px;
+  height: 1264px;
   object-fit: cover;
+  z-index: 1;
+}
+
+/* Multiplied purple tint over the photo. */
+.article-7-photo2::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: rgba(105, 0, 255, 0.5);
+  mix-blend-mode: multiply;
+  opacity: var(--photo2-progress);
+  pointer-events: none;
+  z-index: 2;
 }
 
 /* === CTA (white_ellipse — mirrors .art-cta on articles 1–6) === */
@@ -310,6 +431,7 @@ body.article-7-page > .header-burger__icon svg path { fill: #2F2F2F; }
   z-index: 1;
   overflow: hidden;
 }
+
 .article-7-cta__decor {
   position: absolute;
   left: 50%;
@@ -323,6 +445,7 @@ body.article-7-page > .header-burger__icon svg path { fill: #2F2F2F; }
   pointer-events: none;
   z-index: 0;
 }
+
 .article-7-cta__ellipse {
   display: block;
   width: 100%;
@@ -330,6 +453,7 @@ body.article-7-page > .header-burger__icon svg path { fill: #2F2F2F; }
   object-fit: none;
   pointer-events: none;
 }
+
 .article-7-cta__heading {
   position: absolute;
   left: 215px;
@@ -343,6 +467,7 @@ body.article-7-page > .header-burger__icon svg path { fill: #2F2F2F; }
   text-align: center;
   z-index: 2;
 }
+
 .article-7-cta__btn {
   position: absolute;
   left: 255px;
@@ -363,9 +488,11 @@ body.article-7-page > .header-burger__icon svg path { fill: #2F2F2F; }
   letter-spacing: -0.02em;
   cursor: pointer;
   transition: background 0.18s ease, color 0.18s ease;
-  z-index: 3; /* above .article-7-cta__decor so the button stays clickable */
+  z-index: 3;
+  /* above .article-7-cta__decor so the button stays clickable */
   box-sizing: border-box;
 }
+
 .article-7-cta__btn:hover,
 .article-7-cta__btn:focus-visible {
   background: #FFFFFF;
@@ -376,12 +503,20 @@ body.article-7-page > .header-burger__icon svg path { fill: #2F2F2F; }
    Single-column layout with smaller typography. Frame 375x7688 (subscribe footer at 7157
    is rendered by footer.js, not inside the frame). All absolute coords below are page-relative. */
 @media (max-width: 768px) {
+
   /* Hero / mid-photo / bottom-portrait / CTA all bleed beyond the 375 viewport per Figma.
      Clip the body horizontally so the bleed is hidden without creating a horizontal scrollbar.
      Frame is designed at 375px and scales to fit the actual viewport width (414, 428, etc.)
      via transform:scale, so the layout fills the screen on any phone. */
-  html, body.article-7-page { overflow-x: hidden; }
-  body.article-7-page { background: #D2D2D2; }
+  html,
+  body.article-7-page {
+    overflow-x: hidden;
+  }
+
+  body.article-7-page {
+    background: #D2D2D2;
+  }
+
   .article-7-frame {
     width: 375px;
     height: 7157px;
@@ -395,91 +530,240 @@ body.article-7-page > .header-burger__icon svg path { fill: #2F2F2F; }
   /* Hero — mask group spans full mobile width, slightly bleeds left/right.
      Figma 613:1683 mobile mask: 465x839 at x=-79, y=-26.
      Inner mask group (705:2027): 725x1087 at x=-35, y=60, opacity 0.7. */
-  .article-7-hero { left: -79px; top: -26px; width: 465px; height: 839px; }
-  .article-7-hero__main { left: -244px; top: 14px; width: 927px; height: 984px; }
-  .article-7-hero__main {
-    left: 29px; top: 14px; width: 927px; height: 984px;
+  .article-7-hero {
+    left: -79px;
+    top: -26px;
+    width: 465px;
+    height: 839px;
   }
+
+  .article-7-hero__main {
+    left: -244px;
+    top: 14px;
+    width: 927px;
+    height: 984px;
+  }
+
+  .article-7-hero__main {
+    left: 29px;
+    top: 14px;
+    width: 927px;
+    height: 984px;
+  }
+
   .article-7-hero__mask {
-    left: 40px; top: 0; width: 725px; height: 1087px;
+    left: 40px;
+    top: 0;
+    width: 725px;
+    height: 1087px;
     opacity: 0.7;
   }
+
   .article-7-hero__ghost {
-    left: -161px; top: 50px; width: 725px; height: 1087px;
+    left: -161px;
+    top: 50px;
+    width: 725px;
+    height: 1087px;
   }
+
   .article-7-hero__tint {
-    left: -161px; top: 50px; width: 725px; height: 1087px;
-    -webkit-mask-position: center; mask-position: center;
+    left: -161px;
+    top: 50px;
+    width: 725px;
+    height: 1087px;
+    -webkit-mask-position: center;
+    mask-position: center;
   }
 
   /* Title — smaller, white, centered */
   .article-7-title {
-    left: 19px; top: 406px; width: 335px;
-    font-size: 35px; line-height: 90%; letter-spacing: -0.03em;
+    left: 19px;
+    top: 406px;
+    width: 335px;
+    font-size: 35px;
+    line-height: 90%;
+    letter-spacing: -0.03em;
   }
 
   /* Lead — smaller font, centered */
   .article-7-lead {
-    left: 19px; top: 851px; width: 335px;
-    font-size: 16px; line-height: 130%;
+    left: 19px;
+    top: 851px;
+    width: 335px;
+    font-size: 16px;
+    line-height: 130%;
   }
 
   /* Vertical divider — 75px tall, 50px gap above (before quote at 1505) */
   .article-7-quote-divider {
     left: 187px;
-    top: 1430px; /* ends at quote (1505); 50px gap above ⇒ lead ends ~1380 */
+    top: 1430px;
+    /* ends at quote (1505); 50px gap above ⇒ lead ends ~1380 */
     height: 75px;
     border-left-width: 0.45px;
   }
+
   /* Big pull-quote + byline. Block height extended so byline doesn't overlap the quote
      when text wraps to 4 lines on mobile. */
-  .article-7-quote-block { left: 22px; top: 1505px; width: 322px; height: 220px; }
-  .article-7-quote { left: 0; top: 0; width: 322px; font-size: 25px; line-height: 120%; }
+  .article-7-quote-block {
+    left: 22px;
+    top: 1505px;
+    width: 322px;
+    height: 220px;
+  }
+
+  .article-7-quote {
+    left: 0;
+    top: 0;
+    width: 322px;
+    font-size: 25px;
+    line-height: 120%;
+  }
+
   .article-7-byline {
-    left: 0; top: 131px; width: 322px;
+    left: 0;
+    top: 131px;
+    width: 322px;
     font-size: 16px;
     text-align: center;
   }
 
   /* Body paragraphs — 16px, indent 25 (paragraphIndent from Figma style_JHK2F5) */
-  .article-7-body { font-size: 16px; line-height: 130%; }
-  .article-7-body--1 { left: 19px; top: 1676px; width: 335px; }
-  .article-7-body--2 { left: 17px; top: 2645px; width: 335px; }
-  .article-7-body--3 { left: 17px; top: 3542px; width: 335px; }
-  .article-7-body--4 { left: 19px; top: 4077px; width: 335px; }
-  .article-7-body--5 { left: 19px; top: 5640px; width: 335px; }
-  .article-7-body--6 { left: 19px; top: 6469px; width: 335px; }
+  .article-7-body {
+    font-size: 16px;
+    line-height: 130%;
+  }
+
+  .article-7-body--1 {
+    left: 19px;
+    top: 1676px;
+    width: 335px;
+  }
+
+  .article-7-body--2 {
+    left: 17px;
+    top: 2645px;
+    width: 335px;
+  }
+
+  .article-7-body--3 {
+    left: 17px;
+    top: 3542px;
+    width: 335px;
+  }
+
+  .article-7-body--4 {
+    left: 19px;
+    top: 4077px;
+    width: 335px;
+  }
+
+  .article-7-body--5 {
+    left: 19px;
+    top: 5640px;
+    width: 335px;
+  }
+
+  .article-7-body--6 {
+    left: 19px;
+    top: 6469px;
+    width: 335px;
+  }
 
   /* Mid-photo block — wider than viewport (671 at x=-150), text positioned inside */
-  .article-7-midphoto { left: -150px; top: 3047px; width: 671px; height: 449px; }
-  .article-7-midphoto__mask { left: 0; top: 0; width: 671px; height: 449px; }
+  .article-7-midphoto {
+    left: -150px;
+    top: 3047px;
+    width: 671px;
+    height: 449px;
+  }
+
+  .article-7-midphoto__mask {
+    left: 0;
+    top: 0;
+    width: 671px;
+    height: 449px;
+  }
+
   .article-7-midphoto__img {
-    left: 33px; top: -198px; width: 559px; height: 839px;
+    left: 33px;
+    top: -198px;
+    width: 559px;
+    height: 839px;
     /* filter:blur(40px) inherited from base rule; animation-timeline still active */
   }
+
   .article-7-midphoto__text {
-    left: 158px; top: 81px; width: 335px; padding: 0;
-    font-size: 20px; line-height: 130%;
+    left: 158px;
+    top: 81px;
+    width: 335px;
+    padding: 0;
+    font-size: 20px;
+    line-height: 130%;
   }
 
   /* Rule-bound text block (Figma 613:1697 "Есть и другой") */
-  .article-7-photo1 { left: 19px; top: 3692px; width: 355px; height: 340px; }
-  .article-7-photo1__text {
-    left: 0; top: 14px; width: 336px;
-    font-size: 20px; line-height: 130%;
+  .article-7-photo1 {
+    left: 19px;
+    top: 3692px;
+    width: 355px;
+    height: 340px;
   }
-  .article-7-photo1__rule { border-top-width: 1px; }
-  .article-7-photo1__rule--top { left: 182px; top: 0; width: 172px; }
-  .article-7-photo1__rule--bot { left: 0; top: 340px; width: 354px; }
+
+  .article-7-photo1__text {
+    left: 0;
+    top: 14px;
+    width: 336px;
+    font-size: 20px;
+    line-height: 130%;
+  }
+
+  .article-7-photo1__rule {
+    border-top-width: 1px;
+  }
+
+  .article-7-photo1__rule--top {
+    left: 182px;
+    top: 0;
+    width: 172px;
+  }
+
+  .article-7-photo1__rule--bot {
+    left: 0;
+    top: 340px;
+    width: 354px;
+  }
 
   /* Big in-body quotes */
-  .article-7-bigquote { left: 19px; width: 335px; font-size: 20px; line-height: 130%; }
-  .article-7-bigquote:not(.article-7-bigquote--2) { top: 4878px; }
-  .article-7-bigquote--2 { top: 6294px; }
+  .article-7-bigquote {
+    left: 19px;
+    width: 335px;
+    font-size: 20px;
+    line-height: 130%;
+  }
+
+  .article-7-bigquote:not(.article-7-bigquote--2) {
+    top: 4878px;
+  }
+
+  .article-7-bigquote--2 {
+    top: 6294px;
+  }
 
   /* Bottom portrait — bleeds wider than viewport (474 at x=-52) */
-  .article-7-photo2 { left: -52px; top: 5053px; width: 474px; height: 542px; }
-  .article-7-photo2__img { left: 15px; top: -19px; width: 411px; height: 617px; }
+  .article-7-photo2 {
+    left: -52px;
+    top: 5053px;
+    width: 474px;
+    height: 542px;
+  }
+
+  .article-7-photo2__img {
+    left: 15px;
+    top: -19px;
+    width: 411px;
+    height: 617px;
+  }
 
   /* CTA — ellipse stage (452/467, mirrors .art-page--6 mobile .art-cta) */
   .article-7-cta {
@@ -489,6 +773,7 @@ body.article-7-page > .header-burger__icon svg path { fill: #2F2F2F; }
     height: auto;
     aspect-ratio: 452 / 467;
   }
+
   .article-7-cta__decor {
     position: absolute;
     left: 50%;
@@ -503,11 +788,13 @@ body.article-7-page > .header-burger__icon svg path { fill: #2F2F2F; }
     transform-origin: 50% 50%;
     will-change: transform;
   }
+
   .article-7-cta__ellipse {
     width: 170%;
     height: 170%;
     object-fit: cover;
   }
+
   .article-7-cta__heading {
     left: 50%;
     transform: translateX(-50%);
@@ -516,6 +803,7 @@ body.article-7-page > .header-burger__icon svg path { fill: #2F2F2F; }
     font-size: 22px;
     line-height: 110%;
   }
+
   .article-7-cta__btn {
     left: 50%;
     transform: translateX(-50%);
@@ -527,13 +815,17 @@ body.article-7-page > .header-burger__icon svg path { fill: #2F2F2F; }
 }
 
 /* Site stack (styles.css + main.css): prevent global link/body colors from overriding Arthur CTA. */
-body.article-7-page { color: #272727; }
+body.article-7-page {
+  color: #272727;
+}
+
 body.article-7-page a.article-7-cta__btn,
 body.article-7-page a.article-7-cta__btn:visited {
   color: #ffffff;
   background-color: #272727;
   border-color: #272727;
 }
+
 body.article-7-page a.article-7-cta__btn:hover,
 body.article-7-page a.article-7-cta__btn:visited:hover,
 body.article-7-page a.article-7-cta__btn:focus-visible {
