@@ -37,6 +37,10 @@
 
     document.body.insertAdjacentHTML('beforeend', MODAL_HTML);
 
+    if (typeof window.kubatorixWirePdfModal === 'function') {
+        window.kubatorixWirePdfModal();
+    }
+
     var modal = document.getElementById('pdf-modal');
     if (!modal) return;
 

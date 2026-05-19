@@ -8,8 +8,9 @@
    Events data — single source for the desktop topnav popup AND
    the mobile burger-menu popup. Add/remove/edit entries here
    only; renderEventsInto() fills both popups identically.
-   Each item: { date, title, href }. Title may include HTML
-   entities (e.g. &nbsp;).
+   Each item: { date, title, href, hidden? }. Title may include HTML
+   entities (e.g. &nbsp;). Menu also syncs from data/exp-cards.json
+   (kind=event, skips hidden — e.g. 31 мая lecture).
    ============================================================ */
 var EVENTS = [
     { date: '29 мая',     title: 'Урок в&nbsp;Среде. Как найти фандрайзера? Событие с&nbsp;Иваном Сосискиным', href: '#' },
@@ -17,19 +18,68 @@ var EVENTS = [
     { date: '29 мая',     title: 'Урок в&nbsp;Среде. Как найти фандрайзера?',                                  href: '#' }
 ];
 
+function eventsDataRoot() {
+    var segments = location.pathname.split('/').filter(Boolean);
+    if (segments.length && /\.html?$/i.test(segments[segments.length - 1])) {
+        segments.pop();
+    }
+    if (!segments.length) return '';
+    return Array(segments.length + 1).join('../');
+}
+
+function eventDateFromTags(tags) {
+    if (!tags) return '';
+    for (var i = 0; i < tags.length; i++) {
+        if (tags[i].type === 'lime') return tags[i].label;
+    }
+    return '';
+}
+
+function menuItemsFromCards(cards) {
+    return cards
+        .filter(function (c) { return c.kind === 'event' && !c.hidden; })
+        .map(function (c) {
+            var date = eventDateFromTags(c.tags);
+            if (!date || date === '—') return null;
+            return { date: date, title: c.title, href: c.href || '#' };
+        })
+        .filter(Boolean);
+}
+
 /* `prefix` is the BEM block name used for child class names — passing
    'topnav' yields .topnav__events-item / -date / -title. */
-function renderEventsInto(container, prefix) {
+function renderEventsInto(container, prefix, items) {
     if (!container) return;
-    container.innerHTML = EVENTS.map(function (e) {
+    var list = items || EVENTS.filter(function (e) { return !e.hidden; });
+    container.innerHTML = list.map(function (e) {
         return '<a href="' + (e.href || '#') + '" class="' + prefix + '__events-item" role="menuitem">' +
                    '<span class="' + prefix + '__events-date">' + e.date + '</span>' +
                    '<span class="' + prefix + '__events-title">' + e.title + '</span>' +
                '</a>';
     }).join('');
 }
-renderEventsInto(document.querySelector('.topnav__events-popup'),     'topnav');
-renderEventsInto(document.querySelector('.burger-menu__events-popup'), 'burger-menu');
+
+function renderMenuEvents() {
+    var topnav = document.querySelector('.topnav__events-popup');
+    var burger = document.querySelector('.burger-menu__events-popup');
+    fetch(eventsDataRoot() + 'data/exp-cards.json')
+        .then(function (r) { return r.json(); })
+        .then(function (cards) {
+            var items = menuItemsFromCards(cards);
+            if (items.length) {
+                renderEventsInto(topnav, 'topnav', items);
+                renderEventsInto(burger, 'burger-menu', items);
+            } else {
+                renderEventsInto(topnav, 'topnav');
+                renderEventsInto(burger, 'burger-menu');
+            }
+        })
+        .catch(function () {
+            renderEventsInto(topnav, 'topnav');
+            renderEventsInto(burger, 'burger-menu');
+        });
+}
+renderMenuEvents();
 
 /* ============================================================
    Segment-toggle wiring — used by both:

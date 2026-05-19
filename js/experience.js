@@ -227,7 +227,9 @@
 
     fetch('./data/exp-cards.json')
         .then(function (r) { return r.json(); })
-        .then(render)
+        .then(function (cards) {
+            render(cards.filter(function (c) { return !c.hidden; }));
+        })
         .catch(function (err) {
             console.error('Failed to load exp-cards.json', err);
         });

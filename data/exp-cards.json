@@ -134,6 +134,7 @@
   },
   {
     "id": "K",
+    "hidden": true,
     "variant": "dark-diagonal",
     "kind": "event",
     "figma": "286:3183",

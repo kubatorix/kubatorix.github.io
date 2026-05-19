@@ -173,6 +173,9 @@
         wirePdfModal();
     }
 
+    /* modal.js injects .pdf-modal__form after this file may have run */
+    window.kubatorixWirePdfModal = wirePdfModal;
+
     if (document.readyState === 'loading') {
         document.addEventListener('DOMContentLoaded', init);
     } else {
