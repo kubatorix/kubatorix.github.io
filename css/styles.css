@@ -19101,7 +19101,7 @@ a.fs-f11__cta-pdf:focus-visible,
    Article 6 — placeholder
    ============================================================ */
 .art-page--6 {
-    background: #E4E5EF;
+    background: rgba(210, 210, 210, 1);
     color: #2F2F2F;
 }
 
@@ -19127,7 +19127,7 @@ a.fs-f11__cta-pdf:focus-visible,
     box-sizing: border-box;
     width: 100%;
     padding: 0;
-    background: #E4E5EF;
+    background: rgba(210, 210, 210, 1);
 }
 
 .art-page--6 .art6-hero__cover {
