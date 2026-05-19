@@ -534,7 +534,7 @@ renderMenuEvents();
    and .art5-body__figure-tint (opacity).
    ============================================================ */
 (function () {
-    var block = document.querySelector('.art-page--5 .art5-body__figure--ghost');
+    var block = document.querySelector('.art-page--5 .art5-body__figure--ghost:not(.art5-body__figure--scroll)');
     if (!block) return;
     var ticking = false;
     function compute() {

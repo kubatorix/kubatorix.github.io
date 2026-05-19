@@ -18423,20 +18423,17 @@ a.fs-f11__cta-pdf:focus-visible,
     object-position: center;
 }
 
-/* Ghost portrait — stacked grid layers (base photo + ghost + masked tint). */
-.art-page--5 .art5-body__figure--ghost {
-    /* Scroll-driven fade-in for the ghost+tint overlay; js/main.js sets the value 0→1. */
-    --ghost-progress: 0;
+/* Ghost portrait — scroll crossfade (333_new → r6new); js/article.js sets --art-portrait-o1/o2. */
+.art-page--5 .art5-body__figure--ghost.art5-body__figure--scroll {
+    --art-portrait-o1: 1;
+    --art-portrait-o2: 0;
     display: grid;
     position: relative;
     isolation: isolate;
 }
 
-.art-page--5 .art5-body__figure--ghost > * {
+.art-page--5 .art5-body__figure--ghost.art5-body__figure--scroll .art5-body__figure-photo {
     grid-area: 1 / 1;
-}
-
-.art-page--5 .art5-body__figure--ghost .art5-body__figure-photo {
     display: block;
     width: 100%;
     max-width: 820px;
@@ -18444,40 +18441,26 @@ a.fs-f11__cta-pdf:focus-visible,
     aspect-ratio: 352 / 459;
     object-fit: cover;
     object-position: center;
+}
+
+.art-page--5 .art5-body__figure--ghost.art5-body__figure--scroll .art5-body__figure-photo--1 {
+    opacity: var(--art-portrait-o1);
     z-index: 0;
 }
 
-.art-page--5 .art5-body__figure--ghost .art5-body__figure-ghost {
-    display: block;
-    width: 100%;
-    max-width: 820px;
-    height: 100%;
-    min-height: 100%;
-    object-fit: cover;
-    object-position: center;
-    opacity: calc(0.2 * var(--ghost-progress, 0));
-    pointer-events: none;
+.art-page--5 .art5-body__figure--ghost.art5-body__figure--scroll .art5-body__figure-photo--2 {
+    opacity: var(--art-portrait-o2);
     z-index: 1;
 }
 
-.art-page--5 .art5-body__figure--ghost .art5-body__figure-tint {
-    width: 100%;
-    max-width: 820px;
-    height: 100%;
-    min-height: 100%;
-    background: rgba(170, 110, 255, 0.7);
-    mix-blend-mode: lighten;
-    opacity: var(--ghost-progress, 0);
-    -webkit-mask-image: url(../img/figma/article5/r6vb0584.png);
-    mask-image: url(../img/figma/article5/r6vb0584.png);
-    -webkit-mask-size: cover;
-    mask-size: cover;
-    -webkit-mask-position: center;
-    mask-position: center;
-    -webkit-mask-repeat: no-repeat;
-    mask-repeat: no-repeat;
-    pointer-events: none;
-    z-index: 2;
+@media (prefers-reduced-motion: reduce) {
+    .art-page--5 .art5-body__figure--ghost.art5-body__figure--scroll .art5-body__figure-photo--1 {
+        opacity: 1;
+    }
+
+    .art-page--5 .art5-body__figure--ghost.art5-body__figure--scroll .art5-body__figure-photo--2 {
+        display: none;
+    }
 }
 
 .art-page--5 .art5-body__p--after-figure {
@@ -18898,8 +18881,7 @@ a.fs-f11__cta-pdf:focus-visible,
         padding: 0;
     }
 
-    .art-page--5 .art5-body__figure--ghost .art5-body__figure-photo,
-    .art-page--5 .art5-body__figure--ghost .art5-body__figure-ghost {
+    .art-page--5 .art5-body__figure--ghost.art5-body__figure--scroll .art5-body__figure-photo {
         display: block;
         box-sizing: border-box;
         width: 100%;
@@ -18908,19 +18890,6 @@ a.fs-f11__cta-pdf:focus-visible,
         aspect-ratio: auto;
         object-fit: cover;
         object-position: center;
-    }
-
-    .art-page--5 .art5-body__figure--ghost .art5-body__figure-ghost {
-        opacity: calc(0.2 * var(--ghost-progress, 0));
-        pointer-events: none;
-        z-index: 1;
-    }
-
-    .art-page--5 .art5-body__figure--ghost .art5-body__figure-tint {
-        width: 100%;
-        max-width: 100%;
-        height: 492.171875px;
-        min-height: 492.171875px;
     }
 
     .art-page--5 .art5-body__p--after-figure {
