@@ -68,7 +68,7 @@
 
         'dark-diagonal': function (c) {
             return ''
-                + '<article class="exp-card exp-card--dark" data-kind="' + c.kind + '">'
+                + '<article class="exp-card exp-card--dark" data-kind="' + c.kind + '"' + linkAttrs(c) + '>'
                 + '<div class="exp-card__media">'
                 +   diagonalSvg()
                 + '</div>'

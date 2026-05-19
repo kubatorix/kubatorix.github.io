@@ -55,9 +55,10 @@
     "variant": "dark-diagonal",
     "kind": "event",
     "figma": "286:3100",
+    "href": "https://sredasvoih.ru/program/event-202?utm_source=site&utm_campaign=spec&utm_content=landing%2Bpage&utm_term=260526",
     "tags": [
       { "label": "Паблик-ток" },
-      { "label": "29 мая", "type": "lime" }
+      { "label": "26 мая", "type": "lime" }
     ],
     "title": "Деньги, доноры, базы, встречи и счастье партнёров",
     "caption": "Какие показатели эффективности для фандрайзеров использовать в работе?"
@@ -80,11 +81,12 @@
     "variant": "dark-blurred",
     "kind": "event",
     "figma": "286:3766",
+    "href": "https://sredasvoih.ru/program/event-203?utm_source=site&utm_campaign=spec&utm_content=landing%2Bpage&utm_term=280526",
     "mediaTitle": "Фандрайзеры очарованные и разочарованные",
     "mediaPhoto": "./img/figma/exp_image546_real.png",
     "tags": [
       { "label": "Закрытая встреча" },
-      { "label": "30 мая", "type": "lime" }
+      { "label": "28 мая", "type": "lime" }
     ],
     "title": "Фандрайзеры очарованные и разочарованные",
     "caption": "Закрытая встреча для профессионалов для честного разговора"
