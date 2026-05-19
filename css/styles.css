@@ -1971,6 +1971,7 @@ body>.header-burger__icon {
     height: 45.94px;
     margin: 0 16px 0;
     display: block;
+    cursor: pointer;
 }
 
 /* --- Sreda Russian description (219:307) -------------------------------- */
@@ -5235,6 +5236,7 @@ footer .footer-logo {
     height: 68.925px;
     max-width: none;
     margin: 0 0 32px;
+    cursor: pointer;
 }
 
 footer .footer-text1,
@@ -5836,6 +5838,7 @@ footer .footer-btn:focus-visible {
     /* spec offset */
     display: block;
     flex-shrink: 0;
+    cursor: pointer;
 }
 
 .fs-hero__sreda-text {
@@ -12028,6 +12031,7 @@ a.fs-f11__cta-pdf:focus-visible,
     height: auto;
     /* invert the white SVG logo to render dark on light bg */
     filter: invert(1) hue-rotate(180deg) brightness(0.2);
+    cursor: pointer;
 }
 
 .exp-hero__title {
@@ -12068,6 +12072,21 @@ a.fs-f11__cta-pdf:focus-visible,
     letter-spacing: -0.02em;
     color: #2F2F2F;
     text-align: left;
+}
+
+.exp-hero__intro-link {
+    color: inherit;
+    text-decoration: underline;
+    text-decoration-color: #2F2F2F;
+    text-decoration-thickness: 2px;
+    text-underline-offset: 3px;
+    cursor: pointer;
+}
+
+.exp-hero__intro-link:hover,
+.exp-hero__intro-link:focus-visible {
+    color: inherit;
+    text-decoration-color: #2F2F2F;
 }
 
 
@@ -13713,6 +13732,7 @@ a.fs-f11__cta-pdf:focus-visible,
     width: 121.5px;
     height: auto;
     margin: 0 0 48px;
+    cursor: pointer;
 }
 
 .about-orgs__text {
