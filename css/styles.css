@@ -18158,13 +18158,15 @@ a.fs-f11__cta-pdf:focus-visible,
     aspect-ratio: 1440 / 886;
     object-fit: cover;
     object-position: center;
+    /* Initial blur; js/main.js clears it on scroll. */
+    filter: blur(20px);
 }
 
 /* Title on hero cover — white + mix-blend-mode: difference (sage/olive over photo). */
 .art-page--5 .art5-hero__title {
     position: absolute;
     left: 50%;
-    top: 50%;
+    top: 65%;
     transform: translate(-50%, -50%);
     box-sizing: border-box;
     width: 820px;

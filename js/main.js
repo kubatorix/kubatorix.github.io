@@ -485,6 +485,49 @@ renderMenuEvents();
 })();
 
 /* ============================================================
+   Scroll-driven title fade + photo blur clear for
+   .art-page--5 .art5-hero__cover. Mirrors the 444 figure's
+   two-phase behaviour (phase 1: text visible / blur max, phase 2:
+   text fades + blur clears), but uses its own progress calc
+   because the cover sits at the top of the page — the shared
+   bind() above assumes the block enters from below the viewport.
+   ============================================================ */
+(function () {
+    var block = document.querySelector('.art-page--5 .art5-hero__cover');
+    if (!block) return;
+    var title = block.querySelector('.art5-hero__title');
+    var img = block.querySelector('img');
+    if (!title || !img) return;
+    var MAX_BLUR = 20;
+    var ticking = false;
+    function compute() {
+        ticking = false;
+        var rect = block.getBoundingClientRect();
+        var scrolledUp = Math.max(0, -rect.top);
+        var progress = Math.min(1, scrolledUp / (rect.height * 0.5));
+        var blurAmount, textOpacity;
+        if (progress < 0.5) {
+            textOpacity = 1;
+            blurAmount = MAX_BLUR;
+        } else {
+            var p = (progress - 0.5) / 0.5;
+            textOpacity = 1 - p;
+            blurAmount = MAX_BLUR * (1 - p);
+        }
+        title.style.opacity = textOpacity.toFixed(4);
+        img.style.filter = 'blur(' + blurAmount.toFixed(2) + 'px)';
+    }
+    function onScroll() {
+        if (ticking) return;
+        ticking = true;
+        window.requestAnimationFrame(compute);
+    }
+    compute();
+    window.addEventListener('scroll', onScroll, { passive: true });
+    window.addEventListener('resize', onScroll);
+})();
+
+/* ============================================================
    Scroll-driven fade-in for the ghost+tint overlay inside
    .art-page--5 .art5-body__figure--ghost. Sets --ghost-progress
    0→1; CSS uses it for both .art5-body__figure-ghost (opacity)
