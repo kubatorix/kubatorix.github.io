@@ -2,7 +2,7 @@
    (same progress formula as .section6 / --section6-progress). */
 (function () {
     var portraits = document.querySelectorAll(
-        '.art-portrait, .art2-tip__portrait--scroll, .art3-hero__portrait--scroll, .art4-hero__portrait--scroll, .art5-body__figure--scroll'
+        '.art-portrait, .art2-tip__portrait--scroll, .art3-hero__portrait--scroll, .art4-hero__portrait--scroll, .art5-body__figure--scroll, .art6-body__figure--scroll'
     );
     if (!portraits.length) return;
 
@@ -14,6 +14,18 @@
         if (o3 !== undefined) {
             portrait.style.setProperty('--art-portrait-o3', o3.toFixed(4));
         }
+    }
+
+    /* Two-layer fade: hold state 1, blend, hold state 2. Override via data-portrait-fade="start,end". */
+    var PORTRAIT_FADE_2 = '0.28,0.58';
+
+    function blendProgress(progress, portrait) {
+        var fade = portrait.dataset.portraitFade || PORTRAIT_FADE_2;
+        var parts = fade.split(',').map(function (s) { return parseFloat(s.trim(), 10); });
+        var fadeStart = parts[0];
+        var fadeEnd = parts[1];
+        if (isNaN(fadeStart) || isNaN(fadeEnd) || fadeEnd <= fadeStart) return progress;
+        return Math.max(0, Math.min(1, (progress - fadeStart) / (fadeEnd - fadeStart)));
     }
 
     function compute() {
@@ -36,8 +48,9 @@
             var o3 = 0;
 
             if (layers === '2') {
-                o1 = 1 - progress;
-                o2 = progress;
+                var blend = blendProgress(progress, portrait);
+                o1 = 1 - blend;
+                o2 = blend;
                 setOpacity(portrait, o1, o2);
             } else if (layers === '3-swap' || layers === '3-linear') {
                 if (progress < 0.3) {
