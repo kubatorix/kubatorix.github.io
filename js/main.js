@@ -940,26 +940,12 @@ renderMenuEvents();
         ticking = false;
         var rect = eq.getBoundingClientRect();
         var vh = window.innerHeight || document.documentElement.clientHeight;
-        var raw = 0;
-        if (window.innerWidth <= 770) {
-            /* Mobile: the staged animation must finish when the equation's
-               centre reaches the centre of the screen. Progress 0 when the
-               centre is at the bottom edge, 1 when it hits mid-viewport. */
-            var center = rect.top + rect.height / 2;
-            raw = Math.max(0, Math.min(1, (vh - center) / (vh / 2)));
-        } else {
-            /* Desktop (unchanged): starts when the equation is roughly centred
-               and runs until it has scrolled a little above the viewport top. */
-            var startTop = vh * 0.4;
-            var endTop = -vh * 0.15;
-            if (endTop > startTop) endTop = startTop * 0.3;
-            var range = startTop - endTop;
-            if (range > 0) {
-                raw = Math.max(0, Math.min(1, (startTop - rect.top) / range));
-            } else if (rect.top <= startTop) {
-                raw = 1;
-            }
-        }
+        /* Both desktop and mobile finish when the equation's centre reaches the
+           middle of the viewport. Progress 0 when the centre is at the bottom
+           edge, 1 at mid-viewport. (Each uses its own rendered height, so the
+           anchoring adapts to the layout automatically.) */
+        var center = rect.top + rect.height / 2;
+        var raw = Math.max(0, Math.min(1, (vh - center) / (vh / 2)));
         var progress = easeInOutCubic(raw);
         section.style.setProperty('--fs-f6-progress', progress.toFixed(4));
     }

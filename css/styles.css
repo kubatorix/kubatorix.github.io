@@ -8865,56 +8865,18 @@ footer .footer-btn:focus-visible {
     height: 234px;
     pointer-events: none;
     display: block;
-    transform-origin: 621.5px 117px;
-    /* Centre of the SVG canvas: ellipses scale around the convergence point. */
-    /* Ovals fade out as the concentric circles fade in (cross-fade → "becoming
-       circles" without distorting the 1px stroke by scaling). */
-    opacity: calc(1 - var(--ci));
-    will-change: transform, opacity;
+    will-change: transform;
     /* Soft tween between scroll-driven progress samples so even fast
        scroll updates render smoothly.                                 */
-    transition: transform 0.45s cubic-bezier(0.22, 0.61, 0.36, 1),
-        opacity 0.3s ease-out;
+    transition: transform 0.45s cubic-bezier(0.22, 0.61, 0.36, 1);
 }
 
-/* translateX: converge to centre over --c. scale: expand over --e. */
 .fs-f6__eq-ellipse--purple {
-    transform: translateX(calc(256.5px * var(--c))) scale(calc(1 + 0.14 * var(--e)));
+    transform: translateX(calc(256.5px * var(--fs-f6-progress, 0)));
 }
 
 .fs-f6__eq-ellipse--orange {
-    transform: translateX(calc(-224.165px * var(--c))) scale(calc(1 + 0.14 * var(--e)));
-}
-
-/* Concentric outlined circles centred on the convergence point (SVG centre
-   x=621.5 → equation x=721.5, y=259). They fade in over --ci as the ovals fade
-   out, so the wide ovals visually "become" even circles. CSS-drawn so the 1px
-   outline stays uniform (no scale distortion). */
-.fs-f6__eq-circle {
-    position: absolute;
-    box-sizing: border-box;
-    border-radius: 50%;
-    pointer-events: none;
-    mix-blend-mode: plus-lighter;
-    opacity: var(--ci);
-    will-change: opacity;
-    transition: opacity 0.3s ease-out;
-}
-
-.fs-f6__eq-circle--orange {
-    left: 604.5px;
-    top: 142px;
-    width: 234px;
-    height: 234px;
-    border: 1px solid var(--color-orange);
-}
-
-.fs-f6__eq-circle--purple {
-    left: 627px;
-    top: 164.5px;
-    width: 189px;
-    height: 189px;
-    border: 1px solid var(--color-purple);
+    transform: translateX(calc(-224.165px * var(--fs-f6-progress, 0)));
 }
 
 .fs-f6__eq-word,
@@ -8942,24 +8904,18 @@ footer .footer-btn:focus-visible {
    purple ellipse on the LEFT, so it tracks the purple shift; purple word
    sits inside the orange ellipse on the RIGHT, so it tracks the orange
    shift. The "=" pair stays put — already centred between the words.   */
-/* Words follow their ellipse to the centre (--c) and fade out as they go —
-   the ellipses "absorb" them. */
-.fs-f6__eq-word {
-    opacity: calc(1 - var(--c));
-}
-
 .fs-f6__eq-word--orange {
     left: 157px;
     top: 202px;
     -webkit-text-stroke-color: var(--color-orange);
-    transform: translateX(calc(256.5px * var(--c)));
+    transform: translateX(calc(256.5px * var(--fs-f6-progress, 0)));
 }
 
 .fs-f6__eq-word--purple {
     left: 759px;
     top: 202px;
     -webkit-text-stroke-color: var(--color-purple);
-    transform: translateX(calc(-224.165px * var(--c)));
+    transform: translateX(calc(-224.165px * var(--fs-f6-progress, 0)));
 }
 
 .fs-f6__eq-eq--orange {
@@ -8974,11 +8930,11 @@ footer .footer-btn:focus-visible {
     -webkit-text-stroke-color: var(--color-purple);
 }
 
-/* The "=" pair goes fully transparent during the expand beat (--e, by
-   progress ~0.15) — once the ellipses start growing it's no longer an
-   equation. */
+/* The "=" pair fades out the moment motion starts (opacity hits 0 by
+   the time progress reaches ~0.05) — the converged cluster reads as
+   one blurred mark, not as an equation any more.                       */
 .fs-f6__eq-eq {
-    opacity: calc(1 - var(--e));
+    opacity: calc(1 - 20 * var(--fs-f6-progress, 0));
 }
 
 .fs-f6__callout {
@@ -8995,9 +8951,6 @@ footer .footer-btn:focus-visible {
     letter-spacing: -0.02em;
     color: var(--text-white);
     text-align: center;
-    /* Appears from transparency once the circles are aligned (--t, 0.8..1). */
-    opacity: var(--t);
-    transition: opacity 0.3s ease-out;
 }
 
 .fs-f6__hl--purple {
@@ -9199,8 +9152,7 @@ footer .footer-btn:focus-visible {
         /* dark backdrop for plus-lighter blend inside isolation */
     }
 
-    .fs-f6__eq-ellipse,
-    .fs-f6__eq-circle {
+    .fs-f6__eq-ellipse {
         display: none !important;
     }
 
