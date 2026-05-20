@@ -4702,9 +4702,16 @@ a:has(> .section1__h-opyt) {
 }
 
 .section8__phase8 .s8__intro-underline {
+    color: inherit;
     text-decoration: underline;
     text-decoration-thickness: 2px;
     text-underline-offset: 6px;
+}
+
+.section8__phase8 .s8__intro-underline:hover,
+.section8__phase8 .s8__intro-underline:focus-visible {
+    color: inherit;
+    opacity: 0.85;
 }
 
 .section8__phase8 .s8__intro-body {
