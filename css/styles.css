@@ -20141,8 +20141,10 @@ a.fs-f11__cta-pdf:focus-visible,
     aspect-ratio: 672 / 450;
     object-fit: cover;
     object-position: center;
-    /* filter:blur(20px) is the initial state; js/main.js clears it on scroll. */
-    filter: blur(20px);
+    /* Black & white. blur(20px) is the initial state; js/main.js clears the
+       blur on scroll but keeps the grayscale (see the 'grayscale(1) ' prefix
+       passed to bind()). */
+    filter: grayscale(1) blur(20px);
 }
 
 .art-page--6 .art6-body__figure--222 .art6-body__figure-text {
