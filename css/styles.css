@@ -1290,16 +1290,11 @@ body>.header-burger__icon {
 
 .hero__bg--oval {
     /* spec blur-bbox: x=-455.92 y=-0.41 1731.37x1654.58 ; svg 972x891      */
-    /* left = -455.92 + (1731.37-972)/2 = -76.235                           */
-    /* top  = (-0.41 + (1654.58-891)/2) - 58 = 323.375                      */
     left: -76.24px;
     top: 323.38px;
     width: 972px;
     height: 891px;
     z-index: 1;
-    /* Hero ends at canvas-y 1007.33; oval bottom at 1214.38.                */
-    /* Hero-edge in shape's local coords = (1007.33-323.38)/891 = 76.7%.    */
-    /* Fade the section-1 portion (bottom ~23%) to subtler visibility.      */
     -webkit-mask-image: linear-gradient(to bottom,
             rgba(0, 0, 0, 1) 0%,
             rgba(0, 0, 0, 1) 77%,
@@ -1727,16 +1722,10 @@ body>.header-burger__icon {
     }
 
     .hero__bg--oval {
-        /* Shifted further left so its arc sweeps mostly through the left
-           half of the viewport instead of the right.                         */
         left: 340px;
-        /* was 620 */
         top: 470px;
-        /* was 323.38 */
         width: 480px;
-        /* was 972 */
         height: 440px;
-        /* was 891 */
     }
 
     .hero__bg--arc {
@@ -4140,6 +4129,32 @@ a:has(> .section1__h-opyt) {
     transform: rotate(calc(360deg * var(--section6-progress, 0))) scale(0.961);
 }
 
+@media (min-width: 771px) {
+    body:not(.exp-page) .section6__phase7 .section6__rings {
+        inset: auto;
+        left: 50%;
+        top: 50%;
+        width: 964.2123772960357px;
+        height: 1133.5680857872426px;
+        transform: translate(-50%, -50%) rotate(calc(360deg * var(--section6-progress, 0)));
+    }
+
+    /* Section 8 intro — 67px below the section-6 divider line end */
+    body:not(.exp-page) .section8__phase8 .s8__intro {
+        top: calc(76px + 67px);
+    }
+}
+
+/* Home page section 6 only — color rings, no hover swap */
+body:not(.exp-page) .section6__phase7 .section6__rings--white {
+    display: none;
+}
+
+body:not(.exp-page) .section6__phase7 .section6__rings--color {
+    opacity: 1;
+    pointer-events: none;
+}
+
 .section6__phase7 .section6__heading {
     position: absolute;
     top: 320px;
@@ -4243,6 +4258,15 @@ a:has(> .section1__h-opyt) {
         transform: rotate(calc(360deg * var(--section6-progress, 0))) scale(1.6);
     }
 
+    body:not(.exp-page) .section6__phase7 .section6__rings {
+        inset: auto;
+        left: 50%;
+        top: 50%;
+        width: 575.005737304688px;
+        height: 676.0012207031256px;
+        transform: translate(-50%, -50%) rotate(calc(360deg * var(--section6-progress, 0)));
+    }
+
     .section6__phase7 .section6__heading {
         position: relative;
         left: auto;
@@ -4267,6 +4291,11 @@ a:has(> .section1__h-opyt) {
 
     .section6__phase7 .section6__divider {
         display: none;
+    }
+
+    /* Section 8 intro — 53px below the divider line end on mobile */
+    body:not(.exp-page) .section8__phase8 .s8__intro {
+        margin-top: 53px;
     }
 }
 
