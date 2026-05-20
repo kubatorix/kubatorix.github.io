@@ -14823,7 +14823,7 @@ a.fs-f11__cta-pdf:focus-visible,
 
 .pdf-modal__close {
     position: absolute;
-    top: 0;
+    top: -10px;
     right: 0;
     transform: translate(18%, -18%);
     width: 38px;
@@ -14977,53 +14977,172 @@ a.fs-f11__cta-pdf:focus-visible,
 
 @media (max-width: 770px) {
     .pdf-modal {
+        align-items: center;
+        justify-content: center;
         padding: 16px;
-    }
-
-    .pdf-modal__card {
-        width: 100%;
-        min-height: 0;
-        padding: 50px 24px 32px;
-        border-radius: 32px;
-    }
-
-    .pdf-modal__decor {
-        left: -180px;
-        width: 480px;
-        opacity: 0.35;
+        overflow-y: auto;
     }
 
     .pdf-modal__shell {
+        width: 347.869140625px;
+        height: auto;
+        max-width: calc(100vw - 32px);
+        margin: auto;
+        flex-shrink: 0;
+        overflow: visible;
+    }
+
+    .pdf-modal__card {
+        position: relative;
         width: 100%;
+        height: auto;
+        min-height: 0;
+        padding: 0 22px 28px;
+        background: rgba(255, 255, 255, 0.1);
+        backdrop-filter: blur(28px);
+        -webkit-backdrop-filter: blur(28px);
+        border: 1px solid #C2F04F;
+        border-radius: 32px;
+        overflow: hidden;
+    }
+
+    /* Эллипс — над стеклом (blur на .card), под контентом */
+    .pdf-modal__card::before {
+        content: '';
+        position: absolute;
+        inset: 0;
+        z-index: 0;
+        background: url(../img/figma/pdf_modal_shell_mobile.png) calc(50% + 20px) calc(-10% - 40px) / cover no-repeat;
+        border-radius: inherit;
+        mix-blend-mode: plus-lighter;
+        pointer-events: none;
+    }
+
+    .pdf-modal__card::after {
+        display: none;
+    }
+
+    .pdf-modal__decor {
+        display: none;
     }
 
     .pdf-modal__close {
-        top: 0;
+        top: -29px;
+        right: -6px;
         left: auto;
-        right: 0;
-        transform: translate(18%, -18%);
-        width: 30px;
-        height: 30px;
+        transform: none;
+        width: 27.390625px;
+        height: 27.390625px;
     }
 
     .pdf-modal__body {
+        position: relative;
+        z-index: 2;
         max-width: 100%;
     }
 
     .pdf-modal__title {
-        font-size: 22px;
-        line-height: 1.1;
-        margin-bottom: 22px;
+        margin: 131px 0 22px;
+        font-family: 'Golos', 'Golos Text', sans-serif;
+        font-weight: 500;
+        font-size: 20px;
+        line-height: 1.05;
+        letter-spacing: 0;
     }
 
     .pdf-modal__input {
-        height: 48px;
-        font-size: 15px;
+        display: block;
+        box-sizing: border-box;
+        width: 303.6796875px;
+        max-width: 100%;
+        height: 29.354084014892578px;
+        margin: 0 auto;
+        padding: 0 12px;
+        border: 0.5px solid rgba(194, 240, 79, 1);
+        border-radius: 0;
+        font-family: 'Golos UI', 'Golos Text', sans-serif;
+        font-weight: 400;
+        font-size: 14px;
+        line-height: 1.1;
+        letter-spacing: -0.02em;
+        color: rgba(255, 255, 255, 1);
+    }
+
+    .pdf-modal__input::placeholder {
+        font-family: 'Golos UI', 'Golos Text', sans-serif;
+        font-weight: 400;
+        font-size: 14px;
+        line-height: 1.1;
+        letter-spacing: -0.02em;
+        color: rgba(255, 255, 255, 1);
+        opacity: 1;
+    }
+
+    .pdf-modal__checks {
+        width: 303.6796875px;
+        max-width: 100%;
+        margin: 2px auto 0;
+    }
+
+    .pdf-modal__check {
+        align-items: center;
+        gap: 6px;
+    }
+
+    .pdf-modal__check-input {
+        width: 8.378134727478027px;
+        height: 8.475166320800781px;
+        flex: 0 0 8.378134727478027px;
+        border-width: 1.1px;
+        border-radius: 2px;
+    }
+
+    .pdf-modal__check-input:checked {
+        background-size: 65% 65%;
+    }
+
+    .pdf-modal__check-text {
+        font-family: 'Golos', 'Golos Text', sans-serif;
+        font-weight: 500;
+        font-size: 8.78px;
+        line-height: 16.47px;
+        letter-spacing: 0;
+        text-decoration: underline;
+        text-decoration-style: solid;
+        text-underline-offset: 0;
+        text-decoration-thickness: from-font;
+    }
+
+    .pdf-modal__check-text a {
+        color: inherit;
+        text-decoration: underline;
+        text-decoration-style: solid;
+        text-underline-offset: 0;
+        text-decoration-thickness: from-font;
     }
 
     .pdf-modal__submit {
-        height: 52px;
-        font-size: 16px;
+        display: block;
+        box-sizing: border-box;
+        width: 307.869140625px;
+        max-width: 100%;
+        height: 40px;
+        margin: 2px auto 0;
+        padding: 0;
+        border: 0.49px solid rgba(47, 47, 47, 1);
+        border-radius: 0;
+        background: #FFFFFF;
+        color: #272727;
+        font-family: 'Golos', 'Golos Text', sans-serif;
+        font-weight: 400;
+        font-size: 14px;
+        line-height: 1.1;
+        letter-spacing: -0.02em;
+    }
+
+    .pdf-modal__form:valid .pdf-modal__submit {
+        background: #C2F04F;
+        border-color: rgba(47, 47, 47, 1);
     }
 }
 
