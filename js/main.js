@@ -517,7 +517,7 @@ renderMenuEvents();
         window.addEventListener('scroll', onScroll, { passive: true });
         window.addEventListener('resize', onScroll);
     }
-    bind('.article-7-midphoto', '.article-7-midphoto__img', 40, '.article-7-midphoto__text');
+    bind('.article-7-midphoto', '.article-7-midphoto__img', 40, '.article-7-midphoto__text', 'center');
     bind('.art-page--4 .art4-tip--6 .art4-tip__portrait', '.art4-tip__portrait-photo', 40, '.art4-tip__portrait-caption');
     bind('.art-page--5 .art5-body__figure--444', '.art5-body__figure-photo--1', 20, '.art5-body__figure-text');
     bind('.art-page--6 .art6-body__figure--222', 'img', 20, '.art6-body__figure-text', 'center', 'grayscale(1) ');

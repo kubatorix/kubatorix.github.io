@@ -29,68 +29,27 @@ body.article-7-page>.header-burger__icon svg path {
    2. main hero photo right (visible clean)
    3. mask group 60% opacity: alt photo on left + purple tint, masked to 1217x888 of the hero
 */
+/* Mirrors .art6-hero__cover: a full-width in-flow block whose image keeps its
+   natural aspect ratio. At the 1440 frame width the 2880×1777 composite renders
+   ~888px tall — the same footprint the absolutely-positioned title/content
+   already expect. */
 .article-7-hero {
-  position: absolute;
-  left: -5px;
-  top: 3px;
-  width: 1446px;
-  height: 888px;
+  box-sizing: border-box;
+  position: relative;
+  width: 100%;
+  margin: 0;
+  padding: 0;
   overflow: hidden;
-  z-index: 0;
   background: #F0F0F1;
 }
 
+/* Mirrors .art6-hero__cover img. */
 .article-7-hero__main {
-  /* Main photo (R6VB5381) — fills hero; person ends up on right portion. */
-  position: absolute;
-  left: 32px;
-  top: -191px;
-  width: 1590px;
-  height: 1689px;
+  display: block;
+  width: 100%;
+  height: auto;
   object-fit: cover;
-}
-
-.article-7-hero__mask {
-  /* Mask group from Figma: 1217x888 at x=89, y=0, 60% group opacity. */
-  position: absolute;
-  left: 129px;
-  top: 0;
-  width: 1217px;
-  height: 888px;
-  opacity: 0.6;
-  overflow: hidden;
-}
-
-.article-7-hero__ghost {
-  /* Alt photo (R6VB5592) — 1217x1823 within mask. */
-  position: absolute;
-  left: -120px;
-  top: -91px;
-  width: 1217px;
-  height: 1823px;
-  object-fit: cover;
-}
-
-.article-7-hero__tint {
-  /* Purple with mix-blend-mode: multiply — darkens the photo with a purple cast.
-     Also uses the ghost image as an alpha mask so the tint is clipped to the non-transparent
-     pixels of hero_ghost.png (no purple bleeds onto the photo's transparent background).
-     Position must match .article-7-hero__ghost so the mask aligns with the photo. */
-  position: absolute;
-  left: -120px;
-  top: -91px;
-  width: 1217px;
-  height: 1823px;
-  background: rgba(105, 0, 255, 0.50);
-  mix-blend-mode: multiply;
-  -webkit-mask-image: url(../img/figma/articles/article-6/hero_ghost.png);
-  mask-image: url(../img/figma/articles/article-6/hero_ghost.png);
-  -webkit-mask-size: cover;
-  mask-size: cover;
-  -webkit-mask-position: center;
-  mask-position: center;
-  -webkit-mask-repeat: no-repeat;
-  mask-repeat: no-repeat;
+  object-position: center;
 }
 
 /* === Title — Figma data says fill #FFFFFF but actual render in Figma shows a dark sage/olive
@@ -401,7 +360,6 @@ body.article-7-page>.header-burger__icon svg path {
 
 .article-7-photo2__img {
   position: absolute;
-  left: -12px;
   top: -91px;
   width: 843px;
   height: 1264px;
@@ -527,52 +485,25 @@ body.article-7-page>.header-burger__icon svg path {
     margin-bottom: calc(7157px * (var(--article-7-mob-scale, 1) - 1));
   }
 
-  /* Hero — mask group spans full mobile width, slightly bleeds left/right.
-     Figma 613:1683 mobile mask: 465x839 at x=-79, y=-26.
-     Inner mask group (705:2027): 725x1087 at x=-35, y=60, opacity 0.7. */
+  /* Hero — portrait box that bleeds slightly past the 375 frame; the frame's
+     transform:scale fills the actual viewport width. Re-establish absolute
+     positioning (desktop base is now relative/in-flow). */
   .article-7-hero {
+    position: absolute;
     left: -79px;
     top: -26px;
     width: 465px;
     height: 839px;
   }
 
+  /* Single composite image covers the portrait hero box, biased toward the
+     colour subject (right side) and her face height. */
   .article-7-hero__main {
-    left: -244px;
-    top: 14px;
-    width: 927px;
-    height: 984px;
-  }
-
-  .article-7-hero__main {
-    left: 29px;
-    top: 14px;
-    width: 927px;
-    height: 984px;
-  }
-
-  .article-7-hero__mask {
-    left: 40px;
-    top: 0;
-    width: 725px;
-    height: 1087px;
-    opacity: 0.7;
-  }
-
-  .article-7-hero__ghost {
-    left: -161px;
-    top: 50px;
-    width: 725px;
-    height: 1087px;
-  }
-
-  .article-7-hero__tint {
-    left: -161px;
-    top: 50px;
-    width: 725px;
-    height: 1087px;
-    -webkit-mask-position: center;
-    mask-position: center;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    object-position: 62% 28%;
   }
 
   /* Title — smaller, white, centered */
@@ -759,7 +690,7 @@ body.article-7-page>.header-burger__icon svg path {
   }
 
   .article-7-photo2__img {
-    left: 15px;
+    left: 16px;
     top: -19px;
     width: 411px;
     height: 617px;
