@@ -57,7 +57,8 @@
       "Bash(awk 'NR>=5101 && NR<=5260' /Users/arturhuziahmetov/Documents/Personal/kubatorix.github.io/css/styles.css)",
       "Bash(node *)",
       "Bash(sort -t: -k1 -n)",
-      "Bash(git *)"
+      "Bash(git *)",
+      "Bash(echo \"---- exit: $? ----\")"
     ]
   }
 }
