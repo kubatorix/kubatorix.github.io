@@ -476,8 +476,11 @@ renderMenuEvents();
        "center at viewport bottom" to "center at viewport middle", so the user
        actually watches the whole blur-clear + caption fade on screen. This is
        viewport-relative, so it behaves the same on desktop and mobile.
+       anchor === 'pass': first 55% — blur + visible caption; then blur clears
+       and caption fades out over the rest of the scroll (×2 speed).
        If textSel is provided → caption holds, then fades out over the top half
-       of the progress range while the blur clears linearly across the range. */
+       of the progress range while the blur clears linearly across the range
+       (pass: caption opacity tracks progress). */
     function bind(blockSel, imgSel, maxBlur, textSel, anchor, filterPrefix) {
         var block = document.querySelector(blockSel);
         var img = block && block.querySelector(imgSel);
@@ -496,6 +499,16 @@ renderMenuEvents();
                 /* 0 when the figure centre is at the viewport bottom,
                    1 when it reaches the viewport middle. */
                 progress = Math.max(0, Math.min(1, (vh - figureCenter) / (vh * 0.5)));
+            } else if (anchor === 'pass') {
+                var scrolled = vh - rect.top;
+                var totalScroll = vh + rect.height;
+                var linear = totalScroll > 0
+                    ? Math.max(0, Math.min(1, (scrolled / totalScroll) * 2))
+                    : 0;
+                var fadeStart = 0.55;
+                progress = linear <= fadeStart
+                    ? 0
+                    : Math.min(1, (linear - fadeStart) / (1 - fadeStart));
             } else {
                 var scrolled = vh - rect.top;
                 var totalScroll = vh + rect.height;
@@ -504,8 +517,12 @@ renderMenuEvents();
             }
             var blurAmount = MAX_BLUR * (1 - progress);
             if (text) {
-                var textOpacity = progress < 0.5 ? 1 : 1 - (progress - 0.5) / 0.5;
-                text.style.opacity = textOpacity.toFixed(4);
+                if (anchor === 'pass') {
+                    text.style.opacity = (1 - progress).toFixed(4);
+                } else {
+                    var textOpacity = progress < 0.5 ? 1 : 1 - (progress - 0.5) / 0.5;
+                    text.style.opacity = textOpacity.toFixed(4);
+                }
             }
             img.style.filter = PREFIX + 'blur(' + blurAmount.toFixed(2) + 'px)';
         }
@@ -520,7 +537,7 @@ renderMenuEvents();
     }
     bind('.article-7-midphoto', '.article-7-midphoto__img', 40, '.article-7-midphoto__text', 'center');
     bind('.art-page--4 .art4-tip--6 .art4-tip__portrait', '.art4-tip__portrait-photo', 40, '.art4-tip__portrait-caption');
-    bind('.art-page--5 .art5-body__figure--444', '.art5-body__figure-photo--1', 20, '.art5-body__figure-text');
+    bind('.art-page--5 .art5-body__figure--444', '.art5-body__figure-photo--1', 20, '.art5-body__figure-text', 'pass');
     bind('.art-page--6 .art6-body__figure--222', 'img', 20, '.art6-body__figure-text', 'center', 'grayscale(1) ');
 })();
 
