@@ -1096,29 +1096,31 @@ body>.header-burger__icon {
         justify-content: center;
     }
 
-    body>.header-burger__icon svg {
+    body>.header-burger__icon .header-burger__icon-burger {
         display: block;
         width: 20px;
         height: 17px;
         pointer-events: none;
     }
 
-    /* Close (×) — fixed to viewport top-left, always above menu panel and clickable */
+    body>.header-burger__icon .header-burger__icon-close {
+        display: none;
+        width: 22px;
+        height: 22px;
+        pointer-events: none;
+    }
+
+    body.burger-menu-open>.header-burger__icon .header-burger__icon-burger {
+        display: none;
+    }
+
+    body.burger-menu-open>.header-burger__icon .header-burger__icon-close {
+        display: block;
+    }
+
+    /* Close only via header toggle — hide duplicate × inside the panel */
     .burger-menu .burger-menu__close {
-        position: fixed;
-        top: max(0px, env(safe-area-inset-top, 0px));
-        left: max(0px, env(safe-area-inset-left, 0px));
-        width: 44px;
-        height: 44px;
-        padding: 11px;
-        box-sizing: border-box;
-        margin: 0;
-        object-fit: contain;
-        z-index: 1101;
-        pointer-events: auto;
-        cursor: pointer;
-        touch-action: manipulation;
-        -webkit-tap-highlight-color: transparent;
+        display: none;
     }
 
     /* Trim the original 75px top padding so menu items don't sit too low
@@ -4130,12 +4132,16 @@ a:has(> .section1__h-opyt) {
 }
 
 @media (min-width: 771px) {
+    body:not(.exp-page) .section6__phase7 .section6__cluster {
+        display: contents;
+    }
+
     body:not(.exp-page) .section6__phase7 .section6__rings {
         inset: auto;
         left: 50%;
         top: 50%;
-        width: 964.2123772960357px;
-        height: 1133.5680857872426px;
+        width: 997.9598109513645px;
+        height: 1173.2429687902461px;
         transform: translate(-50%, -50%) rotate(calc(360deg * var(--section6-progress, 0)));
     }
 
@@ -4258,15 +4264,6 @@ body:not(.exp-page) .section6__phase7 .section6__rings--color {
         transform: rotate(calc(360deg * var(--section6-progress, 0))) scale(1.6);
     }
 
-    body:not(.exp-page) .section6__phase7 .section6__rings {
-        inset: auto;
-        left: 50%;
-        top: 50%;
-        width: 575.005737304688px;
-        height: 676.0012207031256px;
-        transform: translate(-50%, -50%) rotate(calc(360deg * var(--section6-progress, 0)));
-    }
-
     .section6__phase7 .section6__heading {
         position: relative;
         left: auto;
@@ -4293,9 +4290,131 @@ body:not(.exp-page) .section6__phase7 .section6__rings--color {
         display: none;
     }
 
-    /* Section 8 intro — 53px below the divider line end on mobile */
+    /* Home — break out of .container 16px gutter; padding only on .section6__cluster */
+    body:not(.exp-page) .section6.section6__phase7 {
+        width: calc(100% + 32px);
+        max-width: 100vw;
+        margin-left: -16px;
+        margin-right: -16px;
+        padding-left: 0;
+        padding-right: 0;
+        box-sizing: border-box;
+        overflow-x: clip;
+    }
+
+    body:not(.exp-page) .section6__phase7 .section6__viewport,
+    body:not(.exp-page) .section6__phase7 .section6__canvas {
+        width: 100%;
+        max-width: 100%;
+    }
+
+    body:not(.exp-page) .section6__phase7 .section6__viewport {
+        overflow-y: visible;
+    }
+
+    body:not(.exp-page) .section6__phase7 .section6__canvas {
+        position: relative;
+        overflow: visible;
+        padding: 0 0 53px;
+    }
+
+    /* Rings on canvas — shifted up so heading + CTA sit in the oval centre */
+    body:not(.exp-page) .section6__phase7 .section6__canvas > .section6__rings-picture {
+        position: absolute;
+        left: 50%;
+        top: -35.7075vw;
+        width: 132vw;
+        height: 132vw;
+        margin: 0;
+        transform: translateX(-50%);
+        transform-origin: 50% 50%;
+        z-index: 0;
+        pointer-events: none;
+    }
+
+    body:not(.exp-page) .section6__phase7 .section6__canvas > .section6__rings {
+        position: absolute !important;
+        left: 50% !important;
+        top: -35.7075vw !important;
+        right: auto !important;
+        bottom: auto !important;
+        inset: auto !important;
+        width: 132vw !important;
+        max-width: 132vw !important;
+        height: 132vw !important;
+        margin: 0 !important;
+        transform: translateX(-50%) rotate(calc(360deg * var(--section6-progress, 0))) !important;
+        transform-origin: 50% 50%;
+        transform-box: border-box;
+        object-fit: contain;
+        object-position: center center;
+        opacity: 1 !important;
+        z-index: 0;
+        pointer-events: none;
+    }
+
+    body:not(.exp-page) .section6__phase7 .section6__canvas > .section6__rings-picture .section6__rings {
+        left: 0 !important;
+        width: 100% !important;
+        max-width: none !important;
+        height: 100% !important;
+        transform: rotate(calc(360deg * var(--section6-progress, 0))) !important;
+    }
+
+    body:not(.exp-page) .section6__phase7 .section6__cluster {
+        position: relative;
+        width: 100%;
+        padding: 32px 20px 0;
+        box-sizing: border-box;
+        z-index: 2;
+        overflow: visible;
+    }
+
+    body:not(.exp-page) .section6__phase7 .section6__rings--color {
+        opacity: 1;
+    }
+
+    /* Home — rest of section 6 / 8 layout (index, not fullstudy) */
+    body:not(.exp-page) .section6__phase7 .section6__heading {
+        margin-top: 0;
+        text-align: center;
+    }
+
+    body:not(.exp-page) .section6__phase7 .section6__heading,
+    body:not(.exp-page) .section6__phase7 .section6__cta {
+        position: relative;
+        z-index: 3;
+    }
+
+    body:not(.exp-page) .section6__phase7 .section6__cta {
+        margin-bottom: 24px;
+    }
+
+    body:not(.exp-page) .section6__phase7 .section6__divider {
+        display: block !important;
+        position: relative !important;
+        left: auto !important;
+        top: auto !important;
+        flex-shrink: 0;
+        width: 1px;
+        min-width: 1px;
+        height: 213.0000000000002px !important;
+        margin: 0 auto;
+        background: rgba(255, 255, 255, 1);
+        z-index: 4;
+        pointer-events: none;
+    }
+
+    body:not(.exp-page) .section8__phase8 .section8__canvas {
+        padding: 0 0 48px;
+    }
+
     body:not(.exp-page) .section8__phase8 .s8__intro {
-        margin-top: 53px;
+        margin-top: 0 !important;
+        margin-bottom: 60px;
+        padding-left: 20px;
+        padding-right: 20px;
+        box-sizing: border-box;
     }
 }
 

@@ -725,21 +725,29 @@
                 alt=""
                 aria-hidden="true"
               />
-              <img
-                src="./img/figma/exp_discuss_rings_color.svg"
-                class="section6__rings section6__rings--color"
-                alt=""
-                aria-hidden="true"
-              />
+              <picture class="section6__rings-picture">
+                <source
+                  media="(max-width: 770px)"
+                  srcset="./img/figma/study_cta_art.svg"
+                />
+                <img
+                  src="./img/figma/exp_discuss_rings_color.svg"
+                  class="section6__rings section6__rings--color"
+                  alt=""
+                  aria-hidden="true"
+                />
+              </picture>
 
-              <h2 class="section6__heading">
-                Это лишь маленькая часть большого
-                <span class="section6__heading-underline">исследования</span>
-              </h2>
-              <a href="/fullstudy.html" class="section6__cta"
-                >Посмотреть полный текст</a
-              >
-              <span class="section6__divider" aria-hidden="true"></span>
+              <div class="section6__cluster">
+                <h2 class="section6__heading">
+                  Это лишь маленькая часть большого
+                  <span class="section6__heading-underline">исследования</span>
+                </h2>
+                <a href="/fullstudy.html" class="section6__cta"
+                  >Посмотреть полный текст</a
+                >
+                <span class="section6__divider" aria-hidden="true"></span>
+              </div>
             </div>
           </div>
         </section>

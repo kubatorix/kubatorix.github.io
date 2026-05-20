@@ -6,7 +6,19 @@ document.addEventListener('DOMContentLoaded', function() {
 
     const animationDuration = 300;
 
+    var burgerOpen = false;
+
+    function setBurgerOpen(open) {
+        burgerOpen = open;
+        document.body.classList.toggle('burger-menu-open', open);
+        if (burgerIcon) {
+            burgerIcon.setAttribute('aria-expanded', open ? 'true' : 'false');
+            burgerIcon.setAttribute('aria-label', open ? 'Закрыть меню' : 'Открыть меню');
+        }
+    }
+
     function showBurgerMenu() {
+        setBurgerOpen(true);
         burgerMenu.classList.remove('animate__fadeOutLeft');
         burgerBg.classList.remove('animate__fadeOut');
         
@@ -23,6 +35,7 @@ document.addEventListener('DOMContentLoaded', function() {
     }
 
     function hideBurgerMenu() {
+        setBurgerOpen(false);
         burgerMenu.classList.remove('animate__fadeInLeft');
         burgerBg.classList.remove('animate__fadeIn');
         
@@ -42,7 +55,13 @@ document.addEventListener('DOMContentLoaded', function() {
     }
 
     if (burgerIcon) {
-        burgerIcon.addEventListener('click', showBurgerMenu);
+        burgerIcon.addEventListener('click', function() {
+            if (burgerOpen) {
+                hideBurgerMenu();
+            } else {
+                showBurgerMenu();
+            }
+        });
     }
 
     if (closeBtn) {

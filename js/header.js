@@ -37,11 +37,15 @@
     }
 
     var BURGER_ICON_HTML = ''
-        + '<button type="button" class="header-burger__icon" aria-label="Открыть меню">'
-        +   '<svg width="20" height="17" viewBox="0 0 20 17" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">'
-        +     '<path d="M0 1.24765C0 1.93671 0.558592 2.4953 1.24765 2.4953H18.7523C19.4414 2.4953 20 1.93671 20 1.24765C20 0.558592 19.4414 0 18.7523 0H1.24765C0.558592 0 0 0.558592 0 1.24765Z" fill="white"/>'
-        +     '<path d="M0 15.2242C0 15.9133 0.558592 16.4719 1.24765 16.4719H18.7523C19.4414 16.4719 20 15.9133 20 15.2242C20 14.5352 19.4414 13.9766 18.7523 13.9766H1.24765C0.558592 13.9766 0 14.5352 0 15.2242Z" fill="white"/>'
-        +     '<path d="M0 8.23202C0 8.92108 0.558592 9.47967 1.24765 9.47967H18.7523C19.4414 9.47967 20 8.92108 20 8.23202C20 7.54297 19.4414 6.98438 18.7523 6.98438H1.24765C0.558592 6.98438 0 7.54297 0 8.23202Z" fill="white"/>'
+        + '<button type="button" class="header-burger__icon" aria-label="Открыть меню" aria-expanded="false">'
+        +   '<svg class="header-burger__icon-burger" width="20" height="17" viewBox="0 0 20 17" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">'
+        +     '<path d="M0 1.24765C0 1.93671 0.558592 2.4953 1.24765 2.4953H18.7523C19.4414 2.4953 20 1.93671 20 1.24765C20 0.558592 19.4414 0 18.7523 0H1.24765C0.558592 0 0 0.558592 0 1.24765Z" fill="currentColor"/>'
+        +     '<path d="M0 15.2242C0 15.9133 0.558592 16.4719 1.24765 16.4719H18.7523C19.4414 16.4719 20 15.9133 20 15.2242C20 14.5352 19.4414 13.9766 18.7523 13.9766H1.24765C0.558592 13.9766 0 14.5352 0 15.2242Z" fill="currentColor"/>'
+        +     '<path d="M0 8.23202C0 8.92108 0.558592 9.47967 1.24765 9.47967H18.7523C19.4414 9.47967 20 8.92108 20 8.23202C20 7.54297 19.4414 6.98438 18.7523 6.98438H1.24765C0.558592 6.98438 0 7.54297 0 8.23202Z" fill="currentColor"/>'
+        +   '</svg>'
+        +   '<svg class="header-burger__icon-close" width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">'
+        +     '<path d="M1.17993 1.17983L22.6094 22.6093" stroke="currentColor" stroke-width="2.35967" stroke-linecap="round" stroke-linejoin="round"/>'
+        +     '<path d="M22.6096 1.18006L1.18013 22.6095" stroke="currentColor" stroke-width="2.35967" stroke-linecap="round" stroke-linejoin="round"/>'
         +   '</svg>'
         + '</button>';
 
