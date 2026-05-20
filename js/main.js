@@ -516,11 +516,9 @@ renderMenuEvents();
 
 /* ============================================================
    Scroll-driven title fade + photo blur clear for
-   .art-page--5 .art5-hero__cover. Mirrors the 444 figure's
-   two-phase behaviour (phase 1: text visible / blur max, phase 2:
-   text fades + blur clears), but uses its own progress calc
-   because the cover sits at the top of the page — the shared
-   bind() above assumes the block enters from below the viewport.
+   .art-page--5 .art5-hero__cover. Progress by cover center vs
+   viewport center: blur 20px→0 linearly (sharp by mid-screen);
+   title fades in the upper half of the same range.
    ============================================================ */
 (function () {
     var block = document.querySelector('.art-page--5 .art5-hero__cover');
@@ -533,17 +531,12 @@ renderMenuEvents();
     function compute() {
         ticking = false;
         var rect = block.getBoundingClientRect();
-        var scrolledUp = Math.max(0, -rect.top);
-        var progress = Math.min(1, scrolledUp / (rect.height * 0.5));
-        var blurAmount, textOpacity;
-        if (progress < 0.5) {
-            textOpacity = 1;
-            blurAmount = MAX_BLUR;
-        } else {
-            var p = (progress - 0.5) / 0.5;
-            textOpacity = 1 - p;
-            blurAmount = MAX_BLUR * (1 - p);
-        }
+        var vh = window.innerHeight || document.documentElement.clientHeight;
+        var centerY = rect.top + rect.height * 0.5;
+        /* 0 = центр блока у нижнего края экрана, 1 = центр у середины viewport */
+        var progress = Math.max(0, Math.min(1, (vh - centerY) / (vh * 0.5)));
+        var blurAmount = MAX_BLUR * (1 - progress);
+        var textOpacity = progress < 0.5 ? 1 : 1 - (progress - 0.5) / 0.5;
         title.style.opacity = textOpacity.toFixed(4);
         img.style.filter = 'blur(' + blurAmount.toFixed(2) + 'px)';
     }
@@ -1088,27 +1081,44 @@ renderMenuEvents();
         var photo = c.photo, overlay = c.photoOverlay;
 
         if (variant === 'dark-diagonal') {
+            if (c.mediaPhoto) {
+                return '<div class="s8__media s8__media--diagonal">'
+                    + '<img src="' + escapeHtml(c.mediaPhoto) + '" class="s8__media-diagonal-photo" alt="" />'
+                    + '</div>';
+            }
             return '<div class="s8__media s8__media--diagonal">' + diagonalSvg() + '</div>';
         }
         if (variant === 'dark-polygons') {
+            var polygonsSrc = c.mediaPhoto || './img/figma/exp_card_polygons.svg';
             return '<div class="s8__media s8__media--polygons">'
-                +   '<img src="./img/figma/exp_card_polygons.svg" class="s8__media-svg" alt="" />'
+                +   '<img src="' + escapeHtml(polygonsSrc) + '" class="s8__media-svg" alt="" />'
                 + '</div>';
         }
         if (variant === 'dark-blurred') {
-            return '<div class="s8__media s8__media--blurred">'
-                + (c.mediaPhoto ? '<img src="' + escapeHtml(c.mediaPhoto) + '" class="s8__media-blurred-photo" alt="" />' : '')
-                + (c.mediaTitle ? '<span class="s8__media-blurred-title">' + escapeHtml(c.mediaTitle) + '</span>' : '')
+            var blurredFullClass = c.photoLayout === 'full' ? ' s8__media--blurred-full' : '';
+            var blurredPhotoClass = 's8__media-blurred-photo' + (c.photoLayout === 'full' ? ' s8__media-blurred-photo--full' : '');
+            var blurredTitle = (c.photoLayout !== 'full' && c.mediaTitle)
+                ? '<span class="s8__media-blurred-title">' + escapeHtml(c.mediaTitle) + '</span>'
+                : '';
+            return '<div class="s8__media s8__media--blurred' + blurredFullClass + '">'
+                + (c.mediaPhoto ? '<img src="' + escapeHtml(c.mediaPhoto) + '" class="' + blurredPhotoClass + '" alt="" />' : '')
+                + blurredTitle
                 + '</div>';
         }
         if (variant === 'duotone') {
+            if (c.photoLayout === 'full') {
+                return '<div class="s8__media s8__media--duotone s8__media--duotone-full">'
+                    + (photo ? '<img src="' + escapeHtml(photo) + '" class="s8__media-face" alt="" />' : '')
+                    + '</div>';
+            }
             return '<div class="s8__media s8__media--duotone">'
                 + (photo   ? '<img src="' + escapeHtml(photo)   + '" class="s8__media-base" alt="" />' : '')
                 + (overlay ? '<img src="' + escapeHtml(overlay) + '" class="s8__media-overlay" alt="" />' : '')
                 + '</div>';
         }
         if (variant === 'photo-only-547') {
-            return '<div class="s8__media s8__media--photo-547">'
+            var fullClass = c.photoLayout === 'full' ? ' s8__media--photo-full' : '';
+            return '<div class="s8__media s8__media--photo-547' + fullClass + '">'
                 + (photo ? '<img src="' + escapeHtml(photo) + '" class="s8__media-face" alt="" />' : '')
                 + '</div>';
         }

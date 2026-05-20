@@ -4496,6 +4496,20 @@ a:has(> .section1__h-opyt) {
     pointer-events: none;
 }
 
+.section8__phase8 .s8__media--duotone.s8__media--duotone-full {
+    background: transparent;
+}
+
+.section8__phase8 .s8__media--duotone.s8__media--duotone-full .s8__media-face {
+    position: absolute;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    object-position: center;
+}
+
 /* --- photo-only-547 (Cards C/I/M): light-gray bg + purple-face image. */
 .section8__phase8 .s8__media--photo-547 {
     position: relative;
@@ -4512,21 +4526,34 @@ a:has(> .section1__h-opyt) {
     object-position: bottom right;
 }
 
-/* --- photo-orange (Card H): orange bg + duotone face (mix-blend darken). */
+.section8__phase8 .s8__media--photo-547.s8__media--photo-full {
+    background: transparent;
+}
+
+.section8__phase8 .s8__media--photo-547.s8__media--photo-full .s8__media-face {
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    object-position: center;
+}
+
+/* --- photo-orange (Card H): full-bleed photo, no orange duotone overlay. */
 .section8__phase8 .s8__media--photo-orange {
     position: relative;
-    background: #FF8A50;
+    background: transparent;
 }
 
 .section8__phase8 .s8__media--photo-orange .s8__media-face {
     position: absolute;
-    left: 12.75%;
-    top: 3.75%;
-    width: 87.25%;
-    height: 96.25%;
-    object-fit: contain;
-    object-position: bottom right;
-    mix-blend-mode: darken;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    object-position: center;
+    mix-blend-mode: normal;
 }
 
 /* --- dark-polygons (Card F): dark bg + lime border + polygons SVG. */
@@ -4557,6 +4584,15 @@ a:has(> .section1__h-opyt) {
     display: block;
 }
 
+.section8__phase8 .s8__media--diagonal .s8__media-diagonal-photo {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    pointer-events: none;
+}
+
 /* --- dark-blurred (Cards G/J): dark bg + blurred photo + white mix-blend
        title centred over it. */
 .section8__phase8 .s8__media--blurred {
@@ -4573,6 +4609,11 @@ a:has(> .section1__h-opyt) {
     filter: blur(8px);
     transform: scale(1.05);
     pointer-events: none;
+}
+
+.section8__phase8 .s8__media--blurred .s8__media-blurred-photo--full {
+    filter: none;
+    transform: none;
 }
 
 .section8__phase8 .s8__media--blurred .s8__media-blurred-title {
@@ -12650,7 +12691,7 @@ a.fs-f11__cta-pdf:focus-visible,
     border-color: #2F2F2F;
 }
 
-/* Card A caption "Личный бренд фандрайзера" — 20px Medium per Figma.
+/* Card A caption — 20px Medium per Figma.
    Sits to the right of the inset photo, anchored to the bottom of the card.
    Compound selector outranks the later `.exp-card__sub { position: relative }`
    line in the shared "card content above the photo" rule (~line 11615). */
@@ -12692,6 +12733,21 @@ a.fs-f11__cta-pdf:focus-visible,
 
 .exp-card--xl .exp-card__photo {
     object-position: bottom;
+}
+
+.exp-card__video {
+    position: absolute;
+    inset: 0;
+    z-index: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    object-position: bottom;
+    pointer-events: none;
+}
+
+.exp-card__xl-poster {
+    display: block;
 }
 
 .exp-card__photo--inset {
@@ -13485,6 +13541,11 @@ a.fs-f11__cta-pdf:focus-visible,
         aspect-ratio: 820 / 1166;
     }
 
+    .exp-card--xl .exp-card__video {
+        object-fit: cover;
+        object-position: bottom;
+    }
+
     /* Photo positioning inside media — desktop uses px tuned for 400×400.
        Convert to % so the inner image scales with the card width. */
     .exp-card--photo .exp-card__media .exp-card__photo {
@@ -13500,12 +13561,29 @@ a.fs-f11__cta-pdf:focus-visible,
         height: auto;
     }
 
-    .exp-card--photo-only-547 .exp-card__media .exp-card__photo--duotone,
-    .exp-card--photo-orange .exp-card__media .exp-card__photo--duotone {
+    .exp-card--photo-duotone-full .exp-card__media .exp-card__photo--single {
+        left: 0;
+        top: 0;
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+    }
+
+    .exp-card--photo-only-547 .exp-card__media .exp-card__photo--duotone {
         left: 12.75%;
         top: 3.75%;
         width: 87.25%;
         height: 96.25%;
+    }
+
+    .exp-card--photo-only-547.exp-card--photo-full .exp-card__media .exp-card__photo--duotone,
+    .exp-card--photo-orange .exp-card__media .exp-card__photo--duotone {
+        left: 0;
+        top: 0;
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        mix-blend-mode: normal;
     }
 
     .exp-tag {
@@ -13705,6 +13783,17 @@ a.fs-f11__cta-pdf:focus-visible,
     pointer-events: none;
 }
 
+.exp-card--photo-duotone-full .exp-card__media .exp-card__photo--single {
+    position: absolute;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    object-position: center;
+    z-index: 0;
+}
+
 /* Cards C, I, M (Figma 286:3214 / 286:3160 / 286:3225):
    light gray #f2f2f2 media bg + only image 547 (purple face) — no base 546.
    Figma coords: left:51 top:15 w:349 h:385 inside 400×400 media. */
@@ -13726,21 +13815,33 @@ a.fs-f11__cta-pdf:focus-visible,
     opacity: 1;
 }
 
-/* Card H (Figma 286:3145): orange media bg + image 547 (purple face)
-   with mix-blend-darken creates an orange-toned duotone figure */
+.exp-card--photo-only-547.exp-card--photo-full .exp-card__media {
+    background: transparent;
+}
+
+.exp-card--photo-only-547.exp-card--photo-full .exp-card__media .exp-card__photo--duotone {
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    object-position: center;
+}
+
+/* Card H (Figma 286:3145): full-bleed photo, no orange duotone overlay */
 .exp-card--photo-orange .exp-card__media {
-    background: #FF8A50;
+    background: transparent;
 }
 
 .exp-card--photo-orange .exp-card__media .exp-card__photo--duotone {
-    left: 51px;
-    top: 15px;
-    width: 349px;
-    height: 385px;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
     transform: none;
-    object-fit: contain;
-    object-position: bottom right;
-    mix-blend-mode: darken;
+    object-fit: cover;
+    object-position: center;
+    mix-blend-mode: normal;
     opacity: 1;
 }
 
@@ -13905,6 +14006,16 @@ a.fs-f11__cta-pdf:focus-visible,
     pointer-events: none;
 }
 
+.exp-card__diagonal-photo {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    z-index: 0;
+    pointer-events: none;
+}
+
 .exp-card--dark .exp-card__tags,
 .exp-card--dark .exp-card__title,
 .exp-card--dark .exp-card__sub,
@@ -13936,6 +14047,10 @@ a.fs-f11__cta-pdf:focus-visible,
     object-fit: cover;
     filter: blur(13.32px);
     pointer-events: none;
+}
+
+.exp-card__photo--blurred.exp-card__photo--full {
+    filter: none;
 }
 
 .exp-card__media-title {

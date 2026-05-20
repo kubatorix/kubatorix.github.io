@@ -6,6 +6,13 @@
     var grid = document.querySelector('.exp-grid');
     if (!grid) return;
 
+    var mobileQuery = window.matchMedia('(max-width: 770px)');
+    var cachedCards = null;
+
+    function isExpMobile() {
+        return mobileQuery.matches;
+    }
+
     function linkAttrs(c) {
         if (!c.href) return '';
         return ' data-href="' + c.href + '" onclick="window.location.href=this.getAttribute(\'data-href\')"';
@@ -14,33 +21,39 @@
     /* Per-variant template registry. Each template returns an HTML string. */
     var TEMPLATES = {
         bordered: function (c) {
+            function br(s) { return (s || '').replace(/\n/g, '<br>'); }
             return ''
                 + '<article class="exp-card exp-card--bordered" data-kind="' + c.kind + '"' + linkAttrs(c) + '>'
                 + tagsHtml(c.tags)
-                + '<h3 class="exp-card__title">' + c.title + '</h3>'
+                + '<h3 class="exp-card__title">' + br(c.title) + '</h3>'
                 + (c.insetPhoto
                     ? '<img src="' + c.insetPhoto + '" class="exp-card__photo--inset" alt="" aria-hidden="true" />'
                     : '')
                 + (c.caption
-                    ? '<p class="exp-card__sub exp-card__sub--inset">' + c.caption + '</p>'
+                    ? '<p class="exp-card__sub exp-card__sub--inset">' + br(c.caption) + '</p>'
                     : '')
                 + '</article>';
         },
 
         duotone: function (c) {
+            var fullClass = c.photoLayout === 'full' ? ' exp-card--photo-duotone-full' : '';
+            var mediaHtml = c.photoLayout === 'full'
+                ? '<img src="' + c.photo + '" class="exp-card__photo exp-card__photo--single" alt="" aria-hidden="true" />'
+                : '<img src="' + c.photo + '" class="exp-card__photo" alt="" aria-hidden="true" />'
+                    + '<img src="' + c.photoOverlay + '" class="exp-card__photo--duotone" alt="" aria-hidden="true" />';
             return ''
-                + '<article class="exp-card exp-card--photo" data-kind="' + c.kind + '"' + linkAttrs(c) + '>'
+                + '<article class="exp-card exp-card--photo' + fullClass + '" data-kind="' + c.kind + '"' + linkAttrs(c) + '>'
                 + '<div class="exp-card__media">'
-                +   '<img src="' + c.photo + '" class="exp-card__photo" alt="" aria-hidden="true" />'
-                +   '<img src="' + c.photoOverlay + '" class="exp-card__photo--duotone" alt="" aria-hidden="true" />'
+                +   mediaHtml
                 + '</div>'
                 + overlayHtml(c)
                 + '</article>';
         },
 
         'photo-only-547': function (c) {
+            var fullClass = c.photoLayout === 'full' ? ' exp-card--photo-full' : '';
             return ''
-                + '<article class="exp-card exp-card--photo exp-card--photo-only-547" data-kind="' + c.kind + '"' + linkAttrs(c) + '>'
+                + '<article class="exp-card exp-card--photo exp-card--photo-only-547' + fullClass + '" data-kind="' + c.kind + '"' + linkAttrs(c) + '>'
                 + '<div class="exp-card__media">'
                 +   '<img src="' + c.photo + '" class="exp-card__photo--duotone" alt="" aria-hidden="true" />'
                 + '</div>'
@@ -59,39 +72,58 @@
         },
 
         xl: function (c) {
+            if (isExpMobile()) {
+                var poster = c.videoPoster || c.photo || './img/figma/exp_card_b_image546.png';
+                return ''
+                    + '<article class="exp-card exp-card--xl exp-card--xl-static" data-kind="' + c.kind + '">'
+                    +   '<img src="' + poster + '" class="exp-card__video exp-card__xl-poster" alt="" aria-hidden="true" loading="lazy" decoding="async" />'
+                    + '</article>';
+            }
+            var videoSrc = c.video || './video/fandraizer_web.mp4';
             return ''
                 + '<article class="exp-card exp-card--xl" data-kind="' + c.kind + '">'
-                +   '<img src="' + c.photo + '" class="exp-card__photo" alt="" aria-hidden="true" />'
-                +   '<img src="' + c.photoOverlay + '" class="exp-card__photo exp-card__photo--duotone" alt="" aria-hidden="true" />'
+                // + '<img src="' + (c.photo || './img/figma/exp_card_b_image546.png') + '" class="exp-card__photo" alt="" aria-hidden="true" />'
+                // + '<img src="' + (c.photoOverlay || './img/figma/exp_card_b_image547.png') + '" class="exp-card__photo exp-card__photo--duotone" alt="" aria-hidden="true" />'
+                +   '<video class="exp-card__video" src="' + videoSrc + '" autoplay loop muted defaultMuted playsinline disablePictureInPicture controlsList="nodownload nofullscreen noremoteplayback" aria-hidden="true"></video>'
                 + '</article>';
         },
 
         'dark-diagonal': function (c) {
+            var media = c.mediaPhoto
+                ? '<img src="' + c.mediaPhoto + '" class="exp-card__diagonal-photo" alt="" aria-hidden="true" />'
+                : diagonalSvg();
             return ''
                 + '<article class="exp-card exp-card--dark" data-kind="' + c.kind + '"' + linkAttrs(c) + '>'
                 + '<div class="exp-card__media">'
-                +   diagonalSvg()
+                +   media
                 + '</div>'
                 + overlayHtml(c)
                 + '</article>';
         },
 
         'dark-polygons': function (c) {
+            var polygonsSrc = c.mediaPhoto || './img/figma/exp_card_polygons.svg';
             return ''
                 + '<article class="exp-card exp-card--polygons" data-kind="' + c.kind + '"' + linkAttrs(c) + '>'
                 + '<div class="exp-card__media">'
-                +   '<img src="./img/figma/exp_card_polygons.svg" class="exp-card__polygons" alt="" aria-hidden="true" />'
+                +   '<img src="' + polygonsSrc + '" class="exp-card__polygons" alt="" aria-hidden="true" />'
                 + '</div>'
                 + overlayHtml(c)
                 + '</article>';
         },
 
         'dark-blurred': function (c) {
+            var full = c.photoLayout === 'full';
+            var fullClass = full ? ' exp-card--blurred-full' : '';
+            var photoClass = 'exp-card__photo--blurred' + (full ? ' exp-card__photo--full' : '');
+            var titleHtml = (!full && c.mediaTitle)
+                ? '<h3 class="exp-card__media-title">' + c.mediaTitle + '</h3>'
+                : '';
             return ''
-                + '<article class="exp-card exp-card--blurred" data-kind="' + c.kind + '"' + linkAttrs(c) + '>'
+                + '<article class="exp-card exp-card--blurred' + fullClass + '" data-kind="' + c.kind + '"' + linkAttrs(c) + '>'
                 + '<div class="exp-card__media">'
-                +   '<img src="' + c.mediaPhoto + '" class="exp-card__photo--blurred" alt="" aria-hidden="true" />'
-                +   '<h3 class="exp-card__media-title">' + (c.mediaTitle || '') + '</h3>'
+                +   '<img src="' + c.mediaPhoto + '" class="' + photoClass + '" alt="" aria-hidden="true" />'
+                +   titleHtml
                 + '</div>'
                 + overlayHtml(c)
                 + '</article>';
@@ -135,11 +167,22 @@
             + '</svg>';
     }
 
+    function muteCardVideos(root) {
+        (root || document).querySelectorAll('.exp-card__video').forEach(function (v) {
+            v.muted = true;
+            v.defaultMuted = true;
+            v.volume = 0;
+            v.removeAttribute('controls');
+        });
+    }
+
     function render(cards) {
+        cachedCards = cards;
         grid.innerHTML = cards.map(function (c) {
             var tpl = TEMPLATES[c.variant];
             return tpl ? tpl(c) : '';
         }).join('');
+        muteCardVideos(grid);
         initToggle();
     }
 
@@ -150,7 +193,6 @@
 
         var loadMoreBtn = document.querySelector('.exp-loadmore');
         var loadMoreLabel = loadMoreBtn && loadMoreBtn.querySelector('.exp-loadmore__label');
-        var mobileQuery = window.matchMedia('(max-width: 770px)');
         var collapseLimit = 3;
         var isCollapsed = true;
         var currentState = 'all';
@@ -224,6 +266,10 @@
 
         setState('all');
     }
+
+    mobileQuery.addEventListener('change', function () {
+        if (cachedCards) render(cachedCards);
+    });
 
     fetch('./data/exp-cards.json')
         .then(function (r) { return r.json(); })

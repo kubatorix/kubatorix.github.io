@@ -9,9 +9,9 @@
       { "label": "О карьере" },
       { "label": "Текст", "type": "ghost" }
     ],
-    "title": "Как не\n поссориться\nс руководителем\nи как сделать сотрудников амбассадорами\nНКО",
-    "insetPhoto": "./img/figma/exp_R6VB0502.png",
-    "caption": "Личный бренд фандрайзера"
+    "title": "Личный бренд фандрайзера",
+    "insetPhoto": "./img/figma/exp_card_a_brand.png",
+    "caption": "Как стать амбассадором НКО и не поссориться\nс руководителем"
   },
   {
     "id": "B",
@@ -25,8 +25,8 @@
     ],
     "title": "Из коммерческого PR — в фандрайзинг — и в корпорацию",
     "caption": "История\nАлександры Мавренковой",
-    "photo": "./img/figma/exp_card_b_image546.png",
-    "photoOverlay": "./img/figma/exp_card_b_image547.png"
+    "photo": "./img/figma/exp_card_b_mavrenkova.png",
+    "photoLayout": "full"
   },
   {
     "id": "C",
@@ -40,13 +40,16 @@
     ],
     "title": "Как фандрайзеру говорить о деньгах: в том числе и о своей зарплате",
     "caption": "Советует бизнес-тренер и специалист по продажам",
-    "photo": "./img/figma/exp_purple_face_547.png"
+    "photo": "./img/figma/exp_card_c_money.png",
+    "photoLayout": "full"
   },
   {
     "id": "D",
     "variant": "xl",
     "kind": "text",
     "figma": "286:3253",
+    "video": "./video/fandraizer_web.mp4",
+    "videoPoster": "./img/figma/exp_card_b_mavrenkova.png",
     "photo": "./img/figma/exp_card_b_image546.png",
     "photoOverlay": "./img/figma/exp_card_b_image547.png"
   },
@@ -61,7 +64,8 @@
       { "label": "26 мая", "type": "lime" }
     ],
     "title": "Деньги, доноры, базы, встречи и счастье партнёров",
-    "caption": "Какие показатели эффективности для фандрайзеров использовать в работе?"
+    "caption": "Какие показатели эффективности для фандрайзеров использовать в работе?",
+    "mediaPhoto": "./img/figma/exp_card_e_money.png"
   },
   {
     "id": "F",
@@ -74,7 +78,8 @@
       { "label": "Текст", "type": "ghost" }
     ],
     "title": "Как поставить KPI фандрайзеру: 4 совета, которые уже работают",
-    "caption": "Отвечают руководители из «Ночлежки», «Ники», «Дедморозим» и «Дорогою добра»"
+    "caption": "Отвечают руководители из «Ночлежки», «Ники», «Дедморозим» и «Дорогою добра»",
+    "mediaPhoto": "./img/figma/exp_card_f_kpi.png"
   },
   {
     "id": "G",
@@ -82,8 +87,8 @@
     "kind": "event",
     "figma": "286:3766",
     "href": "https://sredasvoih.ru/program/event-203?utm_source=site&utm_medium=spec&utm_campaign=landing_pade_28/05/26",
-    "mediaTitle": "Фандрайзеры очарованные и разочарованные",
-    "mediaPhoto": "./img/figma/exp_image546_real.png",
+    "mediaPhoto": "./img/figma/exp_card_g_enchanted.png",
+    "photoLayout": "full",
     "tags": [
       { "label": "Закрытая встреча" },
       { "label": "28 мая", "type": "lime" }
@@ -103,7 +108,7 @@
     ],
     "title": "Из проджекта и SMM в бизнесе — в фандрайзинг",
     "caption": "История Анастасии Саманлыоглу",
-    "photo": "./img/figma/exp_purple_face_547.png"
+    "photo": "./img/figma/exp_card_h_samanlioglu.png"
   },
   {
     "id": "I",
@@ -117,15 +122,16 @@
     ],
     "title": "Из фандрайзинга — в предприниматели",
     "caption": "История Сергея Юхина",
-    "photo": "./img/figma/exp_purple_face_547.png"
+    "photo": "./img/figma/exp_card_i_yukhin.png",
+    "photoLayout": "full"
   },
   {
     "id": "J",
     "variant": "dark-blurred",
     "kind": "text",
     "figma": "286:3170",
-    "mediaTitle": "Фандрайзеры очарованные и разочарованные",
-    "mediaPhoto": "./img/figma/exp_image546_real.png",
+    "mediaPhoto": "./img/figma/exp_card_j_hiring.png",
+    "photoLayout": "full",
     "tags": [
       { "label": "О поиске сотрудников" },
       { "label": "Текст", "type": "ghost" }
@@ -172,6 +178,7 @@
     ],
     "title": "Как найти себя в фандрайзинге",
     "caption": "Экс-предприниматель, экс-бренд-менеджер и основатель фандрайзингового бюро о профессии",
-    "photo": "./img/figma/exp_purple_face_547.png"
+    "photo": "./img/figma/exp_card_m_fundraising.png",
+    "photoLayout": "full"
   }
 ]
