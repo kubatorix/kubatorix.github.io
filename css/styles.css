@@ -2382,7 +2382,7 @@ a:has(> .section1__h-opyt) {
         overflow: visible;
     }
 
-    .section2 .section2__canvas > .controls {
+    .section2 .section2__canvas>.controls {
         position: absolute;
         top: auto;
         bottom: 115px;
@@ -2608,8 +2608,9 @@ a:has(> .section1__h-opyt) {
    ==========================================================================
    Static grid + 3 PNG states; heading 25px; stage breaks out of container.  */
 @media (max-width: 770px) {
+
     /* Break out of .container 16px padding — stage + slider full viewport width */
-    .container-wrapper:nth-of-type(2) > .container {
+    .container-wrapper:nth-of-type(2)>.container {
         overflow-x: visible;
     }
 
@@ -4097,6 +4098,7 @@ a:has(> .section1__h-opyt) {
        wrap below so the 1.7x-scaled ring's overflow stays visible across the
        section 6 → section 8 boundary on desktop too. */
     z-index: 2;
+    cursor: pointer;
 }
 
 .section6__phase7 .section6__rings {
@@ -9189,8 +9191,7 @@ footer .footer-btn:focus-visible {
         width: calc((100% - 8px) * (1 - var(--ci)) + 220px * var(--ci));
         height: calc(122px * (1 - var(--ci)) + 220px * var(--ci));
         border: 1px solid var(--color-orange);
-        transform: translate(-50%, calc(-50% - 41px * (1 - var(--c))))
-            scale(calc(1 + 0.06 * var(--e)));
+        transform: translate(-50%, calc(-50% - 41px * (1 - var(--c)))) scale(calc(1 + 0.06 * var(--e)));
     }
 
     /* purple — inner concentric circle; starts below centre, converges up. */
@@ -9198,8 +9199,7 @@ footer .footer-btn:focus-visible {
         width: calc((100% - 8px) * (1 - var(--ci)) + 180px * var(--ci));
         height: calc(122px * (1 - var(--ci)) + 180px * var(--ci));
         border: 1px solid var(--color-purple);
-        transform: translate(-50%, calc(-50% + 41px * (1 - var(--c))))
-            scale(calc(1 + 0.06 * var(--e)));
+        transform: translate(-50%, calc(-50% + 41px * (1 - var(--c)))) scale(calc(1 + 0.06 * var(--e)));
     }
 
     .fs-f6__eq-word {
@@ -9586,7 +9586,8 @@ footer .footer-btn:focus-visible {
         content: "";
         display: block;
         width: 100%;
-        height: calc(var(--fs-f7-field) * 0.96 + 98px);
+        /* taller: the purple group now sits lower in the cluster */
+        height: calc(var(--fs-f7-field) * 1.15 + 98px);
     }
 
     /* Polygons — absolutely positioned; ditch the desktop scroll-driven
@@ -9598,22 +9599,37 @@ footer .footer-btn:focus-visible {
         z-index: 1;
     }
 
-    /* Orange polygon — small narrow triangle (174×112 ≈ 1.55:1). Sits
-       upper-left of the cluster, just below the orange "46,7%" number.   */
+    /* Orange polygon — the SVG points LEFT. On scroll it rotates from apex-left
+       (progress 0) to apex-up (progress 1, 90° CW), pivoting around its SHARP
+       VERTEX (the apex, SVG point ≈ 0% 69%) — i.e. the corner that sits right
+       under the "46,7%" number. The apex stays anchored there while the body
+       swings down into place.                                              */
     .fs-f7__poly--orange {
-        left: calc(24px + var(--fs-f7-field) * 0.02);
-        top: calc(110px + var(--fs-f7-field) * 0.30);
+        /* Positioned so the apex (transform-origin, box-left @69%) sits right
+           under the centre of the "46,7%" number. The apex is the fixed pivot,
+           so it stays there through the whole rotation. */
+        left: calc(24px + var(--fs-f7-field) * 0.20);
+        top: calc(110px + var(--fs-f7-field) * 0.15);
         width: calc(var(--fs-f7-field) * 0.34);
         height: auto;
+        transform-origin: 0% 69%;
+        /* Ends at 0° (the resting position shown) when progress = 1; spins in
+           from -180° as the section scrolls toward the screen centre. */
+        transform: rotate(calc(180deg * (1 - var(--fs-f7-progress, 0))));
+        transition: transform 0.25s ease-out;
     }
 
-    /* Purple polygon — large triangle (450×286 ≈ 1.57:1). Pointed apex
-       upper-left, broad base extending down to the right.                */
+    /* Purple polygon — large triangle, lower-right of the cluster. On scroll it
+       swings into its resting position (settling at 0° by progress 1), pivoting
+       from its TOP vertex (SVG point (143,0.6) of 450×286 ≈ 32% 0%).        */
     .fs-f7__poly--purple {
-        left: calc(24px + var(--fs-f7-field) * 0.32);
-        top: calc(110px + var(--fs-f7-field) * 0.20);
+        left: calc(24px + var(--fs-f7-field) * 0.44);
+        top: calc(110px + var(--fs-f7-field) * 0.40);
         width: calc(var(--fs-f7-field) * 0.66);
         height: auto;
+        transform-origin: 32% 0%;
+        transform: rotate(calc(-45deg * (1 - var(--fs-f7-progress, 0))));
+        transition: transform 0.25s ease-out;
     }
 
     /* Mega percentages — sit at the APEX of their polygons (upper-left). */
@@ -9638,8 +9654,8 @@ footer .footer-btn:focus-visible {
     }
 
     .fs-f7__num--purple {
-        left: calc(24px + var(--fs-f7-field) * 0.34);
-        top: calc(110px + var(--fs-f7-field) * 0.06);
+        left: calc(24px + var(--fs-f7-field) * 0.48);
+        top: calc(110px + var(--fs-f7-field) * 0.30);
         width: auto;
         color: var(--color-purple);
     }
@@ -9659,7 +9675,8 @@ footer .footer-btn:focus-visible {
 
     .fs-f7__cap--orange {
         left: 24px;
-        top: calc(110px + var(--fs-f7-field) * 0.55);
+        /* extra 32px gap above the caption */
+        top: calc(110px + var(--fs-f7-field) * 0.55 + 32px);
         width: calc(var(--fs-f7-field) * 0.42);
         color: var(--color-orange);
     }
@@ -13029,6 +13046,7 @@ a.fs-f11__cta-pdf:focus-visible,
 }
 
 @media (min-width: 771px) {
+
     .exp-backstage footer .footer-btn:hover,
     .exp-backstage footer .footer-btn:active,
     .exp-backstage footer .footer-btn:focus-visible {
@@ -14918,6 +14936,7 @@ a.fs-f11__cta-pdf:focus-visible,
 }
 
 @keyframes art-labels-state-1 {
+
     0%,
     42% {
         opacity: 1;
@@ -14934,6 +14953,7 @@ a.fs-f11__cta-pdf:focus-visible,
 }
 
 @keyframes art-labels-state-2 {
+
     0%,
     42% {
         opacity: 0;
@@ -14950,6 +14970,7 @@ a.fs-f11__cta-pdf:focus-visible,
 }
 
 @media (prefers-reduced-motion: reduce) {
+
     .art-labels__frame--1,
     .art-labels__frame--2 {
         animation: none;
@@ -15099,7 +15120,7 @@ a.fs-f11__cta-pdf:focus-visible,
     text-indent: 25px;
 }
 
-.art-block--purple .art-block__body p + p {
+.art-block--purple .art-block__body p+p {
     margin-top: 1.3em;
 }
 
@@ -15145,7 +15166,7 @@ a.fs-f11__cta-pdf:focus-visible,
     color: #2F2F2F;
 }
 
-.art-block--orange .art-block__intro p + p {
+.art-block--orange .art-block__intro p+p {
     margin-top: 1.3em;
 }
 
@@ -16044,7 +16065,7 @@ a.fs-f11__cta-pdf:focus-visible,
     margin: 0 auto 66px;
 }
 
-.art-page--2 .art2-tip + .art2-tip {
+.art-page--2 .art2-tip+.art2-tip {
     margin-top: 114px;
 }
 
@@ -16240,7 +16261,7 @@ a.fs-f11__cta-pdf:focus-visible,
     text-indent: 0;
 }
 
-.art-page--2 .art2-tip__list li + li {
+.art-page--2 .art2-tip__list li+li {
     margin-top: 26px;
 }
 
@@ -16369,7 +16390,7 @@ a.fs-f11__cta-pdf:focus-visible,
         padding: 0 39px;
     }
 
-    .art-page--2 .art2-tip + .art2-tip {
+    .art-page--2 .art2-tip+.art2-tip {
         margin-top: 90px;
     }
 
@@ -16471,7 +16492,7 @@ a.fs-f11__cta-pdf:focus-visible,
         padding: 0 39px;
     }
 
-    .art-page--2 .art2-kpi-graphic + .art2-tip {
+    .art-page--2 .art2-kpi-graphic+.art2-tip {
         margin-top: 0;
     }
 
@@ -16656,12 +16677,10 @@ a.fs-f11__cta-pdf:focus-visible,
     width: 100%;
     padding-top: 0;
     padding-bottom: 0;
-    background: linear-gradient(
-        180deg,
-        #FF8C32 9.6%,
-        rgba(228, 229, 239, 0) 95.95%
-    ),
-    #E4E5EF;
+    background: linear-gradient(180deg,
+            #FF8C32 9.6%,
+            rgba(228, 229, 239, 0) 95.95%),
+        #E4E5EF;
 }
 
 .art-page--3 .art3-hero__title {
@@ -16756,7 +16775,7 @@ a.fs-f11__cta-pdf:focus-visible,
     color: #2F2F2F;
 }
 
-.art-page--3 .art3-hero__intro-text + .art3-hero__intro-text {
+.art-page--3 .art3-hero__intro-text+.art3-hero__intro-text {
     margin-top: 1.3em;
 }
 
@@ -16781,11 +16800,11 @@ a.fs-f11__cta-pdf:focus-visible,
     margin: 0 auto;
 }
 
-.art-page--3 .art3-tip + .art3-tip {
+.art-page--3 .art3-tip+.art3-tip {
     margin-top: 100px;
 }
 
-.art-page--3 .art3-tip--4 + .art3-tip {
+.art-page--3 .art3-tip--4+.art3-tip {
     margin-top: 90px;
 }
 
@@ -16861,19 +16880,19 @@ a.fs-f11__cta-pdf:focus-visible,
 }
 
 @media (min-width: 771px) {
-    .art-page--3 .art3-tips > .art3-pullquote .art3-pullquote__line {
+    .art-page--3 .art3-tips>.art3-pullquote .art3-pullquote__line {
         display: block;
     }
 
-    .art-page--3 .art3-tips > .art3-pullquote .art3-pullquote__line:first-child {
+    .art-page--3 .art3-tips>.art3-pullquote .art3-pullquote__line:first-child {
         text-indent: 25px;
     }
 
-    .art-page--3 .art3-tips > .art3-pullquote .art3-pullquote__line:first-child::before {
+    .art-page--3 .art3-tips>.art3-pullquote .art3-pullquote__line:first-child::before {
         content: '\00AB';
     }
 
-    .art-page--3 .art3-tips > .art3-pullquote .art3-pullquote__line:last-child::after {
+    .art-page--3 .art3-tips>.art3-pullquote .art3-pullquote__line:last-child::after {
         content: '\00BB';
     }
 }
@@ -16934,7 +16953,7 @@ a.fs-f11__cta-pdf:focus-visible,
     gap: 0;
 }
 
-.art-page--3 .art3-tip__chunk > p {
+.art-page--3 .art3-tip__chunk>p {
     margin: 0;
 }
 
@@ -17055,7 +17074,7 @@ a.fs-f11__cta-pdf:focus-visible,
         color: #2F2F2F;
     }
 
-    .art-page--3 .art3-hero__intro-text + .art3-hero__intro-text {
+    .art-page--3 .art3-hero__intro-text+.art3-hero__intro-text {
         margin-top: 0;
         padding-top: 1.3em;
     }
@@ -17134,7 +17153,7 @@ a.fs-f11__cta-pdf:focus-visible,
         gap: 0;
     }
 
-    .art-page--3 .art3-tip--1 .art3-tip__body p + p {
+    .art-page--3 .art3-tip--1 .art3-tip__body p+p {
         margin-top: 0;
         padding-top: 1.3em;
     }
@@ -17175,7 +17194,7 @@ a.fs-f11__cta-pdf:focus-visible,
         margin-top: 7px;
     }
 
-    .art-page--3 .art3-tip--2 .art3-tip__body p + p {
+    .art-page--3 .art3-tip--2 .art3-tip__body p+p {
         margin-top: 0;
         padding-top: 1.3em;
     }
@@ -17203,7 +17222,7 @@ a.fs-f11__cta-pdf:focus-visible,
         text-indent: 0;
     }
 
-    .art-page--3 .art3-tips > .art3-pullquote {
+    .art-page--3 .art3-tips>.art3-pullquote {
         display: none;
     }
 
@@ -17232,7 +17251,7 @@ a.fs-f11__cta-pdf:focus-visible,
         content: none;
     }
 
-    .art-page--3 .art3-pullquote--mobile .art3-pullquote__line + .art3-pullquote__line::before {
+    .art-page--3 .art3-pullquote--mobile .art3-pullquote__line+.art3-pullquote__line::before {
         content: '\00a0';
     }
 
@@ -17240,7 +17259,7 @@ a.fs-f11__cta-pdf:focus-visible,
         text-indent: 0;
     }
 
-    .art-page--3 .art3-tip--2 + .art3-tip--3 {
+    .art-page--3 .art3-tip--2+.art3-tip--3 {
         margin-top: 45px;
     }
 
@@ -17270,19 +17289,19 @@ a.fs-f11__cta-pdf:focus-visible,
         gap: 0;
     }
 
-    .art-page--3 .art3-tip--3 .art3-tip__body > p,
-    .art-page--3 .art3-tip--3 .art3-tip__chunk > p {
+    .art-page--3 .art3-tip--3 .art3-tip__body>p,
+    .art-page--3 .art3-tip--3 .art3-tip__chunk>p {
         text-align: left;
         text-indent: 25px;
     }
 
-    .art-page--3 .art3-tip--3 .art3-tip__body > p + .art3-tip__chunk,
-    .art-page--3 .art3-tip--3 .art3-tip__chunk + p {
+    .art-page--3 .art3-tip--3 .art3-tip__body>p+.art3-tip__chunk,
+    .art-page--3 .art3-tip--3 .art3-tip__chunk+p {
         margin-top: 0;
         padding-top: 1.3em;
     }
 
-    .art-page--3 .art3-tip--3 .art3-tip__chunk > p + .art3-tip__list {
+    .art-page--3 .art3-tip--3 .art3-tip__chunk>p+.art3-tip__list {
         margin-top: 0;
         padding-left: 10px;
     }
@@ -17292,7 +17311,7 @@ a.fs-f11__cta-pdf:focus-visible,
         text-align: left;
     }
 
-    .art-page--3 .art3-tip--3 + .art3-tip--4,
+    .art-page--3 .art3-tip--3+.art3-tip--4,
     .art-page--3 .art3-tip.art3-tip--4 {
         margin-top: 45px;
     }
@@ -17344,7 +17363,7 @@ a.fs-f11__cta-pdf:focus-visible,
         width: 100%;
     }
 
-    .art-page--3 .art3-tip--4 .art3-tip__body p + p {
+    .art-page--3 .art3-tip--4 .art3-tip__body p+p {
         margin-top: 0;
         padding-top: 1.3em;
     }
@@ -17372,7 +17391,7 @@ a.fs-f11__cta-pdf:focus-visible,
         gap: 0;
     }
 
-    .art-page--3 .art3-tip--5 .art3-tip__body p + p {
+    .art-page--3 .art3-tip--5 .art3-tip__body p+p {
         margin-top: 0;
         padding-top: 1.3em;
     }
@@ -17424,12 +17443,10 @@ a.fs-f11__cta-pdf:focus-visible,
     width: 100%;
     padding-top: 0;
     padding-bottom: 0;
-    background: linear-gradient(
-        180deg,
-        #C2F04F 20.71%,
-        rgba(228, 229, 239, 0) 100%
-    ),
-    #E4E5EF;
+    background: linear-gradient(180deg,
+            #C2F04F 20.71%,
+            rgba(228, 229, 239, 0) 100%),
+        #E4E5EF;
 }
 
 .art-page--4 .art4-hero__title {
@@ -17486,7 +17503,7 @@ a.fs-f11__cta-pdf:focus-visible,
     color: #2F2F2F;
 }
 
-.art-page--4 .art4-hero__lead p + p {
+.art-page--4 .art4-hero__lead p+p {
     margin-top: 1.3em;
 }
 
@@ -17568,7 +17585,7 @@ a.fs-f11__cta-pdf:focus-visible,
     margin: 0 auto;
 }
 
-.art-page--4 .art4-tip + .art4-tip {
+.art-page--4 .art4-tip+.art4-tip {
     margin-top: 81px;
 }
 
@@ -17576,19 +17593,19 @@ a.fs-f11__cta-pdf:focus-visible,
     margin-bottom: 0;
 }
 
-.art-page--4 .art4-tip--2 + .art4-tip {
+.art-page--4 .art4-tip--2+.art4-tip {
     margin-top: 118px;
 }
 
-.art-page--4 .art4-tip--3 + .art4-tip--4 {
+.art-page--4 .art4-tip--3+.art4-tip--4 {
     margin-top: 103px;
 }
 
-.art-page--4 .art4-tip--4 + .art4-tip--5 {
+.art-page--4 .art4-tip--4+.art4-tip--5 {
     margin-top: 95px;
 }
 
-.art-page--4 .art4-tip--5 + .art4-tip--6 {
+.art-page--4 .art4-tip--5+.art4-tip--6 {
     margin-top: 5px;
 }
 
@@ -17730,7 +17747,7 @@ a.fs-f11__cta-pdf:focus-visible,
     color: #2F2F2F;
 }
 
-.art-page--4 .art4-tip__body p + p {
+.art-page--4 .art4-tip__body p+p {
     margin-top: 1.3em;
 }
 
@@ -17757,7 +17774,7 @@ a.fs-f11__cta-pdf:focus-visible,
     margin-top: 21px;
 }
 
-.art-page--4 .art4-tip--3 .art4-tip__body > p:first-child {
+.art-page--4 .art4-tip--3 .art4-tip__body>p:first-child {
     margin-bottom: 44px;
 }
 
@@ -17885,7 +17902,7 @@ a.fs-f11__cta-pdf:focus-visible,
     width: 295px;
 }
 
-.art-page--4 .art4-tip--5 .art4-tip__logic-item + .art4-tip__logic-item {
+.art-page--4 .art4-tip--5 .art4-tip__logic-item+.art4-tip__logic-item {
     margin-top: 1.3em;
 }
 
@@ -17932,11 +17949,9 @@ a.fs-f11__cta-pdf:focus-visible,
     height: 685px;
     margin: 0 auto;
     padding: 86px 0 0;
-    background: linear-gradient(
-        180deg,
-        #C2F04F 20.71%,
-        rgba(228, 229, 239, 0) 100%
-    );
+    background: linear-gradient(180deg,
+            #C2F04F 20.71%,
+            rgba(228, 229, 239, 0) 100%);
 }
 
 .art-page--4 .art4-managers-head {
@@ -17985,7 +18000,7 @@ a.fs-f11__cta-pdf:focus-visible,
     color: #2F2F2F;
 }
 
-.art-page--4 .art4-managers-intro p + p {
+.art-page--4 .art4-managers-intro p+p {
     margin-top: 1.3em;
 }
 
@@ -18004,11 +18019,11 @@ a.fs-f11__cta-pdf:focus-visible,
 }
 
 @media (max-width: 770px) {
-    body.art-page--4 > header {
+    body.art-page--4>header {
         display: none;
     }
 
-    body.art-page--4 > .header-burger__icon {
+    body.art-page--4>.header-burger__icon {
         display: flex;
         align-items: center;
         justify-content: center;
@@ -18025,20 +18040,18 @@ a.fs-f11__cta-pdf:focus-visible,
         z-index: 400;
     }
 
-    body.art-page--4 > .header-burger__icon svg path {
+    body.art-page--4>.header-burger__icon svg path {
         fill: #2F2F2F;
     }
 
     .art-page--4 .art-hero.art4-hero {
         padding-top: 0;
         padding-bottom: 0;
-        background: linear-gradient(
-            180deg,
-            #C2F04F 0%,
-            #C2F04F 14%,
-            rgba(228, 229, 239, 0) 38%
-        ),
-        #E4E5EF;
+        background: linear-gradient(180deg,
+                #C2F04F 0%,
+                #C2F04F 14%,
+                rgba(228, 229, 239, 0) 38%),
+            #E4E5EF;
     }
 
     .art-page--4 .art4-hero .art__content {
@@ -18140,7 +18153,7 @@ a.fs-f11__cta-pdf:focus-visible,
         color: #2F2F2F;
     }
 
-    .art-page--4 .art4-hero__lead p + p {
+    .art-page--4 .art4-hero__lead p+p {
         margin-top: 1.3em;
     }
 
@@ -18150,11 +18163,11 @@ a.fs-f11__cta-pdf:focus-visible,
         padding: 0;
     }
 
-    .art-page--4 .art4-tip + .art4-tip,
-    .art-page--4 .art4-tip--2 + .art4-tip,
-    .art-page--4 .art4-tip--3 + .art4-tip--4,
-    .art-page--4 .art4-tip--4 + .art4-tip--5,
-    .art-page--4 .art4-tip--5 + .art4-tip--6 {
+    .art-page--4 .art4-tip+.art4-tip,
+    .art-page--4 .art4-tip--2+.art4-tip,
+    .art-page--4 .art4-tip--3+.art4-tip--4,
+    .art-page--4 .art4-tip--4+.art4-tip--5,
+    .art-page--4 .art4-tip--5+.art4-tip--6 {
         margin-top: 68px;
     }
 
@@ -18174,7 +18187,7 @@ a.fs-f11__cta-pdf:focus-visible,
 
     .art-page--4 .art4-tip--1 .art4-tip__body p,
     .art-page--4 .art4-tip--2 .art4-tip__body p,
-    .art-page--4 .art4-tip--3 .art4-tip__body > p,
+    .art-page--4 .art4-tip--3 .art4-tip__body>p,
     .art-page--4 .art4-tip--3 .art4-tip__context,
     .art-page--4 .art4-tip--3 .art4-tip__avoid-note {
         font-family: 'Golos', 'Golos Text', sans-serif;
@@ -18186,12 +18199,12 @@ a.fs-f11__cta-pdf:focus-visible,
         color: #2F2F2F;
     }
 
-    .art-page--4 .art4-tip--1 .art4-tip__body p + p,
-    .art-page--4 .art4-tip--2 .art4-tip__body p + p {
+    .art-page--4 .art4-tip--1 .art4-tip__body p+p,
+    .art-page--4 .art4-tip--2 .art4-tip__body p+p {
         margin-top: 1.3em;
     }
 
-    .art-page--4 .art4-tip--3 .art4-tip__body > p:first-child {
+    .art-page--4 .art4-tip--3 .art4-tip__body>p:first-child {
         margin: 0 0 32px;
     }
 
@@ -18368,7 +18381,7 @@ a.fs-f11__cta-pdf:focus-visible,
         color: #2F2F2F;
     }
 
-    .art-page--4 .art4-tip__body p + p {
+    .art-page--4 .art4-tip__body p+p {
         margin-top: 1.3em;
     }
 
@@ -18422,11 +18435,9 @@ a.fs-f11__cta-pdf:focus-visible,
         min-height: 0;
         margin: 0 calc(50% - 50vw);
         padding: 16px 20px 48px;
-        background: linear-gradient(
-            180deg,
-            #C2F04F 20.71%,
-            rgba(228, 229, 239, 0) 100%
-        );
+        background: linear-gradient(180deg,
+                #C2F04F 20.71%,
+                rgba(228, 229, 239, 0) 100%);
     }
 
     .art-page--4 .art4-managers-head {
@@ -18479,7 +18490,7 @@ a.fs-f11__cta-pdf:focus-visible,
         color: #2F2F2F;
     }
 
-    .art-page--4 .art4-managers-intro p + p {
+    .art-page--4 .art4-managers-intro p+p {
         margin-top: 1.3em;
     }
 
@@ -18723,7 +18734,7 @@ a.fs-f11__cta-pdf:focus-visible,
     color: #2F2F2F;
 }
 
-.art-page--5 .art5-hero__lead p + p {
+.art-page--5 .art5-hero__lead p+p {
     margin-top: 1.3em;
 }
 
@@ -18908,7 +18919,7 @@ a.fs-f11__cta-pdf:focus-visible,
     color: #2F2F2F;
 }
 
-.art-page--5 .art5-body p + p {
+.art-page--5 .art5-body p+p {
     margin-top: 1.3em;
 }
 
@@ -19092,17 +19103,17 @@ a.fs-f11__cta-pdf:focus-visible,
 }
 
 @media (max-width: 770px) {
-    body.art-page--5 > header {
+    body.art-page--5>header {
         display: none;
     }
 
-    body.art-page--5 > .header-burger__icon {
+    body.art-page--5>.header-burger__icon {
         display: flex;
         align-items: center;
         justify-content: center;
     }
 
-    body.art-page--5 > .header-burger__icon svg path {
+    body.art-page--5>.header-burger__icon svg path {
         fill: #2F2F2F;
     }
 
@@ -19304,7 +19315,7 @@ a.fs-f11__cta-pdf:focus-visible,
         color: #2F2F2F;
     }
 
-    .art-page--5 .art5-story__p--gap + .art5-story__p--gap {
+    .art-page--5 .art5-story__p--gap+.art5-story__p--gap {
         order: 9;
         margin-top: 45px;
     }
@@ -19377,7 +19388,7 @@ a.fs-f11__cta-pdf:focus-visible,
         color: #2F2F2F;
     }
 
-    .art-page--5 .art5-body p + p {
+    .art-page--5 .art5-body p+p {
         margin-top: 1.3em;
     }
 
@@ -19685,7 +19696,7 @@ a.fs-f11__cta-pdf:focus-visible,
     color: #2F2F2F;
 }
 
-.art-page--6 .art6-hero__lead p + p {
+.art-page--6 .art6-hero__lead p+p {
     margin-top: 110px;
 }
 
@@ -19795,7 +19806,7 @@ a.fs-f11__cta-pdf:focus-visible,
     color: #2F2F2F;
 }
 
-.art-page--6 .art6-body p + p {
+.art-page--6 .art6-body p+p {
     margin-top: 1.3em;
 }
 
@@ -19886,7 +19897,7 @@ a.fs-f11__cta-pdf:focus-visible,
     color: #2F2F2F;
 }
 
-.art-page--6 .art6-body--insight p + p {
+.art-page--6 .art6-body--insight p+p {
     margin-top: 45px;
 }
 
@@ -20023,17 +20034,17 @@ a.fs-f11__cta-pdf:focus-visible,
 }
 
 @media (max-width: 770px) {
-    body.art-page--6 > header {
+    body.art-page--6>header {
         display: none;
     }
 
-    body.art-page--6 > .header-burger__icon {
+    body.art-page--6>.header-burger__icon {
         display: flex;
         align-items: center;
         justify-content: center;
     }
 
-    body.art-page--6 > .header-burger__icon svg path {
+    body.art-page--6>.header-burger__icon svg path {
         fill: #2F2F2F;
     }
 
@@ -20100,7 +20111,7 @@ a.fs-f11__cta-pdf:focus-visible,
         color: #2F2F2F;
     }
 
-    .art-page--6 .art6-hero__lead p + p {
+    .art-page--6 .art6-hero__lead p+p {
         margin-top: 110px;
     }
 
@@ -20185,7 +20196,7 @@ a.fs-f11__cta-pdf:focus-visible,
         border-top: 1.5px solid rgba(0, 0, 0, 1);
     }
 
-    .art-page--6 .art6-rule + .art6-body {
+    .art-page--6 .art6-rule+.art6-body {
         order: 7;
         width: 100%;
         max-width: none;
@@ -20203,11 +20214,11 @@ a.fs-f11__cta-pdf:focus-visible,
         color: #2F2F2F;
     }
 
-    .art-page--6 .art6-rule + .art6-body p {
+    .art-page--6 .art6-rule+.art6-body p {
         text-indent: 25px;
     }
 
-    .art-page--6 .art6-body p + p {
+    .art-page--6 .art6-body p+p {
         margin-top: 1.3em;
     }
 
@@ -20255,7 +20266,7 @@ a.fs-f11__cta-pdf:focus-visible,
         color: #2F2F2F;
     }
 
-    .art-page--6 .art6-body--after-figure p + p {
+    .art-page--6 .art6-body--after-figure p+p {
         margin-top: 1.3em;
     }
 
@@ -20278,7 +20289,7 @@ a.fs-f11__cta-pdf:focus-visible,
         color: #2F2F2F;
     }
 
-    .art-page--6 .art6-body--insight p + p {
+    .art-page--6 .art6-body--insight p+p {
         margin-top: 45px;
     }
 
@@ -20308,7 +20319,7 @@ a.fs-f11__cta-pdf:focus-visible,
         color: #2F2F2F;
     }
 
-    .art-page--6 .art6-body--continued p + p {
+    .art-page--6 .art6-body--continued p+p {
         margin-top: 1.3em;
     }
 
@@ -20403,7 +20414,7 @@ a.fs-f11__cta-pdf:focus-visible,
         color: #2F2F2F;
     }
 
-    .art-page--6 .art6-body--tips p + p {
+    .art-page--6 .art6-body--tips p+p {
         margin-top: 1.3em;
     }
 

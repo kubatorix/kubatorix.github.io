@@ -714,7 +714,11 @@
           aria-label="Section 6 — приглашение к исследованию"
         >
           <div class="section6__viewport">
-            <div class="section6__canvas">
+            <div
+              class="section6__canvas"
+              data-href="/fullstudy.html"
+              onclick="window.location.href=this.getAttribute('data-href')"
+            >
               <!-- Decorative orbital rings (12 ellipses, plus-lighter blending, soft halo blur) -->
               <img
                 src="./img/figma/section6_rings.svg"
@@ -727,7 +731,7 @@
                 Это лишь маленькая часть большого
                 <span class="section6__heading-underline">исследования</span>
               </h2>
-              <a href="fullstudy.html" class="section6__cta"
+              <a href="/fullstudy.html" class="section6__cta"
                 >Посмотреть полный текст</a
               >
               <span class="section6__divider" aria-hidden="true"></span>
