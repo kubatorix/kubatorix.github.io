@@ -332,51 +332,49 @@ body.article-7-page>.header-burger__icon svg path {
   top: 6127px;
 }
 
-/* === Big bottom portrait === */
+/* === Big bottom portrait — scroll crossfade natural → purple (js --photo2-progress). */
 .article-7-photo2 {
   position: absolute;
   left: 308px;
   top: 4595px;
   width: 820px;
-  height: 999px;
+  height: 999.294921875px;
   overflow: hidden;
   z-index: 2;
   background: #F4F4F4;
-  /* Scroll-driven 0→1; drives the violet backdrop + multiply tint below.
-     js/main.js sets this on scroll. */
   --photo2-progress: 0;
-  isolation: isolate;
-}
-
-/* Violet backdrop fades in (shows around subject if photo has alpha). */
-.article-7-photo2::before {
-  content: '';
-  position: absolute;
-  background: #aa6eff;
-  opacity: var(--photo2-progress);
-  pointer-events: none;
-  z-index: 0;
 }
 
 .article-7-photo2__img {
   position: absolute;
-  top: -91px;
-  width: 843px;
-  height: 1264px;
+  left: 0;
+  top: 0;
+  width: 820px;
+  height: 999.294921875px;
+  max-width: none;
   object-fit: cover;
+  object-position: center;
+  pointer-events: none;
+}
+
+.article-7-photo2__img--natural {
+  opacity: calc(1 - var(--photo2-progress));
   z-index: 1;
 }
 
-/* Multiplied purple tint over the photo. */
-.article-7-photo2::after {
-  content: '';
-  position: absolute;
-  inset: 0;
-  background: rgba(105, 0, 255, 0.5);
-  mix-blend-mode: multiply;
+.article-7-photo2__img--purple {
   opacity: var(--photo2-progress);
-  pointer-events: none;
   z-index: 2;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .article-7-photo2__img--natural {
+    opacity: 1;
+  }
+
+  .article-7-photo2__img--purple {
+    display: none;
+  }
 }
 
 /* === CTA (white_ellipse — mirrors .art-cta on articles 1–6) === */

@@ -1058,13 +1058,68 @@ header {
     transform: rotate(45deg);
 }
 
-/* --- Burger trigger: hidden on desktop, fixed top-left on mobile (≤650px,
-       matching main.css's `header { display: none }` breakpoint). Sits
-       outside <header> because main.css hides the entire header below
-       650px. common.js (.download) listens for clicks on
-       .header-burger__icon and opens the .burger-menu panel. --- */
+/* --- Burger trigger: hidden on desktop, fixed top-left when shown.
+       ≤650px: all mobile pages (main.css hides <header>).
+       ≤770px: art pages 4–6 (header hidden earlier there).
+       common.js listens for clicks and opens .burger-menu. --- */
 body>.header-burger__icon {
     display: none;
+}
+
+@media (max-width: 770px) {
+    body>.header-burger__icon {
+        position: fixed;
+        left: max(0px, env(safe-area-inset-left, 0px));
+        top: max(0px, env(safe-area-inset-top, 0px));
+        width: 44px;
+        height: 44px;
+        padding: 12px;
+        margin: 0;
+        box-sizing: border-box;
+        background: transparent;
+        border: 0;
+        cursor: pointer;
+        color: #FFFFFF;
+        pointer-events: auto;
+        touch-action: manipulation;
+        -webkit-tap-highlight-color: transparent;
+        z-index: 1100;
+        /* above page content; below open .burger-menu panel (500) */
+    }
+
+    body.art-page--4>.header-burger__icon,
+    body.art-page--5>.header-burger__icon,
+    body.art-page--6>.header-burger__icon {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+    }
+
+    body>.header-burger__icon svg {
+        display: block;
+        width: 20px;
+        height: 17px;
+        pointer-events: none;
+    }
+
+    /* Close (×) aligned to the same spot as the burger trigger (44×44 @ top-left). */
+    .burger-menu .burger-menu__close {
+        position: absolute;
+        top: 11px;
+        left: 11px;
+        width: 22px;
+        height: auto;
+        margin: 0;
+        z-index: 510;
+        pointer-events: auto;
+        cursor: pointer;
+    }
+
+    /* Trim the original 75px top padding so menu items don't sit too low
+       now that the close icon is absolutely positioned. */
+    .burger-menu {
+        padding-top: 60px;
+    }
 }
 
 @media (max-width: 650px) {
@@ -1072,46 +1127,6 @@ body>.header-burger__icon {
         display: flex;
         align-items: center;
         justify-content: center;
-        position: fixed;
-        left: 8px;
-        top: 12px;
-        width: 44px;
-        height: 44px;
-        padding: 12px;
-        margin: 0;
-        background: transparent;
-        border: 0;
-        cursor: pointer;
-        color: #FFFFFF;
-        z-index: 400;
-        /* above page, below .burger-menu (z 500) */
-    }
-
-    body>.header-burger__icon svg {
-        display: block;
-        width: 20px;
-        height: 17px;
-    }
-
-    /* Align the burger-menu close (×) with where the burger trigger sits when
-       closed — both icons end up at the same visual spot, so opening/closing
-       feels like one toggle in place. The burger button's SVG is centered at
-       viewport (30, 30); the 22×22 close img is positioned so its centre
-       lands on the same point. */
-    .burger-menu .burger-menu__close {
-        position: absolute;
-        top: 19px;
-        left: 19px;
-        width: 22px;
-        height: auto;
-        margin: 0;
-        z-index: 510;
-    }
-
-    /* Trim the original 75px top padding so menu items don't sit too low
-       now that the close icon is absolutely positioned. */
-    .burger-menu {
-        padding-top: 60px;
     }
 }
 
@@ -18223,23 +18238,6 @@ a.fs-f11__cta-pdf:focus-visible,
         display: none;
     }
 
-    body.art-page--4>.header-burger__icon {
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        position: fixed;
-        left: 8px;
-        top: 12px;
-        width: 44px;
-        height: 44px;
-        padding: 12px;
-        margin: 0;
-        background: transparent;
-        border: 0;
-        cursor: pointer;
-        z-index: 400;
-    }
-
     body.art-page--4>.header-burger__icon svg path {
         fill: #2F2F2F;
     }
@@ -19307,12 +19305,6 @@ a.fs-f11__cta-pdf:focus-visible,
         display: none;
     }
 
-    body.art-page--5>.header-burger__icon {
-        display: flex;
-        align-items: center;
-        justify-content: center;
-    }
-
     body.art-page--5>.header-burger__icon svg path {
         fill: #2F2F2F;
     }
@@ -19900,6 +19892,10 @@ a.fs-f11__cta-pdf:focus-visible,
     margin-top: 110px;
 }
 
+.art-page--6 .art6-hero__vline {
+    display: none;
+}
+
 .art-page--6 .art6-hero__quote {
     box-sizing: border-box;
     width: 100%;
@@ -19994,7 +19990,7 @@ a.fs-f11__cta-pdf:focus-visible,
     padding: 0;
 }
 
-.art-page--6 .art6-body p {
+.art-page--6 .art6-body p:not(.art6-body__highlight) {
     margin: 0;
     font-family: 'Golos', 'Golos Text', sans-serif;
     font-weight: 500;
@@ -20006,7 +20002,7 @@ a.fs-f11__cta-pdf:focus-visible,
     color: #2F2F2F;
 }
 
-.art-page--6 .art6-body p+p {
+.art-page--6 .art6-body p + p:not(.art6-body__highlight) {
     margin-top: 1.3em;
 }
 
@@ -20023,7 +20019,7 @@ a.fs-f11__cta-pdf:focus-visible,
     width: 100%;
 }
 
-.art-page--6 .art6-body__figure:not(.art6-body__figure--scroll) img {
+.art-page--6 .art6-body__figure:not(.art6-body__figure--photo2) img {
     display: block;
     width: 820px;
     max-width: 100%;
@@ -20047,13 +20043,26 @@ a.fs-f11__cta-pdf:focus-visible,
 .art-page--6 .art6-body__figure--photo2 .art6-body__figure-photo--1 {
     position: relative;
     display: block;
-    width: 820px;
-    max-width: 100%;
-    height: auto;
     margin: 0 auto;
     object-fit: cover;
     object-position: center;
     z-index: 1;
+}
+
+@media (min-width: 771px) {
+    .art-page--6 .art6-body__figure--photo2 {
+        width: 820px;
+        height: 923.69921875px;
+        max-width: none;
+        margin-left: auto;
+        margin-right: auto;
+    }
+
+    .art-page--6 .art6-body__figure--photo2 .art6-body__figure-photo--1 {
+        width: 820px;
+        height: 923.69921875px;
+        max-width: none;
+    }
 }
 
 /* Violet backdrop fades in (shows around subject if photo has alpha). */
@@ -20101,24 +20110,26 @@ a.fs-f11__cta-pdf:focus-visible,
     color: #2F2F2F;
 }
 
-.art-page--6 .art6-body--insight p+p {
+.art-page--6 .art6-body--insight .art6-body__highlight {
     margin-top: 45px;
-}
-
-.art-page--6 .art6-body__highlight {
-    margin: 0;
+    margin-bottom: 45px;
     font-family: 'Golos', 'Golos Text', sans-serif;
-    font-weight: 500;
-    font-size: 30px;
-    line-height: 1.3;
+    line-height: 130%;
     letter-spacing: -0.02em;
     text-indent: 25px;
     text-align: left;
     color: #2F2F2F;
 }
 
+@media (min-width: 771px) {
+    .art-page--6 .art6-body--insight .art6-body__highlight {
+        font-weight: 500;
+        font-size: 30px;
+    }
+}
+
 .art-page--6 .art6-body--continued {
-    margin-top: 45px;
+    margin-top: 0;
 }
 
 .art-page--6 .art6-body__figure--222 {
@@ -20244,12 +20255,6 @@ a.fs-f11__cta-pdf:focus-visible,
         display: none;
     }
 
-    body.art-page--6>.header-burger__icon {
-        display: flex;
-        align-items: center;
-        justify-content: center;
-    }
-
     body.art-page--6>.header-burger__icon svg path {
         fill: #2F2F2F;
     }
@@ -20321,12 +20326,26 @@ a.fs-f11__cta-pdf:focus-visible,
         margin-top: 110px;
     }
 
-    .art-page--6 .art6-hero__quote {
+    .art-page--6 .art6-hero__vline {
+        display: block;
         order: 2;
+        flex-shrink: 0;
+        box-sizing: border-box;
+        width: 0;
+        height: 68px;
+        margin: 21px auto 9px;
+        padding: 0;
+        border: 0;
+        border-left: 1px solid rgba(39, 39, 39, 1);
+        pointer-events: none;
+    }
+
+    .art-page--6 .art6-hero__quote {
+        order: 3;
         box-sizing: border-box;
         width: 100%;
         max-width: 335px;
-        margin: 99px auto 0;
+        margin: 0 auto;
         padding: 0;
     }
 
@@ -20343,7 +20362,7 @@ a.fs-f11__cta-pdf:focus-visible,
     }
 
     .art-page--6 .art6-hero__author {
-        order: 3;
+        order: 4;
         width: 100%;
         max-width: none;
         margin-top: 15px;
@@ -20357,7 +20376,7 @@ a.fs-f11__cta-pdf:focus-visible,
     }
 
     .art-page--6 .art6-line-wrap {
-        order: 4;
+        order: 5;
         width: 100%;
         max-width: none;
         margin-top: 45px;
@@ -20371,7 +20390,7 @@ a.fs-f11__cta-pdf:focus-visible,
     }
 
     .art-page--6 .art6-story {
-        order: 5;
+        order: 6;
         width: 100%;
         max-width: none;
         margin: 14px 0;
@@ -20410,7 +20429,7 @@ a.fs-f11__cta-pdf:focus-visible,
         margin-bottom: 0;
     }
 
-    .art-page--6 .art6-body p {
+    .art-page--6 .art6-body p:not(.art6-body__highlight) {
         font-family: 'Golos', 'Golos Text', sans-serif;
         font-weight: 500;
         font-size: 16px;
@@ -20420,11 +20439,11 @@ a.fs-f11__cta-pdf:focus-visible,
         color: #2F2F2F;
     }
 
-    .art-page--6 .art6-rule+.art6-body p {
+    .art-page--6 .art6-rule+.art6-body p:not(.art6-body__highlight) {
         text-indent: 25px;
     }
 
-    .art-page--6 .art6-body p+p {
+    .art-page--6 .art6-body p + p:not(.art6-body__highlight) {
         margin-top: 1.3em;
     }
 
@@ -20437,7 +20456,14 @@ a.fs-f11__cta-pdf:focus-visible,
         padding: 0;
     }
 
-    .art-page--6 .art6-body__figure:not(.art6-body__figure--222):not(.art6-body__figure--scroll) img {
+    .art-page--6 .art6-body__figure--photo2 {
+        width: calc(100vw - 40px);
+        max-width: calc(100vw - 40px);
+        height: auto;
+        aspect-ratio: 909 / 1024;
+    }
+
+    .art-page--6 .art6-body__figure:not(.art6-body__figure--222):not(.art6-body__figure--photo2) img {
         display: block;
         width: 100%;
         max-width: 100%;
@@ -20449,7 +20475,9 @@ a.fs-f11__cta-pdf:focus-visible,
 
     .art-page--6 .art6-body__figure--photo2 .art6-body__figure-photo--1 {
         width: 100%;
-        height: auto;
+        height: 100%;
+        object-fit: cover;
+        object-position: center;
     }
 
     .art-page--6 .art6-body--after-figure {
@@ -20495,22 +20523,18 @@ a.fs-f11__cta-pdf:focus-visible,
         color: #2F2F2F;
     }
 
-    .art-page--6 .art6-body--insight p+p {
+    .art-page--6 .art6-body--insight .art6-body__highlight {
         margin-top: 45px;
-    }
-
-    .art-page--6 .art6-body__highlight {
+        margin-bottom: 45px;
+        font-weight: 600;
         font-size: 20px;
-        line-height: 1.3;
-        letter-spacing: -0.02em;
-        text-indent: 20px;
     }
 
     .art-page--6 .art6-body--continued {
         order: 11;
         width: 100%;
         max-width: none;
-        margin-top: 45px;
+        margin-top: 0;
     }
 
     .art-page--6 .art6-body--continued p {
@@ -20554,6 +20578,7 @@ a.fs-f11__cta-pdf:focus-visible,
         width: 100%;
         padding: 0 14px;
         font-size: 18px;
+        opacity: 0;
     }
 
     .art-page--6 .art6-body--after-222 {

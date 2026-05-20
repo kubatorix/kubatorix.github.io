@@ -462,7 +462,8 @@ renderMenuEvents();
    vertical center of viewport ("cover 0%..cover 50%").
    ============================================================ */
 (function () {
-    /* Steep curve: blur falls off quickly in the first part of scroll. */
+    var MOBILE_MQ = window.matchMedia('(max-width: 770px)');
+
     function blurProgress(linear) {
         var t = Math.max(0, Math.min(1, linear));
         return Math.pow(t, 0.32);
@@ -621,11 +622,8 @@ renderMenuEvents();
 })();
 
 /* ============================================================
-   Article 7 bottom portrait — fades in a violet backdrop + a
-   multiplied purple tint on .article-7-photo2 as it scrolls
-   into view. Sets --photo2-progress 0→1; CSS uses it for both
-   the ::before backdrop and the ::after multiply overlay. Effect
-   completes when the photo reaches the middle of the viewport.
+   Article 7 bottom portrait — crossfade natural → purple on
+   .article-7-photo2 as it scrolls into view (--photo2-progress 0→1).
    ============================================================ */
 (function () {
     var block = document.querySelector('.article-7-photo2');
