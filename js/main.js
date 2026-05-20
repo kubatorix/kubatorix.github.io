@@ -462,12 +462,17 @@ renderMenuEvents();
    vertical center of viewport ("cover 0%..cover 50%").
    ============================================================ */
 (function () {
+    /* Steep curve: blur falls off quickly in the first part of scroll. */
+    function blurProgress(linear) {
+        var t = Math.max(0, Math.min(1, linear));
+        return Math.pow(t, 0.32);
+    }
+
     /* bind(blockSel, imgSel, maxBlur, textSel)
        Progress 1.0 == figure center hits viewport center (animation
        finishes by the middle of the screen).
-       If textSel is provided → two-phase animation:
-         Phase 1 (progress 0..0.5): text visible, blur at max.
-         Phase 2 (progress 0.5..1): text opacity 1→0 AND blur max→0.
+       If textSel is provided → blur clears linearly from the first scroll;
+       title fades in the upper half of the same progress range.
        Otherwise → simple linear blur max→0 across 0..1. */
     function bind(blockSel, imgSel, maxBlur, textSel) {
         var block = document.querySelector(blockSel);
@@ -482,20 +487,12 @@ renderMenuEvents();
             var vh = window.innerHeight || document.documentElement.clientHeight;
             var scrolled = vh - rect.top;
             var totalScroll = vh + rect.height;
-            var progress = Math.max(0, Math.min(1, (scrolled / totalScroll) / 0.5));
-            var blurAmount, textOpacity;
+            var linear = (scrolled / totalScroll) / 0.16;
+            var progress = blurProgress(linear);
+            var blurAmount = MAX_BLUR * (1 - progress);
             if (text) {
-                if (progress < 0.5) {
-                    textOpacity = 1;
-                    blurAmount = MAX_BLUR;
-                } else {
-                    var p = (progress - 0.5) / 0.5;
-                    textOpacity = 1 - p;
-                    blurAmount = MAX_BLUR * (1 - p);
-                }
+                var textOpacity = progress < 0.5 ? 1 : 1 - (progress - 0.5) / 0.5;
                 text.style.opacity = textOpacity.toFixed(4);
-            } else {
-                blurAmount = MAX_BLUR * (1 - progress);
             }
             img.style.filter = 'blur(' + blurAmount.toFixed(2) + 'px)';
         }
@@ -516,9 +513,9 @@ renderMenuEvents();
 
 /* ============================================================
    Scroll-driven title fade + photo blur clear for
-   .art-page--5 .art5-hero__cover. Progress by cover center vs
-   viewport center: blur 20px→0 linearly (sharp by mid-screen);
-   title fades in the upper half of the same range.
+   .art-page--5 .art5-hero__cover. At load: full blur; any scroll (window
+   scrollY) clears blur over ~70px — same on desktop and mobile. Title
+   fades in the upper half of that range.
    ============================================================ */
 (function () {
     var block = document.querySelector('.art-page--5 .art5-hero__cover');
@@ -527,14 +524,18 @@ renderMenuEvents();
     var img = block.querySelector('img');
     if (!title || !img) return;
     var MAX_BLUR = 20;
+    var CLEAR_RANGE_PX = 70;
     var ticking = false;
+
+    function blurProgress(linear) {
+        var t = Math.max(0, Math.min(1, linear));
+        return Math.pow(t, 0.32);
+    }
+
     function compute() {
         ticking = false;
-        var rect = block.getBoundingClientRect();
-        var vh = window.innerHeight || document.documentElement.clientHeight;
-        var centerY = rect.top + rect.height * 0.5;
-        /* 0 = центр блока у нижнего края экрана, 1 = центр у середины viewport */
-        var progress = Math.max(0, Math.min(1, (vh - centerY) / (vh * 0.5)));
+        var scrollDelta = Math.max(0, window.scrollY || window.pageYOffset || 0);
+        var progress = blurProgress(scrollDelta / CLEAR_RANGE_PX);
         var blurAmount = MAX_BLUR * (1 - progress);
         var textOpacity = progress < 0.5 ? 1 : 1 - (progress - 0.5) / 0.5;
         title.style.opacity = textOpacity.toFixed(4);
@@ -545,9 +546,12 @@ renderMenuEvents();
         ticking = true;
         window.requestAnimationFrame(compute);
     }
+    function onResize() {
+        onScroll();
+    }
     compute();
     window.addEventListener('scroll', onScroll, { passive: true });
-    window.addEventListener('resize', onScroll);
+    window.addEventListener('resize', onResize);
 })();
 
 /* ============================================================
