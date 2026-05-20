@@ -13600,38 +13600,9 @@ a.fs-f11__cta-pdf:focus-visible,
     left: 0;
     top: 408px;
     width: 1440px;
-    height: 620px;
+    height: calc(1440px * 1948 / 2762);
     pointer-events: none;
-}
-
-/* Single composite SVG with all 8 triangles (6 blurred chromatic + 2 crisp
-   orange/purple outlines). Replaces the previous swirl + polygon stack
-   — fidelity now comes from the SVG's own paths and filters. */
-.about-cta__triangles {
-    position: absolute;
-    left: 422px;
-    top: 0;
-    width: 1205.794px;
-    height: 973.734px;
-    pointer-events: none;
-}
-
-/* Mobile-only decoration elements — hidden on desktop */
-.about-cta__mob-swirl,
-.about-cta__mob-poly {
-    display: none;
-}
-
-/* Lime striped curve (Figma "Subtract") */
-.about-cta__curve {
-    position: absolute;
-    left: -253px;
-    top: 60px;
-    width: 666.436px;
-    height: 283.834px;
-    transform: rotate(16.11deg);
-    transform-origin: center center;
-    pointer-events: none;
+    background: url('../img/figma/about_cta_decor.png') center top / 100% 100% no-repeat;
 }
 
 /* CTA text */
@@ -13655,6 +13626,7 @@ a.fs-f11__cta-pdf:focus-visible,
     left: 50%;
     transform: translateX(-50%);
     top: 880.31px;
+    z-index: 2;
     font-family: 'Golos Text', sans-serif;
     font-weight: 500;
     font-size: 44.893px;
@@ -13663,12 +13635,14 @@ a.fs-f11__cta-pdf:focus-visible,
     text-decoration: none;
     text-align: center;
     white-space: nowrap;
+    cursor: pointer;
+    pointer-events: auto;
 }
 
-.about-cta__email:hover {
-    text-decoration: underline;
-    text-decoration-thickness: 1px;
-    text-underline-offset: 6px;
+.about-cta__email:hover,
+.about-cta__email:focus,
+.about-cta__email:active {
+    text-decoration: none;
 }
 
 /* ---- 3. Founders / Organizer ---- */
@@ -13892,11 +13866,18 @@ a.fs-f11__cta-pdf:focus-visible,
         line-height: 1.2;
     }
 
-    /* CTA */
+    /* CTA — высота по пропорциям final2 (750×1364), без обрезки декора */
     .about-cta {
         position: relative;
+        width: 100%;
+        aspect-ratio: 750 / 1364;
         height: auto;
-        padding: 120px 20px 80px;
+        min-height: 0;
+        padding: 0 20px;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
         text-align: center;
     }
 
@@ -13905,85 +13886,56 @@ a.fs-f11__cta-pdf:focus-visible,
         inset: 0;
         width: 100%;
         height: 100%;
-        top: 0;
-        left: 0;
-    }
-
-    /* Mobile: hide desktop composite, use separate mobile assets with
-       Figma-accurate rotations (276:686 orange 124.08deg, 276:687 lime
-       118.44deg, swirl cluster baked into about_mob_swirl.png). */
-    .about-page .about-cta__triangles {
-        display: none;
-    }
-
-    .about-page .about-cta__mob-swirl,
-    .about-page .about-cta__mob-poly {
-        display: block;
-        position: absolute;
         pointer-events: none;
-    }
-
-    /* Chromatic ellipse cluster — pre-composited PNG from Figma (375×766) */
-    .about-page .about-cta__mob-swirl {
-        left: 0;
-        top: -120px;
-        width: 100%;
-        height: auto;
-        mix-blend-mode: plus-lighter;
-    }
-
-    /* Orange triangle outline — Figma left -241.11px top 727.89px size 800
-       rotated 124.08deg; relative to .about-cta (which starts after hero
-       ~457px) we shift the local top by ~270px. */
-    .about-page .about-cta__mob-poly--orange {
-        left: -241px;
-        top: 90px;
-        width: 576px;
-        height: 576px;
-        transform: rotate(124.08deg);
-        mix-blend-mode: plus-lighter;
-    }
-
-    /* Lime triangle outline — Figma left -343.94 top 792.21 size 718
-       rotated 118.44deg, inner content 530.382px square. */
-    .about-page .about-cta__mob-poly--lime {
-        left: -250px;
-        top: 150px;
-        width: 530px;
-        height: 530px;
-        transform: rotate(118.44deg);
-        mix-blend-mode: plus-lighter;
-    }
-
-    .about-page .about-cta__curve {
-        left: 22px;
-        top: 130px;
-        width: 333px;
-        height: 142px;
-        transform: rotate(20.85deg);
+        z-index: 0;
+        background-image: url('../img/figma/about_cta_decor_mobile.png');
+        background-repeat: no-repeat;
+        background-position: center calc(50% + 40px);
+        background-size: 100% auto;
     }
 
     .about-page .about-cta__lead {
         position: relative;
+        z-index: 1;
         left: auto;
         top: auto;
         transform: none;
         width: auto;
-        max-width: 312px;
+        max-width: 335px;
         margin: 0 auto 24px;
+        font-family: 'Golos Text', sans-serif;
+        font-weight: 500;
         font-size: 16px;
+        line-height: 1.1;
+        letter-spacing: 0;
         text-align: center;
+        color: #FFFFFF;
     }
 
     .about-page .about-cta__email {
         position: relative;
+        z-index: 2;
         left: auto;
         top: auto;
         transform: none;
         display: inline-block;
+        font-family: 'Golos Text', sans-serif;
+        font-weight: 500;
         font-size: 25px;
+        line-height: 1.1;
+        letter-spacing: 0;
         text-align: center;
+        color: #FFFFFF;
+        text-decoration: none;
+        cursor: pointer;
+        pointer-events: auto;
         margin: 0 auto;
+    }
+
+    .about-page .about-cta__email:hover,
+    .about-page .about-cta__email:focus,
+    .about-page .about-cta__email:active {
+        text-decoration: none;
     }
 
     /* Orgs */
@@ -14009,19 +13961,20 @@ a.fs-f11__cta-pdf:focus-visible,
         white-space: normal;
     }
 
+    .about-page .about-orgs__col--founders .about-orgs__heading {
+        margin-bottom: 0;
+    }
+
     .about-page .about-orgs__logos {
         gap: 28px;
+        margin-top: 32px;
         margin-bottom: 28px;
     }
 
-    .about-page .about-orgs__logo--kosimp {
+    .about-page .about-orgs__logos .about-orgs__logo {
         width: 143.534px;
         height: 42.506px;
-    }
-
-    .about-page .about-orgs__logo--mdoo {
-        width: 80px;
-        height: auto;
+        object-fit: contain;
     }
 
     .about-page .about-orgs__col--organizer .about-orgs__logo--sreda {
