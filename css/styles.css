@@ -12874,16 +12874,28 @@ a.fs-f11__cta-pdf:focus-visible,
     width: 100%;
 }
 
-/* Rings: invert SVG (white → dark), size explicitly, center in canvas + keep
-   scroll-driven 360° rotation from section6 (--section6-progress JS variable). */
-.exp-discuss.section6.section6__phase7 .section6__rings {
-    filter: invert(1);
+/* Experience page only — white rings by default (no invert), color on hover. */
+.exp-page .exp-discuss.section6.section6__phase7 .section6__rings {
     width: 1000px !important;
     height: auto !important;
     inset: auto !important;
     left: 50% !important;
     top: 50% !important;
     transform: translate(-50%, -50%) rotate(calc(360deg * var(--section6-progress, 0))) !important;
+    transition: opacity 0.4s ease;
+}
+
+.exp-page .exp-discuss.section6.section6__phase7 .section6__rings--color {
+    opacity: 0;
+    pointer-events: auto;
+}
+
+.exp-page .exp-discuss.section6.section6__phase7 .section6__rings--color:hover {
+    opacity: 1;
+}
+
+.exp-page .exp-discuss:has(.section6__rings--color:hover) .section6__rings--white {
+    opacity: 0;
 }
 
 .exp-discuss .section6__cta {
@@ -13587,11 +13599,8 @@ a.fs-f11__cta-pdf:focus-visible,
         border-radius: 22px;
     }
 
-    /* Ring composition: fill the canvas (inset:0, width/height 100%) and keep
-       the scroll-driven 360° rotation with scale(1.6) — same as the base
-       .section6__phase7 mobile rings. !important defeats the desktop
-       exp-discuss !important overrides. */
-    .exp-discuss.section6.section6__phase7 .section6__rings {
+    /* Rings fill the canvas on mobile + scroll rotation with scale(1.6). */
+    .exp-page .exp-discuss.section6.section6__phase7 .section6__rings {
         width: 100% !important;
         height: 100% !important;
         max-width: none !important;
