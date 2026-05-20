@@ -462,19 +462,18 @@ renderMenuEvents();
    vertical center of viewport ("cover 0%..cover 50%").
    ============================================================ */
 (function () {
-    /* Steep curve: blur falls off quickly in the first part of scroll. */
-    function blurProgress(linear) {
+    var MOBILE_MQ = window.matchMedia('(max-width: 770px)');
+
+    function blurProgress(linear, easingPower) {
         var t = Math.max(0, Math.min(1, linear));
-        return Math.pow(t, 0.32);
+        return Math.pow(t, easingPower);
     }
 
-    /* bind(blockSel, imgSel, maxBlur, textSel)
-       Progress 1.0 == figure center hits viewport center (animation
-       finishes by the middle of the screen).
-       If textSel is provided → blur clears linearly from the first scroll;
-       title fades in the upper half of the same progress range.
-       Otherwise → simple linear blur max→0 across 0..1. */
-    function bind(blockSel, imgSel, maxBlur, textSel) {
+    /* bind(blockSel, imgSel, maxBlur, textSel, opts?)
+       Default: steep curve, animation completes in ~16% of viewport pass.
+       opts.mobile: on ≤770px use full scroll pass (scrollDivisor 1) + linear easing. */
+    function bind(blockSel, imgSel, maxBlur, textSel, opts) {
+        opts = opts || {};
         var block = document.querySelector(blockSel);
         var img = block && block.querySelector(imgSel);
         if (!img) return;
@@ -487,12 +486,25 @@ renderMenuEvents();
             var vh = window.innerHeight || document.documentElement.clientHeight;
             var scrolled = vh - rect.top;
             var totalScroll = vh + rect.height;
-            var linear = (scrolled / totalScroll) / 0.16;
-            var progress = blurProgress(linear);
+            var scrollDivisor = 0.16;
+            var easingPower = 0.32;
+            var mobileFullScroll = opts.mobile && MOBILE_MQ.matches;
+            if (mobileFullScroll) {
+                scrollDivisor = opts.mobile.scrollDivisor != null ? opts.mobile.scrollDivisor : 1;
+                easingPower = opts.mobile.easingPower != null ? opts.mobile.easingPower : 1;
+            }
+            var linear = totalScroll > 0
+                ? Math.max(0, Math.min(1, (scrolled / totalScroll) / scrollDivisor))
+                : 0;
+            var progress = blurProgress(linear, easingPower);
             var blurAmount = MAX_BLUR * (1 - progress);
             if (text) {
-                var textOpacity = progress < 0.5 ? 1 : 1 - (progress - 0.5) / 0.5;
-                text.style.opacity = textOpacity.toFixed(4);
+                if (mobileFullScroll && opts.mobile.textWithBlur) {
+                    text.style.opacity = progress.toFixed(4);
+                } else {
+                    var textOpacity = progress < 0.5 ? 1 : 1 - (progress - 0.5) / 0.5;
+                    text.style.opacity = textOpacity.toFixed(4);
+                }
             }
             img.style.filter = 'blur(' + blurAmount.toFixed(2) + 'px)';
         }
@@ -508,7 +520,9 @@ renderMenuEvents();
     bind('.article-7-midphoto', '.article-7-midphoto__img', 40, '.article-7-midphoto__text');
     bind('.art-page--4 .art4-tip--6 .art4-tip__portrait', '.art4-tip__portrait-photo', 40, '.art4-tip__portrait-caption');
     bind('.art-page--5 .art5-body__figure--444', '.art5-body__figure-photo--1', 20, '.art5-body__figure-text');
-    bind('.art-page--6 .art6-body__figure--222', 'img', 20, '.art6-body__figure-text');
+    bind('.art-page--6 .art6-body__figure--222', 'img', 20, '.art6-body__figure-text', {
+        mobile: { scrollDivisor: 1, easingPower: 1, textWithBlur: true },
+    });
 })();
 
 /* ============================================================
@@ -609,11 +623,8 @@ renderMenuEvents();
 })();
 
 /* ============================================================
-   Article 7 bottom portrait — fades in a violet backdrop + a
-   multiplied purple tint on .article-7-photo2 as it scrolls
-   into view. Sets --photo2-progress 0→1; CSS uses it for both
-   the ::before backdrop and the ::after multiply overlay. Effect
-   completes when the photo reaches the middle of the viewport.
+   Article 7 bottom portrait — crossfade natural → purple on
+   .article-7-photo2 as it scrolls into view (--photo2-progress 0→1).
    ============================================================ */
 (function () {
     var block = document.querySelector('.article-7-photo2');

@@ -20576,6 +20576,7 @@ a.fs-f11__cta-pdf:focus-visible,
         width: 100%;
         padding: 0 14px;
         font-size: 18px;
+        opacity: 0;
     }
 
     .art-page--6 .art6-body--after-222 {

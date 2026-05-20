@@ -13,6 +13,11 @@
         return mobileQuery.matches;
     }
 
+    function cardsForViewport(cards) {
+        if (!isExpMobile()) return cards;
+        return cards.filter(function (c) { return c.variant !== 'xl'; });
+    }
+
     function linkAttrs(c) {
         if (!c.href) return '';
         return ' data-href="' + c.href + '" onclick="window.location.href=this.getAttribute(\'data-href\')"';
@@ -72,13 +77,6 @@
         },
 
         xl: function (c) {
-            if (isExpMobile()) {
-                var poster = c.videoPoster || c.photo || './img/figma/exp_card_b_image546.png';
-                return ''
-                    + '<article class="exp-card exp-card--xl exp-card--xl-static" data-kind="' + c.kind + '">'
-                    +   '<img src="' + poster + '" class="exp-card__video exp-card__xl-poster" alt="" aria-hidden="true" loading="lazy" decoding="async" />'
-                    + '</article>';
-            }
             var videoSrc = c.video || './video/fandraizer_web.mp4';
             return ''
                 + '<article class="exp-card exp-card--xl" data-kind="' + c.kind + '">'
@@ -178,7 +176,7 @@
 
     function render(cards) {
         cachedCards = cards;
-        grid.innerHTML = cards.map(function (c) {
+        grid.innerHTML = cardsForViewport(cards).map(function (c) {
             var tpl = TEMPLATES[c.variant];
             return tpl ? tpl(c) : '';
         }).join('');
