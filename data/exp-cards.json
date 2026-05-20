@@ -55,7 +55,7 @@
     "variant": "dark-diagonal",
     "kind": "event",
     "figma": "286:3100",
-    "href": "https://sredasvoih.ru/program/event-202?utm_source=site&utm_campaign=spec&utm_content=landing%2Bpage&utm_term=260526",
+    "href": "https://sredasvoih.ru/program/event-202?utm_source=site&utm_medium=spec&utm_campaign=landing_pade_26/05/26",
     "tags": [
       { "label": "Паблик-ток" },
       { "label": "26 мая", "type": "lime" }
@@ -81,7 +81,7 @@
     "variant": "dark-blurred",
     "kind": "event",
     "figma": "286:3766",
-    "href": "https://sredasvoih.ru/program/event-203?utm_source=site&utm_campaign=spec&utm_content=landing%2Bpage&utm_term=280526",
+    "href": "https://sredasvoih.ru/program/event-203?utm_source=site&utm_medium=spec&utm_campaign=landing_pade_28/05/26",
     "mediaTitle": "Фандрайзеры очарованные и разочарованные",
     "mediaPhoto": "./img/figma/exp_image546_real.png",
     "tags": [
