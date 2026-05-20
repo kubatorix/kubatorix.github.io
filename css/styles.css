@@ -1089,7 +1089,8 @@ body>.header-burger__icon {
 
     body.art-page--4>.header-burger__icon,
     body.art-page--5>.header-burger__icon,
-    body.art-page--6>.header-burger__icon {
+    body.art-page--6>.header-burger__icon,
+    body.article-7-page>.header-burger__icon {
         display: flex;
         align-items: center;
         justify-content: center;
@@ -1102,17 +1103,22 @@ body>.header-burger__icon {
         pointer-events: none;
     }
 
-    /* Close (×) aligned to the same spot as the burger trigger (44×44 @ top-left). */
+    /* Close (×) — fixed to viewport top-left, always above menu panel and clickable */
     .burger-menu .burger-menu__close {
-        position: absolute;
-        top: 11px;
-        left: 11px;
-        width: 22px;
-        height: auto;
+        position: fixed;
+        top: max(0px, env(safe-area-inset-top, 0px));
+        left: max(0px, env(safe-area-inset-left, 0px));
+        width: 44px;
+        height: 44px;
+        padding: 11px;
+        box-sizing: border-box;
         margin: 0;
-        z-index: 510;
+        object-fit: contain;
+        z-index: 1101;
         pointer-events: auto;
         cursor: pointer;
+        touch-action: manipulation;
+        -webkit-tap-highlight-color: transparent;
     }
 
     /* Trim the original 75px top padding so menu items don't sit too low
