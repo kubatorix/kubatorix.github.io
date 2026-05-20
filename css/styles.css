@@ -4076,12 +4076,6 @@ a:has(> .section1__h-opyt) {
     --canvas-h: 736;
 }
 
-/* Index only — white ellipse block (Figma 286:3897, 1439×983) */
-.section6--home.section6__phase7 {
-    --canvas-w: 1439;
-    --canvas-h: 983;
-}
-
 .section6__phase7 .section6__viewport {
     position: relative;
     width: 100%;
@@ -4111,24 +4105,16 @@ a:has(> .section1__h-opyt) {
     width: 100%;
     height: 100%;
     pointer-events: none;
+    /* Lift the ring above the gradient wrap below so its 1.7x-scaled overflow
+       isn't hidden by the wrap's opaque bg — the bottom of the ring stays
+       visible across the section 6 → section 8 boundary. */
     z-index: 2;
     transform-box: fill-box;
     will-change: transform;
-    transform: rotate(calc(360deg * var(--section6-progress, 0)));
-}
-
-/* Index: white ellipse — glow is only inside section6_ellipse.svg */
-.section6--home .section6__ellipse {
-    position: absolute;
-    inset: 0;
-    width: 100%;
-    height: 100%;
-    pointer-events: none;
-    z-index: 2;
-    filter: none;
-    transform-box: fill-box;
-    will-change: transform;
-    transform: rotate(calc(360deg * var(--section6-progress, 0)));
+    /* Rotation is purely scroll-driven (360° sweep across the section's
+       viewport range). No continuous auto-rotation. Ring viewBox paths
+       are ~884px wide at scale 1.0; scale(0.961) targets ~850px diameter. */
+    transform: rotate(calc(360deg * var(--section6-progress, 0))) scale(0.961);
 }
 
 .section6__phase7 .section6__heading {
@@ -4228,13 +4214,9 @@ a:has(> .section1__h-opyt) {
     .section6__phase7 .section6__rings {
         opacity: 0.6;
         height: 100%;
-        transform: rotate(calc(360deg * var(--section6-progress, 0))) scale(1.6);
-    }
-
-    .section6--home .section6__ellipse {
-        opacity: 1;
-        filter: none;
-        height: 100%;
+        /* On mobile the canvas is the screen width (~360px), so the desktop
+           scale renders the ring tiny. Bump the scale up so the ring
+           dominates the viewport like in the design. */
         transform: rotate(calc(360deg * var(--section6-progress, 0))) scale(1.6);
     }
 

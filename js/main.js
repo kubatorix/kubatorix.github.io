@@ -360,29 +360,22 @@ renderMenuEvents();
    top).
    ============================================================ */
 (function () {
-    var blocks = [
-        { el: document.querySelector('.section6--home.section6__phase7'), canvasW: 1439 },
-        { el: document.querySelector('.exp-discuss.section6__phase7'), canvasW: 1440 }
-    ].filter(function (b) { return b.el; });
-    if (blocks.length === 0) return;
-
+    var section = document.querySelector('.section6__phase7');
+    if (!section) return;
+    var CANVAS_W = 1440;
     var ticking = false;
 
     function setScale() {
-        blocks.forEach(function (b) {
-            var w = b.el.clientWidth || window.innerWidth;
-            var scale = Math.min(1, w / b.canvasW);
-            b.el.style.setProperty('--canvas-scale', scale.toFixed(4));
-        });
+        var w = section.clientWidth || window.innerWidth;
+        var scale = Math.min(1, w / CANVAS_W);
+        section.style.setProperty('--canvas-scale', scale.toFixed(4));
     }
     function compute() {
         ticking = false;
+        var rect = section.getBoundingClientRect();
         var vh = window.innerHeight || document.documentElement.clientHeight;
-        blocks.forEach(function (b) {
-            var rect = b.el.getBoundingClientRect();
-            var progress = Math.max(0, Math.min(1, (vh - rect.top) / (vh + rect.height)));
-            b.el.style.setProperty('--section6-progress', progress.toFixed(4));
-        });
+        var progress = Math.max(0, Math.min(1, (vh - rect.top) / (vh + rect.height)));
+        section.style.setProperty('--section6-progress', progress.toFixed(4));
     }
     function onScroll() {
         if (ticking) return;
