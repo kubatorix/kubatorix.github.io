@@ -14151,9 +14151,10 @@ a.fs-f11__cta-pdf:focus-visible,
     --site-logo-sreda-w: 121.5px;
     --site-logo-sreda-h: 44.97px;
     --site-logo-sreda-mobile-w: 120px;
-    --site-logo-founder-kosimp-w: 189.03px;
+    --site-logo-founder-kosimp-w: 189.030px;
     --site-logo-founder-kosimp-h: 55.979px;
-    --site-logo-founder-mdoo-w: 100px;
+    --site-logo-founder-mdoo-w: 189.091px;
+    --site-logo-founder-mdoo-h: 54.364px;
     --site-logo-founder-mobile-w: 143.534px;
     --site-logo-founder-mobile-h: 42.506px;
 }
@@ -14201,8 +14202,9 @@ a.fs-f11__cta-pdf:focus-visible,
     margin-bottom: 47px;
 }
 
-.about-orgs__logo {
+.about-orgs__logos .about-orgs__logo {
     display: block;
+    object-fit: contain;
 }
 
 .about-orgs__logo--kosimp {
@@ -14212,7 +14214,7 @@ a.fs-f11__cta-pdf:focus-visible,
 
 .about-orgs__logo--mdoo {
     width: var(--site-logo-founder-mdoo-w);
-    height: auto;
+    height: var(--site-logo-founder-mdoo-h);
 }
 
 .about-orgs__col--organizer .about-orgs__logo--sreda {
