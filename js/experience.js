@@ -313,55 +313,6 @@
 })();
 
 /* ============================================================
-   Hero photo blur — driven by horizontal swipe on the photo.
-   Initial state is the full 11.97 px blur. While the user drags
-   left, blur decreases; dragging right re-applies it. The
-   current blur level persists between gestures, so the user can
-   swipe back and forth cyclically. SWIPE_RANGE_PX of horizontal
-   travel maps to the full 0 ↔ MAX_BLUR transition.
-   ============================================================ */
-(function () {
-    var photo = document.querySelector('.exp-hero__photo');
-    if (!photo) return;
-    var MAX_BLUR = 11.973182678222656;
-    var SWIPE_RANGE_PX = 260;
-
-    var current = MAX_BLUR;       /* current blur value in px */
-    var startX = 0;               /* finger x at touchstart */
-    var startBlur = MAX_BLUR;     /* blur value at touchstart */
-    var dragging = false;
-
-    function setBlur(v) {
-        current = Math.max(0, Math.min(MAX_BLUR, v));
-        photo.style.setProperty('--exp-hero-blur', current.toFixed(2) + 'px');
-    }
-    setBlur(MAX_BLUR);
-
-    function onTouchStart(e) {
-        if (!e.touches || e.touches.length === 0) return;
-        dragging = true;
-        startX = e.touches[0].clientX;
-        startBlur = current;
-    }
-    function onTouchMove(e) {
-        if (!dragging || !e.touches || e.touches.length === 0) return;
-        var dx = e.touches[0].clientX - startX;
-        /* Swipe left (dx < 0) reveals the image; swipe right (dx > 0)
-           re-blurs it. */
-        var blurDelta = (dx / SWIPE_RANGE_PX) * MAX_BLUR;
-        setBlur(startBlur + blurDelta);
-    }
-    function onTouchEnd() {
-        dragging = false;
-    }
-
-    photo.addEventListener('touchstart', onTouchStart, { passive: true });
-    photo.addEventListener('touchmove', onTouchMove, { passive: true });
-    photo.addEventListener('touchend', onTouchEnd, { passive: true });
-    photo.addEventListener('touchcancel', onTouchEnd, { passive: true });
-})();
-
-/* ============================================================
    Experience — backstage photo slider (exp-backstage)
    ============================================================ */
 (function () {

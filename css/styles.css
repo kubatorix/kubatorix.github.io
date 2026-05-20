@@ -13322,15 +13322,13 @@ a.fs-f11__cta-pdf:focus-visible,
         display: none;
     }
 
-    /* Full-bleed portrait. Cropped to the Figma frame ratio 391:525 (instead
-       of the photo's native 399:599) so the visible image matches the design;
-       object-position: top keeps the face in view. */
+    /* Full-bleed hero background (mobile). */
     .exp-hero__photo {
         display: block;
         width: 100%;
         aspect-ratio: 391 / 525;
         object-fit: cover;
-        object-position: top;
+        object-position: center;
     }
 
     /* Canvas overlays the photo so brand + title sit at Figma coordinates.
