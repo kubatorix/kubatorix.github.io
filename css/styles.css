@@ -12703,15 +12703,19 @@ a.fs-f11__cta-pdf:focus-visible,
     width: 100vw;
     margin-left: calc(50% - 50vw);
     margin-bottom: 0;
-    min-height: 859px;
     overflow: hidden;
     background: #1a1a1a;
-    /* internal padding so the quote (top) and footer (bottom) can flow within
-       the photo-backed area */
-    padding-top: 100px;
-    padding-bottom: 0;
+    padding: 0;
     display: flex;
     flex-direction: column;
+}
+
+.exp-backstage__slides {
+    position: relative;
+    width: 100%;
+    height: 859.296875px;
+    flex: 0 0 auto;
+    z-index: 0;
 }
 
 .exp-backstage__photo {
@@ -12720,7 +12724,25 @@ a.fs-f11__cta-pdf:focus-visible,
     width: 100%;
     height: 100%;
     object-fit: cover;
-    z-index: 0;
+    opacity: 0;
+    transition: opacity 0.35s ease;
+}
+
+.exp-backstage__photo.is-active {
+    opacity: 1;
+}
+
+.exp-backstage__head {
+    position: absolute;
+    top: 0;
+    left: 50%;
+    transform: translateX(-50%);
+    z-index: 2;
+    width: min(100%, 1440px);
+    margin: 0;
+    padding-top: 31px;
+    min-height: 0;
+    pointer-events: none;
 }
 
 /* Footer wrapper inside exp-backstage: transparent so the photo bg shows through */
@@ -12728,7 +12750,19 @@ a.fs-f11__cta-pdf:focus-visible,
     position: relative;
     z-index: 1;
     background: transparent !important;
-    margin-top: auto;
+    margin-top: 0;
+}
+
+@media (min-width: 771px) {
+    .exp-backstage footer .footer-btn:hover,
+    .exp-backstage footer .footer-btn:active,
+    .exp-backstage footer .footer-btn:focus-visible {
+        background: #C2F04F;
+        border-color: #C2F04F;
+        border-radius: 55.1864px;
+        color: #272727;
+        opacity: 1;
+    }
 }
 
 .exp-backstage__photo--placeholder::after {
@@ -12742,12 +12776,11 @@ a.fs-f11__cta-pdf:focus-visible,
 }
 
 .exp-backstage__overlay {
-    position: absolute;
-    left: 50%;
-    transform: translateX(-50%);
-    top: 32px;
+    position: relative;
+    top: 0;
     width: 538px;
-    margin: 0;
+    max-width: calc(100% - 32px);
+    margin: 0 auto;
     font-family: 'Golos Text VF', 'Golos Text', sans-serif;
     font-weight: 500;
     font-size: 22px;
@@ -12755,6 +12788,58 @@ a.fs-f11__cta-pdf:focus-visible,
     letter-spacing: -0.02em;
     color: #FFFFFF;
     text-align: center;
+}
+
+/* 24px below quote; chevrons at x≈694 / 734 on 1440 canvas */
+.exp-backstage__nav {
+    position: relative;
+    width: 100%;
+    height: 32px;
+    margin-top: 24px;
+}
+
+.exp-backstage__nav-btn {
+    position: absolute;
+    top: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 32px;
+    height: 32px;
+    padding: 0;
+    border: 0;
+    background: transparent;
+    cursor: pointer;
+    pointer-events: auto;
+    color: rgba(255, 255, 255, 0.4);
+    transition: color 0.2s ease;
+}
+
+/* viewBox 14×25 — без сжатия; высота как у старого exp_arrow (24px) */
+.exp-backstage__nav-btn svg {
+    display: block;
+    width: 13.44px;
+    height: 24px;
+    flex-shrink: 0;
+}
+
+.exp-backstage__nav-btn--prev {
+    left: 693.78px;
+}
+
+.exp-backstage__nav-btn--next {
+    left: 733.94px;
+    color: #ffffff;
+}
+
+.exp-backstage__nav-btn:hover,
+.exp-backstage__nav-btn:focus-visible {
+    color: #ffffff;
+}
+
+.exp-backstage__nav-btn:focus-visible {
+    outline: 2px solid rgba(255, 255, 255, 0.6);
+    outline-offset: 4px;
 }
 
 
@@ -13241,9 +13326,13 @@ a.fs-f11__cta-pdf:focus-visible,
         transform: rotate(calc(360deg * var(--section6-progress, 0))) scale(1.6) !important;
     }
 
+    .exp-backstage__head {
+        padding-top: 16px;
+    }
+
     .exp-backstage__overlay {
         width: 90%;
-        top: 16px;
+        top: 0;
         font-size: 16px;
     }
 
@@ -13255,8 +13344,8 @@ a.fs-f11__cta-pdf:focus-visible,
         background: transparent;
     }
 
-    .exp-backstage__photo,
-    .exp-backstage__overlay {
+    .exp-backstage__slides,
+    .exp-backstage__head {
         display: none;
     }
 
@@ -13391,20 +13480,14 @@ a.fs-f11__cta-pdf:focus-visible,
     color: #2F2F2F;
 }
 
-.exp-backstage__photo {
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
-}
+@media (max-width: 1439px) {
+    .exp-backstage__nav-btn--prev {
+        left: 48.18%;
+    }
 
-.exp-backstage__arrow {
-    /* Figma 286:3062: arrow at y=134 sits ≈24px below the quote's last
-       line (text bottom ≈ y=109). Drop the arrow onto its own line and
-       center it inside the quote paragraph. */
-    display: block;
-    width: 52px;
-    height: 24px;
-    margin: 24px auto 0;
+    .exp-backstage__nav-btn--next {
+        left: 50.97%;
+    }
 }
 
 /* XL card duotone overlay (Figma 286:3253: image 546 + image 547 with
