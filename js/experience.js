@@ -314,3 +314,33 @@
     photo.addEventListener('touchend', onTouchEnd, { passive: true });
     photo.addEventListener('touchcancel', onTouchEnd, { passive: true });
 })();
+
+/* ============================================================
+   Experience — backstage photo slider (exp-backstage)
+   ============================================================ */
+(function () {
+    var section = document.querySelector('.exp-backstage');
+    if (!section) return;
+
+    var photos = section.querySelectorAll('.exp-backstage__photo');
+    var prevBtn = section.querySelector('.exp-backstage__nav-btn--prev');
+    var nextBtn = section.querySelector('.exp-backstage__nav-btn--next');
+    if (!photos.length || !prevBtn || !nextBtn) return;
+
+    var index = 0;
+    var total = photos.length;
+
+    function show(next) {
+        index = (next + total) % total;
+        for (var i = 0; i < total; i++) {
+            photos[i].classList.toggle('is-active', i === index);
+        }
+    }
+
+    prevBtn.addEventListener('click', function () {
+        show(index - 1);
+    });
+    nextBtn.addEventListener('click', function () {
+        show(index + 1);
+    });
+})();
