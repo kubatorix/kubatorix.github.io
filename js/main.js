@@ -307,6 +307,8 @@ renderMenuEvents();
 (function () {
     var section = document.querySelector('.section5__phase6');
     if (!section) return;
+    var left = section.querySelector('.section5__poly--left');
+    var right = section.querySelector('.section5__poly--right');
     var CANVAS_W = 1336;
     var MERGE_AT = 0.9;
     var ticking = false;
@@ -320,8 +322,18 @@ renderMenuEvents();
         ticking = false;
         var rect = section.getBoundingClientRect();
         var vh = window.innerHeight || document.documentElement.clientHeight;
-        // Polygon mid-line is at ~61.5% of canvas height (canvas y=472 / 767).
-        var polyMid = rect.top + rect.height * 0.615;
+        var polyMid;
+        if (window.innerWidth <= 770 && left && right) {
+            // Mobile: polygons stack vertically, so the desktop 0.615 ratio is
+            // meaningless. Use the group's real center. offsetHeight ignores the
+            // scroll-driven transform on --right, so there's no feedback loop;
+            // --left has no vertical transform, so its top is stable.
+            polyMid = left.getBoundingClientRect().top
+                + (left.offsetHeight + 16 + right.offsetHeight) / 2;
+        } else {
+            // Polygon mid-line is at ~61.5% of canvas height (canvas y=472 / 767).
+            polyMid = rect.top + rect.height * 0.615;
+        }
         var startY = vh;
         var endY = vh * 0.5;
         var progress = Math.max(0, Math.min(1, (startY - polyMid) / (startY - endY)));
@@ -1099,12 +1111,13 @@ renderMenuEvents();
                                 : 's8__pill--white s8__pill--story-right';
         var connector = isEvent ? 's8__connector--event' : 's8__connector--story';
 
-        // Bordered cards put the title inside the framed media (mirroring
-        // the experience-page design) so skip the heading row below to
-        // avoid duplicating the same text.
-        var heading = c.variant === 'bordered'
-            ? ''
-            : '<p class="s8__heading">' + escapeHtml(c.title || c.mediaTitle || '') + '</p>';
+        // The title is shown via .s8__heading for every variant — including
+        // bordered, whose media only carries the inset portrait (no title), so
+        // skipping it left the heading blank on this carousel. \n in the title
+        // becomes <br> so editorial line breaks from the data are honoured.
+        var heading = '<p class="s8__heading">'
+            + escapeHtml(c.title || c.mediaTitle || '').replace(/\n/g, '<br>')
+            + '</p>';
 
         var caption = c.caption
             ? '<p class="s8__caption">' + escapeHtml(c.caption).replace(/\n/g, '<br>') + '</p>'
@@ -1122,8 +1135,11 @@ renderMenuEvents();
     }
 
     function renderTrack(cards) {
-        // Render every card except the xl variant (no title/tags to display).
-        var picked = cards.filter(function (c) { return c.variant !== 'xl'; });
+        // Mirror the experience grid's card set exactly: drop hidden cards (the
+        // experience page renders `!c.hidden`) and the xl variant (which has no
+        // title/tags here, and renders to an empty string on the experience grid
+        // because there is no `xl` template — so it's invisible there too).
+        var picked = cards.filter(function (c) { return c.variant !== 'xl' && !c.hidden; });
         if (!picked.length) return false;
         track.innerHTML = picked.map(function (c, i) {
             return renderCard(c, i + 1);

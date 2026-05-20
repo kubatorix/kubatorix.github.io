@@ -2115,6 +2115,15 @@ body>.header-burger__icon {
    on hover/focus to signal the affordance. text-underline-offset keeps the
    line visually below the descenders; text-decoration-thickness matches the
    40px Golos Medium weight without feeling heavy.                            */
+/* Link wrappers contribute no box — the h2 keeps its absolute positioning
+   relative to .section1__canvas and the hover affordance below stays on the h2. */
+a:has(> .section1__h-issledovanie),
+a:has(> .section1__h-opyt) {
+    display: contents;
+    color: inherit;
+    text-decoration: none;
+}
+
 .section1__h-issledovanie,
 .section1__h-opyt {
     cursor: pointer;
@@ -2670,7 +2679,10 @@ body>.header-burger__icon {
        the two numbers overlapping each other. */
     color: transparent;
     -webkit-text-fill-color: transparent;
-    -webkit-text-stroke-width: 2px;
+    /* Figma 219:766: 2px stroke at 117px glyphs ⇒ 0.017em. em-based so the
+       stroke keeps the same proportion at every font size (desktop 205px and
+       the fluid mobile size both match the reference look). */
+    -webkit-text-stroke-width: 0.017em;
     text-shadow: none;
     background: transparent;
     pointer-events: none;
@@ -3013,6 +3025,17 @@ body>.header-burger__icon {
     pointer-events: none;
 }
 
+/* In the default "both" state BOTH numbers render their own white ",7%"
+   offset on top of each other, so the suffix strokes stack and read ~2× too
+   thick. Only the digits (46 / 71) should overlap chromatically — the comma
+   suffix is a single white outline in the master (Figma 219:766). Hide the
+   purple copy so just one white ",7%" shows. The single-side states below keep
+   each side's own suffix (the faded side is at 10 % anyway), so only this
+   overlap case needs trimming.                                              */
+.s3p5__group--top[data-state="both"] .s3p5__mega-num--purple .s3p5__mega-suffix {
+    display: none;
+}
+
 /* When a single side is selected, the suffix ",7%" on the highlighted
    number switches from the chromatic-overlap white to the side's brand
    colour — all digits + the comma read as one solid colour. The default
@@ -3139,7 +3162,10 @@ body>.header-burger__icon {
     letter-spacing: -0.04em;
     color: transparent;
     -webkit-text-fill-color: transparent;
-    -webkit-text-stroke-width: 2px;
+    /* Figma 219:801: ~0.64px stroke at 44.88px glyphs ⇒ 0.014em. em-based so the
+       proportion holds at every size — the fixed 2px read fine on desktop
+       (150px → ~2px) but was ~2.5× too thick once mobile drops the font to 56px. */
+    -webkit-text-stroke-width: 0.014em;
     text-transform: lowercase;
     white-space: nowrap;
     mix-blend-mode: plus-lighter;
@@ -3177,7 +3203,8 @@ body>.header-burger__icon {
     letter-spacing: -0.027em;
     color: transparent;
     -webkit-text-fill-color: transparent;
-    -webkit-text-stroke: 2px var(--text-white);
+    /* em-based to match Figma's thin stroke at every size (see .s3p5__outline-word). */
+    -webkit-text-stroke: 0.014em var(--text-white);
     /* #FFFFFF, opacity below */
     opacity: 0.7;
     /* spec opacity 0.7 */
@@ -3314,14 +3341,17 @@ body>.header-burger__icon {
         margin-left: 0;
     }
 
+    /* Overlap the two body paragraphs like desktop (purple over orange,
+       toggle reveals one and fades the other to 10%). A single-cell grid
+       stacks both children on top of each other AND auto-sizes its height
+       to the taller paragraph, so no fixed height is needed on mobile. */
     .section3__phase5 .s3p5__bodywrap {
-        display: flex;
-        flex-direction: column;
-        gap: 24px;
+        display: grid;
         pointer-events: auto;
     }
 
     .section3__phase5 .s3p5__body {
+        grid-area: 1 / 1;
         position: relative;
         left: auto;
         top: auto;
@@ -3395,12 +3425,16 @@ body>.header-burger__icon {
         line-height: 1.25;
     }
 
-    /* Mega numbers — re-overlap via absolute positioning */
+    /* Mega numbers — re-overlap via absolute positioning. .s3p5__mega is a query
+       container; the FONT lives on the children (.s3p5__mega-num) so cqw resolves
+       against this box's width — NOT the viewport (cqw on the container element
+       itself resolves against its ancestor, which here is the viewport, and was
+       making the number far too big). The orange number is in normal flow so it
+       gives the container its height; purple overlaps it absolutely. */
     .section3__phase5 .s3p5__mega {
         position: relative;
-        height: 84px;
-        /* matches font 76px */
-        font-size: 76px;
+        container-type: inline-size;
+        height: auto;
     }
 
     .section3__phase5 .s3p5__mega-num {
@@ -3408,15 +3442,21 @@ body>.header-burger__icon {
         top: 0;
         display: block;
         margin: 0;
+        /* Measured glyph advance of "46,7%"/"71,7%" (incl. the 0.2em purple
+           offset + negative letter-spacing) ≈ 2.84em ⇒ 100%/2.84 ≈ 35cqw fills
+           the box; 34cqw leaves a hair of margin so the stroke never clips. */
+        font-size: 34cqw;
     }
 
     .section3__phase5 .s3p5__mega-num--orange {
+        position: relative;
         left: 0;
     }
 
     .section3__phase5 .s3p5__mega-num--purple {
-        left: 15px;
-        /* chromatic offset (~20% of 76px font, mirrors desktop's 41/205 ratio) */
+        /* chromatic offset (mirrors desktop's 41/205 ≈ 0.2 ratio); em-based so it
+           tracks the fluid font above */
+        left: 0.2em;
         margin-left: 0;
         /* defeat tablet rule */
     }
@@ -3509,6 +3549,9 @@ body>.header-burger__icon {
         line-height: 1;
         width: auto;
         white-space: nowrap;
+        /* At 36px the em-based 0.014em ≈ 0.5px renders as a pale sub-pixel line.
+           Pin an explicit width here: crisp + clearly thinner than the old 2px. */
+        -webkit-text-stroke-width: 1.4px;
     }
 
     .section3__phase5 .s3p5__outline-word--purple {
@@ -3528,6 +3571,8 @@ body>.header-burger__icon {
         font-size: 36px;
         line-height: 1;
         margin-top: 0;
+        /* see .s3p5__outline-word above — keep the white outline crisp at 36px */
+        -webkit-text-stroke-width: 1.4px;
     }
 }
 
@@ -3808,7 +3853,11 @@ body>.header-burger__icon {
 
     .section5__phase6 .section5__poly--right {
         margin-top: 16px;
-        transform: translate3d(0, calc(-124px * var(--phase6-progress)), 0);
+        /* Slide up to close the 16px gap AND overlap by the protrusion height
+           (108/256 = 42.1875% of the poly's own height). The % keeps the mesh
+           exact at any width — the old fixed -124px only meshed at the 340px-wide
+           reference size (16 + 108) and left a gap on wider phones (up to 420px). */
+        transform: translate3d(0, calc((-16px - 42.1875%) * var(--phase6-progress)), 0);
     }
 
     .section5__phase6 .section5__poly-shape {
@@ -4740,6 +4789,11 @@ body>.header-burger__icon {
         display: flex;
         flex-direction: row;
         gap: 16px;
+        /* Equalise card heights: stretch every card to the tallest in the row
+           (the desktop base sets align-items: flex-start, which left mobile
+           cards at their differing content heights). Each card's 1fr heading
+           row absorbs the slack, keeping captions pinned to the bottom. */
+        align-items: stretch;
         overflow-x: auto;
         overflow-y: visible;
         scroll-snap-type: x mandatory;
@@ -4794,6 +4848,34 @@ body>.header-burger__icon {
         align-items: center;
         column-gap: 8px;
         row-gap: 14px;
+    }
+
+    /* The bordered story card keeps its DESKTOP layout on mobile — pills on top,
+       big heading, small portrait + caption pinned to the bottom — instead of
+       adopting the generic full-width-photo grid above. Without this the generic
+       4-row areas combined with the desktop bordered's leftover `1fr` row left
+       the pills row stretching (huge gaps) while the photo stayed an 80×108
+       thumbnail in the wrong spot. Re-asserting the 2-col / 3-row grid here
+       (later in source, equal specificity) restores the intended composition. */
+    .section8__phase8 .s8__card--bordered {
+        grid-template-columns: auto 1fr;
+        grid-template-rows: auto 1fr auto;
+        grid-template-areas:
+            "pillL    pillR"
+            "heading  heading"
+            "media    caption";
+        align-items: start;
+        column-gap: 16px;
+        row-gap: 16px;
+    }
+
+    .section8__phase8 .s8__card--bordered .s8__heading {
+        /* 30px per spec; editorial line breaks come from the title's \n
+           (Figma 286:3114). line-height/tracking kept from the master. */
+        font-size: 30px;
+        line-height: 1;
+        letter-spacing: -0.02em;
+        text-align: left;
     }
 
     .section8__phase8 .s8__media {
@@ -5760,6 +5842,14 @@ footer .footer-btn:focus-visible {
        lift the orange/purple against #272727 within this stacking context */
 }
 
+/* On desktop this wrapper is transparent so the four paragraphs stay
+   absolutely positioned relative to .fs-hero__intro exactly as before. On
+   mobile (below) it becomes a real block whose paragraphs flow inline as one
+   continuous run of text. */
+.fs-hero__intro-text {
+    display: contents;
+}
+
 /* Body type: Golos 20 / 120% / -2% / weight 500 (style_10VK6G). */
 .fs-hero__intro-body,
 .fs-hero__intro-highlight {
@@ -5982,6 +6072,17 @@ footer .footer-btn:focus-visible {
         gap: 16px;
     }
 
+    /* Wrapper becomes a real block (order 0 → first), and its paragraphs flow
+       inline so the whole intro reads as one continuous run of text with the
+       orange/purple highlights inline. Whitespace between the <p> tags collapses
+       to a single space, so the sentences join correctly. */
+    .fs-hero__intro-text {
+        display: block;
+        order: 0;
+        width: 100%;
+        text-align: center;
+    }
+
     .fs-hero__intro-body,
     .fs-hero__intro-highlight {
         position: relative;
@@ -5991,6 +6092,12 @@ footer .footer-btn:focus-visible {
         font-size: 16px;
         line-height: 1.25;
         text-align: center;
+    }
+
+    .fs-hero__intro-text .fs-hero__intro-body,
+    .fs-hero__intro-text .fs-hero__intro-highlight {
+        display: inline;
+        width: auto;
     }
 
     .fs-hero__intro-divider--h {
@@ -6022,6 +6129,9 @@ footer .footer-btn:focus-visible {
         order: 1;
         width: 100%;
         text-align: center;
+        /* 30px gap above the sreda credit. .fs-hero__sreda-text is display:contents
+           (no box → can't take margin), so it goes on its first laid-out child. */
+        margin-top: 30px;
     }
 
     .fs-hero__sreda-logo {
