@@ -10,7 +10,10 @@
     var path = (location.pathname.split('/').pop() || 'index.html').toLowerCase();
     if (path === '' || path === '/') path = 'index.html';
 
-    var isArticlePage = /\/articles\/\d+/.test(location.pathname.toLowerCase());
+    var pathnameLower = location.pathname.toLowerCase();
+    var isResearchPage = /\/research\/?$/.test(pathnameLower)
+        || /\/research\/index\.html$/.test(pathnameLower);
+    var isArticlePage = /\/articles\/\d+/.test(pathnameLower);
 
     function siteRoot() {
         var segments = location.pathname.split('/').filter(Boolean);
@@ -26,11 +29,17 @@
     function topnavActive(slug) {
         return path === slug ? ' topnav__link--active' : '';
     }
+    function issledovanieActive() {
+        return isResearchPage ? ' topnav__link--active' : '';
+    }
     function opytActive() {
         return path === 'experience.html' || isArticlePage ? ' topnav__link--active' : '';
     }
     function burgerActive(slug) {
         return path === slug ? ' active' : '';
+    }
+    function burgerIssledovanieActive() {
+        return isResearchPage ? ' active' : '';
     }
     function burgerOpytActive() {
         return path === 'experience.html' || isArticlePage ? ' active' : '';
@@ -54,7 +63,7 @@
         +   '<div class="container">'
         +     '<nav class="topnav header_inside">'
         +       '<a href="' + root + 'index.html" class="topnav__link topnav__link--tema' + topnavActive('index.html') + ' header_inside-item">Тема</a>'
-        +       '<a href="' + root + 'fullstudy.html" class="topnav__link topnav__link--issledovanie' + topnavActive('fullstudy.html') + ' header_inside-item">Исследование</a>'
+        +       '<a href="' + root + 'research/" class="topnav__link topnav__link--issledovanie' + issledovanieActive() + ' header_inside-item">Исследование</a>'
         +       '<div class="topnav__hr" aria-hidden="true"></div>'
         +       '<a href="' + root + 'experience.html" class="topnav__link topnav__link--opyt' + opytActive() + ' header_inside-item">Опыт</a>'
         +       '<a href="javascript:void(0);" class="topnav__link topnav__link--sobytiya header_inside-item" aria-haspopup="true" aria-expanded="false" aria-controls="topnav-events-popup">'
@@ -79,7 +88,7 @@
         +       '<div class="header_inside">'
         +         '<div class="header_inside-wrap">'
         +           '<a href="' + root + 'index.html" class="header_inside-item' + burgerActive('index.html') + '">Тема</a>'
-        +           '<a href="' + root + 'fullstudy.html" class="header_inside-item' + burgerActive('fullstudy.html') + '">Исследование</a>'
+        +           '<a href="' + root + 'research/" class="header_inside-item' + burgerIssledovanieActive() + '">Исследование</a>'
         +           '<a href="' + root + 'experience.html" class="header_inside-item' + burgerOpytActive() + '">Опыт</a>'
         +         '</div>'
         +         '<div class="header_inside-wrap">'

@@ -16,7 +16,8 @@ body.article-7-page>.header-burger__icon svg path {
 .article-7-frame {
   position: relative;
   width: 1440px;
-  height: 7992px;
+  /* absolute content to 6259 + .article-7-end flow + 90px footer */
+  height: 7622px;
   margin: 0 auto;
   background: #D2D2D2;
   font-family: 'Golos', 'Golos Text', system-ui, sans-serif;
@@ -397,22 +398,85 @@ body.article-7-page>.header-burger__icon svg path {
   z-index: 2;
 }
 
-/* === CTA (white_ellipse — mirrors .art-cta on articles 1–6) === */
-.article-7-cta {
+/* === End block: vertical rule + CTA (mirrors .art6-vline + .art-cta) === */
+.article-7-end {
   position: absolute;
-  left: 220px;
-  top: 6549px;
-  width: 1000px;
-  height: 1176px;
+  left: 0;
+  right: 0;
+  top: 6259px;
+  width: 100%;
+  z-index: 2;
+}
+
+.article-7-end .article-7-body--6 {
+  position: relative;
+  left: 308px;
+  top: auto;
+}
+
+.article-7-cta-vline {
+  display: block;
+  position: relative;
+  left: auto;
+  transform: none;
+  top: auto;
+  box-sizing: border-box;
+  width: 0;
+  min-height: 183.00000000000017px;
+  height: 183.00000000000017px;
+  margin: 97px auto 0;
+  padding: 0;
+  border: 0;
+  border-left: 1px solid rgba(0, 0, 0, 1);
+  background: none;
+  pointer-events: none;
+  flex-shrink: 0;
+}
+
+.article-7-end .article-7-cta {
+  position: relative;
+  left: 0;
+  top: auto;
+  transform: none;
+  margin: 0 auto 90px;
+}
+
+.article-7-cta {
+  width: 100%;
+  max-width: none;
+  padding: 0;
+  box-sizing: border-box;
+  overflow: visible;
   z-index: 1;
-  overflow: hidden;
+  --article-7-cta-progress: 0;
+}
+
+.article-7-cta__stack {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 100%;
+}
+
+.article-7-cta__stage {
+  position: relative;
+  box-sizing: border-box;
+  width: 100%;
+  max-width: 826px;
+  height: 858px;
+  margin: 0 auto;
+  padding: 0 24px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: visible;
 }
 
 .article-7-cta__decor {
   position: absolute;
   left: 50%;
   top: 50%;
-  width: 100%;
+  width: min(1000px, 100%);
   height: auto;
   aspect-ratio: 1000 / 1176;
   transform: translate(-50%, -50%) rotate(calc(360deg * var(--article-7-cta-progress, 0)));
@@ -430,49 +494,54 @@ body.article-7-page>.header-burger__icon svg path {
   pointer-events: none;
 }
 
+.article-7-cta__content {
+  position: relative;
+  z-index: 1;
+  box-sizing: border-box;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 100%;
+  max-width: 571px;
+  text-align: center;
+}
+
 .article-7-cta__heading {
-  position: absolute;
-  left: 215px;
-  top: 478px;
-  width: 571px;
-  margin: 0;
+  margin: 0 auto 58px;
+  max-width: 571px;
+  font-family: 'Golos', 'Golos Text', sans-serif;
   font-weight: 500;
   font-size: 35px;
-  line-height: 110%;
-  color: #000;
+  line-height: 1.1;
+  letter-spacing: 0;
   text-align: center;
-  z-index: 2;
+  color: rgba(39, 39, 39, 1);
 }
 
 .article-7-cta__btn {
-  position: absolute;
-  left: 255px;
-  top: 623px;
-  width: 490px;
-  height: 60px;
-  background: #272727;
-  border: 1px solid #272727;
-  border-radius: 30px;
-  display: flex;
+  display: inline-flex;
   align-items: center;
   justify-content: center;
-  color: #FFF;
-  text-decoration: none;
-  font-family: 'Golos', sans-serif;
-  font-weight: 500;
-  font-size: 20px;
-  letter-spacing: -0.02em;
-  cursor: pointer;
-  transition: background 0.18s ease, color 0.18s ease;
-  z-index: 3;
-  /* above .article-7-cta__decor so the button stays clickable */
+  gap: 10px;
   box-sizing: border-box;
-}
-
-.article-7-cta__btn:hover,
-.article-7-cta__btn:focus-visible {
-  background: #FFFFFF;
-  color: #000000;
+  width: 490px;
+  max-width: 100%;
+  height: 60px;
+  margin: 0;
+  padding: 0 24px;
+  border: 1px solid #272727;
+  border-radius: 30px;
+  background-color: #272727;
+  color: rgba(255, 255, 255, 1);
+  font-family: 'Golos', 'Golos Text', sans-serif;
+  font-weight: 500;
+  font-size: 24px;
+  line-height: 48.57px;
+  letter-spacing: -0.02em;
+  text-align: center;
+  text-decoration: none;
+  mix-blend-mode: normal;
+  transition: background-color 0.18s ease, color 0.18s ease;
 }
 
 /* === MOBILE (375 viewport) — Figma file 7RsWg2vKpqbcDHMZqi8w2f node 613:1682 ===
@@ -495,12 +564,12 @@ body.article-7-page>.header-burger__icon svg path {
 
   .article-7-frame {
     width: 375px;
-    height: 7157px;
+    height: 7172px;
     margin: 0;
     /* JS sets --article-7-mob-scale = window.innerWidth/375 so frame fills the actual viewport. */
     transform: scale(var(--article-7-mob-scale, 1));
     transform-origin: top left;
-    margin-bottom: calc(7157px * (var(--article-7-mob-scale, 1) - 1));
+    margin-bottom: calc(7172px * (var(--article-7-mob-scale, 1) - 1));
   }
 
   .article-7-intro__content {
@@ -742,13 +811,64 @@ body.article-7-page>.header-burger__icon svg path {
     height: 617px;
   }
 
-  /* CTA — ellipse stage (452/467, mirrors articles mobile .art-cta) */
+  .article-7-end {
+    position: static;
+    top: auto;
+  }
+
+  .article-7-end .article-7-body--6 {
+    position: absolute;
+    left: 19px;
+    top: 6469px;
+  }
+
+  /* Vertical rule before CTA */
+  .article-7-cta-vline {
+    display: block;
+    position: absolute;
+    left: 187px;
+    transform: none;
+    top: 6604px;
+    width: 0;
+    min-height: 75.00000000000007px;
+    height: 75.00000000000007px;
+    margin: 0;
+    border-left-width: 0.45px;
+  }
+
+  /* CTA — сразу под полосой (6604 + 75) */
+  .article-7-end .article-7-cta,
   .article-7-cta {
+    position: absolute;
     left: 0;
-    top: 6787px;
-    width: 375px;
+    top: 6679px;
+    width: 100vw;
+    max-width: 100vw;
+    transform: none;
+    margin: 0 calc(50% - 50vw) 105px;
+    overflow-x: clip;
+    overflow-y: visible;
+  }
+
+  .article-7-cta__stack {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 100%;
+  }
+
+  .article-7-cta__stage {
+    position: relative;
+    width: 100%;
+    max-width: none;
     height: auto;
     aspect-ratio: 452 / 467;
+    min-height: 0;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
     overflow: visible;
   }
 
@@ -760,6 +880,8 @@ body.article-7-page>.header-burger__icon svg path {
     align-items: center;
     justify-content: center;
     width: 100%;
+    max-width: 100%;
+    height: auto;
     aspect-ratio: 452 / 467;
     overflow: visible;
     transform: translate(-50%, -50%) rotate(calc(360deg * var(--article-7-cta-progress, 0)));
@@ -768,27 +890,64 @@ body.article-7-page>.header-burger__icon svg path {
   }
 
   .article-7-cta__ellipse {
-    width: 170%;
-    height: 170%;
+    display: block;
+    width: 155%;
+    height: 155%;
     object-fit: cover;
+    pointer-events: none;
+  }
+
+  .article-7-cta__content {
+    position: relative;
+    z-index: 1;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 20px;
+    width: 100%;
+    max-width: none;
+    padding: 0 20px;
+    text-align: center;
   }
 
   .article-7-cta__heading {
-    left: 50%;
-    transform: translateX(-50%);
-    top: 159px;
-    width: 303px;
-    font-size: 22px;
-    line-height: 110%;
+    box-sizing: border-box;
+    width: 100%;
+    max-width: none;
+    margin: 0;
+    padding: 0;
+    font-family: 'Golos', sans-serif;
+    font-weight: 500;
+    font-style: normal;
+    font-size: 16px;
+    line-height: 120%;
+    letter-spacing: 0;
+    text-align: center;
+    color: rgba(39, 39, 39, 1);
   }
 
   .article-7-cta__btn {
-    left: 50%;
-    transform: translateX(-50%);
-    top: 205px;
-    width: 261px;
-    height: 57px;
-    font-size: 16px;
+    width: 303px;
+    max-width: calc(100% - 40px);
+    height: 37.21px;
+    margin: 0;
+    padding: 0 12px;
+    border-radius: 18.61px;
+    font-size: 14.88px;
+    line-height: 30.12px;
+    transition: background-color 0.18s ease, color 0.18s ease, border-color 0.18s ease;
+  }
+
+  .article-7-cta__btn:visited {
+    color: rgba(255, 255, 255, 1);
+  }
+
+  .article-7-cta__btn:hover,
+  .article-7-cta__btn:visited:hover,
+  .article-7-cta__btn:focus-visible {
+    background-color: #ffffff;
+    color: #2f2f2f;
+    border-color: #272727;
   }
 }
 
@@ -807,6 +966,7 @@ body.article-7-page a.article-7-cta__btn:visited {
 body.article-7-page a.article-7-cta__btn:hover,
 body.article-7-page a.article-7-cta__btn:visited:hover,
 body.article-7-page a.article-7-cta__btn:focus-visible {
-  color: #000000;
+  color: #2f2f2f;
   background-color: #ffffff;
+  border-color: #272727;
 }

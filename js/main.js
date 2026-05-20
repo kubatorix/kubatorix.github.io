@@ -1560,7 +1560,7 @@ renderMenuEvents();
 /* ============================================================
    Share buttons — copy current page URL on click and surface a
    transient "Ссылка скопирована" toast (fade in → hold → fade out).
-   Covers fullstudy's two share affordances; safe no-op if the
+   Covers research page two share affordances; safe no-op if the
    page has none of them.
    ============================================================ */
 (function () {
