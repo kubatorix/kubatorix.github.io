@@ -238,29 +238,78 @@
             30&nbsp;интервью и&nbsp;анализа рынка мы&nbsp;собрали портреты
           </p>
 
-          <!-- 3 SVG slider states (Figma Group 2136137217 / 2136137218 / 2136137217(1)).
-               Slider position picks 1 of 3 states; legacy canvas is hidden but kept
-               so existing main-backup.js initialization doesn't break. -->
+          <!-- Сетка статична; 3 состояния слайдера — контент (desk SVG / mob PNG). -->
           <div class="section2__stage">
-            <canvas id="canvas" width="1100" height="400" hidden></canvas>
+            <div class="section2__canvas">
             <picture class="section2__grid" aria-hidden="true">
-              <source media="(max-width: 770px)" srcset="./img/figma/section2_grid_mobile.svg" />
+              <source media="(max-width: 770px)" srcset="./img/figma/section2_mobile_grid.png" />
               <img src="./img/figma/section2_grid.svg" alt="" />
             </picture>
-            <img class="section2__state section2__state--1" src="./img/figma/section2_content_1.svg" alt="" aria-hidden="true" />
-            <img class="section2__state section2__state--2" src="./img/figma/section2_content_2.svg" alt="" aria-hidden="true" />
-            <img class="section2__state section2__state--3" src="./img/figma/section2_content_3.svg" alt="" aria-hidden="true" />
-          </div>
-
-          <div class="controls">
-            <input
-              type="range"
-              id="slider"
-              min="0"
-              max="1"
-              step="0.001"
-              value="0"
+            <img
+              class="section2__state section2__state--desk section2__state--1"
+              src="./img/figma/section2_content_1.svg"
+              alt=""
+              aria-hidden="true"
             />
+            <img
+              class="section2__state section2__state--desk section2__state--2"
+              src="./img/figma/section2_content_2.svg"
+              alt=""
+              aria-hidden="true"
+            />
+            <img
+              class="section2__state section2__state--desk section2__state--3"
+              src="./img/figma/section2_content_3.svg"
+              alt=""
+              aria-hidden="true"
+            />
+            <div class="section2__mob-state section2__mob-state--1 is-active" aria-hidden="true">
+              <img
+                class="section2__mob-txt section2__mob-txt--frag-purple"
+                src="./img/figma/section2_mobile_1.png"
+                alt=""
+              />
+              <img
+                class="section2__mob-txt section2__mob-txt--frag-orange"
+                src="./img/figma/section2_mobile_2.png"
+                alt=""
+              />
+            </div>
+            <div class="section2__mob-state section2__mob-state--2" aria-hidden="true">
+              <img
+                class="section2__mob-txt section2__mob-txt--s2-purple"
+                src="./img/figma/section2_mobile_s2_1.png"
+                alt=""
+              />
+              <img
+                class="section2__mob-txt section2__mob-txt--s2-orange"
+                src="./img/figma/section2_mobile_s2_2.png"
+                alt=""
+              />
+            </div>
+            <div class="section2__mob-state section2__mob-state--3" aria-hidden="true">
+              <img
+                class="section2__mob-txt section2__mob-txt--s3-purple"
+                src="./img/figma/section2_mobile_s3_1.png"
+                alt=""
+              />
+              <img
+                class="section2__mob-txt section2__mob-txt--s3-orange"
+                src="./img/figma/section2_mobile_s3_2.png"
+                alt=""
+              />
+            </div>
+            <div class="controls">
+              <input
+                type="range"
+                id="slider"
+                min="0"
+                max="1"
+                step="0.001"
+                value="0"
+              />
+            </div>
+            </div>
           </div>
         </section>
 
@@ -661,15 +710,15 @@
         </section>
 
         <section
-          class="section6 section6__phase7"
+          class="section6 section6__phase7 section6--home"
           aria-label="Section 6 — приглашение к исследованию"
         >
           <div class="section6__viewport">
             <div class="section6__canvas">
-              <!-- Decorative orbital rings (12 ellipses, plus-lighter blending, soft halo blur) -->
+              <!-- White ellipse (blur baked into SVG — no extra CSS filter) -->
               <img
-                src="./img/figma/section6_rings.svg"
-                class="section6__rings"
+                src="./img/figma/section6_ellipse.svg"
+                class="section6__ellipse"
                 alt=""
                 aria-hidden="true"
               />

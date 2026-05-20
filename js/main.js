@@ -360,22 +360,29 @@ renderMenuEvents();
    top).
    ============================================================ */
 (function () {
-    var section = document.querySelector('.section6__phase7');
-    if (!section) return;
-    var CANVAS_W = 1440;
+    var blocks = [
+        { el: document.querySelector('.section6--home.section6__phase7'), canvasW: 1439 },
+        { el: document.querySelector('.exp-discuss.section6__phase7'), canvasW: 1440 }
+    ].filter(function (b) { return b.el; });
+    if (blocks.length === 0) return;
+
     var ticking = false;
 
     function setScale() {
-        var w = section.clientWidth || window.innerWidth;
-        var scale = Math.min(1, w / CANVAS_W);
-        section.style.setProperty('--canvas-scale', scale.toFixed(4));
+        blocks.forEach(function (b) {
+            var w = b.el.clientWidth || window.innerWidth;
+            var scale = Math.min(1, w / b.canvasW);
+            b.el.style.setProperty('--canvas-scale', scale.toFixed(4));
+        });
     }
     function compute() {
         ticking = false;
-        var rect = section.getBoundingClientRect();
         var vh = window.innerHeight || document.documentElement.clientHeight;
-        var progress = Math.max(0, Math.min(1, (vh - rect.top) / (vh + rect.height)));
-        section.style.setProperty('--section6-progress', progress.toFixed(4));
+        blocks.forEach(function (b) {
+            var rect = b.el.getBoundingClientRect();
+            var progress = Math.max(0, Math.min(1, (vh - rect.top) / (vh + rect.height)));
+            b.el.style.setProperty('--section6-progress', progress.toFixed(4));
+        });
     }
     function onScroll() {
         if (ticking) return;
@@ -399,18 +406,36 @@ renderMenuEvents();
    ============================================================ */
 (function () {
     var slider = document.getElementById('slider');
-    var states = document.querySelectorAll('.section2__state');
-    if (!slider || states.length === 0) return;
-    var last = states.length - 1;
+    var stage = document.querySelector('.section2__stage');
+    if (!slider || !stage) return;
+
+    var mq = window.matchMedia('(max-width: 770px)');
+
+    function getStates() {
+        return stage.querySelectorAll(
+            mq.matches ? '.section2__mob-state' : '.section2__state--desk'
+        );
+    }
+
     function update() {
+        var states = getStates();
+        if (states.length === 0) return;
+        var last = states.length - 1;
         var v = parseFloat(slider.value) || 0;
-        var pos = v * last; // 0..last across the layers
+        var pos = v * last;
         for (var k = 0; k < states.length; k++) {
             var op = Math.max(0, 1 - Math.abs(pos - k));
             states[k].style.opacity = op.toFixed(3);
         }
     }
+
     slider.addEventListener('input', update);
+    if (mq.addEventListener) {
+        mq.addEventListener('change', update);
+    } else if (mq.addListener) {
+        mq.addListener(update);
+    }
+    window.addEventListener('resize', update);
     update();
 })();
 

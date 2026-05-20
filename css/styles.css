@@ -2309,22 +2309,18 @@ a:has(> .section1__h-opyt) {
     }
 }
 
-/* ============================================================================
-   Phase 4 — Section 2 lined backdrop (Figma 219:325..358 + center divider)
-   Figma renders the scattered-letters region over a "lined paper" backdrop:
-   ~28 hairline horizontal rules at 11.57 px pitch (mix-blend-soft-light)
-   + a single vertical hairline splitting the area in two (purple фандрайзер
-   on the left half, orange наниматель on the right). We paint that pattern
-   as a CSS background on the transparent <canvas> element — particles draw
-   on top, the pattern reads through clear regions.
-   ============================================================================ */
 /* === Section 2 — static grid + 3 content layers crossfading on top.
-   Grid stays fixed in .section2__grid; only letter paths fade in .section2__state
-   so ruled lines never stack and brighten during slider transitions. === */
+   Grid stays fixed in .section2__grid; only content fades in .section2__state
+   so ruled lines never stack during slider transitions. === */
 .section2 .section2__stage {
     position: relative;
     width: 100%;
     margin-top: 60px;
+}
+
+.section2 .section2__canvas {
+    position: relative;
+    width: 100%;
     aspect-ratio: 1100 / 400;
 }
 
@@ -2357,58 +2353,150 @@ a:has(> .section1__h-opyt) {
     pointer-events: none;
 }
 
-.section2 .section2__state--1 {
+.section2 .section2__state--desk.section2__state--1 {
     opacity: 1;
 }
 
-.section2 #canvas[hidden] {
-    display: none !important;
-    margin: 0;
-    background: none;
-}
-
-.section2 #canvas {
-    margin-top: 60px;
-    max-width: 100%;
-    height: auto;
-    /* canvas pixel grid stays 1100×400 but display scales to fit
-       smaller viewports — no horizontal overflow between 770–1100 */
-    background-color: transparent;
-    background-image:
-        /* vertical center divider */
-        linear-gradient(to right,
-            transparent calc(50% - 0.5px),
-            rgba(255, 255, 255, 0.45) calc(50% - 0.5px),
-            rgba(255, 255, 255, 0.45) calc(50% + 0.5px),
-            transparent calc(50% + 0.5px)),
-        /* horizontal lined-paper rules — Figma 219:325..358 pitch = ~11.57 px */
-        repeating-linear-gradient(to bottom,
-            rgba(255, 255, 255, 0.32) 0px,
-            rgba(255, 255, 255, 0.32) 1px,
-            transparent 1px,
-            transparent 12px);
-    background-repeat: no-repeat, repeat;
-    background-size: 100% 100%, 100% auto;
+.section2 .section2__mob-state,
+.section2 .section2__mob-txt {
+    display: none;
 }
 
 @media (max-width: 770px) {
     .section2 .section2__stage {
-        margin-top: 32px;
+        width: 100%;
+        max-width: 375px;
+        height: auto;
+        margin-left: auto;
+        margin-right: auto;
+        margin-top: 40px;
     }
 
-    .section2 #canvas {
-        margin-top: 32px;
-        /* Mobile: horizontal hairlines only, ~12 px pitch (Figma), no center
-           divider. Columns stack top/bottom; the divider line is dropped
-           per the mobile mock. */
-        background-image:
-            repeating-linear-gradient(to bottom,
-                rgba(255, 255, 255, 0.28) 0px,
-                rgba(255, 255, 255, 0.28) 1px,
-                transparent 1px,
-                transparent 12px);
-        background-size: 100% 100%;
-        background-repeat: repeat;
+    /* Родитель сетки и текстов — ровно 511px; controls внутри, от низа 115px */
+    .section2 .section2__canvas {
+        position: relative;
+        width: 100%;
+        height: 511px;
+        margin-top: 0;
+        aspect-ratio: auto;
+        overflow: visible;
+    }
+
+    .section2 .section2__canvas > .controls {
+        position: absolute;
+        top: auto;
+        bottom: 115px;
+        left: 22.3px;
+        right: auto;
+        width: 317px;
+        max-width: calc(100% - 22.3px);
+        margin: 0;
+        padding: 0;
+        transform: none;
+        box-sizing: border-box;
+        z-index: 3;
+    }
+
+    .section2 .section2__state--desk {
+        display: none !important;
+    }
+
+    /* Сетка: 511×511 внутри .section2__canvas */
+    .section2 .section2__grid {
+        inset: 0;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        width: 100%;
+        height: 100%;
+        mix-blend-mode: soft-light;
+    }
+
+    .section2 .section2__grid img {
+        width: 100%;
+        height: 100%;
+        object-fit: contain;
+        object-position: center top;
+    }
+
+    .section2 .section2__mob-state {
+        display: block;
+        position: absolute;
+        inset: 0;
+        z-index: 1;
+        opacity: 0;
+        pointer-events: none;
+    }
+
+    .section2 .section2__mob-state--1 {
+        opacity: 1;
+    }
+
+    .section2 .section2__mob-txt {
+        display: block;
+        position: absolute;
+        left: 0;
+        width: 100%;
+        pointer-events: none;
+        object-fit: contain;
+    }
+
+    /* Состояние 1 — карт1 top 16 left 22; карт2 +6px */
+    .section2 .section2__mob-state--1 .section2__mob-txt--frag-purple {
+        top: 16px;
+        left: 22px;
+        width: 274.5156555175781px;
+        height: 142.68838500976562px;
+        object-fit: contain;
+        object-position: left top;
+    }
+
+    .section2 .section2__mob-state--1 .section2__mob-txt--frag-orange {
+        top: calc(16px + 142.68838500976562px + 6px);
+        left: 22px;
+        width: 311.597900390625px;
+        height: 171.00326538085938px;
+        object-fit: contain;
+        object-position: left top;
+    }
+
+    /* Состояние 2: карт1 top 8; карт2 +21px */
+    .section2 .section2__mob-state--2 .section2__mob-txt--s2-purple {
+        top: 8px;
+        left: 22px;
+        width: 272.200439453125px;
+        height: 124.63937377929688px;
+        object-fit: contain;
+        object-position: left top;
+    }
+
+    .section2 .section2__mob-state--2 .section2__mob-txt--s2-orange {
+        top: calc(8px + 124.63937377929688px + 21px);
+        left: 22px;
+        width: 309.7842712402344px;
+        height: 156.5000457763672px;
+        object-fit: contain;
+        object-position: left top;
+    }
+
+    /* Состояние 3: карт1 top 18; карт2 +31px */
+    .section2 .section2__mob-state--3 .section2__mob-txt--s3-purple {
+        top: 18px;
+        left: 22px;
+        width: 306.2938537597656px;
+        height: 142.6818389892578px;
+        object-fit: contain;
+        object-position: left top;
+    }
+
+    .section2 .section2__mob-state--3 .section2__mob-txt--s3-orange {
+        top: calc(18px + 142.6818389892578px + 31px);
+        left: 22px;
+        width: 300.101318359375px;
+        height: 105px;
+        object-fit: contain;
+        object-position: left top;
     }
 }
 
@@ -2421,6 +2509,14 @@ a:has(> .section1__h-opyt) {
    74.02 — node 219:320 / 219:321), and a subtle opacity+glow pulse cues the
    user to drag. Animation pauses on hover/active/focus and on reduced-motion.
    ============================================================================ */
+.section2 .controls {
+    position: absolute;
+    z-index: 3;
+    left: 0;
+    right: 0;
+    pointer-events: auto;
+}
+
 .section2 #slider {
     width: 603px;
     max-width: 100%;
@@ -2508,25 +2604,76 @@ a:has(> .section1__h-opyt) {
 }
 
 /* ==========================================================================
-   SECTION 2 — MOBILE Phase 4 (≤770px)
+   SECTION 2 — MOBILE (≤770px)
    ==========================================================================
-   Same canvas-driven portrait animation as desktop — only typography and
-   gutters scale: the heading drops to 25 px, the canvas fits the viewport,
-   and section padding aligns with the rest of the mobile column.            */
+   Static grid + 3 PNG states; heading 25px; stage breaks out of container.  */
 @media (max-width: 770px) {
+    /* Break out of .container 16px padding — stage + slider full viewport width */
+    .container-wrapper:nth-of-type(2) > .container {
+        overflow-x: visible;
+    }
+
     .section2 {
-        margin-left: 0;
-        padding: 0 16px;
+        width: calc(100% + 32px);
+        max-width: 100vw;
+        margin-left: -16px;
+        margin-right: -16px;
+        padding: 0;
+        overflow-x: visible;
     }
 
     .section2_text1 {
+        padding: 0 16px;
         font-size: 25px;
         max-width: none;
     }
 
-    .section2 .controls {
+    .section2 .section2__stage {
+        position: relative;
+        display: block;
         width: 100%;
-        margin: 32px 0 0;
+        max-width: 375px;
+        margin-left: auto;
+        margin-right: auto;
+        min-height: 511px;
+    }
+
+    .section2 #slider {
+        width: 100%;
+        max-width: none;
+        height: 40px;
+        margin: 0;
+        vertical-align: top;
+    }
+
+    /* Трек у верхнего края .controls — ровно 42px под сеткой */
+    .section2 #slider::-webkit-slider-runnable-track {
+        margin-top: 0;
+    }
+
+    .section2 #slider::-webkit-slider-thumb {
+        width: 28px;
+        height: 38px;
+        margin-top: -19px;
+    }
+
+    .section2 #slider::-moz-range-thumb {
+        width: 28px;
+        height: 38px;
+    }
+}
+
+@media (min-width: 771px) {
+    .section2 .section2__canvas .controls {
+        top: 100%;
+        bottom: auto;
+        margin-top: 24px;
+        left: 50%;
+        right: auto;
+        width: 603px;
+        max-width: 100%;
+        transform: translateX(-50%);
+        padding: 0;
     }
 }
 
@@ -3929,6 +4076,12 @@ a:has(> .section1__h-opyt) {
     --canvas-h: 736;
 }
 
+/* Index only — white ellipse block (Figma 286:3897, 1439×983) */
+.section6--home.section6__phase7 {
+    --canvas-w: 1439;
+    --canvas-h: 983;
+}
+
 .section6__phase7 .section6__viewport {
     position: relative;
     width: 100%;
@@ -3958,16 +4111,24 @@ a:has(> .section1__h-opyt) {
     width: 100%;
     height: 100%;
     pointer-events: none;
-    /* Lift the ring above the gradient wrap below so its 1.7x-scaled overflow
-       isn't hidden by the wrap's opaque bg — the bottom of the ring stays
-       visible across the section 6 → section 8 boundary. */
     z-index: 2;
     transform-box: fill-box;
     will-change: transform;
-    /* Rotation is purely scroll-driven (360° sweep across the section's
-       viewport range). No continuous auto-rotation. Ring viewBox paths
-       are ~884px wide at scale 1.0; scale(0.961) targets ~850px diameter. */
-    transform: rotate(calc(360deg * var(--section6-progress, 0))) scale(0.961);
+    transform: rotate(calc(360deg * var(--section6-progress, 0)));
+}
+
+/* Index: white ellipse — glow is only inside section6_ellipse.svg */
+.section6--home .section6__ellipse {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    pointer-events: none;
+    z-index: 2;
+    filter: none;
+    transform-box: fill-box;
+    will-change: transform;
+    transform: rotate(calc(360deg * var(--section6-progress, 0)));
 }
 
 .section6__phase7 .section6__heading {
@@ -4067,9 +4228,13 @@ a:has(> .section1__h-opyt) {
     .section6__phase7 .section6__rings {
         opacity: 0.6;
         height: 100%;
-        /* On mobile the canvas is the screen width (~360px), so the desktop
-           scale renders the ring tiny. Bump the scale up so the ring
-           dominates the viewport like in the design. */
+        transform: rotate(calc(360deg * var(--section6-progress, 0))) scale(1.6);
+    }
+
+    .section6--home .section6__ellipse {
+        opacity: 1;
+        filter: none;
+        height: 100%;
         transform: rotate(calc(360deg * var(--section6-progress, 0))) scale(1.6);
     }
 
