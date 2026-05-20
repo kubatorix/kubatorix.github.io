@@ -881,23 +881,57 @@ renderMenuEvents();
 })();
 
 /* ============================================================
-   FullStudy F3 — scroll-driven opacity fade for the "фандрайзер"
-   word SVG (.fs-f3__words). Goes from opacity 1.0 (when the
-   section is just entering the viewport) down to 0.2 (after it
-   has fully scrolled past). progress 0..1 set on .fs-f3 as
-   --fs-f3-progress; CSS picks it up via calc(1 - 0.8*progress).
+   FullStudy F3 — scroll-driven opacity fade for the wordmark.
+   Desktop (>770px): unchanged — --fs-f3-progress on .fs-f3, section
+   scroll-through, marquee img uses calc(1 - 0.8 * progress).
+   Mobile (≤770px): --fs-f3-wordmark-progress on .fs-f3__words-wrap,
+   full wrap pass, first 20% static, then eased fade; quotes stay 1.
    ============================================================ */
 (function () {
     var section = document.querySelector('.fs-f3');
-    if (!section) return;
+    var wrap = document.querySelector('.fs-f3__words-wrap');
+    if (!section || !wrap) return;
+    var mq = window.matchMedia('(max-width: 770px)');
     var ticking = false;
+    var FADE_START = 0.2;
 
-    function compute() {
-        ticking = false;
+    function easeInOutCubic(t) {
+        return t < 0.5
+            ? 4 * t * t * t
+            : 1 - Math.pow(-2 * t + 2, 3) / 2;
+    }
+
+    function computeDesktop() {
         var rect = section.getBoundingClientRect();
         var vh = window.innerHeight || document.documentElement.clientHeight;
         var progress = Math.max(0, Math.min(1, (vh - rect.top) / (vh + rect.height)));
         section.style.setProperty('--fs-f3-progress', progress.toFixed(4));
+        wrap.style.removeProperty('--fs-f3-wordmark-progress');
+    }
+
+    function computeMobile() {
+        var rect = wrap.getBoundingClientRect();
+        var vh = window.innerHeight || document.documentElement.clientHeight;
+        var scrolled = vh - rect.top;
+        var totalScroll = vh + rect.height;
+        var raw = totalScroll > 0
+            ? Math.max(0, Math.min(1, scrolled / totalScroll))
+            : 0;
+        var remapped = raw <= FADE_START
+            ? 0
+            : (raw - FADE_START) / (1 - FADE_START);
+        var progress = easeInOutCubic(remapped);
+        wrap.style.setProperty('--fs-f3-wordmark-progress', progress.toFixed(4));
+        section.style.removeProperty('--fs-f3-progress');
+    }
+
+    function compute() {
+        ticking = false;
+        if (mq.matches) {
+            computeMobile();
+        } else {
+            computeDesktop();
+        }
     }
     function onScroll() {
         if (ticking) return;
@@ -908,6 +942,11 @@ renderMenuEvents();
     compute();
     window.addEventListener('scroll', onScroll, { passive: true });
     window.addEventListener('resize', onScroll);
+    if (mq.addEventListener) {
+        mq.addEventListener('change', compute);
+    } else if (mq.addListener) {
+        mq.addListener(compute);
+    }
 })();
 
 /* ============================================================
