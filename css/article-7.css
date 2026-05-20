@@ -765,13 +765,14 @@ body.article-7-page>.header-burger__icon svg path {
     height: 617px;
   }
 
-  /* CTA — ellipse stage (452/467, mirrors .art-page--6 mobile .art-cta) */
+  /* CTA — ellipse stage (452/467, mirrors articles mobile .art-cta) */
   .article-7-cta {
     left: 0;
     top: 6787px;
     width: 375px;
     height: auto;
     aspect-ratio: 452 / 467;
+    overflow: visible;
   }
 
   .article-7-cta__decor {
@@ -783,7 +784,7 @@ body.article-7-page>.header-burger__icon svg path {
     justify-content: center;
     width: 100%;
     aspect-ratio: 452 / 467;
-    overflow: hidden;
+    overflow: visible;
     transform: translate(-50%, -50%) rotate(calc(360deg * var(--article-7-cta-progress, 0)));
     transform-origin: 50% 50%;
     will-change: transform;

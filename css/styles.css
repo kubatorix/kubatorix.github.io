@@ -15374,6 +15374,7 @@ a.fs-f11__cta-pdf:focus-visible,
         margin: 0 0 100px;
         padding: 0 20px 0;
         overflow-x: clip;
+        overflow-y: visible;
     }
 
     .art-cta__line-img--top {
@@ -15388,7 +15389,8 @@ a.fs-f11__cta-pdf:focus-visible,
     }
 
     /* CTA ellipse — full bleed within .art (no 100vw/120vw: those cause
-       horizontal scroll). Stage breaks out of the 20px side padding. */
+       horizontal scroll). Stage breaks out of the 20px side padding.
+       overflow: visible so scroll-rotated ring is never clipped. */
     .art-cta__stage {
         box-sizing: border-box;
         width: calc(100% + 40px);
@@ -15402,7 +15404,7 @@ a.fs-f11__cta-pdf:focus-visible,
         display: flex;
         align-items: center;
         justify-content: center;
-        overflow: hidden;
+        overflow: visible;
     }
 
     .art-cta__divider--bottom {
@@ -15427,9 +15429,10 @@ a.fs-f11__cta-pdf:focus-visible,
         max-width: 100%;
         height: auto;
         aspect-ratio: 452 / 467;
-        overflow: hidden;
+        overflow: visible;
         transform: translate(-50%, -50%) rotate(calc(360deg * var(--art-cta-progress, 0)));
         transform-origin: 50% 50%;
+        will-change: transform;
     }
 
     .art-cta__ellipse {
@@ -15969,6 +15972,7 @@ a.fs-f11__cta-pdf:focus-visible,
         margin: 0 0 100px;
         padding: 0 20px;
         overflow-x: clip;
+        overflow-y: visible;
     }
 
     .art-page--2 .art-cta__vline {
@@ -15989,7 +15993,7 @@ a.fs-f11__cta-pdf:focus-visible,
         display: flex;
         align-items: center;
         justify-content: center;
-        overflow: hidden;
+        overflow: visible;
     }
 
     .art-page--2 .art-cta__divider--bottom {
@@ -16014,9 +16018,10 @@ a.fs-f11__cta-pdf:focus-visible,
         max-width: 100%;
         height: auto;
         aspect-ratio: 452 / 467;
-        overflow: hidden;
+        overflow: visible;
         transform: translate(-50%, -50%) rotate(calc(360deg * var(--art-cta-progress, 0)));
         transform-origin: 50% 50%;
+        will-change: transform;
     }
 
     .art-page--2 .art-cta__ellipse {
@@ -17937,12 +17942,23 @@ a.fs-f11__cta-pdf:focus-visible,
     }
 
     .art-page--4 .art4-managers-intro {
-        width: 100%;
-        max-width: none;
+        width: 338px;
+        max-width: 338px;
         margin: 0 auto;
     }
 
+    .art-page--4 .art4-managers-intro br {
+        display: none !important;
+        height: 0;
+        margin: 0;
+        padding: 0;
+        line-height: 0;
+        font-size: 0;
+        visibility: hidden;
+    }
+
     .art-page--4 .art4-managers-intro p {
+        margin: 0;
         font-family: 'Golos', 'Golos Text', sans-serif;
         font-weight: 500;
         font-size: 16px;
@@ -17950,6 +17966,10 @@ a.fs-f11__cta-pdf:focus-visible,
         letter-spacing: -0.02em;
         text-align: center;
         color: #2F2F2F;
+    }
+
+    .art-page--4 .art4-managers-intro p + p {
+        margin-top: 1.3em;
     }
 
     .art-page--4 .art4-vline {
@@ -17970,6 +17990,7 @@ a.fs-f11__cta-pdf:focus-visible,
         margin: 0 calc(50% - 50vw) 100px;
         padding: 0;
         overflow-x: clip;
+        overflow-y: visible;
     }
 
     .art-page--4 .art-cta__stack {
@@ -17988,7 +18009,7 @@ a.fs-f11__cta-pdf:focus-visible,
         display: flex;
         align-items: center;
         justify-content: center;
-        overflow: hidden;
+        overflow: visible;
     }
 
     .art-page--4 .art-cta__content {
@@ -18013,9 +18034,10 @@ a.fs-f11__cta-pdf:focus-visible,
         max-width: 100%;
         height: auto;
         aspect-ratio: 452 / 467;
-        overflow: hidden;
+        overflow: visible;
         transform: translate(-50%, -50%) rotate(calc(360deg * var(--art-cta-progress, 0)));
         transform-origin: 50% 50%;
+        will-change: transform;
     }
 
     .art-page--4 .art-cta__ellipse {
@@ -18958,6 +18980,7 @@ a.fs-f11__cta-pdf:focus-visible,
         margin: 0 calc(50% - 50vw) 93px;
         padding: 0;
         overflow-x: clip;
+        overflow-y: visible;
     }
 
     .art-page--5 .art-cta__stack {
@@ -18976,7 +18999,7 @@ a.fs-f11__cta-pdf:focus-visible,
         display: flex;
         align-items: center;
         justify-content: center;
-        overflow: hidden;
+        overflow: visible;
     }
 
     .art-page--5 .art-cta__content {
@@ -19001,9 +19024,10 @@ a.fs-f11__cta-pdf:focus-visible,
         max-width: 100%;
         height: auto;
         aspect-ratio: 452 / 467;
-        overflow: hidden;
+        overflow: visible;
         transform: translate(-50%, -50%) rotate(calc(360deg * var(--art-cta-progress, 0)));
         transform-origin: 50% 50%;
+        will-change: transform;
     }
 
     .art-page--5 .art-cta__ellipse {
@@ -19891,6 +19915,7 @@ a.fs-f11__cta-pdf:focus-visible,
         margin: 0 calc(50% - 50vw) 105px;
         padding: 0;
         overflow-x: clip;
+        overflow-y: visible;
     }
 
     .art-page--6 .art-cta__stack {
@@ -19912,7 +19937,7 @@ a.fs-f11__cta-pdf:focus-visible,
         display: flex;
         align-items: center;
         justify-content: center;
-        overflow: hidden;
+        overflow: visible;
     }
 
     .art-page--6 .art-cta__content {
@@ -19940,7 +19965,7 @@ a.fs-f11__cta-pdf:focus-visible,
         max-width: 100%;
         height: auto;
         aspect-ratio: 452 / 467;
-        overflow: hidden;
+        overflow: visible;
         transform: translate(-50%, -50%) rotate(calc(360deg * var(--art-cta-progress, 0)));
         transform-origin: 50% 50%;
         will-change: transform;
