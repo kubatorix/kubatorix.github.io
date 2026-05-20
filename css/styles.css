@@ -11520,6 +11520,9 @@ footer .footer-btn:focus-visible {
     /* 11652 - 10849 */
     width: 403px;
     height: 154px;
+    /* Sit above the F11 orbital rings (.fs-f11__rings, z-index: 1)
+       wherever the two overlap. */
+    z-index: 2;
 }
 
 .fs-f11 .fs-f10__staircase {
@@ -12364,9 +12367,10 @@ a.fs-f11__cta-pdf:focus-visible,
 }
 
 /* Header sits on the dark canvas globally — keep its colors as-is, just
-   ensure it can read against light below it (header itself stays dark). */
+   ensure it can read against light below it (header itself stays dark).
+   Background inherits the shared header colour (var(--bg-secondary), #2F2F2F)
+   so it matches the header on every other page. */
 .exp-page header {
-    background: #272727;
     color: #FFFFFF;
 }
 
@@ -15047,7 +15051,6 @@ a.fs-f11__cta-pdf:focus-visible,
 }
 
 .art-page header {
-    background: #272727;
     color: #FFFFFF;
 }
 
@@ -20030,46 +20033,50 @@ a.fs-f11__cta-pdf:focus-visible,
     object-position: center;
 }
 
-/* Body portrait — scroll crossfade (women1 → women2); js/article.js sets --art-portrait-o1/o2. */
-.art-page--6 .art6-body__figure--scroll {
-    --art-portrait-o1: 1;
-    --art-portrait-o2: 0;
-    display: grid;
-    width: 820px;
-    max-width: 100%;
-    margin: 45px auto 105px;
-    padding: 0;
+/* Body portrait — violet backdrop + purple multiply tint that fades in as the
+   photo scrolls into view. Copied 1:1 from .article-7-photo2 (css/article-7.css);
+   js/main.js sets --photo2-progress 0→1, used by both pseudo-elements below. */
+.art-page--6 .art6-body__figure--photo2 {
+    position: relative;
+    overflow: hidden;
+    isolation: isolate;
+    background: #F4F4F4;
+    --photo2-progress: 0;
 }
 
-.art-page--6 .art6-body__figure--scroll .art6-body__figure-photo {
-    grid-area: 1 / 1;
+.art-page--6 .art6-body__figure--photo2 .art6-body__figure-photo--1 {
+    position: relative;
     display: block;
     width: 820px;
     max-width: 100%;
-    height: 923.69921875px;
+    height: auto;
     margin: 0 auto;
     object-fit: cover;
     object-position: center;
-}
-
-.art-page--6 .art6-body__figure--scroll .art6-body__figure-photo--1 {
-    opacity: var(--art-portrait-o1);
-    z-index: 0;
-}
-
-.art-page--6 .art6-body__figure--scroll .art6-body__figure-photo--2 {
-    opacity: var(--art-portrait-o2);
     z-index: 1;
 }
 
-@media (prefers-reduced-motion: reduce) {
-    .art-page--6 .art6-body__figure--scroll .art6-body__figure-photo--1 {
-        opacity: 1;
-    }
+/* Violet backdrop fades in (shows around subject if photo has alpha). */
+.art-page--6 .art6-body__figure--photo2::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: #aa6eff;
+    opacity: var(--photo2-progress);
+    pointer-events: none;
+    z-index: 0;
+}
 
-    .art-page--6 .art6-body__figure--scroll .art6-body__figure-photo--2 {
-        display: none;
-    }
+/* Multiplied purple tint over the photo. */
+.art-page--6 .art6-body__figure--photo2::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: rgba(105, 0, 255, 0.5);
+    mix-blend-mode: multiply;
+    opacity: var(--photo2-progress);
+    pointer-events: none;
+    z-index: 2;
 }
 
 .art-page--6 .art6-body--after-figure {
@@ -20438,7 +20445,7 @@ a.fs-f11__cta-pdf:focus-visible,
         object-position: center;
     }
 
-    .art-page--6 .art6-body__figure--scroll .art6-body__figure-photo {
+    .art-page--6 .art6-body__figure--photo2 .art6-body__figure-photo--1 {
         width: 100%;
         height: auto;
     }

@@ -639,6 +639,36 @@ renderMenuEvents();
 })();
 
 /* ============================================================
+   Article 6 body portrait — same scroll-driven violet backdrop +
+   purple multiply tint as .article-7-photo2 above (copied 1:1).
+   Sets --photo2-progress 0→1 on the figure; CSS uses it for the
+   ::before backdrop and the ::after multiply overlay. Effect
+   completes when the photo reaches the middle of the viewport.
+   ============================================================ */
+(function () {
+    var block = document.querySelector('.art-page--6 .art6-body__figure--photo2');
+    if (!block) return;
+    var ticking = false;
+    function compute() {
+        ticking = false;
+        var rect = block.getBoundingClientRect();
+        var vh = window.innerHeight || document.documentElement.clientHeight;
+        var scrolled = vh - rect.top;
+        var totalScroll = vh + rect.height;
+        var progress = Math.max(0, Math.min(1, (scrolled / totalScroll) / 0.5));
+        block.style.setProperty('--photo2-progress', progress.toFixed(4));
+    }
+    function onScroll() {
+        if (ticking) return;
+        ticking = true;
+        window.requestAnimationFrame(compute);
+    }
+    compute();
+    window.addEventListener('scroll', onScroll, { passive: true });
+    window.addEventListener('resize', onScroll);
+})();
+
+/* ============================================================
    FullStudy F2 — scroll-driven 360° rotation of the orbital
    rings (.fs-f2__cta-art). Exact mirror of the section6/phase7
    IIFE above; progress 0..1 is set on the host section as
