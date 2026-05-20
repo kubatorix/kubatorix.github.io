@@ -15297,9 +15297,10 @@ a.fs-f11__cta-pdf:focus-visible,
     }
 
     .art-block--orange .art-quote {
-        margin: 45px 0 0;
+        width: 334px;
+        max-width: 334px;
+        margin: 45px auto 0;
         padding: 0;
-        max-width: none;
     }
 
     .art-block--orange .art-quote p {
