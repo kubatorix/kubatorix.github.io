@@ -1962,13 +1962,13 @@ body>.header-burger__icon {
     height: 108px;
 }
 
-/* --- Sreda compact logo (219:294) --------------------------------------- */
+/* --- Sreda compact logo (219:294) — sizes: --site-logo-sreda-* ------------ */
 /* Uniform gap around the floated logo so the text wraps with the same
    inset on the right of and below the logo (16px on both sides). */
 .section1__logo {
     float: left;
-    width: 124.3px;
-    height: 45.94px;
+    width: var(--site-logo-sreda-w);
+    height: var(--site-logo-sreda-h);
     margin: 0 16px 0;
     display: block;
     cursor: pointer;
@@ -2190,6 +2190,11 @@ body>.header-burger__icon {
         margin-top: 56px;
     }
 
+    .section1__logo {
+        width: var(--site-logo-sreda-mobile-w);
+        height: auto;
+    }
+
     /* Logo + desc keep their desktop float-wrap relationship — it scales
        cleanly to a narrow column. Desc text dimmed per Figma reference.      */
     .section1__desc {
@@ -2304,9 +2309,9 @@ body>.header-burger__icon {
    as a CSS background on the transparent <canvas> element — particles draw
    on top, the pattern reads through clear regions.
    ============================================================================ */
-/* === Section 2 — 3 SVG state stage (Figma Group 2136137217 / 218 / 217(1)).
-   The .section2__stage holds 3 stacked img layers; the active one is opacity:1,
-   others 0. JS in main.js drives the active state from the slider value. === */
+/* === Section 2 — static grid + 3 content layers crossfading on top.
+   Grid stays fixed in .section2__grid; only letter paths fade in .section2__state
+   so ruled lines never stack and brighten during slider transitions. === */
 .section2 .section2__stage {
     position: relative;
     width: 100%;
@@ -2314,9 +2319,28 @@ body>.header-burger__icon {
     aspect-ratio: 1100 / 400;
 }
 
+.section2 .section2__grid {
+    position: absolute;
+    inset: 0;
+    z-index: 0;
+    display: block;
+    width: 100%;
+    height: 100%;
+    margin: 0;
+    pointer-events: none;
+    mix-blend-mode: soft-light;
+}
+
+.section2 .section2__grid img {
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+}
+
 .section2 .section2__state {
     position: absolute;
     inset: 0;
+    z-index: 1;
     width: 100%;
     height: 100%;
     object-fit: contain;
@@ -5832,8 +5856,8 @@ footer .footer-btn:focus-visible {
 }
 
 .fs-hero__sreda-logo {
-    width: 121.51px;
-    height: 44.97px;
+    width: var(--site-logo-sreda-w);
+    height: var(--site-logo-sreda-h);
     margin-top: 2.33px;
     /* spec offset */
     display: block;
@@ -13645,6 +13669,18 @@ a.fs-f11__cta-pdf:focus-visible,
     text-decoration: none;
 }
 
+/* ---- Shared logo dimensions (Среда своих + учредители, Figma) ------------ */
+:root {
+    --site-logo-sreda-w: 121.5px;
+    --site-logo-sreda-h: 44.97px;
+    --site-logo-sreda-mobile-w: 120px;
+    --site-logo-founder-kosimp-w: 189.03px;
+    --site-logo-founder-kosimp-h: 55.979px;
+    --site-logo-founder-mdoo-w: 100px;
+    --site-logo-founder-mobile-w: 143.534px;
+    --site-logo-founder-mobile-h: 42.506px;
+}
+
 /* ---- 3. Founders / Organizer ---- */
 .about-orgs {
     position: relative;
@@ -13693,17 +13729,17 @@ a.fs-f11__cta-pdf:focus-visible,
 }
 
 .about-orgs__logo--kosimp {
-    width: 189.03px;
-    height: 55.979px;
+    width: var(--site-logo-founder-kosimp-w);
+    height: var(--site-logo-founder-kosimp-h);
 }
 
 .about-orgs__logo--mdoo {
-    width: 100px;
+    width: var(--site-logo-founder-mdoo-w);
     height: auto;
 }
 
 .about-orgs__col--organizer .about-orgs__logo--sreda {
-    width: 121.5px;
+    width: var(--site-logo-sreda-w);
     height: auto;
     margin: 0 0 48px;
     cursor: pointer;
@@ -13972,13 +14008,20 @@ a.fs-f11__cta-pdf:focus-visible,
     }
 
     .about-page .about-orgs__logos .about-orgs__logo {
-        width: 143.534px;
-        height: 42.506px;
+        width: var(--site-logo-founder-mobile-w);
+        height: var(--site-logo-founder-mobile-h);
         object-fit: contain;
     }
 
+    /* Среда своих — единый мобильный размер на всех страницах */
+    .section1__logo,
+    .fs-hero__sreda-logo,
     .about-page .about-orgs__col--organizer .about-orgs__logo--sreda {
-        width: 120px;
+        width: var(--site-logo-sreda-mobile-w);
+        height: auto;
+    }
+
+    .about-page .about-orgs__col--organizer .about-orgs__logo--sreda {
         margin: 0 0 36px;
     }
 

@@ -243,9 +243,13 @@
                so existing main-backup.js initialization doesn't break. -->
           <div class="section2__stage">
             <canvas id="canvas" width="1100" height="400" hidden></canvas>
-            <img class="section2__state section2__state--1" src="./img/figma/section2_slider_1.svg" alt="" aria-hidden="true" />
-            <img class="section2__state section2__state--2" src="./img/figma/section2_slider_2.svg" alt="" aria-hidden="true" />
-            <img class="section2__state section2__state--3" src="./img/figma/section2_slider_3.svg" alt="" aria-hidden="true" />
+            <picture class="section2__grid" aria-hidden="true">
+              <source media="(max-width: 770px)" srcset="./img/figma/section2_grid_mobile.svg" />
+              <img src="./img/figma/section2_grid.svg" alt="" />
+            </picture>
+            <img class="section2__state section2__state--1" src="./img/figma/section2_content_1.svg" alt="" aria-hidden="true" />
+            <img class="section2__state section2__state--2" src="./img/figma/section2_content_2.svg" alt="" aria-hidden="true" />
+            <img class="section2__state section2__state--3" src="./img/figma/section2_content_3.svg" alt="" aria-hidden="true" />
           </div>
 
           <div class="controls">
