@@ -1515,16 +1515,16 @@ body>.header-burger__icon {
 }
 
 .hero__toggle-segment--left {
-    left: 28.16px;
+    left: 20.16px;
     top: 10.91px;
-    width: 114px;
+    width: 146px;
     height: 30px;
 }
 
 .hero__toggle-segment--right {
     left: 360.23px;
     top: 10.91px;
-    width: 102px;
+    width: 117px;
     height: 30px;
 }
 
@@ -1843,10 +1843,8 @@ body>.header-burger__icon {
 
     .hero__toggle-segment--right {
         left: 72.61%;
-        /* 360.23 / 496.12 */
         top: 7.5px;
-        width: 20.56%;
-        /* 102    / 496.12 */
+        width: 21.56%;
         height: 22px;
     }
 
