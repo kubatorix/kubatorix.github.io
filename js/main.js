@@ -448,25 +448,44 @@ renderMenuEvents();
         return Math.pow(t, 0.32);
     }
 
-    /* bind(blockSel, imgSel, maxBlur, textSel, anchor)
-       Default timing: steep front-loaded curve that finishes early in the
-       transit (used by the article 4/5/7 portraits).
-       anchor === 'center': the animation runs while the figure travels from
-       "center at viewport bottom" to "center at viewport middle", so the user
-       actually watches the whole blur-clear + caption fade on screen. This is
-       viewport-relative, so it behaves the same on desktop and mobile.
-       anchor === 'pass': first 55% — blur + visible caption; then blur clears
-       and caption fades out over the rest of the scroll (×2 speed).
-       If textSel is provided → caption holds, then fades out over the top half
-       of the progress range while the blur clears linearly across the range
-       (pass: caption opacity tracks progress). */
-    function bind(blockSel, imgSel, maxBlur, textSel, anchor, filterPrefix) {
+    function smoothstep(t) {
+        var x = Math.max(0, Math.min(1, t));
+        return x * x * (3 - 2 * x);
+    }
+
+    function parseTiming(timing) {
+        var opts = {
+            holdStart: 0,
+            centerRange: 0.5,
+            textFadeFrom: 0.5,
+            smooth: false
+        };
+        if (typeof timing === 'number') {
+            opts.holdStart = timing;
+            opts.smooth = timing > 0;
+        } else if (timing && typeof timing === 'object') {
+            if (typeof timing.holdStart === 'number') opts.holdStart = timing.holdStart;
+            if (typeof timing.centerRange === 'number') opts.centerRange = timing.centerRange;
+            if (typeof timing.textFadeFrom === 'number') opts.textFadeFrom = timing.textFadeFrom;
+            if (timing.smooth === true) opts.smooth = true;
+        }
+        return opts;
+    }
+
+    /* bind(blockSel, imgSel, maxBlur, textSel, anchor, filterPrefix, timing)
+       timing: number (holdStart) or { holdStart, centerRange, textFadeFrom, smooth }.
+       anchor === 'center': figure centre moves from viewport bottom → centerRange×vh.
+       holdStart: first fraction of raw progress unchanged; rest remapped 0→1.
+       smooth: smoothstep easing on animated progress + caption fade.
+       If textSel is provided → caption holds, then fades out (pass: tracks progress). */
+    function bind(blockSel, imgSel, maxBlur, textSel, anchor, filterPrefix, timing) {
         var block = document.querySelector(blockSel);
         var img = block && block.querySelector(imgSel);
         if (!img) return;
         var text = textSel ? block.querySelector(textSel) : null;
         var MAX_BLUR = (typeof maxBlur === 'number') ? maxBlur : 40;
         var PREFIX = filterPrefix || '';
+        var TIMING = parseTiming(timing);
         var ticking = false;
         function compute() {
             ticking = false;
@@ -476,8 +495,8 @@ renderMenuEvents();
             if (anchor === 'center') {
                 var figureCenter = rect.top + rect.height / 2;
                 /* 0 when the figure centre is at the viewport bottom,
-                   1 when it reaches the viewport middle. */
-                progress = Math.max(0, Math.min(1, (vh - figureCenter) / (vh * 0.5)));
+                   1 when it reaches centerRange × viewport height. */
+                progress = Math.max(0, Math.min(1, (vh - figureCenter) / (vh * TIMING.centerRange)));
             } else if (anchor === 'pass') {
                 var scrolled = vh - rect.top;
                 var totalScroll = vh + rect.height;
@@ -494,12 +513,27 @@ renderMenuEvents();
                 var linear = (scrolled / totalScroll) / 0.16;
                 progress = blurProgress(linear);
             }
+            if (TIMING.holdStart > 0) {
+                if (progress <= TIMING.holdStart) {
+                    progress = 0;
+                } else {
+                    progress = (progress - TIMING.holdStart) / (1 - TIMING.holdStart);
+                }
+            }
+            if (TIMING.smooth) {
+                progress = smoothstep(progress);
+            }
             var blurAmount = MAX_BLUR * (1 - progress);
             if (text) {
                 if (anchor === 'pass') {
                     text.style.opacity = (1 - progress).toFixed(4);
                 } else {
-                    var textOpacity = progress < 0.5 ? 1 : 1 - (progress - 0.5) / 0.5;
+                    var fadeFrom = TIMING.textFadeFrom;
+                    var textOpacity = progress < fadeFrom
+                        ? 1
+                        : 1 - (TIMING.smooth
+                            ? smoothstep((progress - fadeFrom) / (1 - fadeFrom))
+                            : (progress - fadeFrom) / (1 - fadeFrom));
                     text.style.opacity = textOpacity.toFixed(4);
                 }
             }
@@ -515,9 +549,19 @@ renderMenuEvents();
         window.addEventListener('resize', onScroll);
     }
     bind('.article-7-midphoto', '.article-7-midphoto__img', 40, '.article-7-midphoto__text', 'center');
-    bind('.art-page--4 .art4-tip--6 .art4-tip__portrait', '.art4-tip__portrait-photo', 40, '.art4-tip__portrait-caption', 'center');
+    bind('.art-page--4 .art4-tip--6 .art4-tip__portrait', '.art4-tip__portrait-photo', 40, '.art4-tip__portrait-caption', 'center', '', {
+        holdStart: 0.2,
+        centerRange: 0.9,
+        textFadeFrom: 0.62,
+        smooth: true
+    });
     bind('.art-page--5 .art5-body__figure--444', '.art5-body__figure-photo--1', 20, '.art5-body__figure-text', 'pass');
-    bind('.art-page--6 .art6-body__figure--222', 'img', 20, '.art6-body__figure-text', 'center', 'grayscale(1) ');
+    bind('.art-page--6 .art6-body__figure--222', 'img', 20, '.art6-body__figure-text', 'center', 'grayscale(1) ', {
+        holdStart: 0.2,
+        centerRange: 0.9,
+        textFadeFrom: 0.62,
+        smooth: true
+    });
 })();
 
 /* ============================================================

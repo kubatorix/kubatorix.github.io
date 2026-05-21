@@ -18199,18 +18199,26 @@ a.fs-f11__cta-pdf:focus-visible,
     width: 100%;
 }
 
-.art-page--4 .art4-tip--6 .art4-tip__portrait-photo,
+.art-page--4 .art4-tip--6 .art4-tip__portrait-photo-wrap,
 .art-page--4 .art4-tip--6 .art4-tip__portrait-caption {
     grid-area: 1 / 1;
+}
+
+.art-page--4 .art4-tip--6 .art4-tip__portrait-photo-wrap {
+    overflow: hidden;
+    width: 100%;
+    isolation: isolate;
 }
 
 .art-page--4 .art4-tip--6 .art4-tip__portrait-photo {
     display: block;
     width: 100%;
     height: auto;
-    aspect-ratio: 401 / 278;
+    aspect-ratio: 2460 / 1705;
     object-fit: cover;
     object-position: center;
+    /* Initial blur; js/main.js clears only on the img, not caption/layout. */
+    filter: blur(40px);
 }
 
 .art-page--4 .art4-tip--6 .art4-tip__portrait-caption {
@@ -18950,11 +18958,15 @@ a.fs-f11__cta-pdf:focus-visible,
         margin-bottom: 48px;
     }
 
+    .art-page--4 .art4-tip--6 .art4-tip__title {
+        margin-bottom: 31px;
+    }
+
     .art-page--4 .art4-tip--6 .art4-tip__portrait {
         box-sizing: border-box;
         width: 100vw;
         max-width: 100vw;
-        margin: 31px calc(50% - 50vw) 37px;
+        margin: 0 calc(50% - 50vw) 37px;
     }
 
     .art-page--4 .art4-tip--6 .art4-tip__portrait-inner {
@@ -18967,7 +18979,7 @@ a.fs-f11__cta-pdf:focus-visible,
         width: 100%;
         max-width: none;
         height: auto;
-        aspect-ratio: 401 / 278;
+        aspect-ratio: 2460 / 1705;
     }
 
     .art-page--4 .art4-tip--6 .art4-tip__portrait-caption {
@@ -20217,8 +20229,9 @@ a.fs-f11__cta-pdf:focus-visible,
 .art-page--6 .art6-hero__title {
     position: absolute;
     left: 50%;
-    top: 50%;
-    transform: translate(-50%, -50%);
+    top: auto;
+    bottom: 128px;
+    transform: translateX(-50%);
     box-sizing: border-box;
     width: 820px;
     max-width: 90%;
@@ -20660,6 +20673,8 @@ a.fs-f11__cta-pdf:focus-visible,
 
     .art-page--6 .art6-hero__title {
         top: 72%;
+        bottom: auto;
+        transform: translateX(-50%);
         width: 335px;
         max-width: 90%;
         font-size: 35px;
