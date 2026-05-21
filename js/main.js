@@ -550,9 +550,9 @@ renderMenuEvents();
     }
     bind('.article-7-midphoto', '.article-7-midphoto__img', 40, '.article-7-midphoto__text', 'center');
     bind('.art-page--4 .art4-tip--6 .art4-tip__portrait', '.art4-tip__portrait-photo', 40, '.art4-tip__portrait-caption', 'center', '', {
-        holdStart: 0.2,
-        centerRange: 0.9,
-        textFadeFrom: 0.62,
+        holdStart: 0.05,
+        centerRange: 0.65,
+        textFadeFrom: 0.5,
         smooth: true
     });
     bind('.art-page--5 .art5-body__figure--444', '.art5-body__figure-photo--1', 20, '.art5-body__figure-text', 'pass');

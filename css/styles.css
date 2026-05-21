@@ -18237,7 +18237,9 @@ a.fs-f11__cta-pdf:focus-visible,
     letter-spacing: -0.02em;
     text-indent: 15px;
     text-align: center;
-    color: #2F2F2F;
+    color: #FFFFFF;
+    mix-blend-mode: difference;
+    pointer-events: none;
 }
 
 .art-page--4 .art4-tip--6 .art4-tip__body {
@@ -18993,7 +18995,8 @@ a.fs-f11__cta-pdf:focus-visible,
         letter-spacing: -0.02em;
         text-indent: 15px;
         text-align: center;
-        color: #2F2F2F;
+        color: #FFFFFF;
+        mix-blend-mode: difference;
     }
 
     .art-page--4 .art4-tip--6 .art4-tip__body {
