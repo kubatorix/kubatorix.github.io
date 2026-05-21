@@ -19185,7 +19185,7 @@ a.fs-f11__cta-pdf:focus-visible,
    Article 5 — hero cover on top
    ============================================================ */
 .art-page--5 {
-    background: #E4E5EF;
+    background: rgba(210, 210, 210, 1);
     color: #2F2F2F;
 }
 
@@ -19210,7 +19210,7 @@ a.fs-f11__cta-pdf:focus-visible,
     box-sizing: border-box;
     width: 100%;
     padding: 0;
-    background: #E4E5EF;
+    background: rgba(210, 210, 210, 1);
 }
 
 .art-page--5 .art5-hero__cover {
