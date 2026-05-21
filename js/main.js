@@ -703,23 +703,31 @@ renderMenuEvents();
 })();
 
 /* ============================================================
-   Article 6 body portrait — same scroll-driven violet backdrop +
-   purple multiply tint as .article-7-photo2 above (copied 1:1).
-   Sets --photo2-progress 0→1 on the figure; CSS uses it for the
-   ::before backdrop and the ::after multiply overlay. Effect
-   completes when the photo reaches the middle of the viewport.
+   Article 6 body portrait — crossfade women1 → 6_6 (same timing as
+   .article-7-photo2 above). Sets --photo2-progress 0→1 on the figure.
    ============================================================ */
 (function () {
     var block = document.querySelector('.art-page--6 .art6-body__figure--photo2');
     if (!block) return;
     var ticking = false;
+    var desktopMq = window.matchMedia('(min-width: 771px)');
     function compute() {
         ticking = false;
         var rect = block.getBoundingClientRect();
         var vh = window.innerHeight || document.documentElement.clientHeight;
         var scrolled = vh - rect.top;
         var totalScroll = vh + rect.height;
-        var progress = Math.max(0, Math.min(1, (scrolled / totalScroll) / 0.5));
+        var linear = totalScroll > 0 ? scrolled / totalScroll : 0;
+        var progress;
+        if (desktopMq.matches) {
+            var start = 0.2;
+            var end = 0.5;
+            if (linear <= start) progress = 0;
+            else if (linear >= end) progress = 1;
+            else progress = (linear - start) / (end - start);
+        } else {
+            progress = Math.max(0, Math.min(1, linear / 0.5));
+        }
         block.style.setProperty('--photo2-progress', progress.toFixed(4));
     }
     function onScroll() {
@@ -730,6 +738,8 @@ renderMenuEvents();
     compute();
     window.addEventListener('scroll', onScroll, { passive: true });
     window.addEventListener('resize', onScroll);
+    if (desktopMq.addEventListener) desktopMq.addEventListener('change', onScroll);
+    else if (desktopMq.addListener) desktopMq.addListener(onScroll);
 })();
 
 /* ============================================================
