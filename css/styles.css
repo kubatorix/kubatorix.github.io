@@ -12750,6 +12750,14 @@ a.fs-f11__cta-pdf:focus-visible,
     cursor: pointer;
 }
 
+/* Experience hero — dark logo asset (Figma 286:3859), no invert */
+.exp-page .exp-hero__brand-logo {
+    display: block;
+    width: 191px;
+    height: 19px;
+    filter: none;
+}
+
 .exp-hero__title {
     margin: 0 auto;
     max-width: 910px;
@@ -13661,8 +13669,9 @@ a.fs-f11__cta-pdf:focus-visible,
         gap: 14px;
     }
 
-    .exp-hero__brand-logo {
+    .exp-page .exp-hero__brand-logo {
         width: 165px;
+        height: auto;
     }
 
     /* Lime gradient panel sits below the photo. Negative margin pulls the

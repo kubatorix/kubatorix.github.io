@@ -1,6 +1,5 @@
-/* article-7.css — absolute positioning at exact Figma coordinates.
-   Restored from 611c71e (Huziahmetov-Artur, article-6.css).
-   Figma: 2kv2pHDkzX3kDAEamsMgUA web=4389:1306 (1440x7992). */
+/* article-7.css — sections in-flow (mirrors art-page--6); absolute only inside blocks
+   (hero title, photo crop, midphoto overlay, CTA decor). Figma web=4389:1306. */
 
 body.article-7-page {
   background: #D2D2D2;
@@ -14,20 +13,33 @@ body.article-7-page>.header-burger__icon svg path {
 }
 
 .article-7-frame {
-  position: relative;
-  width: 1440px;
-  /* absolute content to 6259 + .article-7-end flow + 90px footer */
-  height: 7622px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  box-sizing: border-box;
+  width: 100%;
+  max-width: 1440px;
+  height: auto;
+  min-height: 0;
   margin: 0 auto;
+  overflow: visible;
   background: #D2D2D2;
   font-family: 'Golos', 'Golos Text', system-ui, sans-serif;
   color: #272727;
+}
+
+.article-7-frame > * {
+  flex-shrink: 0;
+  width: 100%;
 }
 
 /* === INTRO (hero + lead + quote) — desktop mirrors .art6-hero layout === */
 .article-7-intro {
   position: relative;
   z-index: 2;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
 }
 
 /* Mirrors .art6-hero__cover */
@@ -41,6 +53,11 @@ body.article-7-page>.header-burger__icon svg path {
   background: rgba(210, 210, 210, 1);
 }
 
+.article-7-hero picture {
+  display: block;
+  width: 100%;
+}
+
 /* Mirrors .art6-hero__cover img — desktop: 100vw × auto height (see min-width below) */
 .article-7-hero__main {
   display: block;
@@ -48,7 +65,7 @@ body.article-7-page>.header-burger__icon svg path {
   height: auto;
 }
 
-/* Title on hero — 152px from bottom of image (Figma) */
+/* Title on hero — overlay on image (internal absolute) */
 .article-7-title {
   position: absolute;
   left: 50%;
@@ -81,11 +98,19 @@ body.article-7-page>.header-burger__icon svg path {
 }
 
 .article-7-intro__content {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
   box-sizing: border-box;
   width: 100%;
   max-width: 820px;
   margin: 0 auto;
   padding: 0;
+}
+
+.article-7-intro__content > .article-7-lead,
+.article-7-intro__content > .article-7-quote-block {
+  position: static;
 }
 
 /* Mirrors .art6-hero__lead */
@@ -94,7 +119,7 @@ body.article-7-page>.header-burger__icon svg path {
   box-sizing: border-box;
   width: 100%;
   max-width: 820px;
-  margin: 145px auto 0;
+  margin: 50px auto 0;
   padding: 0;
   font-weight: 500;
   font-size: 25px;
@@ -109,30 +134,23 @@ body.article-7-page>.header-burger__icon svg path {
   font-weight: 500;
 }
 
-/* Vertical divider between lead and pull-quote */
+/* Vertical divider between lead and pull-quote — hidden (was showing as phantom line) */
 .article-7-quote-divider {
-  display: block;
-  box-sizing: border-box;
-  width: 0;
-  height: 183px;
-  margin: 98px auto 0;
-  padding: 0;
-  border: 0;
-  border-left: 1px solid #000;
-  background: none;
-  pointer-events: none;
+  display: none;
 }
 
 /* Mirrors .art6-hero__quote + __author */
 .article-7-quote-block {
+  position: static;
   box-sizing: border-box;
   width: 100%;
   max-width: 820px;
-  margin: 132px auto 0;
+  margin: 108px auto 0;
   padding: 0;
 }
 
 .article-7-quote {
+  position: static;
   margin: 0;
   font-weight: 500;
   font-size: 70px;
@@ -143,6 +161,7 @@ body.article-7-page>.header-burger__icon svg path {
 }
 
 .article-7-byline {
+  position: static;
   margin: 20px auto 0;
   padding: 0;
   font-family: 'SangBleu Sunrise', 'SangBleu', serif;
@@ -154,8 +173,8 @@ body.article-7-page>.header-burger__icon svg path {
   text-align: center;
 }
 
-/* Desktop: hero image spans full viewport like article 6 */
-@media (min-width: 769px) {
+/* Desktop — hero full width + vertical rule before mid-photo */
+@media (min-width: 771px) {
   .article-7-hero {
     width: 100%;
     max-width: 100%;
@@ -168,23 +187,37 @@ body.article-7-page>.header-burger__icon svg path {
     height: auto;
   }
 
-  /* Intro is in-flow; keep first body block below the quote block */
-  .article-7-body--1 {
-    top: 2050px;
+  .article-7-mid-vline {
+    display: block;
+    box-sizing: border-box;
+    width: 0;
+    height: 141.79101084292796px;
+    margin: 98px auto 0;
+    padding: 0;
+    border: 0;
+    border-left: 1px solid rgba(0, 0, 0, 1);
   }
 }
 
-/* === Body paragraphs === */
+/* Vertical rule before mid-photo block — desktop in-flow only */
+.article-7-mid-vline {
+  display: none;
+}
+
+/* === Body paragraphs — in-flow (desktop/default); mobile overrides below === */
 .article-7-body {
-  position: absolute;
-  margin: 0;
+  position: static;
+  box-sizing: border-box;
+  width: 100%;
+  max-width: 820px;
+  margin: 0 auto;
+  padding: 0;
   font-weight: 500;
   font-size: 20px;
   line-height: 130%;
   letter-spacing: -0.02em;
   color: #272727;
   text-indent: 25px;
-  z-index: 2;
 }
 
 .article-7-body strong {
@@ -192,60 +225,50 @@ body.article-7-page>.header-burger__icon svg path {
 }
 
 .article-7-body--1 {
-  left: 308px;
-  top: 1933px;
-  width: 820px;
+  margin-top: 45px;
 }
 
 .article-7-body--2 {
-  left: 308px;
-  top: 2602px;
-  width: 820px;
+  margin-top: 45px;
 }
 
 .article-7-body--3 {
-  left: 308px;
-  top: 3340px;
-  width: 820px;
+  margin-top: 80px;
 }
 
 .article-7-body--4 {
-  left: 308px;
-  top: 3809px;
-  width: 817px;
+  margin-top: 80px;
+  max-width: 817px;
 }
 
 .article-7-body--5 {
-  left: 308px;
-  top: 5640px;
-  width: 817px;
+  margin-top: 80px;
+  max-width: 817px;
 }
 
 .article-7-body--6 {
-  left: 308px;
-  top: 6259px;
-  width: 817px;
+  margin-top: 0;
+  max-width: 817px;
 }
 
-/* === Mid-page photo block (Figma 4389:1366) ===
-   Photo stays in place (absolute). Scroll-driven animation clears the image blur as the
-   block scrolls through the viewport. Text remains static. */
+/* === Mid-page photo block (Figma 4389:1366) — section in-flow, crop/overlay inside === */
 .article-7-midphoto {
-  position: absolute;
-  left: 308px;
-  top: 2881px;
-  width: 820px;
+  position: relative;
+  box-sizing: border-box;
+  width: 100%;
+  max-width: 820px;
   height: 414px;
+  margin: 35px auto 0;
+  padding: 0;
   background: #D2D2D2;
-  z-index: 2;
 }
 
 .article-7-midphoto__mask {
-  position: absolute;
-  left: 65px;
-  top: 0;
+  position: relative;
   width: 689px;
+  max-width: 100%;
   height: 414px;
+  margin: 0 auto;
   overflow: hidden;
   background: #F4F4F4;
 }
@@ -257,9 +280,7 @@ body.article-7-page>.header-burger__icon svg path {
   width: 794px;
   height: 1191px;
   object-fit: cover;
-  /* filter:blur(40px) is the initial state; main.js drives it down to blur(0) on scroll.
-     CSS view-timeline was unreliable on mobile because transform:scale on .article-7-frame
-     creates a transformed ancestor that confuses the timeline calc. */
+  /* filter:blur(40px) — main.js clears blur on scroll */
   filter: blur(40px);
 }
 
@@ -267,10 +288,11 @@ body.article-7-page>.header-burger__icon svg path {
   position: absolute;
   left: 0;
   top: 90px;
-  width: 820px;
+  box-sizing: border-box;
+  width: 100%;
+  max-width: 820px;
   margin: 0;
   padding: 0 30px;
-  box-sizing: border-box;
   font-family: 'SangBleu Sunrise', 'SangBleu', serif;
   font-weight: 500;
   font-size: 30px;
@@ -283,20 +305,22 @@ body.article-7-page>.header-burger__icon svg path {
 
 /* === Rule-bound text block (Figma 4389:1358) === */
 .article-7-photo1 {
-  position: absolute;
-  left: 308px;
-  top: 3463px;
-  width: 828px;
-  height: 301px;
-  z-index: 2;
+  position: relative;
+  box-sizing: border-box;
+  width: 100%;
+  max-width: 828px;
+  min-height: 301px;
+  height: auto;
+  margin: 45px auto 0;
+  padding: 0;
 }
 
 .article-7-photo1__text {
-  position: absolute;
-  left: 0;
-  top: 14px;
-  width: 820px;
-  margin: 0;
+  position: relative;
+  width: 100%;
+  max-width: 820px;
+  margin: 14px auto 0;
+  padding: 0;
   font-family: 'SangBleu Sunrise', 'SangBleu', serif;
   font-weight: 500;
   font-size: 30px;
@@ -308,30 +332,42 @@ body.article-7-page>.header-burger__icon svg path {
 
 .article-7-photo1__rule {
   position: absolute;
+  display: block;
+  box-sizing: border-box;
   height: 0;
+  margin: 0;
+  padding: 0;
+  border: 0;
   border-top: 1.5px solid #000;
 }
 
-/* Top rule: right half (424px wide starting at x=404.55) at y=0. */
 .article-7-photo1__rule--top {
   left: 404.55px;
   top: 0;
   width: 424px;
+  max-width: 52%;
 }
 
-/* Bottom rule: nearly full width (826.29px from x=0.59) at y=301 (block bottom). */
 .article-7-photo1__rule--bot {
   left: 0.59px;
   top: 301px;
-  width: 826.29px;
+  width: 100%;
+  max-width: 826.29px;
 }
 
 /* === Big pull-quotes in body (SangBleu 30 left-aligned) === */
 .article-7-bigquote {
-  position: absolute;
-  left: 308px;
-  width: 817px;
-  margin: 0;
+  display: block;
+  position: static;
+  left: auto;
+  top: auto;
+  right: auto;
+  bottom: auto;
+  box-sizing: border-box;
+  width: 100%;
+  max-width: 817px;
+  margin: 80px auto 0;
+  padding: 0;
   font-family: 'SangBleu Sunrise', 'SangBleu', serif;
   font-weight: 500;
   font-size: 30px;
@@ -339,39 +375,39 @@ body.article-7-page>.header-burger__icon svg path {
   letter-spacing: -0.02em;
   color: #272727;
   text-indent: 25px;
-  z-index: 2;
-}
-
-.article-7-bigquote:not(.article-7-bigquote--2) {
-  top: 4426px;
 }
 
 .article-7-bigquote--2 {
-  top: 6127px;
+  margin-top: 80px;
 }
 
-/* === Big bottom portrait === */
+/* === Big bottom portrait — inline-grid, crossfade via stacked layers (no absolute) === */
 .article-7-photo2 {
-  position: absolute;
-  left: 308px;
-  top: 4595px;
-  width: 820px;
-  height: 999px;
+  display: inline-grid;
+  grid-template-columns: 1fr;
+  box-sizing: border-box;
+  width: auto;
+  max-width: 100%;
+  height: auto;
+  margin: 45px auto 0;
+  padding: 0;
   overflow: hidden;
-  z-index: 2;
-  background: #F4F4F4;
-  /* Scroll-driven 0→1; drives the violet backdrop + multiply tint below.
-     js/main.js sets this on scroll. */
+  background: none;
+  vertical-align: top;
+  /* Scroll-driven 0→1; js/main.js sets --photo2-progress on scroll */
   --photo2-progress: 0;
   isolation: isolate;
 }
 
 .article-7-photo2__img {
-  position: absolute;
-  top: -91px;
-  width: 843px;
-  height: 1264px;
+  grid-area: 1 / 1;
+  position: static;
+  display: block;
+  width: 820px;
+  height: 999.294921875px;
+  max-width: 100%;
   object-fit: cover;
+  object-position: center top;
   pointer-events: none;
 }
 
@@ -397,26 +433,29 @@ body.article-7-page>.header-burger__icon svg path {
 
 /* === End block: vertical rule + CTA (mirrors .art6-vline + .art-cta) === */
 .article-7-end {
-  position: absolute;
-  left: 0;
-  right: 0;
-  top: 6259px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  position: static;
+  left: auto;
+  top: auto;
+  right: auto;
+  bottom: auto;
+  box-sizing: border-box;
   width: 100%;
-  z-index: 2;
+  max-width: 820px;
+  margin: 80px auto 0;
+  padding: 0;
 }
 
 .article-7-end .article-7-body--6 {
-  position: relative;
-  left: 308px;
-  top: auto;
+  margin-top: 0;
 }
 
 .article-7-cta-vline {
   display: block;
-  position: relative;
-  left: auto;
+  position: static;
   transform: none;
-  top: auto;
   box-sizing: border-box;
   width: 0;
   min-height: 183.00000000000017px;
@@ -431,9 +470,7 @@ body.article-7-page>.header-burger__icon svg path {
 }
 
 .article-7-end .article-7-cta {
-  position: relative;
-  left: 0;
-  top: auto;
+  position: static;
   transform: none;
   margin: 0 auto 90px;
 }
@@ -541,15 +578,12 @@ body.article-7-page>.header-burger__icon svg path {
   transition: background-color 0.18s ease, color 0.18s ease;
 }
 
-/* === MOBILE (375 viewport) — Figma file 7RsWg2vKpqbcDHMZqi8w2f node 613:1682 ===
-   Single-column layout with smaller typography. Frame 375x7688 (subscribe footer at 7157
-   is rendered by footer.js, not inside the frame). All absolute coords below are page-relative. */
-@media (max-width: 768px) {
+/* === MOBILE — in-flow column (mirrors .art-page--6), breakpoint aligned to article 6 === */
+@media (max-width: 770px) {
+  .article-7-mid-vline {
+    display: none;
+  }
 
-  /* Hero / mid-photo / bottom-portrait / CTA all bleed beyond the 375 viewport per Figma.
-     Clip the body horizontally so the bleed is hidden without creating a horizontal scrollbar.
-     Frame is designed at 375px and scales to fit the actual viewport width (414, 428, etc.)
-     via transform:scale, so the layout fills the screen on any phone. */
   html,
   body.article-7-page {
     overflow-x: hidden;
@@ -560,34 +594,54 @@ body.article-7-page>.header-burger__icon svg path {
   }
 
   .article-7-frame {
-    width: 375px;
-    height: 7172px;
+    width: 100%;
+    max-width: 100%;
+    height: auto;
     margin: 0;
-    /* JS sets --article-7-mob-scale = window.innerWidth/375 so frame fills the actual viewport. */
-    transform: scale(var(--article-7-mob-scale, 1));
-    transform-origin: top left;
-    margin-bottom: calc(7172px * (var(--article-7-mob-scale, 1) - 1));
+    transform: none;
+    margin-bottom: 0;
+  }
+
+  .article-7-intro {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+
+  /* Текстовая колонка: 20px от краёв экрана, без padding на обёртках */
+  .article-7-intro__content,
+  .article-7-lead,
+  .article-7-quote-block,
+  .article-7-body,
+  .article-7-bigquote,
+  .article-7-end,
+  .article-7-photo1 {
+    box-sizing: border-box;
+    width: 100%;
+    max-width: min(335px, calc(100vw - 40px));
+    padding-left: 0;
+    padding-right: 0;
   }
 
   .article-7-intro__content {
-    max-width: none;
-    margin: 0;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin: 0 auto;
+    padding: 0;
   }
 
-  /* Hero — fixed height, image fills block (no viewport breakout) */
+  /* Hero — fixed height, image fills block */
   .article-7-hero {
     position: relative;
-    left: auto;
-    top: auto;
     width: 100%;
-    height: 839.32421875px;
+    min-height: 839.32421875px;
     overflow: hidden;
   }
 
   .article-7-hero picture {
-    display: block;
     width: 100%;
-    height: 100%;
+    height: 839.32421875px;
   }
 
   .article-7-hero__main {
@@ -602,6 +656,7 @@ body.article-7-page>.header-burger__icon svg path {
 
   /* Title on hero — 170px from bottom of image (Figma mobile −20) */
   .article-7-title {
+    position: absolute;
     left: 50%;
     top: auto;
     bottom: 170px;
@@ -623,144 +678,148 @@ body.article-7-page>.header-burger__icon svg path {
   }
 
   .article-7-lead {
-    position: absolute;
-    left: 19px;
-    top: 851px;
-    width: 335px;
-    margin: 0;
+    position: static;
+    left: auto;
+    top: auto;
+    margin: 40px auto 0;
     font-size: 16px;
     line-height: 1.3;
+    text-align: center;
   }
 
+  /* Вертикальная палка между lead и цитатой — только мобилка (Figma) */
   .article-7-quote-divider {
-    position: absolute;
-    left: 187px;
-    top: 1430px;
-    margin: 0;
-    height: 75px;
-    border-left-width: 0.45px;
+    display: block;
+    box-sizing: border-box;
+    width: 0;
+    height: 110.0000000000001px;
+    margin: 15px auto 2px;
+    padding: 0;
+    border: 0;
+    border-left: 1px solid rgba(0, 0, 0, 1);
+    pointer-events: none;
   }
 
   .article-7-quote-block {
-    position: absolute;
-    left: 22px;
-    top: 1505px;
-    width: 322px;
-    height: 220px;
-    margin: 0;
+    position: static;
+    left: auto;
+    top: auto;
+    height: auto;
+    margin: 0 auto 0;
+    padding: 0;
   }
 
   .article-7-quote {
-    position: absolute;
-    left: 0;
-    top: 0;
-    width: 322px;
+    position: static;
+    left: auto;
+    top: auto;
+    width: 100%;
     margin: 0;
     font-size: 25px;
     line-height: 1.2;
+    text-align: center;
   }
 
   .article-7-byline {
-    position: absolute;
-    left: 0;
-    top: 131px;
-    width: 322px;
-    margin: 0;
+    position: static;
+    left: auto;
+    top: auto;
+    width: 100%;
+    margin: 20px auto 0;
     font-size: 16px;
     text-align: center;
   }
 
-  /* Body paragraphs — 16px, indent 25 (paragraphIndent from Figma style_JHK2F5) */
+  /* Body paragraphs — in-flow, как lead (без своих боковых padding) */
   .article-7-body {
+    position: static;
+    margin: 0 auto;
+    padding: 0;
     font-size: 16px;
     line-height: 130%;
+    text-indent: 25px;
   }
 
   .article-7-body--1 {
-    left: 19px;
-    top: 1676px;
-    width: 335px;
+    margin-top: 45px;
   }
 
   .article-7-body--2 {
-    left: 17px;
-    top: 2645px;
-    width: 335px;
+    margin-top: 45px;
   }
 
   .article-7-body--3 {
-    left: 17px;
-    top: 3542px;
-    width: 335px;
+    margin-top: 45px;
   }
 
-  .article-7-body--4 {
-    left: 19px;
-    top: 4077px;
-    width: 335px;
+  .article-7-body--4,
+  .article-7-body--5,
+  .article-7-end .article-7-body--6 {
+    margin-top: 45px;
   }
 
-  .article-7-body--5 {
-    left: 19px;
-    top: 5640px;
-    width: 335px;
-  }
-
-  .article-7-body--6 {
-    left: 19px;
-    top: 6469px;
-    width: 335px;
-  }
-
-  /* Mid-photo block — wider than viewport (671 at x=-150), text positioned inside */
+  /* Mid-photo block (blur on scroll) — Figma mobile 375×449.6640625 */
   .article-7-midphoto {
-    left: -150px;
-    top: 3047px;
-    width: 671px;
-    height: 449px;
+    position: relative;
+    left: auto;
+    width: 100%;
+    max-width: none;
+    height: 449.6640625px;
+    margin: 45px 0 0;
+    padding: 0;
+    box-sizing: border-box;
   }
 
   .article-7-midphoto__mask {
-    left: 0;
-    top: 0;
-    width: 671px;
-    height: 449px;
+    position: relative;
+    width: 100%;
+    height: 449.6640625px;
+    margin: 0;
   }
 
   .article-7-midphoto__img {
+    position: absolute;
     left: 33px;
     top: -198px;
     width: 559px;
     height: 839px;
-    /* filter:blur(40px) inherited from base rule; animation-timeline still active */
   }
 
   .article-7-midphoto__text {
-    left: 158px;
-    top: 81px;
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%);
     width: 335px;
+    max-width: calc(100% - 40px);
+    margin: 0;
     padding: 0;
     font-size: 20px;
     line-height: 130%;
+    color: #FFFFFF;
+    mix-blend-mode: difference;
   }
 
   /* Rule-bound text block (Figma 613:1697 "Есть и другой") */
   .article-7-photo1 {
-    left: 19px;
-    top: 3692px;
-    width: 355px;
-    height: 340px;
+    position: relative;
+    min-height: 340px;
+    height: auto;
+    margin: 45px auto 0;
+    padding: 0;
   }
 
   .article-7-photo1__text {
-    left: 0;
-    top: 14px;
-    width: 336px;
+    position: relative;
+    width: 100%;
+    max-width: 100%;
+    margin: 14px auto 0;
     font-size: 20px;
     line-height: 130%;
   }
 
   .article-7-photo1__rule {
+    position: absolute;
     border-top-width: 1px;
   }
 
@@ -768,76 +827,91 @@ body.article-7-page>.header-burger__icon svg path {
     left: 182px;
     top: 0;
     width: 172px;
+    max-width: 52%;
   }
 
   .article-7-photo1__rule--bot {
     left: 0;
     top: 340px;
-    width: 354px;
+    width: 100%;
+    max-width: 354px;
   }
 
   /* Big in-body quotes */
   .article-7-bigquote {
-    left: 19px;
-    width: 335px;
+    display: block;
+    position: static;
+    left: auto;
+    top: auto;
+    right: auto;
+    bottom: auto;
+    margin: 45px auto 0;
+    padding: 0;
     font-size: 20px;
     line-height: 130%;
-  }
-
-  .article-7-bigquote:not(.article-7-bigquote--2) {
-    top: 4878px;
+    text-indent: 25px;
   }
 
   .article-7-bigquote--2 {
-    top: 6294px;
+    margin-top: 45px;
   }
 
-  /* Bottom portrait — bleeds wider than viewport (474 at x=-52) */
+  /* Bottom portrait — та же колонка, что и текст */
   .article-7-photo2 {
-    left: -52px;
-    top: 5053px;
-    width: 474px;
-    height: 542px;
+    display: inline-grid;
+    grid-template-columns: 1fr;
+    width: 100%;
+    max-width: min(335px, calc(100vw - 40px));
+    height: auto;
+    margin: 45px auto 0;
+    padding: 0;
+    box-sizing: border-box;
+    overflow: hidden;
+    background: none;
+    vertical-align: top;
   }
 
   .article-7-photo2__img {
-    left: 16px;
-    top: -19px;
-    width: 411px;
-    height: 617px;
+    grid-area: 1 / 1;
+    position: static;
+    display: block;
+    width: 100%;
+    height: auto;
+    max-width: 100%;
+    object-fit: cover;
+    object-position: center top;
   }
 
   .article-7-end {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
     position: static;
+    left: auto;
     top: auto;
+    margin: 45px auto 0;
+    padding: 0;
   }
 
   .article-7-end .article-7-body--6 {
-    position: absolute;
-    left: 19px;
-    top: 6469px;
+    margin-top: 45px;
   }
 
   /* Vertical rule before CTA */
   .article-7-cta-vline {
     display: block;
-    position: absolute;
-    left: 187px;
-    transform: none;
-    top: 6604px;
+    position: static;
     width: 0;
-    min-height: 75.00000000000007px;
-    height: 75.00000000000007px;
-    margin: 0;
+    min-height: 75px;
+    height: 75px;
+    margin: 97px auto 0;
     border-left-width: 0.45px;
   }
 
-  /* CTA — сразу под полосой (6604 + 75) */
+  /* CTA */
   .article-7-end .article-7-cta,
   .article-7-cta {
-    position: absolute;
-    left: 0;
-    top: 6679px;
+    position: static;
     width: 100vw;
     max-width: 100vw;
     transform: none;
@@ -872,17 +946,10 @@ body.article-7-page>.header-burger__icon svg path {
     position: absolute;
     left: 50%;
     top: 50%;
-    display: flex;
-    align-items: center;
-    justify-content: center;
     width: 100%;
     max-width: 100%;
-    height: auto;
     aspect-ratio: 452 / 467;
-    overflow: visible;
     transform: translate(-50%, -50%) rotate(calc(360deg * var(--article-7-cta-progress, 0)));
-    transform-origin: 50% 50%;
-    will-change: transform;
   }
 
   .article-7-cta__ellipse {
@@ -965,4 +1032,17 @@ body.article-7-page a.article-7-cta__btn:focus-visible {
   color: #2f2f2f;
   background-color: #ffffff;
   border-color: #272727;
+}
+
+/* In-flow guard: page sections only (not internal crop/overlay/decor) */
+body.article-7-page .article-7-frame > .article-7-body,
+body.article-7-page .article-7-frame > .article-7-bigquote,
+body.article-7-page .article-7-frame > .article-7-bigquote.article-7-bigquote--2,
+body.article-7-page .article-7-frame > .article-7-end,
+body.article-7-page .article-7-frame > .article-7-mid-vline {
+  position: static;
+  left: auto;
+  top: auto;
+  right: auto;
+  bottom: auto;
 }

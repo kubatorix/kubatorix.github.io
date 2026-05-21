@@ -433,27 +433,6 @@ renderMenuEvents();
 })();
 
 /* ============================================================
-   Article 7 mobile — fluid frame scaling (611c71e article-6 layout).
-   Frame is designed at 375px; scale to actual viewport width so
-   the design fills the screen on any phone (414, 428, 600, etc.).
-   ============================================================ */
-(function () {
-    var frame = document.querySelector('.article-7-frame');
-    if (!frame) return;
-    var MOBILE_MAX = 768;
-    var DESIGN_W = 375;
-    function setScale() {
-        if (window.innerWidth <= MOBILE_MAX) {
-            document.documentElement.style.setProperty('--article-7-mob-scale', (window.innerWidth / DESIGN_W).toFixed(4));
-        } else {
-            document.documentElement.style.removeProperty('--article-7-mob-scale');
-        }
-    }
-    setScale();
-    window.addEventListener('resize', setScale);
-})();
-
-/* ============================================================
    Scroll-driven blur clear — shared for:
      • .article-7-midphoto __img (Samanlyoglu article 7)
      • .art-page--4 .art4-tip--6 .art4-tip__portrait (article 4 portrait)
@@ -646,13 +625,25 @@ renderMenuEvents();
     var block = document.querySelector('.article-7-photo2');
     if (!block) return;
     var ticking = false;
+    var desktopMq = window.matchMedia('(min-width: 771px)');
     function compute() {
         ticking = false;
         var rect = block.getBoundingClientRect();
         var vh = window.innerHeight || document.documentElement.clientHeight;
         var scrolled = vh - rect.top;
         var totalScroll = vh + rect.height;
-        var progress = Math.max(0, Math.min(1, (scrolled / totalScroll) / 0.5));
+        var linear = totalScroll > 0 ? scrolled / totalScroll : 0;
+        var progress;
+        if (desktopMq.matches) {
+            /* Desktop: start crossfade after 20% of block scroll, finish at 50% (center). */
+            var start = 0.2;
+            var end = 0.5;
+            if (linear <= start) progress = 0;
+            else if (linear >= end) progress = 1;
+            else progress = (linear - start) / (end - start);
+        } else {
+            progress = Math.max(0, Math.min(1, linear / 0.5));
+        }
         block.style.setProperty('--photo2-progress', progress.toFixed(4));
     }
     function onScroll() {
@@ -663,6 +654,8 @@ renderMenuEvents();
     compute();
     window.addEventListener('scroll', onScroll, { passive: true });
     window.addEventListener('resize', onScroll);
+    if (desktopMq.addEventListener) desktopMq.addEventListener('change', onScroll);
+    else if (desktopMq.addListener) desktopMq.addListener(onScroll);
 })();
 
 /* ============================================================

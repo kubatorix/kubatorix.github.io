@@ -318,6 +318,7 @@
     if (!section) return;
 
     var photos = section.querySelectorAll('.exp-backstage__photo');
+    var overlay = section.querySelector('.exp-backstage__overlay');
     var prevBtn = section.querySelector('.exp-backstage__nav-btn--prev');
     var nextBtn = section.querySelector('.exp-backstage__nav-btn--next');
     if (!photos.length || !prevBtn || !nextBtn) return;
@@ -325,12 +326,21 @@
     var index = 0;
     var total = photos.length;
 
+    function setCaption(i) {
+        if (!overlay) return;
+        var caption = photos[i].getAttribute('data-caption') || '';
+        overlay.textContent = caption;
+    }
+
     function show(next) {
         index = (next + total) % total;
         for (var i = 0; i < total; i++) {
             photos[i].classList.toggle('is-active', i === index);
         }
+        setCaption(index);
     }
+
+    setCaption(0);
 
     prevBtn.addEventListener('click', function () {
         show(index - 1);
