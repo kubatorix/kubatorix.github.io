@@ -13703,7 +13703,7 @@ a.fs-f11__cta-pdf:focus-visible,
     .exp-grid {
         grid-template-columns: 1fr;
         grid-auto-rows: auto;
-        gap: 16px;
+        gap: 37px;
         padding: 0 16px;
         box-sizing: border-box;
     }
@@ -13865,11 +13865,43 @@ a.fs-f11__cta-pdf:focus-visible,
         line-height: 1.2;
     }
 
+    /* Overlay: no side padding on mobile; 21px from media to tags, then 15+15 like desktop */
     .exp-card--photo .exp-card__overlay,
     .exp-card--dark .exp-card__overlay,
     .exp-card--blurred .exp-card__overlay,
     .exp-card--polygons .exp-card__overlay {
-        padding: 17px 18px 20px;
+        padding: 21px 0 0;
+        gap: 0;
+    }
+
+    .exp-card--photo .exp-card__overlay .exp-card__tags,
+    .exp-card--dark .exp-card__overlay .exp-card__tags,
+    .exp-card--blurred .exp-card__overlay .exp-card__tags,
+    .exp-card--polygons .exp-card__overlay .exp-card__tags {
+        margin-bottom: 15px;
+    }
+
+    .exp-card--photo .exp-card__overlay .exp-card__title,
+    .exp-card--dark .exp-card__overlay .exp-card__title,
+    .exp-card--blurred .exp-card__overlay .exp-card__title,
+    .exp-card--polygons .exp-card__overlay .exp-card__title {
+        margin: 0 0 15px;
+    }
+
+    .exp-card--photo .exp-card__overlay .exp-card__sub,
+    .exp-card--dark .exp-card__overlay .exp-card__sub,
+    .exp-card--blurred .exp-card__overlay .exp-card__sub,
+    .exp-card--polygons .exp-card__overlay .exp-card__sub {
+        margin: 0;
+    }
+
+    .exp-card--photo .exp-card__overlay .exp-card__title--mid,
+    .exp-card--dark .exp-card__overlay .exp-card__title--mid,
+    .exp-card--blurred .exp-card__overlay .exp-card__title--mid,
+    .exp-card--polygons .exp-card__overlay .exp-card__title--mid {
+        font-size: 20px;
+        line-height: 1;
+        letter-spacing: -0.02em;
     }
 
     /* Card G's centered media title scales with the smaller mobile media block */
@@ -14122,6 +14154,36 @@ a.fs-f11__cta-pdf:focus-visible,
     gap: 14px;
     color: #2F2F2F;
     flex: 1 1 auto;
+}
+
+/* Media cards: overlay without side padding (photo / dark / blurred / polygons). */
+.exp-card--photo .exp-card__overlay,
+.exp-card--dark .exp-card__overlay,
+.exp-card--blurred .exp-card__overlay,
+.exp-card--polygons .exp-card__overlay {
+    padding: 22px 0 0;
+    gap: 0;
+}
+
+.exp-card--photo .exp-card__overlay .exp-card__tags,
+.exp-card--dark .exp-card__overlay .exp-card__tags,
+.exp-card--blurred .exp-card__overlay .exp-card__tags,
+.exp-card--polygons .exp-card__overlay .exp-card__tags {
+    margin-bottom: 15px;
+}
+
+.exp-card--photo .exp-card__overlay .exp-card__title,
+.exp-card--dark .exp-card__overlay .exp-card__title,
+.exp-card--blurred .exp-card__overlay .exp-card__title,
+.exp-card--polygons .exp-card__overlay .exp-card__title {
+    margin: 0 0 15px;
+}
+
+.exp-card--photo .exp-card__overlay .exp-card__sub,
+.exp-card--dark .exp-card__overlay .exp-card__sub,
+.exp-card--blurred .exp-card__overlay .exp-card__sub,
+.exp-card--polygons .exp-card__overlay .exp-card__sub {
+    margin: 0;
 }
 
 /* text-on-photo variant: text floats on top of photo with white gradient bg */
