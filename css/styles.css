@@ -146,7 +146,7 @@ button {
 /* ============================================================================
    RESEARCH · INTERMEDIATE-VIEWPORT ADAPTATION  ·  DO NOT REMOVE
    ============================================================================
-   The research/index.html sections (.fs-f1 … .fs-f11, plus .fs-hero) are
+   The research.html sections (.fs-f1 … .fs-f11, plus .fs-hero) are
    designed at a fixed 1440 px desktop canvas. Below 1440 (down to the
    771 px mobile breakpoint) we proportionally shrink the entire section
    tree via the `zoom` property — it scales BOTH the visual rendering
@@ -6014,7 +6014,7 @@ footer .footer-btn:focus-visible {
 
 
 /* ==========================================================================
-   ===  FullStudy (research/index.html)  ==========================================
+   ===  Research (research.html)  ==========================================
    Phases F0–F11. Page is the long-form research article reached via the
    "Посмотреть полный текст" CTA on the index. Layout 1:1 with Figma frame
    282:503 (1440 × ~13360). Phase boundaries mirror the section list in that
@@ -10794,7 +10794,7 @@ footer .footer-btn:focus-visible {
                          points RIGHT (suggests "swipe forward")
          data-step="1" → user on the second card, right half lit,
                          chevron points LEFT (suggests "swipe back")
-       JS in the inline script of research/index.html updates data-step in
+       JS in the inline script of research.html updates data-step in
        response to scroll on .fs-f8__bodyswipe.                          */
     .fs-f8__bodyswipe--1+.fs-f8__swipe-track,
     .fs-f8__bodyswipe+.fs-f8__swipe-track {
@@ -15004,7 +15004,7 @@ a.fs-f11__cta-pdf:focus-visible,
    PDF MODAL  (Figma 282:1092)
    ============================================================================
    Modal that opens on click of "Получить исследование в PDF" CTAs in
-   research/index.html (.fs-f2__cta-pdf and .fs-f11__cta-pdf). Glass card with
+   research.html (.fs-f2__cta-pdf and .fs-f11__cta-pdf). Glass card with
    lime border + decorative swirls, close X in top-right.
    ============================================================================ */
 
