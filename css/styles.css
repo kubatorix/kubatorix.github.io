@@ -95,12 +95,15 @@ button {
    Excluded by design (they are solid colour blocks, not chromatic
    overlays): `.s3p5__seg-pill` (toggle pill), `.fs-f10__strip`
    (white separator), buttons with solid backgrounds.
+   Article photo layers (scroll crossfade, not additive text):
+   `.article-7-photo2__img--purple` (class contains `--purple` but is
+   a raster portrait, not chromatic type).
 
    When introducing a new coloured element, prefer naming it
    `…--orange` / `…--purple` so it picks up this rule automatically.
    ============================================================================ */
 [class*="--orange"]:not(button):not(.s3p5__seg):not(.s3p5__seg-pill):not(.fs-f10__strip):not(.art-block--orange),
-[class*="--purple"]:not(button):not(.s3p5__seg):not(.s3p5__seg-pill):not(.fs-f10__strip):not(.art-block--purple),
+[class*="--purple"]:not(button):not(.s3p5__seg):not(.s3p5__seg-pill):not(.fs-f10__strip):not(.art-block--purple):not(.article-7-photo2__img--purple),
 [class*="-mark"],
 [class*="__heading-underline"]:not(.fs-f4 *) {
     mix-blend-mode: plus-lighter;
