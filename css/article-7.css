@@ -157,15 +157,14 @@ body.article-7-page>.header-burger__icon svg path {
 /* Desktop: hero image spans full viewport like article 6 */
 @media (min-width: 769px) {
   .article-7-hero {
-    width: 100vw;
-    max-width: 100vw;
-    margin-left: calc(50% - 50vw);
-    margin-right: calc(50% - 50vw);
+    width: 100%;
+    max-width: 100%;
+    margin: 0;
   }
 
   .article-7-hero__main {
-    width: 100vw;
-    max-width: 100vw;
+    width: 100%;
+    max-width: 100%;
     height: auto;
   }
 
@@ -367,35 +366,33 @@ body.article-7-page>.header-burger__icon svg path {
   isolation: isolate;
 }
 
-/* Violet backdrop fades in (shows around subject if photo has alpha). */
-.article-7-photo2::before {
-  content: '';
-  position: absolute;
-  background: #aa6eff;
-  opacity: var(--photo2-progress);
-  pointer-events: none;
-  z-index: 0;
-}
-
 .article-7-photo2__img {
   position: absolute;
   top: -91px;
   width: 843px;
   height: 1264px;
   object-fit: cover;
+  pointer-events: none;
+}
+
+.article-7-photo2__img--natural {
+  opacity: calc(1 - var(--photo2-progress));
   z-index: 1;
 }
 
-/* Multiplied purple tint over the photo. */
-.article-7-photo2::after {
-  content: '';
-  position: absolute;
-  inset: 0;
-  background: rgba(105, 0, 255, 0.5);
-  mix-blend-mode: multiply;
+.article-7-photo2__img--purple {
   opacity: var(--photo2-progress);
-  pointer-events: none;
   z-index: 2;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .article-7-photo2__img--natural {
+    opacity: 1;
+  }
+
+  .article-7-photo2__img--purple {
+    display: none;
+  }
 }
 
 /* === End block: vertical rule + CTA (mirrors .art6-vline + .art-cta) === */
