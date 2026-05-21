@@ -1,16 +1,35 @@
-<svg width="1240" height="363" viewBox="0 0 1240 363" fill="none" xmlns="http://www.w3.org/2000/svg">
+<svg width="1240" height="364" viewBox="0 0 1240 364" fill="none" xmlns="http://www.w3.org/2000/svg">
 <g style="mix-blend-mode:soft-light">
-<path d="M1240 232.016H-4.95018e-05" stroke="white"/>
-<path d="M1240 246.016H-4.95018e-05" stroke="white"/>
-<path d="M1240 261.016H-4.95018e-05" stroke="white"/>
-<path d="M1240 275.016H-4.95018e-05" stroke="white"/>
-<path d="M1240 290.016H-4.95018e-05" stroke="white"/>
-<path d="M1240 304.016H-4.95018e-05" stroke="white"/>
-<path d="M632.656 362L632.656 -6.68049e-07" stroke="white"/>
-<path d="M650.871 362L650.871 -6.68049e-07" stroke="white"/>
-<path d="M1240 319.016H-4.95018e-05" stroke="white"/>
-<path d="M1240 333.016H-4.95018e-05" stroke="white"/>
-<path d="M1240 348.016H-4.95018e-05" stroke="white"/>
-<path d="M1240 362.016H-4.95018e-05" stroke="white"/>
+<path d="M1240 0.5H-4.95018e-05" stroke="white"/>
+<path d="M1240 14.5H-4.95018e-05" stroke="white"/>
+<path d="M1240 29.5H-4.95018e-05" stroke="white"/>
+<path d="M1240 43.5H-4.95018e-05" stroke="white"/>
+<path d="M1240 58.5H-4.95018e-05" stroke="white"/>
+<path d="M1240 72.5H-4.95018e-05" stroke="white"/>
+<path d="M1240 87.5H-4.95018e-05" stroke="white"/>
+<path d="M1240 101.5H-4.95018e-05" stroke="white"/>
+<path d="M1240 116.5H-4.95018e-05" stroke="white"/>
+<path d="M1240 130.5H-4.95018e-05" stroke="white"/>
+<path d="M1240 145.5H-4.95018e-05" stroke="white"/>
+<path d="M1240 159.5H-4.95018e-05" stroke="white"/>
+<path d="M1240 174.5H-4.95018e-05" stroke="white"/>
+<path d="M1240 188.5H-4.95018e-05" stroke="white"/>
+<path d="M1240 203.297H-4.95018e-05" stroke="white"/>
+<path d="M1240 218.297H-4.95018e-05" stroke="white"/>
+<path d="M1240 232.297H-4.95018e-05" stroke="white"/>
+</g>
+<g style="mix-blend-mode:soft-light">
+<path d="M1240 232.516H-4.95018e-05" stroke="white"/>
+<path d="M1240 246.516H-4.95018e-05" stroke="white"/>
+<path d="M1240 261.516H-4.95018e-05" stroke="white"/>
+<path d="M1240 275.516H-4.95018e-05" stroke="white"/>
+<path d="M1240 290.516H-4.95018e-05" stroke="white"/>
+<path d="M1240 304.516H-4.95018e-05" stroke="white"/>
+<path d="M632.656 362.5L632.656 0.499999" stroke="white"/>
+<path d="M650.871 362.5L650.871 0.499999" stroke="white"/>
+<path d="M1240 319.516H-4.95018e-05" stroke="white"/>
+<path d="M1240 333.516H-4.95018e-05" stroke="white"/>
+<path d="M1240 348.516H-4.95018e-05" stroke="white"/>
+<path d="M1240 362.516H-4.95018e-05" stroke="white"/>
 </g>
 </svg>
