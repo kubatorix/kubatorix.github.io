@@ -17,6 +17,9 @@ screenshots/
 *.tar
 *.tar.gz
 *.tgz
+/build/
+/build-cms/
+/release/
 
 # Design references (not used in build)
 секции/
