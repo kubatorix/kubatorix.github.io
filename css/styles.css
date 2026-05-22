@@ -1086,8 +1086,8 @@ body>.header-burger__icon {
         pointer-events: auto;
         touch-action: manipulation;
         -webkit-tap-highlight-color: transparent;
-        z-index: 1100;
-        /* above page content; below open .burger-menu panel (500) */
+        z-index: 10000;
+        /* above full-bleed article heroes and .burger-menu panel (500) */
     }
 
     body.art-page--4>.header-burger__icon,
@@ -20663,6 +20663,14 @@ a.fs-f11__cta-pdf:focus-visible,
         fill: #2F2F2F;
     }
 
+    /* Full-bleed hero sits under the fixed burger; clicks must reach the button. */
+    .art-page--6 .art6-hero__cover,
+    .art-page--6 .art6-hero__cover picture,
+    .art-page--6 .art6-hero__cover img,
+    .art-page--6 .art6-hero__title {
+        pointer-events: none;
+    }
+
     .art-page--6 .art-hero.art6-hero {
         padding-top: 0;
         padding-bottom: 0;
@@ -20684,8 +20692,7 @@ a.fs-f11__cta-pdf:focus-visible,
     }
 
     .art-page--6 .art6-hero__title {
-        top: 72%;
-        bottom: auto;
+        bottom: 160px;
         transform: translateX(-50%);
         width: 335px;
         max-width: 90%;
