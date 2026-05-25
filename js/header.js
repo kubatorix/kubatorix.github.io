@@ -29,6 +29,7 @@
     var root = siteRoot();
 
     function topnavActive(slug) {
+        if (isArticlePage && slug === 'index.html') return '';
         return path === slug ? ' topnav__link--active' : '';
     }
     function issledovanieActive() {
@@ -38,6 +39,7 @@
         return path === 'experience.html' || isArticlePage ? ' topnav__link--active' : '';
     }
     function burgerActive(slug) {
+        if (isArticlePage && slug === 'index.html') return '';
         return path === slug ? ' active' : '';
     }
     function burgerIssledovanieActive() {
