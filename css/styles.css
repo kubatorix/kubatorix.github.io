@@ -6559,6 +6559,20 @@ footer .footer-btn:focus-visible {
     z-index: 0;
 }
 
+/* Mobile grid + list SVG (381×437); hidden on desktop. */
+.fs-f2__mob-rasp {
+    display: none;
+}
+
+/* Transparent wrapper on desktop; gradient panel on mobile. */
+.fs-f2__panel {
+    display: contents;
+}
+
+.fs-f2__panel-gradient {
+    display: none;
+}
+
 /* --- 282:751 grid-line texture (1482×387 at -31, 290), soft-light blend
    so the white strokes only modulate the lime gradient underneath.       */
 .fs-f2__diagram {
@@ -6891,9 +6905,8 @@ footer .footer-btn:focus-visible {
 
 
 /* --- F2 mobile (≤770px) --------------------------------------------------
-   Per Figma: three stacked bands — (1) dark band with the heading,
-   (2) lime green band with the lead, (3) dark band with grid texture
-   carrying the date label and the bulleted list. CTA cluster follows.    */
+   Dark heading band; lime→dark gradient on .fs-f2__panel (lead + grid).
+   CTA cluster follows on the dark section background.                      */
 @media (max-width: 770px) {
     .fs-f2 {
         margin-top: 0;
@@ -6901,12 +6914,6 @@ footer .footer-btn:focus-visible {
         background: var(--bg-primary);
     }
 
-    /* Canvas carries the single lime → dark gradient that the lead, date,
-       and list all sit on. Mirrors the desktop spec (282:748): solid lime
-       at the top of the gradient zone, fading to transparent (= page dark)
-       across the lead/date/list area. The heading sits above the gradient
-       with its own opaque dark background, so the dark→lime boundary is
-       always crisp regardless of how the heading text wraps.              */
     .fs-f2__canvas {
         width: 100%;
         height: auto;
@@ -6916,12 +6923,7 @@ footer .footer-btn:focus-visible {
         flex-direction: column;
         gap: 0;
         position: relative;
-        background-color: var(--bg-primary);
-        background-image: linear-gradient(to bottom,
-                #A6C53B 0,
-                #A6C53B 330px,
-                rgba(39, 39, 39, 0) 770px);
-        background-repeat: no-repeat;
+        background: transparent;
     }
 
     /* Desktop overlays don't apply to the stacked mobile layout. */
@@ -6930,8 +6932,6 @@ footer .footer-btn:focus-visible {
         display: none !important;
     }
 
-    /* Heading — opaque dark band at the top, hides the lime portion of
-       the canvas gradient that sits behind it.                            */
     .fs-f2__heading {
         position: relative;
         left: auto;
@@ -6949,67 +6949,74 @@ footer .footer-btn:focus-visible {
         order: 1;
     }
 
-    /* Lead — transparent so the canvas gradient (solid lime in this band)
-       reads through.                                                       */
+    /* 282:748 — lime band over lead + grid; Figma stops, full panel height. */
+    .fs-f2__panel {
+        display: flex;
+        flex-direction: column;
+        position: relative;
+        order: 2;
+        background: var(--bg-primary);
+    }
+
+    .fs-f2__panel-gradient {
+        display: block;
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background: linear-gradient(180deg,
+                #C2F04F -11.86%,
+                rgba(47, 47, 47, 0) 94.97%);
+        pointer-events: none;
+    }
+
     .fs-f2__lead {
         position: relative;
         left: auto;
         top: auto;
         width: 100%;
         margin: 0;
-        padding: 32px 24px;
+        padding: 32px 24px 0;
         box-sizing: border-box;
         font-size: 16px;
         line-height: 135%;
         font-weight: 500;
         background: transparent;
-        z-index: 2;
-        order: 2;
     }
 
-    /* Date + list — transparent so the canvas gradient fades behind them.
-       Notebook-style grid (horizontal rules every 24px + a thin pair of
-       verticals at x=48/72) is layered on top via background-image so it
-       sits over the gradient like the desktop study_method_diagram.svg.   */
-    .fs-f2__date {
+    /* Inline SVG grid (soft-light) + content img overlay. No z-index on
+       wrapper — stacking context would isolate blend from panel gradient. */
+    .fs-f2__mob-rasp {
+        display: block;
         position: relative;
-        left: auto;
-        top: auto;
         width: 100%;
-        margin: 0;
-        padding: 40px 24px 16px 80px;
+        margin: 31px 0 0;
         box-sizing: border-box;
-        font-size: 16px;
-        font-weight: 500;
-        line-height: 120%;
-        z-index: 2;
-        order: 3;
-        background-color: transparent;
-        background-image:
-            linear-gradient(to bottom, rgba(255, 255, 255, 0.10) 1px, transparent 1px),
-            linear-gradient(to right, transparent 47px, rgba(255, 255, 255, 0.12) 47px 48px, transparent 48px 71px, rgba(255, 255, 255, 0.12) 71px 72px, transparent 72px);
-        background-size: 100% 24px, 100% 100%;
-        background-repeat: repeat-y, no-repeat;
-        background-position: 0 0, 0 0;
+        pointer-events: none;
     }
 
+    .fs-f2__mob-rasp-grid {
+        display: block;
+        width: 100%;
+        height: auto;
+    }
+
+    .fs-f2__mob-rasp-grid-lines {
+        mix-blend-mode: soft-light;
+    }
+
+    .fs-f2__mob-rasp-content {
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: auto;
+    }
+
+    .fs-f2__date,
     .fs-f2__list {
-        position: relative;
-        margin: 0;
-        padding: 24px 24px 40px 0;
-        list-style: none;
-        z-index: 2;
-        order: 4;
-        display: flex;
-        flex-direction: column;
-        gap: 24px;
-        background-color: transparent;
-        background-image:
-            linear-gradient(to bottom, rgba(255, 255, 255, 0.10) 1px, transparent 1px),
-            linear-gradient(to right, transparent 47px, rgba(255, 255, 255, 0.12) 47px 48px, transparent 48px 71px, rgba(255, 255, 255, 0.12) 71px 72px, transparent 72px);
-        background-size: 100% 24px, 100% 100%;
-        background-repeat: repeat-y, no-repeat;
-        background-position: 0 0, 0 0;
+        display: none !important;
     }
 
     .fs-f2__row {

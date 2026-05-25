@@ -173,12 +173,57 @@
         <!-- 282:749 heading -->
         <h2 class="fs-f2__heading">Как проводилось исследование</h2>
 
-        <!-- 282:750 lead -->
-        <p class="fs-f2__lead">
-          2&nbsp;параллельных онлайн-опроса: среди специалистов, занимающихся
-          привлечением ресурсов (фандрайзеров), и&nbsp;среди руководителей
-          и&nbsp;сотрудников НКО, принимающих решения о&nbsp;найме.
-        </p>
+        <!-- 282:750 lead + mobile grid (gradient panel on mobile). -->
+        <div class="fs-f2__panel">
+          <!-- 282:748 mobile — separate layer so grid soft-light can blend (like desktop). -->
+          <span class="fs-f2__panel-gradient" aria-hidden="true"></span>
+          <p class="fs-f2__lead">
+            2&nbsp;параллельных онлайн-опроса: среди специалистов, занимающихся
+            привлечением ресурсов (фандрайзеров), и&nbsp;среди руководителей
+            и&nbsp;сотрудников НКО, принимающих решения о&nbsp;найме.
+          </p>
+
+          <!-- Mobile: inline grid (soft-light) + content SVG overlay. -->
+          <div class="fs-f2__mob-rasp" aria-hidden="true">
+            <svg class="fs-f2__mob-rasp-grid" width="381" height="437" viewBox="0 0 381 437" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+              <g class="fs-f2__mob-rasp-grid-lines">
+                <path d="M-92 3.21533H419.849" stroke="white"/>
+                <path d="M-92 17.7075H419.849" stroke="white"/>
+                <path d="M-92 32.1997H419.849" stroke="white"/>
+                <path d="M63.0938 350.153L63.0938 3.15283" stroke="white"/>
+                <path d="M51.0938 350.153L51.0938 3.15282" stroke="white"/>
+                <path d="M381.492 436.145L381.492 1.52609e-05" stroke="white"/>
+                <path d="M-92 46.6919H419.849" stroke="white"/>
+                <path d="M-92 61.1841H419.849" stroke="white"/>
+                <path d="M-92 75.6763H419.849" stroke="white"/>
+                <path d="M-92 90.1685H419.849" stroke="white"/>
+                <path d="M-92 104.661H419.849" stroke="white"/>
+                <path d="M-92 119.153H419.849" stroke="white"/>
+                <path d="M-92 133.645H419.849" stroke="white"/>
+                <path d="M-92 148.137H419.849" stroke="white"/>
+                <path d="M-92 162.629H419.849" stroke="white"/>
+                <path d="M-92 177.122H419.849" stroke="white"/>
+                <path d="M-92 191.614H419.849" stroke="white"/>
+                <path d="M-92 206.106H419.849" stroke="white"/>
+                <path d="M-92 220.598H419.849" stroke="white"/>
+                <path d="M-92 235.09H419.849" stroke="white"/>
+                <path d="M-92 249.583H419.849" stroke="white"/>
+                <path d="M-92 264.067H419.849" stroke="white"/>
+                <path d="M-92 278.567H419.849" stroke="white"/>
+                <path d="M-92 293.051H419.849" stroke="white"/>
+                <path d="M-92 307.543H419.849" stroke="white"/>
+                <path d="M-92 322.036H419.849" stroke="white"/>
+                <path d="M-92 336.536H419.849" stroke="white"/>
+                <path d="M-92 350.02H419.849" stroke="white"/>
+              </g>
+            </svg>
+            <img
+              src="./img/figma/mobile-rasp-content.svg"
+              class="fs-f2__mob-rasp-content"
+              alt=""
+            />
+          </div>
+        </div>
 
         <!-- 282:775 date label (no bullet) -->
         <p class="fs-f2__date">Ноябрь 2025 - Январь 2026:</p>
