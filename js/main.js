@@ -1122,21 +1122,12 @@ renderMenuEvents();
         ticking = false;
         var rect = section.getBoundingClientRect();
         var vh = window.innerHeight || document.documentElement.clientHeight;
+        var scrolled = Math.max(0, vh - rect.top);
+        var span = vh + rect.height;
         var progress;
-        if (window.innerWidth <= 770) {
-            /* Mobile: the rotation finishes when the figure cluster reaches the
-               centre of the screen. Cluster centre ≈ section top + 110px +
-               ~half the field (100vw - 48). Progress 0 when it's at the bottom
-               edge, 1 at mid-viewport. */
-            var field = window.innerWidth - 48;
-            var figuresCenter = rect.top + 110 + field * 0.5;
-            progress = Math.max(0, Math.min(1, (vh - figuresCenter) / (vh / 2)));
-        } else {
-            /* Desktop (unchanged): completes when the section centre reaches
-               the viewport centre. */
-            var raw = Math.max(0, Math.min(1, (vh - rect.top) / (vh + rect.height)));
-            progress = Math.min(1, raw * 2);
-        }
+
+        /* Same scroll mapping as desktop — full arc within section travel. */
+        progress = Math.min(1, (scrolled / span) * 2);
         section.style.setProperty('--fs-f7-progress', progress.toFixed(4));
     }
     function onScroll() {
