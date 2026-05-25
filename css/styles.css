@@ -8820,6 +8820,13 @@ footer .footer-btn:focus-visible {
         margin-bottom: 16px;
     }
 
+    .fs-f5__edu-heading-raznoe {
+        text-decoration: underline;
+        text-decoration-color: #C3F150;
+        text-decoration-thickness: 1px;
+        text-underline-offset: 4px;
+    }
+
     /* .fs-f5__edu-heading-mark picks up underline from the global LIME
        UNDERLINE RULE (`[class*="__edu-heading-mark"]`) at top of file. */
 
@@ -8857,7 +8864,7 @@ footer .footer-btn:focus-visible {
         background: transparent;
         align-self: stretch;
         justify-self: stretch;
-        transition: none;
+        transition: height 0.4s ease, border-color 0.3s ease, border-radius 0.3s ease;
     }
 
     .fs-f5__chart-cell--purple {
@@ -18741,7 +18748,11 @@ a.fs-f11__cta-pdf:focus-visible,
 
     .art-page--4 .art4-tip+.art4-tip,
     .art-page--4 .art4-tip--2+.art4-tip,
-    .art-page--4 .art4-tip--3+.art4-tip--4,
+    .art-page--4 .art4-tip--3+.art4-tip--4 {
+        margin-top: 68px;
+    }
+
+    /* Same gap as above Совет 3 (.art4-tip--2 + .art4-tip) */
     .art-page--4 .art4-tip--4+.art4-tip--5,
     .art-page--4 .art4-tip--5+.art4-tip--6 {
         margin-top: 68px;
@@ -18756,8 +18767,11 @@ a.fs-f11__cta-pdf:focus-visible,
 
     .art-page--4 .art4-tip--1 .art4-tip__body,
     .art-page--4 .art4-tip--2 .art4-tip__body,
-    .art-page--4 .art4-tip--3 .art4-tip__body {
-        margin: 0;
+    .art-page--4 .art4-tip--3 .art4-tip__body,
+    .art-page--4 .art4-tip--4 .art4-tip__body,
+    .art-page--4 .art4-tip--5 .art4-tip__body,
+    .art-page--4 .art4-tip--6 .art4-tip__body {
+        margin-top: 0;
         max-width: 100%;
     }
 
@@ -18899,11 +18913,6 @@ a.fs-f11__cta-pdf:focus-visible,
         color: #2F2F2F;
     }
 
-    .art-page--4 .art4-tip--4 .art4-tip__body {
-        margin: 0;
-        max-width: 100%;
-    }
-
     .art-page--4 .art4-tip--4 .art4-tip__lead {
         margin: 0 0 36px;
         font-family: 'Golos', 'Golos Text', sans-serif;
@@ -18937,7 +18946,7 @@ a.fs-f11__cta-pdf:focus-visible,
     }
 
     .art-page--4 .art4-tip--4 .art4-tip__note {
-        margin: 49px 0 134px;
+        margin: 49px 0 0;
         font-family: 'Golos', 'Golos Text', sans-serif;
         font-weight: 500;
         font-size: 16px;
@@ -19036,7 +19045,7 @@ a.fs-f11__cta-pdf:focus-visible,
     .art-page--4 .art4-managers-head {
         width: 100%;
         max-width: none;
-        margin: 0 auto 51px;
+        margin: 0 auto 20px;
     }
 
     .art-page--4 .art4-managers-head__title {
