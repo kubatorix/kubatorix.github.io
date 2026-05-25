@@ -102,8 +102,8 @@ button {
    When introducing a new coloured element, prefer naming it
    `…--orange` / `…--purple` so it picks up this rule automatically.
    ============================================================================ */
-[class*="--orange"]:not(button):not(.s3p5__seg):not(.s3p5__seg-pill):not(.fs-f10__strip):not(.art-block--orange),
-[class*="--purple"]:not(button):not(.s3p5__seg):not(.s3p5__seg-pill):not(.fs-f10__strip):not(.art-block--purple):not(.article-7-photo2__img--purple),
+[class*="--orange"]:not(button):not(.s3p5__seg):not(.s3p5__seg-pill):not(.fs-f10__strip):not(.art-block--orange):not([class*="fs-f4__graph-num"]),
+[class*="--purple"]:not(button):not(.s3p5__seg):not(.s3p5__seg-pill):not(.fs-f10__strip):not(.art-block--purple):not(.article-7-photo2__img--purple):not([class*="fs-f4__graph-num"]),
 [class*="-mark"],
 [class*="__heading-underline"]:not(.fs-f4 *) {
     mix-blend-mode: plus-lighter;
@@ -7867,9 +7867,9 @@ footer .footer-btn:focus-visible {
 
 /* --- Chromatic mega numbers (mirrors .s3p5__mega in index).
    Each number splits into .fs-f4__graph-digits (digits with the colour
-   stroke that matches the side) + .fs-f4__graph-suffix (the ",X%" tail
-   in WHITE), so the two numbers blend additively in plus-lighter — orange
-   + purple → near-white at overlap, suffix sits on top in pure white.    */
+   stroke that matches the side) + .fs-f4__graph-suffix (",X%" tail in
+   the same brand colour). plus-lighter is disabled so overlapping
+   strokes stay orange/purple instead of washing to white.              */
 .fs-f4__graph-num {
     position: absolute;
     margin: 0;
@@ -7887,7 +7887,7 @@ footer .footer-btn:focus-visible {
     pointer-events: none;
     white-space: nowrap;
     paint-order: stroke fill;
-    mix-blend-mode: plus-lighter;
+    mix-blend-mode: normal;
     transition: opacity 0.3s ease;
 }
 
@@ -7911,24 +7911,27 @@ footer .footer-btn:focus-visible {
     -webkit-text-stroke-color: var(--color-purple);
 }
 
-.fs-f4__graph-suffix {
-    -webkit-text-stroke-color: #FFFFFF;
-    /* white tail (",3%" / "%") */
+.fs-f4__graph-num--orange .fs-f4__graph-suffix {
+    -webkit-text-stroke-color: var(--color-orange);
 }
 
-/* --- State-driven visibility (same pattern as s3p5):
-   data-state="fundraisers" → orange (employer) side fades to 10 %
-   data-state="employers"   → purple (fundraiser) side fades to 10 %
-   data-state="both" (default) shows both with chromatic blend.            */
+.fs-f4__graph-num--purple .fs-f4__graph-suffix {
+    -webkit-text-stroke-color: var(--color-purple);
+}
+
+/* --- State-driven visibility:
+   data-state="fundraisers" → orange side hidden
+   data-state="employers"   → purple side hidden
+   data-state="both" (default) shows both in brand colours.            */
 .fs-f4[data-state="fundraisers"] .fs-f4__graph-num--orange,
 .fs-f4[data-state="fundraisers"] .fs-f4__graph-pac--orange {
-    opacity: 0.1;
+    opacity: 0;
     pointer-events: none;
 }
 
 .fs-f4[data-state="employers"] .fs-f4__graph-num--purple,
 .fs-f4[data-state="employers"] .fs-f4__graph-pac--purple {
-    opacity: 0.1;
+    opacity: 0;
     pointer-events: none;
 }
 
@@ -7969,11 +7972,11 @@ footer .footer-btn:focus-visible {
 /* Single-side toggle states fade out the other caption (mirrors
    .s3p5 outline / mega behavior). */
 .fs-f4[data-state="fundraisers"] .fs-f4__graph-cap--orange {
-    opacity: 0.1;
+    opacity: 0;
 }
 
 .fs-f4[data-state="employers"] .fs-f4__graph-cap--purple {
-    opacity: 0.1;
+    opacity: 0;
 }
 
 /* --- 282:722 right body (Golos Medium 20 / 130 %, white) -------------- */
@@ -7993,8 +7996,7 @@ footer .footer-btn:focus-visible {
     color: var(--text-white);
 }
 
-/* --- 282:719..721 right pull-quote (45 / 100 %, white) with 178 px lime
-   underline at sub (273, 130). ---------------------------------------- */
+/* --- 282:719..721 right pull-quote (45 / 100 %, white). -------------- */
 .fs-f4__quote {
     position: absolute;
     left: 817px;
@@ -8012,21 +8014,6 @@ footer .footer-btn:focus-visible {
     color: var(--text-white);
 }
 
-.fs-f4__quote-underline {
-    position: absolute;
-    left: 273px;
-    top: 130px;
-    width: 178px;
-    height: 1px;
-    background: #C3F150;
-    /* spec stroke fill_R2K7DS */
-    pointer-events: none;
-}
-
-/* --- 282:731..742 audience toggle. Reuses .s3p5__toggle markup from index;
-   overrides here are dimension-only (toggle is bigger in F4 vs s3p5).
-   Spec: outer 610.55 × 72.9, active centre pill 200.88 × 61.56 at sub
-   (204.83, 5.66). Segment text Golos Medium 20.79 / 110 % / -5 %.       */
 .fs-f4 .s3p5__toggle {
     position: absolute;
     left: 99px;
@@ -8200,12 +8187,22 @@ footer .footer-btn:focus-visible {
         line-height: 100%;
         letter-spacing: 0;
         white-space: nowrap;
-        /* 2 px stroke matches the s3p5__mega chromatic look — at this
-           thickness the orange + purple plus-lighter overlap reads as
-           near-white where the strokes intersect.                      */
+        /* Coloured outline strokes — no plus-lighter blend (reads white). */
         -webkit-text-stroke-width: 2px;
-        mix-blend-mode: plus-lighter;
+        mix-blend-mode: normal;
         text-align: left;
+    }
+
+    .fs-f4__graph-num--orange,
+    .fs-f4__graph-num--orange .fs-f4__graph-digits,
+    .fs-f4__graph-num--orange .fs-f4__graph-suffix {
+        -webkit-text-stroke-color: var(--color-orange);
+    }
+
+    .fs-f4__graph-num--purple,
+    .fs-f4__graph-num--purple .fs-f4__graph-digits,
+    .fs-f4__graph-num--purple .fs-f4__graph-suffix {
+        -webkit-text-stroke-color: var(--color-purple);
     }
 
     .fs-f4__graph-num--orange {
@@ -8218,17 +8215,6 @@ footer .footer-btn:focus-visible {
     .fs-f4__graph-num--purple {
         left: 50%;
         transform: translate(-1.3em, -50%);
-    }
-
-    /* Mobile override: the comma, fractional digits and "%" should
-       also be coloured (figma reference) rather than the desktop's
-       white suffix-tail.                                              */
-    .fs-f4__graph-num--orange .fs-f4__graph-suffix {
-        -webkit-text-stroke-color: var(--color-orange);
-    }
-
-    .fs-f4__graph-num--purple .fs-f4__graph-suffix {
-        -webkit-text-stroke-color: var(--color-purple);
     }
 
     /* Captions overlap chromatically near the bottom of the chart,
@@ -8299,10 +8285,6 @@ footer .footer-btn:focus-visible {
         word-break: break-word;
         overflow-wrap: break-word;
         hyphens: auto;
-    }
-
-    .fs-f4__quote-underline {
-        display: none;
     }
 
     .fs-f4__body {
