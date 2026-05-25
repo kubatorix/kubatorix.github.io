@@ -6563,7 +6563,7 @@ footer .footer-btn:focus-visible {
    so the white strokes only modulate the lime gradient underneath.       */
 .fs-f2__diagram {
     position: absolute;
-    left: -31px;
+    /* left: -31px; */
     top: 290px;
     width: 1482px;
     height: 387px;
@@ -6624,8 +6624,7 @@ footer .footer-btn:focus-visible {
 }
 
 /* --- 282:776..780 + 282:781..785: bulleted rows.
-   Lime 9×9 round bullet at frame x=192 (canvas-x=192), text at x=231.
-   Each row is positioned absolutely at its spec y.                        */
+   Bullet at x=192, text at x=256; rows spaced 49px apart from y=391.     */
 .fs-f2__list {
     list-style: none;
     margin: 0;
@@ -6635,7 +6634,7 @@ footer .footer-btn:focus-visible {
 
 .fs-f2__row {
     position: absolute;
-    left: 231px;
+    left: 256px;
     width: 1003px;
     /* widest row (282:778) */
     margin: 0;
@@ -6656,39 +6655,30 @@ footer .footer-btn:focus-visible {
 }
 
 .fs-f2__row--y397 {
-    top: 388px;
-    left: 225px
+    top: 391px;
 }
 
 .fs-f2__row--y445 {
-    top: 435px;
-    left: 225px
+    top: 440px;
 }
 
 .fs-f2__row--y494 {
-    top: 484px;
-    left: 225px
+    top: 489px;
 }
 
 .fs-f2__row--y542 {
-    top: 532px;
-    left: 225px
+    top: 536px;
 }
 
 .fs-f2__row--y590 {
-    top: 580px;
-    left: 225px
+    top: 582px;
 }
 
-/* Lime 9×9 bullet rendered as ::before, sized + positioned to land at
-   frame x=192 (39 px to the left of the row's text origin). Top is set
-   per row-type so the dot is centered on the first line of text — the
-   line-height differs between label (120%) and stat (90%) rows. */
+/* Lime 9×9 bullet — fixed 39px left of text origin (moves with each .fs-f2__row). */
 .fs-f2__row::before {
     content: "";
     position: absolute;
     left: -39px;
-    /* 192 - 231 */
     width: 9px;
     height: 9px;
     border-radius: 50%;
