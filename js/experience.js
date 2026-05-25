@@ -174,6 +174,8 @@
         });
     }
 
+    var toggleCtrl = null;
+
     function render(cards) {
         cachedCards = cards;
         grid.innerHTML = cardsForViewport(cards).map(function (c) {
@@ -181,36 +183,54 @@
             return tpl ? tpl(c) : '';
         }).join('');
         muteCardVideos(grid);
-        initToggle();
+        if (toggleCtrl) {
+            toggleCtrl.refreshCards();
+            toggleCtrl.applyVisibility();
+        } else {
+            initToggle();
+        }
     }
 
     function initToggle() {
         var toggle = document.querySelector('.exp-toggle');
-        var cards = document.querySelectorAll('.exp-card[data-kind]');
-        if (!toggle || !cards.length) return;
-
         var loadMoreBtn = document.querySelector('.exp-loadmore');
         var loadMoreLabel = loadMoreBtn && loadMoreBtn.querySelector('.exp-loadmore__label');
-        var collapseLimit = 3;
-        var isCollapsed = true;
+        if (!toggle) return;
+
+        var pageSize = 3;
+        var visibleCount = pageSize;
         var currentState = 'all';
 
-        function applyVisibility() {
+        function cards() {
+            return document.querySelectorAll('.exp-card[data-kind]');
+        }
+
+        function getMatchedCards() {
             var matched = [];
-            cards.forEach(function (card) {
+            cards().forEach(function (card) {
                 var kind = card.getAttribute('data-kind');
                 var match =
                     currentState === 'all' ||
                     (currentState === 'texts' && kind === 'text') ||
                     (currentState === 'events' && kind === 'event');
-                card.hidden = !match;
                 if (match) matched.push(card);
             });
+            return matched;
+        }
 
-            // On mobile, when collapsed, hide cards beyond the first 3 matches.
-            if (mobileQuery.matches && isCollapsed) {
+        function applyVisibility() {
+            var list = cards();
+            if (!list.length) return;
+
+            var matched = getMatchedCards();
+            list.forEach(function (card) {
+                card.hidden = matched.indexOf(card) === -1;
+            });
+
+            // On mobile, reveal matched cards in batches of 3.
+            if (mobileQuery.matches) {
                 matched.forEach(function (card, i) {
-                    if (i >= collapseLimit) card.hidden = true;
+                    if (i >= visibleCount) card.hidden = true;
                 });
             }
 
@@ -219,14 +239,15 @@
 
         function updateLoadMore(matchedCount) {
             if (!loadMoreBtn) return;
-            var needsButton = mobileQuery.matches && matchedCount > collapseLimit;
+            var needsButton = mobileQuery.matches && matchedCount > pageSize;
             loadMoreBtn.hidden = !needsButton;
             if (!needsButton) return;
-            loadMoreBtn.dataset.state = isCollapsed ? 'collapsed' : 'expanded';
+            var allVisible = visibleCount >= matchedCount;
+            loadMoreBtn.dataset.state = allVisible ? 'expanded' : 'collapsed';
             if (loadMoreLabel) {
-                loadMoreLabel.innerHTML = isCollapsed
-                    ? 'Это&nbsp;не&nbsp;всё.<br>Загрузить ещё'
-                    : 'Свернуть';
+                loadMoreLabel.innerHTML = allVisible
+                    ? 'Свернуть'
+                    : 'Это&nbsp;не&nbsp;всё.<br>Загрузить ещё';
             }
         }
 
@@ -239,9 +260,7 @@
                     seg.dataset.action === state ? 'true' : 'false'
                 );
             });
-            // Reset to collapsed whenever the filter changes so the user
-            // always sees the first 3 of the newly-filtered set.
-            isCollapsed = true;
+            visibleCount = pageSize;
             applyVisibility();
         }
 
@@ -253,14 +272,22 @@
 
         if (loadMoreBtn) {
             loadMoreBtn.addEventListener('click', function () {
-                isCollapsed = !isCollapsed;
+                var matchedCount = getMatchedCards().length;
+                if (visibleCount >= matchedCount) {
+                    visibleCount = pageSize;
+                } else {
+                    visibleCount = Math.min(visibleCount + pageSize, matchedCount);
+                }
                 applyVisibility();
             });
         }
 
-        // Re-run when crossing the mobile breakpoint so the button + hidden
-        // cards stay in sync with the current viewport width.
         mobileQuery.addEventListener('change', applyVisibility);
+
+        toggleCtrl = {
+            refreshCards: function () { /* cards() is live each call */ },
+            applyVisibility: applyVisibility
+        };
 
         setState('all');
     }

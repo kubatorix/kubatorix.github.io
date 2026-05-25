@@ -13731,6 +13731,9 @@ a.fs-f11__cta-pdf:focus-visible,
         background: transparent;
         cursor: pointer;
         text-align: left;
+        /* Above exp-discuss rings (scale 1.6 bleeds upward over this button). */
+        position: relative;
+        z-index: 10;
     }
 
     .exp-loadmore__icon {
@@ -14004,6 +14007,12 @@ a.fs-f11__cta-pdf:focus-visible,
         left: auto !important;
         top: auto !important;
         transform: rotate(calc(360deg * var(--section6-progress, 0))) scale(1.6) !important;
+        /* Decorative only — scaled ring overlaps .exp-loadmore above. */
+        pointer-events: none;
+    }
+
+    .exp-page .exp-discuss.section6.section6__phase7 .section6__rings--color {
+        pointer-events: none;
     }
 
     .exp-backstage__head {
