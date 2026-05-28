@@ -8433,17 +8433,6 @@ footer .footer-btn:focus-visible {
     color: var(--text-white);
 }
 
-.fs-f5__edu-heading-underline {
-    /* 282:583 Vector 7943: 107×1 lime stroke at sub (0, 27) */
-    position: absolute;
-    left: 0;
-    top: 27px;
-    width: 107px;
-    height: 1px;
-    background: #C3F150;
-    pointer-events: none;
-}
-
 /* --- 282:580 body paragraph ---------------------------------------- */
 .fs-f5__edu-body {
     position: absolute;
@@ -8810,22 +8799,6 @@ footer .footer-btn:focus-visible {
         line-height: 120%;
         max-width: 320px;
         margin-bottom: 16px;
-    }
-
-    .fs-f5__edu-heading-raznoe {
-        text-decoration: underline;
-        text-decoration-color: #C3F150;
-        text-decoration-thickness: 1px;
-        text-underline-offset: 4px;
-    }
-
-    /* .fs-f5__edu-heading-mark picks up underline from the global LIME
-       UNDERLINE RULE (`[class*="__edu-heading-mark"]`) at top of file. */
-
-    /* Underline lives below the desktop heading line; hide on mobile
-       to avoid striking through the wrapped body copy.               */
-    .fs-f5__edu-heading-underline {
-        display: none !important;
     }
 
     .fs-f5__edu-body {
@@ -12530,6 +12503,7 @@ a.fs-f11__cta-pdf:focus-visible,
    so it matches the header on every other page. */
 .exp-page header {
     color: #FFFFFF;
+    z-index: 100;
 }
 
 .exp {
@@ -12943,7 +12917,7 @@ a.fs-f11__cta-pdf:focus-visible,
     box-sizing: border-box;
     pointer-events: none;
     transition: border-color 0.2s ease;
-    z-index: 10;
+    z-index: 2;
 }
 
 .exp-card:not(.exp-card--bordered):hover .exp-card__media::after {
