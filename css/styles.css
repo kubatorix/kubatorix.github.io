@@ -17074,14 +17074,21 @@ a.fs-f11__cta-pdf:focus-visible,
     margin-bottom: 120px;
 }
 
-.art-page--2 .art-cta__vline {
+.art-page--2 .art2-vline {
     display: block;
     flex-shrink: 0;
+    box-sizing: border-box;
     width: 1px;
     height: 159px;
     margin: 0 auto 10px;
+    padding: 0;
+    border: 0;
     background: rgba(255, 255, 255, 1);
     pointer-events: none;
+}
+
+.art-page--2 .art2-vline--bottom {
+    display: none;
 }
 
 .art-page--2 .art-cta__text {
@@ -17109,7 +17116,7 @@ a.fs-f11__cta-pdf:focus-visible,
 }
 
 @media (max-width: 900px) {
-    .art-page--2 .art-cta__vline {
+    .art-page--2 .art2-vline:not(.art2-vline--bottom) {
         height: 30.31px;
     }
 
@@ -17119,6 +17126,11 @@ a.fs-f11__cta-pdf:focus-visible,
 }
 
 @media (max-width: 770px) {
+    .art-page--2 .art {
+        box-sizing: border-box;
+        padding-bottom: 100px;
+    }
+
     .art-page--2 .art-hero {
         padding-top: 154px;
         padding-bottom: 0;
@@ -17270,23 +17282,48 @@ a.fs-f11__cta-pdf:focus-visible,
     }
 
     .art-page--2 .art-cta {
-        margin: 0 0 100px;
-        padding: 0 20px;
+        box-sizing: border-box;
+        width: 100vw;
+        max-width: 100vw;
+        margin: 0 calc(50% - 50vw) -110px;
+        padding: 0;
         overflow-x: clip;
         overflow-y: visible;
     }
 
-    .art-page--2 .art-cta__vline {
-        height: 109px;
-        margin: 0 auto 10px;
+    .art-page--2 .art2-vline:not(.art2-vline--bottom) {
+        display: block;
+        box-sizing: border-box;
+        width: 1px;
+        height: 30px;
+        margin: 90px auto 0;
+        padding: 0;
+        border: 0;
+        background: rgba(255, 255, 255, 1);
+        pointer-events: none;
+    }
+
+    .art-page--2 .art2-vline--bottom {
+        display: block;
+        box-sizing: border-box;
+        width: 1px;
+        height: 14px;
+        margin: 100px auto 0;
+        padding: 0;
+        border: 0;
+        background-color: rgba(47, 47, 47, 1);
+        pointer-events: none;
+    }
+
+    .art-page--2 .art-cta__stack {
+        width: 100%;
     }
 
     .art-page--2 .art-cta__stage {
         box-sizing: border-box;
-        width: calc(100% + 40px);
+        width: 100%;
         max-width: none;
-        margin-left: -20px;
-        margin-right: -20px;
+        margin: 0;
         height: auto;
         aspect-ratio: 452 / 467;
         min-height: 0;
@@ -17297,15 +17334,15 @@ a.fs-f11__cta-pdf:focus-visible,
         overflow: visible;
     }
 
-    .art-page--2 .art-cta__divider--bottom {
-        display: block;
-        flex-shrink: 0;
-        width: 1px;
-        height: 14.26px;
-        margin: 0 auto;
-        padding: 0;
-        border: 0;
-        background-color: rgba(47, 47, 47, 1);
+    .art-page--2 .art-cta__content {
+        box-sizing: border-box;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        gap: 20px;
+        width: 100%;
+        max-width: none;
+        padding: 0 20px;
     }
 
     .art-page--2 .art-cta__decor {
@@ -17327,15 +17364,17 @@ a.fs-f11__cta-pdf:focus-visible,
 
     .art-page--2 .art-cta__ellipse {
         display: block;
-        width: 140%;
-        height: 140%;
+        width: 159.12%;
+        height: 159.12%;
         object-fit: cover;
         pointer-events: none;
     }
 
     .art-page--2 .art-cta__text {
-        margin: 0 auto 17px;
+        margin: 0;
         max-width: none;
+        font-family: 'Golos', 'Golos Text', sans-serif;
+        font-weight: 500;
         font-size: 16px;
         line-height: 1.2;
         letter-spacing: 0;
@@ -17349,9 +17388,27 @@ a.fs-f11__cta-pdf:focus-visible,
         height: 37.21px;
         padding: 0 12px;
         border-radius: 18.61px;
+        font-family: 'Golos', 'Golos Text', sans-serif;
+        font-weight: 500;
         font-size: 14.88px;
         line-height: 30.12px;
         letter-spacing: -0.02em;
+        background-color: #FFFFFF;
+        color: #272727;
+        border: 1px solid #272727;
+        transition: background-color 0.18s ease, color 0.18s ease, border-color 0.18s ease;
+    }
+
+    .art-page--2 .art-cta__btn:visited {
+        color: #272727;
+    }
+
+    .art-page--2 .art-cta__btn:hover,
+    .art-page--2 .art-cta__btn:visited:hover,
+    .art-page--2 .art-cta__btn:focus-visible {
+        background-color: #272727;
+        color: #FFFFFF;
+        border-color: rgba(255, 255, 255, 1);
     }
 
     .art-page--2 .art2-tip__body {
