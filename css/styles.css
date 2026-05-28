@@ -16254,7 +16254,8 @@ a.fs-f11__cta-pdf:focus-visible,
     position: absolute;
     left: 50%;
     top: 50%;
-    width: min(1000px, 100%);
+    width: min(1000px, 130%);
+    max-width: 130%;
     height: auto;
     aspect-ratio: 1000 / 1176;
     transform: translate(-50%, -50%) rotate(calc(360deg * var(--art-cta-progress, 0)));
@@ -16789,7 +16790,7 @@ a.fs-f11__cta-pdf:focus-visible,
     box-sizing: border-box;
     width: 1px;
     height: 32px;
-    margin: 0 auto;
+    margin: 0 auto 40px;
     border: 0;
     background-color: #272727;
     pointer-events: none;
