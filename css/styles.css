@@ -7394,7 +7394,7 @@ footer .footer-btn:focus-visible {
     opacity: var(--fs-f3-syllable-3-opacity, 1);
 }
 
-/* Mobile wordmark fade (used only ≤770px; inert on desktop). */
+/* Mobile wordmark fade (legacy vars; syllables use --fs-f3-syllable-*). */
 @property --fs-f3-wordmark-progress {
     syntax: '<number>';
     inherits: false;
@@ -7620,7 +7620,7 @@ footer .footer-btn:focus-visible {
         color: rgba(170, 110, 255, 1);
     }
 
-    /* Mobile wordmark scroll fade — progress on .fs-f3__words-wrap only. */
+    /* Mobile wordmark scroll fade — same syllable vars as desktop. */
     .fs-f3__words-wrap {
         position: relative;
         width: 313.74609375px;
@@ -7631,8 +7631,6 @@ footer .footer-btn:focus-visible {
         padding: 0;
         align-self: center;
         box-sizing: border-box;
-        --fs-f3-wordmark-progress: 0;
-        --fs-f3-wordmark-letters-opacity: calc(1 - 0.8 * var(--fs-f3-wordmark-progress));
     }
 
     .fs-f3__words--desktop {
@@ -7654,12 +7652,6 @@ footer .footer-btn:focus-visible {
     .fs-f3__wordmark-quotes,
     .fs-f3__wordmark-quotes path {
         opacity: 1;
-    }
-
-    .fs-f3__wordmark-letters > g {
-        opacity: var(--fs-f3-wordmark-letters-opacity, 1);
-        will-change: opacity;
-        transition: opacity 0.55s cubic-bezier(0.22, 0.61, 0.36, 1);
     }
 
     /* --- Horizontal stats box: 2 cells with vertical divider ---------

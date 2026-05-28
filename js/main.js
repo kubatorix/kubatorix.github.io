@@ -1017,10 +1017,9 @@ renderMenuEvents();
 
 /* ============================================================
    FullStudy F3 — scroll-driven opacity fade for the wordmark.
-   Desktop (>770px): --fs-f3-syllable-* on .fs-f3__words-wrap — «фанд» /
+   Desktop + mobile: --fs-f3-syllable-* on .fs-f3__words-wrap — «фанд» /
    «рай» / «зер» fade at 25% / 50% / 75% marquee scroll-through progress.
-   Mobile (≤770px): --fs-f3-wordmark-progress on .fs-f3__words-wrap,
-   full wrap pass, first 20% static, then eased fade; quotes stay 1.
+   Quotes stay visible on both breakpoints.
    ============================================================ */
 (function () {
     var section = document.querySelector('.fs-f3');
@@ -1028,15 +1027,8 @@ renderMenuEvents();
     if (!section || !wrap) return;
     var mq = window.matchMedia('(max-width: 770px)');
     var ticking = false;
-    var FADE_START = 0.2;
     var SYLLABLE_THRESHOLDS = [0.25, 0.5, 0.75];
     var SYLLABLE_FADE = 0.08;
-
-    function easeInOutCubic(t) {
-        return t < 0.5
-            ? 4 * t * t * t
-            : 1 - Math.pow(-2 * t + 2, 3) / 2;
-    }
 
     function syllableOpacity(progress, threshold) {
         if (progress <= threshold - SYLLABLE_FADE) return 1;
@@ -1044,7 +1036,7 @@ renderMenuEvents();
         return 1 - (progress - (threshold - SYLLABLE_FADE)) / SYLLABLE_FADE;
     }
 
-    function computeDesktop() {
+    function computeSyllables() {
         var rect = wrap.getBoundingClientRect();
         var vh = window.innerHeight || document.documentElement.clientHeight;
         var scrolled = vh - rect.top;
@@ -1059,32 +1051,9 @@ renderMenuEvents();
         wrap.style.removeProperty('--fs-f3-wordmark-progress');
     }
 
-    function computeMobile() {
-        var rect = wrap.getBoundingClientRect();
-        var vh = window.innerHeight || document.documentElement.clientHeight;
-        var scrolled = vh - rect.top;
-        var totalScroll = vh + rect.height;
-        var raw = totalScroll > 0
-            ? Math.max(0, Math.min(1, scrolled / totalScroll))
-            : 0;
-        var remapped = raw <= FADE_START
-            ? 0
-            : (raw - FADE_START) / (1 - FADE_START);
-        var progress = easeInOutCubic(remapped);
-        wrap.style.setProperty('--fs-f3-wordmark-progress', progress.toFixed(4));
-        section.style.removeProperty('--fs-f3-progress');
-        wrap.style.removeProperty('--fs-f3-syllable-1-opacity');
-        wrap.style.removeProperty('--fs-f3-syllable-2-opacity');
-        wrap.style.removeProperty('--fs-f3-syllable-3-opacity');
-    }
-
     function compute() {
         ticking = false;
-        if (mq.matches) {
-            computeMobile();
-        } else {
-            computeDesktop();
-        }
+        computeSyllables();
     }
     function onScroll() {
         if (ticking) return;
