@@ -1017,8 +1017,8 @@ renderMenuEvents();
 
 /* ============================================================
    FullStudy F3 — scroll-driven opacity fade for the wordmark.
-   Desktop (>770px): --fs-f3-syllable-* on .fs-f3__words-wrap — syllables
-   fade at 25% / 50% / 75% section scroll progress.
+   Desktop (>770px): --fs-f3-syllable-* on .fs-f3__words-wrap — «фанд» /
+   «рай» / «зер» fade at 25% / 50% / 75% section scroll progress.
    Mobile (≤770px): --fs-f3-wordmark-progress on .fs-f3__words-wrap,
    full wrap pass, first 20% static, then eased fade; quotes stay 1.
    ============================================================ */
