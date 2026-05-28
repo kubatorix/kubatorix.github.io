@@ -19,8 +19,12 @@
     /* Two-layer fade: hold state 1, blend, hold state 2. Override via data-portrait-fade="start,end". */
     var PORTRAIT_FADE_2 = '0.28,0.58';
 
-    function blendProgress(progress, portrait) {
+    function blendProgress(progress, portrait, rect, vh) {
         var fade = portrait.dataset.portraitFade || PORTRAIT_FADE_2;
+        if (fade === 'snap-center' && rect && vh) {
+            var centerY = rect.top + rect.height / 2;
+            return centerY <= vh * 0.5 ? 1 : 0;
+        }
         var parts = fade.split(',').map(function (s) { return parseFloat(s.trim(), 10); });
         var fadeStart = parts[0];
         var fadeEnd = parts[1];
@@ -48,7 +52,7 @@
             var o3 = 0;
 
             if (layers === '2') {
-                var blend = blendProgress(progress, portrait);
+                var blend = blendProgress(progress, portrait, rect, vh);
                 o1 = 1 - blend;
                 o2 = blend;
                 setOpacity(portrait, o1, o2);
