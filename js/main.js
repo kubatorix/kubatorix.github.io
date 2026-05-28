@@ -1017,8 +1017,8 @@ renderMenuEvents();
 
 /* ============================================================
    FullStudy F3 — scroll-driven opacity fade for the wordmark.
-   Desktop (>770px): unchanged — --fs-f3-progress on .fs-f3, section
-   scroll-through, marquee img uses calc(1 - 0.8 * progress).
+   Desktop (>770px): --fs-f3-syllable-* on .fs-f3__words-wrap — syllables
+   fade at 25% / 50% / 75% section scroll progress.
    Mobile (≤770px): --fs-f3-wordmark-progress on .fs-f3__words-wrap,
    full wrap pass, first 20% static, then eased fade; quotes stay 1.
    ============================================================ */
@@ -1029,6 +1029,8 @@ renderMenuEvents();
     var mq = window.matchMedia('(max-width: 770px)');
     var ticking = false;
     var FADE_START = 0.2;
+    var SYLLABLE_THRESHOLDS = [0.25, 0.5, 0.75];
+    var SYLLABLE_FADE = 0.08;
 
     function easeInOutCubic(t) {
         return t < 0.5
@@ -1036,11 +1038,20 @@ renderMenuEvents();
             : 1 - Math.pow(-2 * t + 2, 3) / 2;
     }
 
+    function syllableOpacity(progress, threshold) {
+        if (progress <= threshold - SYLLABLE_FADE) return 1;
+        if (progress >= threshold) return 0;
+        return 1 - (progress - (threshold - SYLLABLE_FADE)) / SYLLABLE_FADE;
+    }
+
     function computeDesktop() {
         var rect = section.getBoundingClientRect();
         var vh = window.innerHeight || document.documentElement.clientHeight;
         var progress = Math.max(0, Math.min(1, (vh - rect.top) / (vh + rect.height)));
         section.style.setProperty('--fs-f3-progress', progress.toFixed(4));
+        wrap.style.setProperty('--fs-f3-syllable-1-opacity', syllableOpacity(progress, SYLLABLE_THRESHOLDS[0]).toFixed(4));
+        wrap.style.setProperty('--fs-f3-syllable-2-opacity', syllableOpacity(progress, SYLLABLE_THRESHOLDS[1]).toFixed(4));
+        wrap.style.setProperty('--fs-f3-syllable-3-opacity', syllableOpacity(progress, SYLLABLE_THRESHOLDS[2]).toFixed(4));
         wrap.style.removeProperty('--fs-f3-wordmark-progress');
     }
 
@@ -1058,6 +1069,9 @@ renderMenuEvents();
         var progress = easeInOutCubic(remapped);
         wrap.style.setProperty('--fs-f3-wordmark-progress', progress.toFixed(4));
         section.style.removeProperty('--fs-f3-progress');
+        wrap.style.removeProperty('--fs-f3-syllable-1-opacity');
+        wrap.style.removeProperty('--fs-f3-syllable-2-opacity');
+        wrap.style.removeProperty('--fs-f3-syllable-3-opacity');
     }
 
     function compute() {
