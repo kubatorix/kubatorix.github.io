@@ -12507,11 +12507,31 @@ a.fs-f11__cta-pdf:focus-visible,
     position: relative;
     padding-top: 60px;
     text-align: center;
-    overflow: hidden;
+    overflow-x: clip;
+    overflow-y: visible;
     /* full-bleed against centered .exp container so background shapes
        can extend to viewport edges */
     margin-left: calc(50% - 50vw);
     margin-right: calc(50% - 50vw);
+}
+
+/* Decorative SVGs — full viewport width; not affected by .exp-hero__content zoom */
+.exp-hero__decor {
+    position: absolute;
+    top: 0;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 100vw;
+    max-width: none;
+    bottom: 0;
+    pointer-events: none;
+    z-index: 0;
+    overflow: visible;
+}
+
+.exp-hero__content {
+    position: relative;
+    z-index: 1;
 }
 
 .exp-hero__canvas {
@@ -12600,6 +12620,29 @@ a.fs-f11__cta-pdf:focus-visible,
     width: 1000px;
     max-width: none;
     filter: none;
+}
+
+/* Wide desktop — stretch decor to viewport edges (decor layer is 100vw) */
+@media (min-width: 1440px) {
+    .exp-hero__lines-wrap--lg {
+        right: 0;
+        width: min(56vw, 1100px);
+    }
+
+    .exp-hero__lines-wrap--sm {
+        left: 0;
+        width: min(46vw, 900px);
+    }
+
+    .exp-hero__shape--orbit-lg {
+        width: 130vw;
+        right: -40vw;
+    }
+
+    .exp-hero__shape--orbit-sm {
+        width: min(52vw, 1200px);
+        left: 0;
+    }
 }
 
 @media (max-width: 1280px) {
@@ -12728,8 +12771,13 @@ a.fs-f11__cta-pdf:focus-visible,
 .exp-hero__panel {
     position: relative;
     z-index: 3;
+    width: 100%;
+    max-width: 1440px;
     margin-top: 140px;
+    margin-left: auto;
+    margin-right: auto;
     padding: 80px 100px 120px;
+    box-sizing: border-box;
     background: linear-gradient(to bottom, #C2F04F 0%, #C2F04F 36.114%, rgba(228, 229, 239, 0) 81.807%);
 }
 
@@ -13436,7 +13484,7 @@ a.fs-f11__cta-pdf:focus-visible,
    research / index pages. Zoom values match (max_width − 16) / 1440. */
 @media (min-width: 771px) and (max-width: 870px) {
 
-    .exp-hero,
+    .exp-hero__content,
     .exp-grid,
     .exp-loadmore,
     .exp-partners,
@@ -13448,7 +13496,7 @@ a.fs-f11__cta-pdf:focus-visible,
 
 @media (min-width: 871px) and (max-width: 970px) {
 
-    .exp-hero,
+    .exp-hero__content,
     .exp-grid,
     .exp-loadmore,
     .exp-partners,
@@ -13460,7 +13508,7 @@ a.fs-f11__cta-pdf:focus-visible,
 
 @media (min-width: 971px) and (max-width: 1080px) {
 
-    .exp-hero,
+    .exp-hero__content,
     .exp-grid,
     .exp-loadmore,
     .exp-partners,
@@ -13472,7 +13520,7 @@ a.fs-f11__cta-pdf:focus-visible,
 
 @media (min-width: 1081px) and (max-width: 1180px) {
 
-    .exp-hero,
+    .exp-hero__content,
     .exp-grid,
     .exp-loadmore,
     .exp-partners,
@@ -13484,7 +13532,7 @@ a.fs-f11__cta-pdf:focus-visible,
 
 @media (min-width: 1181px) and (max-width: 1280px) {
 
-    .exp-hero,
+    .exp-hero__content,
     .exp-grid,
     .exp-loadmore,
     .exp-partners,
@@ -13496,7 +13544,7 @@ a.fs-f11__cta-pdf:focus-visible,
 
 @media (min-width: 1281px) and (max-width: 1380px) {
 
-    .exp-hero,
+    .exp-hero__content,
     .exp-grid,
     .exp-loadmore,
     .exp-partners,
@@ -13508,7 +13556,7 @@ a.fs-f11__cta-pdf:focus-visible,
 
 @media (min-width: 1381px) and (max-width: 1439px) {
 
-    .exp-hero,
+    .exp-hero__content,
     .exp-grid,
     .exp-loadmore,
     .exp-partners,
@@ -13536,8 +13584,7 @@ a.fs-f11__cta-pdf:focus-visible,
     }
 
     /* Desktop's decorative orbits/lines are not part of the mobile design */
-    .exp-hero__shape,
-    .exp-hero__lines-wrap {
+    .exp-hero__decor {
         display: none;
     }
 
@@ -13626,7 +13673,10 @@ a.fs-f11__cta-pdf:focus-visible,
        front of the solid lime). */
     .exp-hero__panel {
         position: relative;
+        max-width: none;
         margin-top: -20vw;
+        margin-left: 0;
+        margin-right: 0;
         padding: 38px 20px 60px;
         background: linear-gradient(to bottom, #C2F04F 0%, #C2F04F 51.5%, rgba(228, 229, 239, 0) 81.8%);
     }
