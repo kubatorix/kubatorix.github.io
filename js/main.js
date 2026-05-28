@@ -727,32 +727,19 @@ renderMenuEvents();
 })();
 
 /* ============================================================
-   Article 7 bottom portrait — crossfade natural → purple on
-   .article-7-photo2 as it scrolls into view (--photo2-progress 0→1).
+   Article 7 bottom portrait — snap natural → purple when the block
+   centre crosses mid-viewport (same as art4 hero snap-center).
    ============================================================ */
 (function () {
     var block = document.querySelector('.article-7-photo2');
     if (!block) return;
     var ticking = false;
-    var desktopMq = window.matchMedia('(min-width: 771px)');
     function compute() {
         ticking = false;
         var rect = block.getBoundingClientRect();
         var vh = window.innerHeight || document.documentElement.clientHeight;
-        var scrolled = vh - rect.top;
-        var totalScroll = vh + rect.height;
-        var linear = totalScroll > 0 ? scrolled / totalScroll : 0;
-        var progress;
-        if (desktopMq.matches) {
-            /* Desktop: start crossfade after 20% of block scroll, finish at 50% (center). */
-            var start = 0.2;
-            var end = 0.5;
-            if (linear <= start) progress = 0;
-            else if (linear >= end) progress = 1;
-            else progress = (linear - start) / (end - start);
-        } else {
-            progress = Math.max(0, Math.min(1, linear / 0.5));
-        }
+        var centerY = rect.top + rect.height / 2;
+        var progress = centerY <= vh * 0.5 ? 1 : 0;
         block.style.setProperty('--photo2-progress', progress.toFixed(4));
     }
     function onScroll() {
@@ -763,36 +750,22 @@ renderMenuEvents();
     compute();
     window.addEventListener('scroll', onScroll, { passive: true });
     window.addEventListener('resize', onScroll);
-    if (desktopMq.addEventListener) desktopMq.addEventListener('change', onScroll);
-    else if (desktopMq.addListener) desktopMq.addListener(onScroll);
 })();
 
 /* ============================================================
-   Article 6 body portrait — crossfade women1 → 6_6 (same timing as
-   .article-7-photo2 above). Sets --photo2-progress 0→1 on the figure.
+   Article 6 body portrait — snap 6_7 → 6_6 when block centre
+   crosses mid-viewport (same as art4 / article-7-photo2 snap-center).
    ============================================================ */
 (function () {
     var block = document.querySelector('.art-page--6 .art6-body__figure--photo2');
     if (!block) return;
     var ticking = false;
-    var desktopMq = window.matchMedia('(min-width: 771px)');
     function compute() {
         ticking = false;
         var rect = block.getBoundingClientRect();
         var vh = window.innerHeight || document.documentElement.clientHeight;
-        var scrolled = vh - rect.top;
-        var totalScroll = vh + rect.height;
-        var linear = totalScroll > 0 ? scrolled / totalScroll : 0;
-        var progress;
-        if (desktopMq.matches) {
-            var start = 0.2;
-            var end = 0.5;
-            if (linear <= start) progress = 0;
-            else if (linear >= end) progress = 1;
-            else progress = (linear - start) / (end - start);
-        } else {
-            progress = Math.max(0, Math.min(1, linear / 0.5));
-        }
+        var centerY = rect.top + rect.height / 2;
+        var progress = centerY <= vh * 0.5 ? 1 : 0;
         block.style.setProperty('--photo2-progress', progress.toFixed(4));
     }
     function onScroll() {
@@ -803,8 +776,6 @@ renderMenuEvents();
     compute();
     window.addEventListener('scroll', onScroll, { passive: true });
     window.addEventListener('resize', onScroll);
-    if (desktopMq.addEventListener) desktopMq.addEventListener('change', onScroll);
-    else if (desktopMq.addListener) desktopMq.addListener(onScroll);
 })();
 
 /* ============================================================

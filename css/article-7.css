@@ -381,7 +381,7 @@ body.article-7-page>.header-burger__icon svg path {
   margin-top: 80px;
 }
 
-/* === Big bottom portrait — inline-grid, crossfade via stacked layers (no absolute) === */
+/* === Big bottom portrait — inline-grid, snap swap via stacked layers (no absolute) === */
 .article-7-photo2 {
   display: inline-grid;
   grid-template-columns: 1fr;
@@ -394,7 +394,7 @@ body.article-7-page>.header-burger__icon svg path {
   overflow: hidden;
   background: none;
   vertical-align: top;
-  /* Scroll-driven 0→1; js/main.js sets --photo2-progress on scroll */
+  /* Snap 0|1 when centre crosses viewport mid; js/main.js sets --photo2-progress */
   --photo2-progress: 0;
   isolation: isolate;
 }

@@ -20443,7 +20443,7 @@ a.fs-f11__cta-pdf:focus-visible,
     object-position: center;
 }
 
-/* Body portrait — crossfade women1 → 6_6 on scroll (like .article-7-photo2). */
+/* Body portrait — snap 6_7 → 6_6 when centre crosses viewport mid. */
 .art-page--6 .art6-body__figure--photo2 {
     display: inline-grid;
     grid-template-columns: 1fr;

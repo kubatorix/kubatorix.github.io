@@ -16,14 +16,19 @@
         }
     }
 
-    /* Two-layer fade: hold state 1, blend, hold state 2. Override via data-portrait-fade="start,end". */
-    var PORTRAIT_FADE_2 = '0.28,0.58';
+    /* Two-layer: default snap when portrait centre crosses viewport mid. */
+    var PORTRAIT_FADE_2 = 'snap-center';
 
-    function blendProgress(progress, portrait, rect, vh) {
+    function snapAtViewportCenter(rect, vh) {
+        if (!rect || !vh) return 0;
+        var centerY = rect.top + rect.height / 2;
+        return centerY <= vh * 0.5 ? 1 : 0;
+    }
+
+    function blendProgress(progress, portrait, portraitRect, vh) {
         var fade = portrait.dataset.portraitFade || PORTRAIT_FADE_2;
-        if (fade === 'snap-center' && rect && vh) {
-            var centerY = rect.top + rect.height / 2;
-            return centerY <= vh * 0.5 ? 1 : 0;
+        if (fade === 'snap-center') {
+            return snapAtViewportCenter(portraitRect, vh);
         }
         var parts = fade.split(',').map(function (s) { return parseFloat(s.trim(), 10); });
         var fadeStart = parts[0];
@@ -38,10 +43,11 @@
 
         portraits.forEach(function (portrait) {
             var block = portrait.closest('.art2-tip, .art4-tip') || portrait;
-            var rect = block.getBoundingClientRect();
+            var blockRect = block.getBoundingClientRect();
+            var portraitRect = portrait.getBoundingClientRect();
             var progress = Math.max(
                 0,
-                Math.min(1, (vh - rect.top) / (vh + rect.height))
+                Math.min(1, (vh - blockRect.top) / (vh + blockRect.height))
             );
 
             portrait.style.setProperty('--art-portrait-progress', progress.toFixed(4));
@@ -52,10 +58,20 @@
             var o3 = 0;
 
             if (layers === '2') {
-                var blend = blendProgress(progress, portrait, rect, vh);
+                var blend = blendProgress(progress, portrait, portraitRect, vh);
                 o1 = 1 - blend;
                 o2 = blend;
                 setOpacity(portrait, o1, o2);
+            } else if (layers === '3-snap-center') {
+                var mid = vh * 0.5;
+                if (portraitRect.top + portraitRect.height / 2 > mid) {
+                    o1 = 1;
+                } else if (portraitRect.top > mid) {
+                    o2 = 1;
+                } else {
+                    o3 = 1;
+                }
+                setOpacity(portrait, o1, o2, o3);
             } else if (layers === '3-swap' || layers === '3-linear') {
                 if (progress < 0.3) {
                     o1 = 1;
