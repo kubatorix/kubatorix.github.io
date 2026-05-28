@@ -20882,6 +20882,10 @@ a.fs-f11__cta-pdf:focus-visible,
     pointer-events: none;
 }
 
+.art-page--6 .art6-vline--bottom {
+    display: none;
+}
+
 .art-page--6 .art-cta {
     margin: 0 auto 214px;
 }
@@ -20944,7 +20948,8 @@ a.fs-f11__cta-pdf:focus-visible,
     }
 
     .art-page--6 .art {
-        padding: 0 20px;
+        box-sizing: border-box;
+        padding: 0 20px 100px;
     }
 
     .art-page--6 .art-hero.art6-hero {
@@ -21310,12 +21315,24 @@ a.fs-f11__cta-pdf:focus-visible,
         margin-top: 1.3em;
     }
 
-    .art-page--6 .art6-vline {
+    .art-page--6 .art6-vline:not(.art6-vline--bottom) {
         display: block;
         box-sizing: border-box;
         width: 0;
-        height: 133.0000000000001px;
-        margin: 0 auto 0;
+        height: 30px;
+        margin: 90px auto 0;
+        padding: 0;
+        border: 0;
+        border-left: 0.45px solid rgba(0, 0, 0, 1);
+        pointer-events: none;
+    }
+
+    .art-page--6 .art6-vline--bottom {
+        display: block;
+        box-sizing: border-box;
+        width: 0;
+        height: 14px;
+        margin: 100px auto 0;
         padding: 0;
         border: 0;
         border-left: 0.45px solid rgba(0, 0, 0, 1);
@@ -21326,7 +21343,7 @@ a.fs-f11__cta-pdf:focus-visible,
         box-sizing: border-box;
         width: 100vw;
         max-width: 100vw;
-        margin: 0 calc(50% - 50vw) 105px;
+        margin: 0 calc(50% - 50vw) -110px;
         padding: 0;
         overflow-x: clip;
         overflow-y: visible;
@@ -21388,8 +21405,8 @@ a.fs-f11__cta-pdf:focus-visible,
 
     .art-page--6 .art-cta__ellipse {
         display: block;
-        width: 170%;
-        height: 170%;
+        width: 159.12%;
+        height: 159.12%;
         object-fit: cover;
         pointer-events: none;
     }
