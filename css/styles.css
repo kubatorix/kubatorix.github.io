@@ -7996,11 +7996,6 @@ footer .footer-btn:focus-visible {
     color: var(--text-white);
 }
 
-/* Body highlights: underline only on mobile (see .fs-f4 @media ≤770px). */
-.fs-f4__body-mark {
-    text-decoration: none;
-}
-
 /* --- 282:719..721 right pull-quote (45 / 100 %, white). -------------- */
 .fs-f4__quote {
     position: absolute;
@@ -8301,14 +8296,6 @@ footer .footer-btn:focus-visible {
         line-height: 135%;
         letter-spacing: -0.02em;
         color: var(--text-white);
-    }
-
-    /* Lime underline on body highlights — mobile only. */
-    .fs-f4__body-mark {
-        text-decoration: underline;
-        text-decoration-color: #C3F150;
-        text-decoration-thickness: 1px;
-        text-underline-offset: 4px;
     }
 
     /* Toggle — white-pill style (active "обе стороны" centred). Reuses the
