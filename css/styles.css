@@ -17421,7 +17421,7 @@ a.fs-f11__cta-pdf:focus-visible,
     max-width: none;
     width: 100%;
     padding: 0;
-    background: transparent;
+    background: #E4E5EF;
 }
 
 .art-page--3 .art3-hero .art__content {
@@ -17735,6 +17735,10 @@ a.fs-f11__cta-pdf:focus-visible,
     pointer-events: none;
 }
 
+.art-page--3 .art3-tip__decor--svg {
+    display: none;
+}
+
 .art-page--3 .art3-tip__pill {
     box-sizing: border-box;
     display: flex;
@@ -17790,7 +17794,7 @@ a.fs-f11__cta-pdf:focus-visible,
         display: flex;
         flex-direction: column;
         align-items: center;
-        padding: 181px 39px 0;
+        padding: 181px 20px 0;
         box-sizing: border-box;
     }
 
@@ -17876,7 +17880,7 @@ a.fs-f11__cta-pdf:focus-visible,
     }
 
     .art-page--3 .art3-tips {
-        padding: 0 39px;
+        padding: 0 20px;
         box-sizing: border-box;
     }
 
@@ -17885,10 +17889,12 @@ a.fs-f11__cta-pdf:focus-visible,
         row-gap: 32px;
         width: 100%;
         max-width: none;
+        justify-items: center;
     }
 
     .art-page--3 .art3-tip__body {
         width: 100%;
+        justify-self: stretch;
     }
 
     .art-page--3 .art3-tip__aside {
@@ -17916,6 +17922,7 @@ a.fs-f11__cta-pdf:focus-visible,
         margin: 0 auto 40px;
         padding: 5px 15px 7px;
         border: 1px solid rgba(255, 110, 50, 1);
+        justify-self: center;
     }
 
     .art-page--3 .art3-tip--1 .art3-tip__body {
@@ -17927,12 +17934,13 @@ a.fs-f11__cta-pdf:focus-visible,
         padding-top: 1.3em;
     }
 
-    .art-page--3 .art3-tip--2 {
+    .art-page--3 .art3-tip.art3-tip--2 {
         row-gap: 0;
+        margin-top: 45px;
     }
 
     .art-page--3 .art3-tip--2 .art3-tip__aside {
-        align-items: flex-start;
+        align-items: center;
         width: 100%;
         margin-bottom: 0;
     }
@@ -17943,19 +17951,23 @@ a.fs-f11__cta-pdf:focus-visible,
         max-width: 100%;
         height: 79px;
         min-height: 79px;
-        margin: 0;
+        margin: 0 auto;
         padding: 5px 15px 7px;
         border: 1px solid rgba(255, 110, 50, 1);
     }
 
-    .art-page--3 .art3-tip--2 .art3-tip__decor {
+    .art-page--3 .art3-tip__decor--img {
+        display: none;
+    }
+
+    .art-page--3 .art3-tip--2 .art3-tip__decor--svg {
         display: block;
-        width: 217.56617736816406px;
-        height: 160.43629455566406px;
+        width: 219px;
+        height: auto;
         max-width: none;
         margin: 0;
-        object-fit: contain;
-        object-position: left center;
+        align-self: flex-start;
+        flex-shrink: 0;
     }
 
     .art-page--3 .art3-tip--2 .art3-tip__body {
@@ -18088,6 +18100,7 @@ a.fs-f11__cta-pdf:focus-visible,
     .art-page--3 .art3-tip--4 {
         display: flex;
         flex-direction: column;
+        align-items: center;
         row-gap: 0;
     }
 
@@ -18095,7 +18108,7 @@ a.fs-f11__cta-pdf:focus-visible,
         order: 1;
         display: flex;
         flex-direction: column;
-        align-items: flex-start;
+        align-items: center;
         width: 100%;
         margin-bottom: 40px;
     }
@@ -18105,9 +18118,9 @@ a.fs-f11__cta-pdf:focus-visible,
         width: 100%;
         max-width: 335px;
         height: auto;
-        margin: 0 0 7px;
+        margin: 0 auto;
         object-fit: contain;
-        object-position: left center;
+        object-position: center center;
     }
 
     .art-page--3 .art3-tip--4 .art3-tip__pill {
@@ -18120,7 +18133,7 @@ a.fs-f11__cta-pdf:focus-visible,
         max-width: 100%;
         height: auto;
         min-height: 79px;
-        margin: 0;
+        margin: 0 auto;
         padding: 5px 15px 7px;
         border: 1px solid rgba(255, 110, 50, 1);
         border-radius: 100px;
@@ -18130,6 +18143,7 @@ a.fs-f11__cta-pdf:focus-visible,
         order: 2;
         gap: 0;
         width: 100%;
+        align-self: stretch;
     }
 
     .art-page--3 .art3-tip--4 .art3-tip__body p+p {
@@ -19797,6 +19811,12 @@ a.fs-f11__cta-pdf:focus-visible,
     isolation: isolate;
 }
 
+.art-page--5 .art5-body__figure--444 .art5-body__figure-photo-wrap picture {
+    display: block;
+    width: 100%;
+    height: 100%;
+}
+
 .art-page--5 .art5-body__figure--444 .art5-body__figure-photo {
     display: block;
     width: 100%;
@@ -20215,26 +20235,33 @@ a.fs-f11__cta-pdf:focus-visible,
         display: grid;
         justify-items: center;
         box-sizing: border-box;
-        width: 318.2119140625px;
-        height: 366.035400390625px;
-        max-width: 100%;
-        margin: 45px auto 0;
+        width: 100vw;
+        max-width: 100vw;
+        height: auto;
+        margin: 45px calc(50% - 50vw) 0;
         padding: 0;
     }
 
     .art-page--5 .art5-body__figure--444 .art5-body__figure-photo-wrap {
         grid-area: 1 / 1;
         width: 100%;
-        height: 100%;
+        height: auto;
         overflow: hidden;
     }
 
-    .art-page--5 .art5-body__figure--444 .art5-body__figure-photo {
+    .art-page--5 .art5-body__figure--444 .art5-body__figure-photo-wrap picture {
+        display: block;
         width: 100%;
-        height: 100%;
+        height: auto;
+    }
+
+    .art-page--5 .art5-body__figure--444 .art5-body__figure-photo {
+        display: block;
+        width: 100%;
+        height: auto;
         max-width: none;
         aspect-ratio: unset;
-        object-fit: contain;
+        object-fit: cover;
         object-position: center;
     }
 
