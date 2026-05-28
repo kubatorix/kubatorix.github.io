@@ -33,6 +33,131 @@ header .container {
     padding-right: 0;
 }
 
+/* Shared “спецпроект / СРЕДА_СВОИХ” strip — index, research, experience.
+   Injected after <header> by js/header.js: margin 58px (header) + padding 54px (gap). */
+.has-site-brand .site-brand {
+    position: relative;
+    z-index: 5;
+    margin-top: 58px;
+    padding: 54px 16px 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    box-sizing: border-box;
+    background: var(--bg-primary);
+    isolation: isolate;
+}
+
+.has-site-brand.exp-page .site-brand {
+    /* Body/.exp-page is #D2D2D2 — keep strip transparent so hero lines are not clipped */
+    background: transparent;
+}
+
+/* Hero decor (lines/orbits) must not paint over the brand strip */
+.has-site-brand.exp-page .exp-hero {
+    position: relative;
+    z-index: 1;
+}
+
+.has-site-brand.exp-page {
+    background: #D2D2D2;
+}
+
+.has-site-brand .site-brand__inner {
+    position: relative;
+    z-index: 1;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+    gap: 19.14px;
+    max-width: 100%;
+}
+
+.has-site-brand .site-brand__link {
+    color: inherit;
+    text-decoration: none;
+}
+
+.has-site-brand .site-brand__word {
+    font-family: 'Golos', 'Golos Text', sans-serif;
+    font-weight: 500;
+    font-size: 18.4px;
+    line-height: 1;
+    letter-spacing: -0.02em;
+    color: var(--text-white);
+    white-space: nowrap;
+    text-transform: lowercase;
+}
+
+.has-site-brand.exp-page .site-brand__word {
+    color: #2F2F2F;
+}
+
+.has-site-brand .site-brand__logo {
+    width: 190.79px;
+    height: 18.21px;
+    display: block;
+    flex-shrink: 0;
+}
+
+.has-site-brand .site-brand__logo--on-light {
+    display: none;
+}
+
+.has-site-brand.exp-page .site-brand__logo--on-dark {
+    display: none;
+}
+
+.has-site-brand.exp-page .site-brand__logo--on-light {
+    display: block;
+    width: 191px;
+    height: 19px;
+}
+
+/* In-hero duplicates replaced by .site-brand */
+.has-site-brand .hero__brand,
+.has-site-brand .fs-hero__brand,
+.has-site-brand .exp-hero__brand {
+    display: none !important;
+}
+
+.has-site-brand .fs-hero__canvas {
+    margin-top: 0;
+}
+
+.has-site-brand.exp-page .exp-hero {
+    padding-top: 0;
+    overflow: visible;
+}
+
+/* Gap under «спецпроект» — was .exp-hero__brand { padding-bottom: 80px }; margin keeps decor visible */
+.has-site-brand.exp-page .exp-hero__canvas {
+    margin-top: 80px;
+}
+
+/* Mobile: keep desktop .site-brand strip; restore in-hero brands + hero layout (Figma) */
+@media (max-width: 770px) {
+    .has-site-brand .site-brand {
+        display: none;
+    }
+
+    .has-site-brand .hero__brand,
+    .has-site-brand .fs-hero__brand,
+    .has-site-brand .exp-hero__brand {
+        display: flex !important;
+    }
+
+    .has-site-brand.exp-page .exp-hero__canvas {
+        margin-top: 0;
+    }
+
+    .has-site-brand.exp-page .exp-hero {
+        padding-top: 0;
+    }
+}
+
 @media (max-width: 770px) {
     .container {
         padding-left: 16px;
@@ -1779,9 +1904,19 @@ body>.header-burger__icon {
         white-space: normal;
     }
 
+    /* Desktop right-anchors (--3/--4) must not win over the stacked mobile caption */
+    .hero__caption-line--3,
+    .hero__caption-line--4 {
+        right: auto;
+        left: auto;
+    }
+
+    .hero__caption-line--3 {
+        text-align: right;
+    }
+
     /* Per-line text-align preserved on mobile: line 1 центр, line 2 лево,
-       line 3 право (наследует с десктопа), line 4 центр. Без глобального
-       override — каждая строка использует своё desktop-выравнивание. */
+       line 3 право, line 4 центр */
     .hero__caption-line--4 {
         text-align: center;
     }

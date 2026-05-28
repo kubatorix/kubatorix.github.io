@@ -16,6 +16,8 @@
         || /\/research\/?$/.test(pathnameLower)
         || /\/research\/index\.html$/.test(pathnameLower);
     var isArticlePage = /\/articles\/\d+/.test(pathnameLower);
+    var isExperiencePage = path === 'experience.html';
+    var showSiteBrand = path === 'index.html' || isResearchPage || isExperiencePage;
 
     function siteRoot() {
         var segments = location.pathname.split('/').filter(Boolean);
@@ -117,6 +119,31 @@
         +   '</div>'
         + '</div>';
 
+    var SITE_BRAND_INNER = ''
+        + '<span class="site-brand__word">спецпроект</span>'
+        + '<img src="' + root + 'img/figma/logo_specproject.svg" alt="СРЕДА_СВОИХ" class="site-brand__logo site-brand__logo--on-dark" width="191" height="19" />'
+        + '<img src="' + root + 'img/figma/exp_hero_brand_logo.svg" alt="СРЕДА_СВОИХ" class="site-brand__logo site-brand__logo--on-light" width="191" height="19" />';
+
+    var SITE_BRAND_HTML = '';
+    if (showSiteBrand) {
+        if (isExperiencePage) {
+            SITE_BRAND_HTML = ''
+                + '<div class="site-brand" aria-label="Спецпроект Среда своих">'
+                +   '<a href="https://sredasvoih.ru/?utm_source=site&amp;utm_medium=email&amp;utm_campaign=spec&amp;utm_term=fundraising" target="_blank" rel="noopener" class="site-brand__inner site-brand__link"'
+                +     ' onclick="window.open(\'https://sredasvoih.ru/?utm_source=site&utm_medium=email&utm_campaign=spec&utm_term=fundraising\',\'_blank\',\'noopener,noreferrer\'); return false;">'
+                +     SITE_BRAND_INNER
+                +   '</a>'
+                + '</div>';
+        } else {
+            SITE_BRAND_HTML = ''
+                + '<div class="site-brand" aria-label="Спецпроект Среда своих">'
+                +   '<div class="site-brand__inner">'
+                +     SITE_BRAND_INNER
+                +   '</div>'
+                + '</div>';
+        }
+    }
+
     /* The burger icon + topnav go at the original placeholder position (top of
        body). The burger-menu overlay (.burger-menu__bg + .burger-menu) is
        appended to the END of body — matching the original page structure
@@ -126,7 +153,10 @@
        .container-wrapper, that selector would no longer match. */
     var mounts = document.querySelectorAll('#site-header, [data-site-header]');
     for (var i = 0; i < mounts.length; i++) {
-        mounts[i].outerHTML = BURGER_ICON_HTML + HEADER_HTML;
+        mounts[i].outerHTML = BURGER_ICON_HTML + HEADER_HTML + SITE_BRAND_HTML;
+    }
+    if (showSiteBrand) {
+        document.body.classList.add('has-site-brand');
     }
     document.body.insertAdjacentHTML('beforeend', BURGER_MENU_HTML);
 })();
