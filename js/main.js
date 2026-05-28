@@ -1018,7 +1018,7 @@ renderMenuEvents();
 /* ============================================================
    FullStudy F3 — scroll-driven opacity fade for the wordmark.
    Desktop (>770px): --fs-f3-syllable-* on .fs-f3__words-wrap — «фанд» /
-   «рай» / «зер» fade at 25% / 50% / 75% section scroll progress.
+   «рай» / «зер» fade at 25% / 50% / 75% marquee scroll-through progress.
    Mobile (≤770px): --fs-f3-wordmark-progress on .fs-f3__words-wrap,
    full wrap pass, first 20% static, then eased fade; quotes stay 1.
    ============================================================ */
@@ -1045,9 +1045,13 @@ renderMenuEvents();
     }
 
     function computeDesktop() {
-        var rect = section.getBoundingClientRect();
+        var rect = wrap.getBoundingClientRect();
         var vh = window.innerHeight || document.documentElement.clientHeight;
-        var progress = Math.max(0, Math.min(1, (vh - rect.top) / (vh + rect.height)));
+        var scrolled = vh - rect.top;
+        var totalScroll = vh + rect.height;
+        var progress = totalScroll > 0
+            ? Math.max(0, Math.min(1, scrolled / totalScroll))
+            : 0;
         section.style.setProperty('--fs-f3-progress', progress.toFixed(4));
         wrap.style.setProperty('--fs-f3-syllable-1-opacity', syllableOpacity(progress, SYLLABLE_THRESHOLDS[0]).toFixed(4));
         wrap.style.setProperty('--fs-f3-syllable-2-opacity', syllableOpacity(progress, SYLLABLE_THRESHOLDS[1]).toFixed(4));
