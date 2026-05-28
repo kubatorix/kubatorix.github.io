@@ -457,6 +457,11 @@ renderMenuEvents();
         var opts = {
             holdStart: 0,
             centerRange: 0.5,
+            clearTopOffset: 0.1,
+            holdBefore: 0.1,
+            holdAfter: 0.1,
+            animateFrom: null,
+            animateTo: null,
             textFadeFrom: 0.5,
             smooth: false
         };
@@ -466,16 +471,44 @@ renderMenuEvents();
         } else if (timing && typeof timing === 'object') {
             if (typeof timing.holdStart === 'number') opts.holdStart = timing.holdStart;
             if (typeof timing.centerRange === 'number') opts.centerRange = timing.centerRange;
+            if (typeof timing.clearTopOffset === 'number') opts.clearTopOffset = timing.clearTopOffset;
+            if (typeof timing.holdBefore === 'number') opts.holdBefore = timing.holdBefore;
+            if (typeof timing.holdAfter === 'number') opts.holdAfter = timing.holdAfter;
+            if (typeof timing.animateFrom === 'number') opts.animateFrom = timing.animateFrom;
+            if (typeof timing.animateTo === 'number') opts.animateTo = timing.animateTo;
             if (typeof timing.textFadeFrom === 'number') opts.textFadeFrom = timing.textFadeFrom;
             if (timing.smooth === true) opts.smooth = true;
         }
         return opts;
     }
 
+    /* Remap raw scroll progress: hold initial (0–holdBefore), animate (animateFrom–animateTo),
+       hold final (1−holdAfter…1). E.g. hold 10% + 10%, animate between 11% and 89%. */
+    function applyProgressPlateau(raw, timing) {
+        if (typeof timing.animateFrom !== 'number' || typeof timing.animateTo !== 'number') {
+            return raw;
+        }
+        var holdBefore = timing.holdBefore;
+        var holdAfter = timing.holdAfter;
+        var animFrom = timing.animateFrom;
+        var animTo = timing.animateTo;
+        if (raw <= holdBefore) {
+            return 0;
+        }
+        if (raw >= 1 - holdAfter) {
+            return 1;
+        }
+        return Math.max(0, Math.min(1, (raw - animFrom) / (animTo - animFrom)));
+    }
+
     /* bind(blockSel, imgSel, maxBlur, textSel, anchor, filterPrefix, timing)
-       timing: number (holdStart) or { holdStart, centerRange, textFadeFrom, smooth }.
+       timing: number (holdStart) or { holdStart, centerRange, textFadeFrom, smooth, … }.
        anchor === 'center': figure centre moves from viewport bottom → centerRange×vh.
-       holdStart: first fraction of raw progress unchanged; rest remapped 0→1.
+       anchor === 'top': block top moves from viewport bottom → clearTopOffset×vh (blur done before top).
+       anchor === 'fully-on-screen': raw 0 until the image fits in the viewport, then 0→1 while it
+         rises to clearTopOffset×vh (uses __figure-photo-wrap when present).
+       holdStart: first fraction of raw progress unchanged; rest remapped 0→1 (legacy).
+       animateFrom / animateTo + holdBefore / holdAfter: plateau at ends, animate in between.
        smooth: smoothstep easing on animated progress + caption fade.
        If textSel is provided → caption holds, then fades out (pass: tracks progress). */
     function bind(blockSel, imgSel, maxBlur, textSel, anchor, filterPrefix, timing) {
@@ -489,7 +522,8 @@ renderMenuEvents();
         var ticking = false;
         function compute() {
             ticking = false;
-            var rect = block.getBoundingClientRect();
+            var measureEl = block.querySelector('[class*="__figure-photo-wrap"]') || block;
+            var rect = measureEl.getBoundingClientRect();
             var vh = window.innerHeight || document.documentElement.clientHeight;
             var progress;
             if (anchor === 'center') {
@@ -497,6 +531,32 @@ renderMenuEvents();
                 /* 0 when the figure centre is at the viewport bottom,
                    1 when it reaches centerRange × viewport height. */
                 progress = Math.max(0, Math.min(1, (vh - figureCenter) / (vh * TIMING.centerRange)));
+            } else if (anchor === 'top') {
+                var finishTop = vh * TIMING.clearTopOffset;
+                var scrollSpan = vh - finishTop;
+                progress = scrollSpan > 0
+                    ? Math.max(0, Math.min(1, (vh - rect.top) / scrollSpan))
+                    : 1;
+            } else if (anchor === 'fully-on-screen') {
+                var fullyIn = rect.height <= vh + 1
+                    ? (rect.top >= 0 && rect.bottom <= vh + 1)
+                    : (rect.top >= 0 && rect.bottom >= vh - 1);
+                if (!fullyIn) {
+                    progress = 0;
+                } else {
+                    var startTop = rect.height <= vh + 1 ? Math.max(0, vh - rect.height) : 0;
+                    var endTop = vh * TIMING.clearTopOffset;
+                    var span = startTop - endTop;
+                    if (span <= 0) {
+                        progress = rect.top <= endTop ? 1 : 0;
+                    } else if (rect.top >= startTop) {
+                        progress = 0;
+                    } else if (rect.top <= endTop) {
+                        progress = 1;
+                    } else {
+                        progress = Math.max(0, Math.min(1, (startTop - rect.top) / span));
+                    }
+                }
             } else if (anchor === 'pass') {
                 var scrolled = vh - rect.top;
                 var totalScroll = vh + rect.height;
@@ -513,7 +573,9 @@ renderMenuEvents();
                 var linear = (scrolled / totalScroll) / 0.16;
                 progress = blurProgress(linear);
             }
-            if (TIMING.holdStart > 0) {
+            if (typeof TIMING.animateFrom === 'number' && typeof TIMING.animateTo === 'number') {
+                progress = applyProgressPlateau(progress, TIMING);
+            } else if (TIMING.holdStart > 0) {
                 if (progress <= TIMING.holdStart) {
                     progress = 0;
                 } else {
@@ -556,9 +618,12 @@ renderMenuEvents();
         smooth: true
     });
     bind('.art-page--5 .art5-body__figure--444', '.art5-body__figure-photo--1', 20, '.art5-body__figure-text', 'pass');
-    bind('.art-page--6 .art6-body__figure--222', 'img', 20, '.art6-body__figure-text', 'center', 'grayscale(1) ', {
-        holdStart: 0.2,
-        centerRange: 0.9,
+    bind('.art-page--6 .art6-body__figure--222', 'img', 20, '.art6-body__figure-text', 'fully-on-screen', 'grayscale(1) ', {
+        clearTopOffset: 0.1,
+        holdBefore: 0.1,
+        holdAfter: 0.1,
+        animateFrom: 0.11,
+        animateTo: 0.89,
         textFadeFrom: 0.62,
         smooth: true
     });
