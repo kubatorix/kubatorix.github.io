@@ -9263,6 +9263,9 @@ footer .footer-btn:focus-visible {
     top: 0;
     width: 653px;
     height: 293.82px;
+    isolation: isolate;
+    background: var(--bg-primary);
+    /* dark backdrop so plus-lighter on stat-num / stat-text lifts against #272727 */
 }
 
 .fs-f6__stat-num {
@@ -9283,6 +9286,7 @@ footer .footer-btn:focus-visible {
     -webkit-text-stroke-width: 1px;
     -webkit-text-stroke-color: var(--color-orange);
     paint-order: stroke fill;
+    mix-blend-mode: plus-lighter;
     white-space: nowrap;
 }
 
@@ -9294,6 +9298,7 @@ footer .footer-btn:focus-visible {
     height: 67px;
     pointer-events: none;
     display: block;
+    mix-blend-mode: plus-lighter;
 }
 
 .fs-f6__stat-text {
@@ -9309,6 +9314,7 @@ footer .footer-btn:focus-visible {
     line-height: 90%;
     letter-spacing: -0.02em;
     color: var(--color-orange);
+    mix-blend-mode: plus-lighter;
 }
 
 .fs-f6__final-body {
@@ -9597,6 +9603,8 @@ footer .footer-btn:focus-visible {
         align-items: flex-start;
         gap: 0;
         margin-top: 40px;
+        isolation: isolate;
+        background: var(--bg-primary);
     }
 
     .fs-f6__stat-num {
@@ -9607,6 +9615,7 @@ footer .footer-btn:focus-visible {
         letter-spacing: -0.02em;
         -webkit-text-stroke-width: 1px;
         -webkit-text-stroke-color: var(--color-orange);
+        mix-blend-mode: plus-lighter;
     }
 
     .fs-f6__stat-dots {
@@ -9615,6 +9624,7 @@ footer .footer-btn:focus-visible {
         max-width: 320px;
         aspect-ratio: 614 / 67;
         margin: 0 0 18px;
+        mix-blend-mode: plus-lighter;
     }
 
     .fs-f6__stat-text {
@@ -9624,6 +9634,7 @@ footer .footer-btn:focus-visible {
         letter-spacing: -0.02em;
         font-weight: 500;
         color: var(--color-orange);
+        mix-blend-mode: plus-lighter;
     }
 
     .fs-f6__final-body {
@@ -9846,7 +9857,7 @@ footer .footer-btn:focus-visible {
         z-index: 1;
     }
 
-    /* Left triangle (orange) — uniform arc 100° → 40° (shortest, −60°).  */
+    /* Left triangle (orange) — uniform arc 87° → 27° (shortest, −60°).   */
     .fs-f7__poly--orange {
         left: calc(24px + var(--fs-f7-field) * 0.20);
         top: calc(63px + var(--fs-f7-field) * 0.15);
@@ -9855,14 +9866,14 @@ footer .footer-btn:focus-visible {
         transform-origin: 0% 69%;
         will-change: transform;
         transform: rotate(calc(
-            (100 + -60 * var(--fs-f7-progress, 0)) * 1deg
+            (87 + -60 * var(--fs-f7-progress, 0)) * 1deg
         ));
     }
 
     /* Right triangle (purple) — uniform arc −19° → 56° (shortest, +75°).  */
     .fs-f7__poly--purple {
-        left: calc(-9px + var(--fs-f7-field) * 0.44);
-        top: calc(46px + var(--fs-f7-field) * 0.40);
+        left: calc(-9px + var(--fs-f7-field) * 0.44 + 23px);
+        top: calc(46px + var(--fs-f7-field) * 0.40 + 15px);
         width: calc(var(--fs-f7-field) * 0.66);
         height: auto;
         transform-origin: 32% 0%;
@@ -9894,8 +9905,8 @@ footer .footer-btn:focus-visible {
     }
 
     .fs-f7__num--purple {
-        left: calc(41px + var(--fs-f7-field) * 0.48);
-        top: calc(44px + var(--fs-f7-field) * 0.30);
+        left: calc(41px + var(--fs-f7-field) * 0.48 + 23px);
+        top: calc(44px + var(--fs-f7-field) * 0.30 + 15px);
         width: auto;
         color: var(--color-purple);
     }
