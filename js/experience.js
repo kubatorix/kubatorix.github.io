@@ -29,7 +29,7 @@
             function br(s) { return (s || '').replace(/\n/g, '<br>'); }
             return ''
                 + '<article class="exp-card exp-card--bordered" data-kind="' + c.kind + '"' + linkAttrs(c) + '>'
-                + tagsHtml(c.tags)
+                + tagsHtml(c.tags, c)
                 + '<h3 class="exp-card__title">' + br(c.title) + '</h3>'
                 + (c.insetPhoto
                     ? '<img src="' + c.insetPhoto + '" class="exp-card__photo--inset" alt="" aria-hidden="true" />'
@@ -128,15 +128,27 @@
         }
     };
 
-    function tagsHtml(tags) {
+    function tagSpan(t) {
+        var cls = 'exp-tag';
+        if (t.type === 'ghost') cls += ' exp-tag--ghost';
+        if (t.type === 'lime') cls += ' exp-tag--lime';
+        return '<span class="' + cls + '">' + t.label + '</span>';
+    }
+
+    function tagsHtml(tags, card) {
         if (!tags || !tags.length) return '';
+        if (card && card.longTags && tags.length >= 2) {
+            return ''
+                + '<div class="exp-card__tags exp-card__tags--long-first">'
+                + tagSpan(tags[0])
+                + '<span class="exp-card__tags-rest">'
+                + '<span class="exp-tag-divider" aria-hidden="true"></span>'
+                + tagSpan(tags[1])
+                + '</span></div>';
+        }
         var html = '<div class="exp-card__tags">';
         for (var i = 0; i < tags.length; i++) {
-            var t = tags[i];
-            var cls = 'exp-tag';
-            if (t.type === 'ghost') cls += ' exp-tag--ghost';
-            if (t.type === 'lime') cls += ' exp-tag--lime';
-            html += '<span class="' + cls + '">' + t.label + '</span>';
+            html += tagSpan(tags[i]);
             if (i < tags.length - 1) {
                 html += '<span class="exp-tag-divider" aria-hidden="true"></span>';
             }
@@ -148,7 +160,7 @@
     function overlayHtml(c) {
         return ''
             + '<div class="exp-card__overlay">'
-            + tagsHtml(c.tags)
+            + tagsHtml(c.tags, c)
             + (c.title ? '<h3 class="exp-card__title exp-card__title--mid">' + c.title + '</h3>' : '')
             + (c.caption ? '<p class="exp-card__sub">' + c.caption + '</p>' : '')
             + '</div>';

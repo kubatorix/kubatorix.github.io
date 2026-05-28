@@ -174,8 +174,9 @@
     "figma": "286:3225",
     "tags": [
       { "label": "Дискуссия на МФНКО" },
-      { "label": "—", "type": "ghost" }
+      { "label": "уже прошло", "type": "ghost" }
     ],
+    "longTags": true,
     "title": "Как найти себя в фандрайзинге",
     "caption": "Экс-предприниматель, экс-бренд-менеджер и основатель фандрайзингового бюро о профессии",
     "photo": "./img/figma/exp_card_m_fundraising.png",
