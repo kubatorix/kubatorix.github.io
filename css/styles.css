@@ -1348,7 +1348,7 @@ body>.header-burger__icon {
 .hero__brand {
     position: absolute;
     left: 562px;
-    top: 52px;
+    top: 54px;
     width: 316.92px;
     height: 18.21px;
     display: flex;
@@ -12505,7 +12505,7 @@ a.fs-f11__cta-pdf:focus-visible,
 /* ---- Hero ---------------------------------------------------------------- */
 .exp-hero {
     position: relative;
-    padding-top: 60px;
+    padding-top: 38px;
     text-align: center;
     overflow-x: clip;
     overflow-y: visible;
@@ -12721,7 +12721,7 @@ a.fs-f11__cta-pdf:focus-visible,
     gap: 14px;
     align-items: center;
     justify-content: center;
-    padding: 32px 0 80px;
+    padding: 54px 0 80px;
     color: #2F2F2F;
 }
 
