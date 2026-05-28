@@ -812,13 +812,8 @@ renderMenuEvents();
 
 /* ============================================================
    FullStudy F10 — scroll-driven growth of the purple rectangle
-   (.fs-f10__rect--purple) from "1—3 years" to "1—15 years".
-   Anchored on the rect itself so the animation runs while the
-   user is actually looking at it: progress 0..1 ramps as the
-   rect's top crosses the viewport bottom and reaches the
-   viewport vertical centre. Same progress drives:
-     - CSS width via --fs-f10-progress
-     - text content of .fs-f10__rect-num-upper (3 → 15, rounded)
+   (.fs-f10__rect--purple) from "3—3 years" to "3—10 years".
+   Same progress drives rect height and .fs-f10__rect-num-upper (3 → 10).
    ============================================================ */
 (function () {
     var section = document.querySelector('.fs-f10');
@@ -827,7 +822,7 @@ renderMenuEvents();
     if (!section || !rect || !upper) return;
 
     var fromN = parseFloat(upper.dataset.from || '3');
-    var toN   = parseFloat(upper.dataset.to   || '15');
+    var toN   = parseFloat(upper.dataset.to   || '10');
     var ticking = false;
 
     function compute() {

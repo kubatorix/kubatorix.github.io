@@ -6276,7 +6276,7 @@ footer .footer-btn:focus-visible {
     /* #AA6EFF */
 }
 
-/* Dividers (282:529 horizontal, 282:530 small vertical at the line break) -- */
+/* Dividers (282:529 horizontal) */
 .fs-hero__intro-divider--h {
     /* 791×1 at parent-rel 335,311 */
     position: absolute;
@@ -6287,14 +6287,15 @@ footer .footer-btn:focus-visible {
     background: var(--overlay-cream-50, rgba(255, 255, 255, 0.5));
 }
 
-.fs-hero__intro-divider--v {
-    /* 1×16 at parent-rel 687,340 */
-    position: absolute;
-    left: 687px;
-    top: 340px;
+/* Vertical rule between sreda label and body (in flow, not absolute). */
+.fs-hero__sreda-divider {
+    display: inline-block;
     width: 1px;
     height: 16px;
+    margin: 0 20px;
     background: rgba(255, 255, 255, 0.5);
+    vertical-align: middle;
+    flex-shrink: 0;
 }
 
 /* Sreda credit row (282:510 group at parent-rel 339, 341, 822×49). Inside:
@@ -6329,7 +6330,7 @@ footer .footer-btn:focus-visible {
 
 .fs-hero__sreda-label {
     display: inline;
-    margin: 0 20px 0 0;
+    margin: 0;
     font-family: 'Golos', 'Golos Text', sans-serif;
     font-weight: 400;
     font-size: 16px;
@@ -6477,9 +6478,8 @@ footer .footer-btn:focus-visible {
         /* between label (1) and logo (3) */
     }
 
-    .fs-hero__intro-divider--v {
+    .fs-hero__sreda-divider {
         display: none;
-        /* the small kink isn't meaningful at 1-col */
     }
 
     /* Flatten the sreda block so its children become flex siblings of
@@ -6621,10 +6621,10 @@ footer .footer-btn:focus-visible {
     z-index: 3;
 }
 
-/* --- 282:775 date label "Ноябрь 2025 — Январь 2026:" (281×14 at 231, 325). */
+/* --- 282:775 date label — left edge aligned with .fs-f2__row text (256px). */
 .fs-f2__date {
     position: absolute;
-    left: 231px;
+    left: 256px;
     top: 325px;
     width: 281px;
     margin: 0;
@@ -7996,6 +7996,11 @@ footer .footer-btn:focus-visible {
     color: var(--text-white);
 }
 
+/* Body highlights: underline only on mobile (see .fs-f4 @media ≤770px). */
+.fs-f4__body-mark {
+    text-decoration: none;
+}
+
 /* --- 282:719..721 right pull-quote (45 / 100 %, white). -------------- */
 .fs-f4__quote {
     position: absolute;
@@ -8298,8 +8303,13 @@ footer .footer-btn:focus-visible {
         color: var(--text-white);
     }
 
-    /* .fs-f4__body-mark picks up underline from the global LIME
-       UNDERLINE RULE (`[class*="-mark"]`) at top of file. */
+    /* Lime underline on body highlights — mobile only. */
+    .fs-f4__body-mark {
+        text-decoration: underline;
+        text-decoration-color: #C3F150;
+        text-decoration-thickness: 1px;
+        text-underline-offset: 4px;
+    }
 
     /* Toggle — white-pill style (active "обе стороны" centred). Reuses the
        s3p5 markup; only outer dimensions + segment positions are mobile.   */
