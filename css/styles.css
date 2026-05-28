@@ -9955,9 +9955,10 @@ footer .footer-btn:focus-visible {
         line-height: 105%;
         letter-spacing: -0.02em;
         color: var(--text-white);
-        hyphens: auto;
-        -webkit-hyphens: auto;
-        overflow-wrap: break-word;
+        text-align: left;
+        hyphens: none;
+        -webkit-hyphens: none;
+        overflow-wrap: normal;
         word-break: normal;
     }
 
@@ -9968,8 +9969,9 @@ footer .footer-btn:focus-visible {
         line-height: 135%;
         font-weight: 500;
         letter-spacing: -0.01em;
-        hyphens: manual;
-        -webkit-hyphens: manual;
+        hyphens: none;
+        -webkit-hyphens: none;
+        overflow-wrap: normal;
         word-break: normal;
         color: var(--text-white);
     }
