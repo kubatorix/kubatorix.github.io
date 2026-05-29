@@ -78,11 +78,12 @@
 
         xl: function (c) {
             var videoSrc = c.video || './video/fandraizer_web.mp4';
+            var posterAttr = c.videoPoster ? ' poster="' + c.videoPoster + '"' : '';
             return ''
                 + '<article class="exp-card exp-card--xl" data-kind="' + c.kind + '">'
                 // + '<img src="' + (c.photo || './img/figma/exp_card_b_image546.png') + '" class="exp-card__photo" alt="" aria-hidden="true" />'
                 // + '<img src="' + (c.photoOverlay || './img/figma/exp_card_b_image547.png') + '" class="exp-card__photo exp-card__photo--duotone" alt="" aria-hidden="true" />'
-                +   '<video class="exp-card__video" src="' + videoSrc + '" autoplay loop muted defaultMuted playsinline disablePictureInPicture controlsList="nodownload nofullscreen noremoteplayback" aria-hidden="true"></video>'
+                +   '<video class="exp-card__video" src="' + videoSrc + '"' + posterAttr + ' autoplay loop muted playsinline webkit-playsinline disablePictureInPicture aria-hidden="true"></video>'
                 + '</article>';
         },
 
@@ -177,13 +178,29 @@
             + '</svg>';
     }
 
+    function initCardVideo(v) {
+        v.muted = true;
+        v.defaultMuted = true;
+        v.volume = 0;
+        v.controls = false;
+        v.removeAttribute('controls');
+        v.setAttribute('playsinline', '');
+        v.setAttribute('webkit-playsinline', '');
+
+        var card = v.closest('.exp-card');
+        if (card && card.hidden) {
+            v.pause();
+            return;
+        }
+
+        var playPromise = v.play();
+        if (playPromise && playPromise.catch) {
+            playPromise.catch(function () {});
+        }
+    }
+
     function muteCardVideos(root) {
-        (root || document).querySelectorAll('.exp-card__video').forEach(function (v) {
-            v.muted = true;
-            v.defaultMuted = true;
-            v.volume = 0;
-            v.removeAttribute('controls');
-        });
+        (root || document).querySelectorAll('.exp-card__video').forEach(initCardVideo);
     }
 
     var toggleCtrl = null;
@@ -247,6 +264,7 @@
             }
 
             updateLoadMore(matched.length);
+            muteCardVideos(grid);
         }
 
         function updateLoadMore(matchedCount) {

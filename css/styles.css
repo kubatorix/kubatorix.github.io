@@ -6625,7 +6625,7 @@ footer .footer-btn:focus-visible {
 .fs-f2__date {
     position: absolute;
     left: 256px;
-    top: 325px;
+    top: 323px;
     width: 281px;
     margin: 0;
     padding: 0;
@@ -13064,6 +13064,20 @@ a.fs-f11__cta-pdf:focus-visible,
     height: 100%;
     object-fit: cover;
     object-position: bottom;
+    pointer-events: none;
+    -webkit-appearance: none;
+    appearance: none;
+}
+
+.exp-card__video::-webkit-media-controls,
+.exp-card__video::-webkit-media-controls-enclosure,
+.exp-card__video::-webkit-media-controls-panel,
+.exp-card__video::-webkit-media-controls-start-playback-button,
+.exp-card__video::-webkit-media-controls-play-button,
+.exp-card__video::-webkit-media-controls-overlay-play-button {
+    display: none !important;
+    -webkit-appearance: none;
+    opacity: 0;
     pointer-events: none;
 }
 
