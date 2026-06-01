@@ -1363,12 +1363,11 @@ body>.header-burger__icon {
     font-family: 'Golos', 'Golos Text', sans-serif;
     font-weight: 500;
     font-size: 18.4px;
-    line-height: 1;
+    line-height: 100%;
     letter-spacing: -0.02em;
+    text-align: center;
     color: var(--text-white);
     white-space: nowrap;
-    text-transform: lowercase;
-    /* matches Figma render */
 }
 
 .hero__brand-logo {
@@ -6114,11 +6113,11 @@ footer .footer-btn:focus-visible {
     font-family: 'Golos', 'Golos Text', sans-serif;
     font-weight: 500;
     font-size: 18.4px;
-    line-height: 1;
+    line-height: 100%;
     letter-spacing: -0.02em;
+    text-align: center;
     color: var(--text-white);
     white-space: nowrap;
-    text-transform: lowercase;
 }
 
 .fs-hero__brand-logo {
@@ -12548,7 +12547,7 @@ a.fs-f11__cta-pdf:focus-visible,
 /* ---- Hero ---------------------------------------------------------------- */
 .exp-hero {
     position: relative;
-    padding-top: 38px;
+    padding-top: 58px;
     text-align: center;
     overflow-x: clip;
     overflow-y: visible;
@@ -12769,10 +12768,12 @@ a.fs-f11__cta-pdf:focus-visible,
 }
 
 .exp-hero__brand-word {
-    font-family: 'Golos Text VF', 'Golos Text', sans-serif;
+    font-family: 'Golos', 'Golos Text', sans-serif;
     font-weight: 500;
-    font-size: 16px;
-    letter-spacing: -0.04em;
+    font-size: 18.4px;
+    line-height: 100%;
+    letter-spacing: -0.02em;
+    text-align: center;
 }
 
 .exp-hero__brand-logo {

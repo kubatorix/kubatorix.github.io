@@ -105,7 +105,7 @@
         +       '</div>'
         +     '</div>'
         +     '<div>'
-        +       '<p class="burger-menu__text1">спецпроект</p>'
+        +       '<p class="burger-menu__text1">Спецпроект</p>'
         +       '<a href="https://sredasvoih.com/" target="_blank">'
         +         '<img src="' + root + 'img/figma/logo_specproject.svg" class="burger-menu__logo" />'
         +       '</a>'

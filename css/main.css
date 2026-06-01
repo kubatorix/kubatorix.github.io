@@ -488,9 +488,12 @@ header {
 }
 
 .burger-menu__text1 {
-    font-size: 18px;
+    font-family: 'Golos', 'Golos Text', sans-serif;
+    font-size: 18.4px;
     line-height: 100%;
     font-weight: 500;
+    letter-spacing: -0.02em;
+    text-align: center;
     color: #FFFFFF;
     margin-bottom: 10px;
 }
