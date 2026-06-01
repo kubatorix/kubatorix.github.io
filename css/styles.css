@@ -9978,7 +9978,7 @@ footer .footer-btn:focus-visible {
 
 
 /* ============================================================
-   Phase F8 — KPI + оплата (two stacked sub-blocks with synced toggles).
+   Phase F8 — KPI + оплата (two stacked sub-blocks with independent toggles).
    Figma 282:658 + 282:863, frame y=8176..9692, height 1516.
    Reuses .s3p5__toggle-inner markup; the s3p5 toggle base rules need
    .fs-f8 added to their selectors (done below as @supports-style
@@ -10050,17 +10050,21 @@ footer .footer-btn:focus-visible {
     z-index: 1;
 }
 
-.fs-f8[data-state="fundraisers"] .s3p5__seg--left::before {
+.fs-f8__group {
+    display: contents;
+}
+
+.fs-f8__group[data-state="fundraisers"] .s3p5__seg--left::before {
     background: var(--color-purple);
     opacity: 1;
 }
 
-.fs-f8[data-state="employers"] .s3p5__seg--right::before {
+.fs-f8__group[data-state="employers"] .s3p5__seg--right::before {
     background: var(--color-orange);
     opacity: 1;
 }
 
-.fs-f8:not([data-state="both"]) .s3p5__seg-pill {
+.fs-f8__group:not([data-state="both"]) .s3p5__seg-pill {
     opacity: 0;
 }
 
@@ -10068,18 +10072,18 @@ footer .footer-btn:focus-visible {
     transition: opacity 0.18s ease;
 }
 
-.fs-f8[data-state="fundraisers"] .s3p5__seg--left .s3p5__seg-label,
-.fs-f8[data-state="employers"] .s3p5__seg--right .s3p5__seg-label {
+.fs-f8__group[data-state="fundraisers"] .s3p5__seg--left .s3p5__seg-label,
+.fs-f8__group[data-state="employers"] .s3p5__seg--right .s3p5__seg-label {
     color: var(--text-white);
     opacity: 1;
 }
 
-.fs-f8[data-state="fundraisers"] .s3p5__seg--right .s3p5__seg-label,
-.fs-f8[data-state="fundraisers"] .s3p5__seg--mid .s3p5__seg-pill-label,
-.fs-f8[data-state="employers"] .s3p5__seg--left .s3p5__seg-label,
-.fs-f8[data-state="employers"] .s3p5__seg--mid .s3p5__seg-pill-label,
-.fs-f8[data-state="both"] .s3p5__seg--left .s3p5__seg-label,
-.fs-f8[data-state="both"] .s3p5__seg--right .s3p5__seg-label {
+.fs-f8__group[data-state="fundraisers"] .s3p5__seg--right .s3p5__seg-label,
+.fs-f8__group[data-state="fundraisers"] .s3p5__seg--mid .s3p5__seg-pill-label,
+.fs-f8__group[data-state="employers"] .s3p5__seg--left .s3p5__seg-label,
+.fs-f8__group[data-state="employers"] .s3p5__seg--mid .s3p5__seg-pill-label,
+.fs-f8__group[data-state="both"] .s3p5__seg--left .s3p5__seg-label,
+.fs-f8__group[data-state="both"] .s3p5__seg--right .s3p5__seg-label {
     opacity: 0.45;
 }
 
@@ -10105,7 +10109,7 @@ footer .footer-btn:focus-visible {
     width: 100%;
 }
 
-.fs-f8[data-state="both"] .s3p5__seg-pill-label {
+.fs-f8__group[data-state="both"] .s3p5__seg-pill-label {
     color: var(--bg-secondary);
 }
 
@@ -10441,36 +10445,44 @@ footer .footer-btn:focus-visible {
 }
 
 /* State-driven visibility — fade the off-side to 10 %. */
-.fs-f8[data-state="fundraisers"] .s3p5__mega-num--orange,
-.fs-f8[data-state="fundraisers"] .fs-f8__minicopy--orange,
-.fs-f8[data-state="fundraisers"] .fs-f8__body--orange,
-.fs-f8[data-state="fundraisers"] .fs-f8__word--orange,
-.fs-f8[data-state="fundraisers"] .fs-f8__lead--orange,
-.fs-f8[data-state="fundraisers"] .fs-f8__deco-line--orange,
-.fs-f8[data-state="fundraisers"] .fs-f8__deco-poly--orange {
+.fs-f8__group--1[data-state="fundraisers"] .s3p5__mega-num--orange,
+.fs-f8__group--1[data-state="fundraisers"] .fs-f8__minicopy--orange,
+.fs-f8__group--1[data-state="fundraisers"] .fs-f8__body--orange {
     opacity: 0.1;
     pointer-events: none;
 }
 
-.fs-f8[data-state="employers"] .s3p5__mega-num--purple,
-.fs-f8[data-state="employers"] .fs-f8__minicopy--purple,
-.fs-f8[data-state="employers"] .fs-f8__body--purple,
-.fs-f8[data-state="employers"] .fs-f8__word--purple,
-.fs-f8[data-state="employers"] .fs-f8__lead--purple,
-.fs-f8[data-state="employers"] .fs-f8__deco-line--purple,
-.fs-f8[data-state="employers"] .fs-f8__deco-poly--purple {
+.fs-f8__group--1[data-state="employers"] .s3p5__mega-num--purple,
+.fs-f8__group--1[data-state="employers"] .fs-f8__minicopy--purple,
+.fs-f8__group--1[data-state="employers"] .fs-f8__body--purple {
     opacity: 0.1;
     pointer-events: none;
 }
 
-/* Mirror of the s3p5 rule: when one side is selected in F8, the suffix
+.fs-f8__group--2[data-state="fundraisers"] .fs-f8__word--orange,
+.fs-f8__group--2[data-state="fundraisers"] .fs-f8__lead--orange,
+.fs-f8__group--2[data-state="fundraisers"] .fs-f8__deco-line--orange,
+.fs-f8__group--2[data-state="fundraisers"] .fs-f8__deco-poly--orange {
+    opacity: 0.1;
+    pointer-events: none;
+}
+
+.fs-f8__group--2[data-state="employers"] .fs-f8__word--purple,
+.fs-f8__group--2[data-state="employers"] .fs-f8__lead--purple,
+.fs-f8__group--2[data-state="employers"] .fs-f8__deco-line--purple,
+.fs-f8__group--2[data-state="employers"] .fs-f8__deco-poly--purple {
+    opacity: 0.1;
+    pointer-events: none;
+}
+
+/* Mirror of the s3p5 rule: when one side is selected in F8 block 1, the suffix
    on the highlighted number switches from chromatic-overlap white to
    the side's brand colour so all digits + comma read uniformly.        */
-.fs-f8[data-state="fundraisers"] .s3p5__mega-num--purple .s3p5__mega-suffix {
+.fs-f8__group--1[data-state="fundraisers"] .s3p5__mega-num--purple .s3p5__mega-suffix {
     -webkit-text-stroke-color: var(--color-purple);
 }
 
-.fs-f8[data-state="employers"] .s3p5__mega-num--orange .s3p5__mega-suffix {
+.fs-f8__group--1[data-state="employers"] .s3p5__mega-num--orange .s3p5__mega-suffix {
     -webkit-text-stroke-color: var(--color-orange);
 }
 

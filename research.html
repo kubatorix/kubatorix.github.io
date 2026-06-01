@@ -925,11 +925,12 @@
            2) "Деньги: слишком много или слишком мало?" (282:863) —
               chromatic Наниматели/Фандрайзеры words + decorative SVG +
               two side bodies + toggle
-         Both toggles drive the same data-state on .fs-f8 (just like
-         section3 in the index has top + bottom toggles syncing).
+         Each sub-block has its own data-state group so the two toggles
+         operate independently (same pattern as s3p5 top/bottom on index).
          ============================================================ -->
-    <section class="fs-f8" aria-label="KPI и оплата" data-state="both">
+    <section class="fs-f8" aria-label="KPI и оплата">
       <div class="fs-f8__canvas">
+        <div class="fs-f8__group fs-f8__group--1" data-state="both">
         <!-- ====== Sub-block 1 (282:658, frame y=8176..8848) ====== -->
 
         <!-- 282:660..662 heading + lime underline under "без цели" -->
@@ -1028,7 +1029,9 @@
           <span class="fs-f8__swipe-fill"></span>
           <span class="fs-f8__swipe-arrow"></span>
         </div>
+        </div>
 
+        <div class="fs-f8__group fs-f8__group--2" data-state="both">
         <!-- ====== Sub-block 2 (282:863, frame y=8991..9692) ====== -->
 
         <!-- 282:864..866 heading + lime underline. -->
@@ -1110,7 +1113,7 @@
           оплаты <strong>завышенными</strong>
         </p>
 
-        <!-- 282:877 second toggle (mirror of first, syncs same state). -->
+        <!-- 282:877 second toggle (independent from sub-block 1). -->
         <div class="s3p5__toggle fs-f8__toggle fs-f8__toggle--2">
           <div class="s3p5__toggle-inner">
             <button
@@ -1142,6 +1145,7 @@
               <span class="s3p5__seg-label">мнение<br />нанимателей</span>
             </button>
           </div>
+        </div>
         </div>
       </div>
     </section>

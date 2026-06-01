@@ -240,16 +240,23 @@ renderMenuEvents();
         suffixSel:    '.fs-f4__graph-suffix'
     });
 
-    // FullStudy F8 — has TWO synced toggles + a chromatic mega number pair
-    // (36,7% / 63,3%) that animate count-up on toggle. Reuses the s3p5__mega
-    // class structure so animateMega works as-is.
-    wireToggle({
-        section:      '.fs-f8',
-        segSel:       '.s3p5__seg[data-action]',
-        orangeNumSel: '.fs-f8__mega-1 .s3p5__mega-num--orange',
-        purpleNumSel: '.fs-f8__mega-1 .s3p5__mega-num--purple',
-        digitsSel:    '.s3p5__mega-digits',
-        suffixSel:    '.s3p5__mega-suffix'
+    // FullStudy F8 — two independent toggles (one per sub-block) + chromatic
+    // mega numbers in block 1 that animate count-up on toggle.
+    document.querySelectorAll('.fs-f8__group--1').forEach(function (group) {
+        wireToggle({
+            section:      group,
+            segSel:       '.s3p5__seg[data-action]',
+            orangeNumSel: '.s3p5__mega-num--orange',
+            purpleNumSel: '.s3p5__mega-num--purple',
+            digitsSel:    '.s3p5__mega-digits',
+            suffixSel:    '.s3p5__mega-suffix'
+        });
+    });
+    document.querySelectorAll('.fs-f8__group--2').forEach(function (group) {
+        wireToggle({
+            section:      group,
+            segSel:       '.s3p5__seg[data-action]'
+        });
     });
 
     // FullStudy F8 / F9 — body-row swipe progress indicator.
