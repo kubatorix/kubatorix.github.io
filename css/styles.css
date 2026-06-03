@@ -19456,6 +19456,58 @@ a.fs-f11__cta-pdf:focus-visible,
         color: #2F2F2F;
     }
 
+    /* art4-tip--5 .art4-tip__logic — только мобилка (≤770px); десктоп: блок выше */
+    .art-page--4 .art4-tip--5 .art4-tip__logic {
+        display: flex;
+        flex-direction: column;
+        gap: 0;
+        width: 100%;
+        padding: 46px 17.92px 42px 17.92px;
+        border-radius: 32px;
+    }
+
+    .art-page--4 .art4-tip--5 .art4-tip__logic p {
+        text-indent: 0;
+    }
+
+    .art-page--4 .art4-tip--5 .art4-tip__logic-heading {
+        margin: 0 0 1.3em;
+    }
+
+    .art-page--4 .art4-tip--5 .art4-tip__logic-grid {
+        display: block;
+        margin: 0;
+        padding: 0;
+    }
+
+    .art-page--4 .art4-tip--5 .art4-tip__logic-col--left {
+        margin-top: 0;
+    }
+
+    .art-page--4 .art4-tip--5 .art4-tip__logic-col--left,
+    .art-page--4 .art4-tip--5 .art4-tip__logic-col--right {
+        width: auto;
+    }
+
+    .art-page--4 .art4-tip--5 .art4-tip__logic-col--right {
+        margin-top: 1.3em;
+    }
+
+    .art-page--4 .art4-tip--5 .art4-tip__logic-col--left > .art4-tip__logic-item:first-child .art4-tip__logic-item-title,
+    .art-page--4 .art4-tip--5 .art4-tip__logic-col--right > .art4-tip__logic-item:first-child .art4-tip__logic-item-title {
+        margin-top: 0;
+    }
+
+    .art-page--4 .art4-tip--5 .art4-tip__logic-item-title + .art4-tip__logic-item-text {
+        margin-top: 0;
+    }
+
+    .art-page--4 .art4-tip--5 .art4-tip__logic-outro {
+        grid-column: unset;
+        max-width: none;
+        margin: 37px 0 0;
+    }
+
     .art-page--4 .art4-tip--4 .art4-tip__lead {
         margin: 0 0 36px;
         font-family: 'Golos', 'Golos Text', sans-serif;
@@ -19510,6 +19562,14 @@ a.fs-f11__cta-pdf:focus-visible,
     }
 
     .art-page--4 .art4-tip__body p+p {
+        margin-top: 1.3em;
+    }
+
+    .art-page--4 .art4-tip--5 .art4-tip__logic p + p {
+        margin-top: 0;
+    }
+
+    .art-page--4 .art4-tip--5 .art4-tip__logic-item + .art4-tip__logic-item {
         margin-top: 1.3em;
     }
 
@@ -19759,28 +19819,6 @@ a.fs-f11__cta-pdf:focus-visible,
         width: 100%;
         max-width: 100%;
     }
-}
-
-@media (max-width: 767px) {
-    .art-page--4 .art4-tip--5 .art4-tip__logic {
-        padding: 32px 24px;
-        border-radius: 32px;
-    }
-
-    .art-page--4 .art4-tip--5 .art4-tip__logic-grid {
-        grid-template-columns: 1fr;
-        row-gap: 1.3em;
-    }
-
-    .art-page--4 .art4-tip--5 .art4-tip__logic-col--left,
-    .art-page--4 .art4-tip--5 .art4-tip__logic-col--right {
-        width: auto;
-    }
-
-    .art-page--4 .art4-tip--5 .art4-tip__logic-outro {
-        max-width: none;
-    }
-
 }
 
 /* ============================================================
