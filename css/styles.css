@@ -1348,7 +1348,8 @@ body>.header-burger__icon {
 .hero__brand {
     position: absolute;
     left: 562px;
-    top: 54px;
+    top: 78px;
+    /* page y=136 (hero margin-top 58 + 78) */
     width: 316.92px;
     height: 18.21px;
     display: flex;
@@ -1745,10 +1746,10 @@ body>.header-burger__icon {
         /* was 1184 (×0.8) */
     }
 
-    /* Brand "Спецпроект СРЕДА_СВОИХ" — top of mobile column */
+    /* Brand "Спецпроект СРЕДА_СВОИХ" — y=136 from page top */
     .hero__brand {
         left: 50%;
-        top: 80px;
+        top: 136px;
         width: auto;
         height: auto;
         transform: translateX(-50%);
@@ -6087,19 +6088,18 @@ footer .footer-btn:focus-visible {
 .fs-hero__canvas {
     position: relative;
     width: 1440px;
-    height: 883px;
-    /* frame y 58..941 */
+    height: 951px;
+    /* frame y 58..1009 (hero content shifted +68 for brand→caption gap 65) */
     flex-shrink: 0;
     margin-top: 58px;
 }
 
-/* --- Brand strip (282:531 at frame 561.34, 112 → canvas y=54) ----------- */
+/* --- Brand strip (page y=136 → canvas y=78 with margin-top 58) ---------- */
 /* Same content as .hero__brand; copy of those rules with the new canvas-y. */
 .fs-hero__brand {
     position: absolute;
     left: 561.34px;
-    top: 54px;
-    /* 112 - 58 nav */
+    top: 78px;
     width: 316.92px;
     height: 18.21px;
     display: flex;
@@ -6133,8 +6133,8 @@ footer .footer-btn:focus-visible {
 .fs-hero__caption {
     position: absolute;
     left: 232px;
-    top: 93px;
-    /* 151 - 58 */
+    top: 161px;
+    /* brand top 78 + height 18.21 + gap 65 */
     width: 976px;
     height: 353px;
     margin: 0;
@@ -6198,8 +6198,8 @@ footer .footer-btn:focus-visible {
 .fs-hero__intro {
     position: absolute;
     left: -11px;
-    top: 493px;
-    /* 551 - 58 */
+    top: 561px;
+    /* follows caption shift (+68) after brand bottom gap 65 */
     width: 1452px;
     height: 390.63px;
     z-index: 4;
@@ -6370,7 +6370,8 @@ footer .footer-btn:focus-visible {
     .fs-hero__canvas {
         width: 100%;
         height: auto;
-        padding: 32px 16px 48px;
+        /* page y=136 for brand (margin-top 58 + padding-top 78) */
+        padding: 78px 16px 48px;
         box-sizing: border-box;
     }
 
@@ -6381,7 +6382,7 @@ footer .footer-btn:focus-visible {
         width: auto;
         height: auto;
         justify-content: center;
-        margin: 0 auto 32px;
+        margin: 0 auto 65px;
     }
 
     /* Mobile caption — figma 4-row layout (image #45):
@@ -12775,7 +12776,8 @@ a.fs-f11__cta-pdf:focus-visible,
     gap: 14px;
     align-items: center;
     justify-content: center;
-    padding: 54px 0 80px;
+    /* Figma: brand row y=136 from page top (hero padding-top 58 → 78 here) */
+    padding: 78px 0 80px;
     color: #2F2F2F;
 }
 
@@ -13739,10 +13741,10 @@ a.fs-f11__cta-pdf:focus-visible,
         padding-left: 31px;
     }
 
-    /* Brand "Спецпроект СРЕДА_СВОИХ" pinned at y=396 (over photo bottom) */
+    /* Brand "Спецпроект СРЕДА_СВОИХ" — y=136 from page top (Figma) */
     .exp-hero__brand {
         position: absolute;
-        top: 396px;
+        top: 136px;
         left: 0;
         right: 0;
         padding: 0;
@@ -17136,11 +17138,6 @@ a.fs-f11__cta-pdf:focus-visible,
 
 .art-page--2 .art2-tip__portrait-photo--2 {
     opacity: var(--art-portrait-o2);
-}
-
-/* Совет 2: оранжевый дубликат пока не в репозитории — аппроксимация фильтром */
-.art-page--2 .art2-tip--2 .art2-tip__portrait-photo--2 {
-    filter: sepia(0.45) saturate(2.4) hue-rotate(350deg) brightness(1.02);
 }
 
 @media (prefers-reduced-motion: reduce) {
